@@ -1,0 +1,55 @@
+# Dependencies and generated JavaScript assets
+node_modules/
+.pnpm-store/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+htmlcov/
+.coverage
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and operating systems
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+.cache/
+tmp/
+
+# Local databases and containers
+*.sqlite
+*.sqlite3
+postgres-data/
+
+# Mobile output (Reader only in a later phase)
+apps/reader/android/
+apps/reader/ios/
+
+# Infrastructure artifacts
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Local Codex files
+.codex/
+.agents/

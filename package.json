@@ -1,0 +1,39 @@
+{
+  "name": "followread",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Accessible synchronized reading platform for children, adult readers, and English learners.",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "pnpm": ">=11.9.0 <12"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-react-refresh": "catalog:",
+    "globals": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "5.9.3",
+    "typescript-eslint": "catalog:"
+  },
+  "scripts": {
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "build": "pnpm --recursive --if-present run build",
+    "test": "pnpm test:js && pnpm test:python",
+    "test:js": "pnpm --recursive --if-present run test:coverage",
+    "test:python": "node scripts/run-python.mjs -m pytest apps/api --cov=followread_api --cov-report=term-missing -W error",
+    "typecheck": "pnpm typecheck:js && pnpm typecheck:python",
+    "typecheck:js": "pnpm --recursive --if-present run typecheck",
+    "typecheck:python": "node scripts/run-python.mjs -m mypy apps/api/src apps/api/tests",
+    "lint": "pnpm lint:js && pnpm lint:python",
+    "lint:js": "eslint apps/admin-web/src apps/reader/src packages",
+    "lint:python": "node scripts/run-python.mjs -m ruff check apps/api",
+    "format:check": "pnpm format:check:js && pnpm format:check:python",
+    "format:check:js": "prettier --check \"apps/{admin-web,reader}/**/*.{ts,tsx,css,html,json}\" \"packages/**/*.{ts,json}\" \"*.{json,yaml}\" \"eslint.config.js\" \"scripts/*.mjs\"",
+    "format:check:python": "node scripts/run-python.mjs -m ruff format --check apps/api"
+  }
+}
