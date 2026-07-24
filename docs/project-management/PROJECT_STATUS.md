@@ -3,7 +3,7 @@
 **Última actualización:** 2026-07-24  
 **Fase activa:** Fase 3 - Modelado de datos y API base  
 **Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH03-TASK-006 - Modelar datos de lectura y sincronización  
+**Tarea activa:** FR-PH03-TASK-008 - Implementar repositorios y unidad de trabajo  
 **Estado de la tarea:** IN_PROGRESS
 
 ## Resumen ejecutivo
@@ -19,7 +19,7 @@ las 22 entidades iniciales del prompt en una base backend funcional y trazable.
 | Tareas de Fase 0 completadas | 12 de 12 |
 | Tareas de Fase 1 completadas | 8 de 8 |
 | Tareas de Fase 2 completadas | 11 de 11 |
-| Tareas de Fase 3 completadas | 5 de 12 |
+| Tareas de Fase 3 completadas | 7 de 12 |
 | Tareas en progreso | 1 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 12 |
@@ -60,4 +60,4 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 ## Regla de continuación
 
 La siguiente sesión debe comenzar leyendo los archivos de gestión indicados por el prompt maestro y
-continuar FR-PH03-TASK-001 definiendo agregados, relaciones e invariantes.
+continuar FR-PH03-TASK-008 implementando repositorios y unidad de trabajo.

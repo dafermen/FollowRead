@@ -61,9 +61,9 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-003 | Modelar contenido editorial, versiones y publicación | COMPLETED | Critical |
 | FR-PH03-TASK-004 | Modelar recursos y trabajos de procesamiento | COMPLETED | High |
 | FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | COMPLETED | High |
-| FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | IN_PROGRESS | High |
-| FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | NOT_STARTED | Critical |
-| FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | NOT_STARTED | Critical |
+| FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | COMPLETED | High |
+| FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | COMPLETED | Critical |
+| FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | IN_PROGRESS | Critical |
 | FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | NOT_STARTED | Critical |
 | FR-PH03-TASK-010 | Exponer catálogo y contenido por API | NOT_STARTED | Critical |
 | FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | NOT_STARTED | High |
@@ -1053,18 +1053,20 @@ contraseñas, tokens y endpoints de sesión permanecen en Fase 4.
 **Fase:** 3  
 **Descripción:** Implementar progreso, favoritos, vocabulario y registros de descarga.  
 **Objetivo:** Preservar propiedad, versión y claves idempotentes para Reader/offline.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-003, FR-PH03-TASK-005.  
 **Archivos relacionados:** modelos, migraciones y pruebas.  
 **Criterios de aceptación:** Claves únicas evitan duplicados y progreso conserva anclaje/versionado.  
 **Pruebas requeridas:** Upsert lógico, propiedad y aislamiento entre usuarios/perfiles.  
 **Documentación requerida:** Mapeo con FR-BR-009 y Fase 9.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** Ninguno; las claves idempotentes y compuestas cubren duplicados del
+cliente sin crear perfiles infantiles remotos.  
+**Decisiones tomadas:** Progreso es único por usuario/contenido y conserva versión/anclaje;
+vocabulario no admite notas libres; descargas registran cliente y operación idempotente.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar progreso, favoritos, vocabulario y descargas.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-007.
 
 ---
 
@@ -1074,18 +1076,20 @@ contraseñas, tokens y endpoints de sesión permanecen en Fase 4.
 **Fase:** 3  
 **Descripción:** Generar y revisar la migración que materializa el modelo funcional.  
 **Objetivo:** Crear/revertir el esquema completo desde una base vacía.  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-003 a 006.  
 **Archivos relacionados:** `apps/api/migrations/versions/`, pruebas de migración.  
 **Criterios de aceptación:** Una cabeza, upgrade/downgrade, FK activas e índices verificados.  
 **Pruebas requeridas:** Migración vacía, inspección de esquema y restricciones.  
 **Documentación requerida:** Revisión de migración.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
-**Fecha de finalización:** —  
-**Siguiente acción:** Esperar modelos.
+**Problemas encontrados:** La primera revisión reveló que `AuditLog` aún no estaba materializado;
+se añadió antes de aceptar o sincronizar la migración.  
+**Decisiones tomadas:** La revisión `2bf6cf5e1177` crea el esquema funcional completo sobre la base
+de Fase 2; la prueba inspecciona tablas/FKs y ejecuta upgrade, downgrade y upgrade.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-008.
 
 ---
 
@@ -1095,7 +1099,7 @@ contraseñas, tokens y endpoints de sesión permanecen en Fase 4.
 **Fase:** 3  
 **Descripción:** Crear persistencia desacoplada de HTTP con transacciones explícitas.  
 **Objetivo:** Centralizar consultas y evitar commits implícitos en rutas.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-007.  
 **Archivos relacionados:** `apps/api/src/followread_api/repositories/`.  
@@ -1104,9 +1108,9 @@ contraseñas, tokens y endpoints de sesión permanecen en Fase 4.
 **Documentación requerida:** Contratos de repositorio.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar migración.
+**Siguiente acción:** Implementar unidad de trabajo y repositorio de catálogo.
 
 ---
 

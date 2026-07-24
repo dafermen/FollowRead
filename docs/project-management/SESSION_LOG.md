@@ -293,3 +293,18 @@ pasó la puerta completa. La evidencia quedó en `PHASE_2_REVIEW.md`.
 
 FR-PH02-TASK-011 quedó `COMPLETED`, la Fase 2 quedó cerrada y se prepararon 12 tareas para la Fase 3.
 FR-PH03-TASK-001 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-24 - Modelos de lectura y migración funcional
+
+- Se implementaron ReadingProgress, Favorite, VocabularyWord y DownloadRecord con propiedad,
+  versión, anclajes estables e idempotencia.
+- Se corrigió la referencia de continuación obsoleta en PROJECT_STATUS.
+- La revisión inicial de migración descubrió que AuditLog aún no tenía modelo; se añadió antes de
+  aceptar el esquema.
+- Alembic `2bf6cf5e1177` materializa el modelo funcional completo sobre la base de Fase 2.
+- La prueba de migración aplica, inspecciona tablas/FKs, revierte y vuelve a aplicar una sola cabeza.
+- `pnpm check` pasó con 19 pruebas Python y cobertura 100%.
+
+FR-PH03-TASK-006 y 007 quedaron `COMPLETED`; FR-PH03-TASK-008 quedó `IN_PROGRESS`.

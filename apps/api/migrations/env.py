@@ -5,7 +5,7 @@ from sqlalchemy import engine_from_config, pool
 
 from followread_api.config import get_settings
 from followread_api.database import resolve_sqlite_url
-from followread_api.models.base import Base
+from followread_api.models import Base
 
 config = context.config
 
