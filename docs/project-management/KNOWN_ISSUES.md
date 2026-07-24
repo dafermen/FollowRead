@@ -43,3 +43,5 @@
 - **Impacto:** No se puede validar PostgreSQL local, healthcheck ni migraciones.
 - **Acción requerida:** Instalar o iniciar Docker Desktop y asegurar que el CLI esté en `PATH`.
 - **Tarea bloqueada:** FR-PH02-TASK-007.
+- **Progreso seguro:** Compose, variables, DSN y validación estática están completos y pasan
+  `pnpm check`; sólo quedan pruebas que requieren el runtime.

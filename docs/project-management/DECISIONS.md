@@ -109,6 +109,17 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
 - **Consecuencias:** Los scripts raíz coordinan aplicaciones y paquetes; las dependencias internas
   se declaran con `workspace:*`; las versiones de Node, pnpm y Python quedan documentadas.
 
+### FR-DEC-012 - PostgreSQL 18.4 oficial para desarrollo local
+
+- **Fecha:** 2026-07-24
+- **Estado:** ACCEPTED
+- **Decisión:** El entorno local usa la imagen oficial `postgres:18.4-alpine3.24`, con datos
+  persistidos en `/var/lib/postgresql`, puerto limitado a loopback y salud mediante `pg_isready`.
+- **Razón:** PostgreSQL 18.4 es la versión estable actual y la imagen oficial cambió en la versión 18
+  la raíz persistente recomendada a `/var/lib/postgresql`.
+- **Consecuencias:** El tag de parche se actualiza de forma deliberada; no se usa `latest`; los
+  upgrades mayores requieren plan y prueba de migración.
+
 ## Decisiones abiertas
 
 ### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio

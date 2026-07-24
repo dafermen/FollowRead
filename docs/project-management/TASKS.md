@@ -775,7 +775,8 @@ Pydantic antes de consumir valores.
 **Estado:** BLOCKED  
 **Prioridad:** High  
 **Dependencias:** FR-PH02-TASK-004, FR-PH02-TASK-006.  
-**Archivos relacionados:** `compose.yaml`, `infrastructure/docker/`, documentación.  
+**Archivos relacionados:** `compose.yaml`, `infrastructure/docker/`,
+`scripts/validate_compose.py`, `.env.example`, configuración API.  
 **Criterios de aceptación:**
 
 - PostgreSQL tiene volumen, healthcheck y credenciales sólo locales.
@@ -784,11 +785,15 @@ Pydantic antes de consumir valores.
 
 **Pruebas requeridas:** Validar configuración y healthcheck si Docker está disponible.  
 **Documentación requerida:** Inicio, parada y limpieza segura.  
-**Problemas encontrados:** FR-ISSUE-005: Docker no está instalado o no está disponible en `PATH`.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** FR-ISSUE-005: Docker no está instalado o no está disponible en `PATH`.
+La definición, variables, DSN y validador estático están completos; falta validar `config`, arranque y
+estado `healthy` con el runtime real.  
+**Decisiones tomadas:** FR-DEC-012: PostgreSQL 18.4 oficial, volumen raíz de PostgreSQL 18, loopback
+y `pg_isready`.  
 **Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Instalar/iniciar Docker Desktop y confirmar `docker compose version`.
+**Siguiente acción:** Instalar/iniciar Docker Desktop; ejecutar `docker compose config`,
+`docker compose up -d postgres` y confirmar estado `healthy`.
 
 ---
 

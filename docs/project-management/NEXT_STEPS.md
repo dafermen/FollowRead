@@ -13,8 +13,8 @@ Desbloquear Docker y preparar PostgreSQL local reproducible.
 1. Leer los archivos de gestión requeridos por el prompt maestro.
 2. Confirmar que Docker Desktop está instalado e iniciado.
 3. Ejecutar `docker --version` y `docker compose version`.
-4. Crear Compose con PostgreSQL, volumen y healthcheck.
-5. Validar la configuración y el estado saludable.
+4. Ejecutar `docker compose config`.
+5. Levantar `postgres` y confirmar el estado `healthy`.
 6. Resolver FR-ISSUE-005 y completar FR-PH02-TASK-007.
 
 ## No hacer todavía
@@ -27,5 +27,5 @@ Desbloquear Docker y preparar PostgreSQL local reproducible.
 ## Comando recomendado
 
 ```powershell
-docker compose version
+docker compose up -d postgres
 ```

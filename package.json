@@ -21,7 +21,7 @@
     "typescript-eslint": "catalog:"
   },
   "scripts": {
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm validate:compose && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "build": "pnpm --recursive --if-present run build",
     "test": "pnpm test:js && pnpm test:python",
     "test:js": "pnpm --recursive --if-present run test:coverage",
@@ -29,11 +29,12 @@
     "typecheck": "pnpm typecheck:js && pnpm typecheck:python",
     "typecheck:js": "pnpm --recursive --if-present run typecheck",
     "typecheck:python": "node scripts/run-python.mjs -m mypy apps/api/src apps/api/tests",
+    "validate:compose": "node scripts/run-python.mjs scripts/validate_compose.py",
     "lint": "pnpm lint:js && pnpm lint:python",
     "lint:js": "eslint apps/admin-web/src apps/reader/src packages",
-    "lint:python": "node scripts/run-python.mjs -m ruff check apps/api",
+    "lint:python": "node scripts/run-python.mjs -m ruff check apps/api scripts",
     "format:check": "pnpm format:check:js && pnpm format:check:python",
     "format:check:js": "prettier --check \"apps/{admin-web,reader}/**/*.{ts,tsx,css,html,json}\" \"packages/**/*.{ts,json}\" \"*.{json,yaml}\" \"eslint.config.js\" \"scripts/*.mjs\"",
-    "format:check:python": "node scripts/run-python.mjs -m ruff format --check apps/api"
+    "format:check:python": "node scripts/run-python.mjs -m ruff format --check apps/api scripts"
   }
 }

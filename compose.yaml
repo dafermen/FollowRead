@@ -1,0 +1,24 @@
+name: followread
+
+services:
+  postgres:
+    image: postgres:18.4-alpine3.24
+    environment:
+      POSTGRES_DB: ${FOLLOWREAD_POSTGRES_DB:-followread}
+      POSTGRES_PASSWORD: ${FOLLOWREAD_POSTGRES_PASSWORD:-followread-local-only}
+      POSTGRES_USER: ${FOLLOWREAD_POSTGRES_USER:-followread}
+    ports:
+      - "127.0.0.1:${FOLLOWREAD_POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - followread_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 2s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    stop_grace_period: 30s
+
+volumes:
+  followread_postgres_data:
+    name: followread-postgres-data

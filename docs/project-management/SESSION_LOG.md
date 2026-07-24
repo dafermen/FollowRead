@@ -216,3 +216,21 @@ FR-ISSUE-005: Docker no está instalado o no está disponible en `PATH`. FR-PH02
 
 Instalar o iniciar Docker Desktop. Verificar `docker --version` y `docker compose version`; después
 crear y validar PostgreSQL local.
+
+---
+
+## Continuación 2026-07-24 - Preparación estática de PostgreSQL
+
+Docker continuó ausente. Sin omitir ese bloqueo, se completó la parte verificable de
+FR-PH02-TASK-007:
+
+- imagen oficial `postgres:18.4-alpine3.24` fijada;
+- volumen compatible con el cambio de `PGDATA` de PostgreSQL 18;
+- puerto limitado a `127.0.0.1`;
+- healthcheck con `pg_isready`;
+- variables locales y DSN PostgreSQL tipado;
+- validador estático incorporado a `pnpm check`;
+- FR-DEC-012 registrada.
+
+`pnpm check` pasó completo: validación Compose, formato, lint, tipos, seis pruebas, cobertura base
+100% y builds. Permanecen pendientes `docker compose config`, arranque y confirmación `healthy`.

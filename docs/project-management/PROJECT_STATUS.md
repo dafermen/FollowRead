@@ -21,7 +21,7 @@ la prioridad es una base reproducible, tipada y verificable.
 | Tareas de Fase 2 completadas | 6 de 11 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 1 |
-| Decisiones aceptadas | 10 |
+| Decisiones aceptadas | 12 |
 | Decisiones abiertas | 1 |
 | Riesgos abiertos | 8 |
 | Problemas conocidos abiertos | 1 |
@@ -56,8 +56,11 @@ Entregables de Fase 1 completados:
 FR-PH02-TASK-007 está bloqueada porque el comando `docker` no existe en el entorno actual. La licencia
 sigue abierta, pero no se necesita hasta Fase 14.
 
+La parte estática de la tarea está completa: imagen oficial PostgreSQL 18.4 fijada, volumen compatible
+con PostgreSQL 18, puerto en loopback, healthcheck, variables y DSN validados por `pnpm check`.
+
 ## Regla de continuación
 
 La siguiente sesión debe comenzar leyendo los archivos de gestión indicados por el prompt maestro y
-verificar `docker --version` y `docker compose version`. Si ambos pasan, continuar
-FR-PH02-TASK-007; no simular la validación de PostgreSQL.
+verificar `docker --version` y `docker compose version`. Si ambos pasan, ejecutar `docker compose
+config`, levantar `postgres` y confirmar `healthy`; no simular la validación.
