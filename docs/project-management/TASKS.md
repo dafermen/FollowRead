@@ -67,7 +67,7 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | COMPLETED | Critical |
 | FR-PH03-TASK-010 | Exponer catálogo y contenido por API | COMPLETED | Critical |
 | FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | COMPLETED | High |
-| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | IN_PROGRESS | Critical |
+| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | READY_FOR_REVIEW | Critical |
 
 ---
 
@@ -1191,15 +1191,17 @@ inesperados devuelven 500 genérico. Readiness consulta SQLite y liveness no lo 
 **Fase:** 3  
 **Descripción:** Revisar criterios, trazabilidad, migraciones, API y pruebas.  
 **Objetivo:** Autorizar autenticación sólo con una base backend estable.  
-**Estado:** IN_PROGRESS  
+**Estado:** READY_FOR_REVIEW  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-001 a 011.  
 **Archivos relacionados:** Todos los entregables de Fase 3.  
 **Criterios de aceptación:** Ocho criterios de salida pasan y la tarea usa READY_FOR_REVIEW.  
 **Pruebas requeridas:** Auditoría desde SQLite vacía y puerta completa.  
 **Documentación requerida:** Revisión de fase y actualización de gestión.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes del cierre.  
+**Problemas encontrados:** Ninguno abierto; los hallazgos de AuditLog, SQLite en memoria y pruebas
+de logging quedaron resueltos antes de la auditoría.  
+**Decisiones tomadas:** Los ocho criterios pasan; la tarea entra en `READY_FOR_REVIEW` antes del
+cierre obligatorio. Evidencia en `PHASE_3_REVIEW.md`.  
 **Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Ejecutar auditoría completa desde SQLite vacía.
+**Siguiente acción:** Revisar la evidencia y cerrar tarea/fase si no aparece una discrepancia.

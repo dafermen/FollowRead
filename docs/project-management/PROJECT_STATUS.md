@@ -2,9 +2,9 @@
 
 **Última actualización:** 2026-07-24  
 **Fase activa:** Fase 3 - Modelado de datos y API base  
-**Estado de la fase:** IN_PROGRESS  
+**Estado de la fase:** READY_FOR_REVIEW  
 **Tarea activa:** FR-PH03-TASK-012 - Auditar y cerrar Fase 3  
-**Estado de la tarea:** IN_PROGRESS
+**Estado de la tarea:** READY_FOR_REVIEW
 
 ## Resumen ejecutivo
 
@@ -20,7 +20,7 @@ las 22 entidades iniciales del prompt en una base backend funcional y trazable.
 | Tareas de Fase 1 completadas | 8 de 8 |
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 11 de 12 |
-| Tareas en progreso | 1 |
+| Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 12 |
 | Decisiones abiertas | 1 |
@@ -33,7 +33,7 @@ las 22 entidades iniciales del prompt en una base backend funcional y trazable.
 |---|---|---|
 | FollowRead Admin | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
 | FollowRead Reader | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
-| FollowRead API | PHASE_3_AUDIT | HTTP, readiness y logs JSON con cobertura 100% |
+| FollowRead API | PHASE_3_READY_FOR_REVIEW | Ocho criterios de salida en PASS |
 | Reader Engine | BASE_COMPILES | Paquete TypeScript sin React validado |
 | AWS / Polly / S3 | NOT_STARTED | Sólo arquitectura conceptual; sin integración |
 | Modo offline | NOT_STARTED | Estrategia de doble catálogo aceptada |
@@ -60,4 +60,4 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 ## Regla de continuación
 
 La siguiente sesión debe comenzar leyendo los archivos de gestión indicados por el prompt maestro y
-continuar FR-PH03-TASK-012 con auditoría completa desde SQLite vacía.
+revisar `PHASE_3_REVIEW.md` y cerrar FR-PH03-TASK-012/Fase 3 si la evidencia permanece íntegra.

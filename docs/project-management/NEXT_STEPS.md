@@ -6,16 +6,16 @@
 
 ### Objetivo de la próxima sesión
 
-Comprobar todos los criterios de salida y cerrar formalmente la Fase 3.
+Revisar la evidencia ya obtenida y cerrar formalmente la Fase 3.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Crear una base SQLite vacía y aplicar todas las migraciones.
-3. Ejecutar la puerta completa y comprobar una sola cabeza Alembic.
-4. Revisar modelo, integridad, repositorios, API, errores, logs y OpenAPI.
-5. Registrar evidencia y pasar la tarea a `READY_FOR_REVIEW`.
-6. Completar la tarea/fase sólo si los ocho criterios de salida pasan.
+2. Leer `PHASE_3_REVIEW.md`.
+3. Confirmar que los ocho criterios tienen evidencia y resultado PASS.
+4. Confirmar que no existen cambios de código sin verificar.
+5. Marcar FR-PH03-TASK-012 y la Fase 3 `COMPLETED`.
+6. Preparar las tareas de Fase 4 antes de implementar autenticación.
 
 ## No hacer todavía
 
