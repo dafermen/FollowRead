@@ -162,6 +162,17 @@ Los servicios rechazan borrado físico de contenido publicado, publicaciones y e
 | FR-CONTENT-001..007 | agregado editorial completo |
 | FR-API-003..006 | repositorios, servicios y rutas de Fase 3 |
 
+## Contratos de persistencia
+
+- `SqlAlchemyRepository` ofrece alta, consulta por UUID y eliminación sin confirmar transacciones.
+- `PublishedCatalogRepository` sólo devuelve publicaciones activas cuya versión está publicada y
+  contiene checksum y URL de paquete.
+- `CatalogFilters` centraliza idioma, tipo, audiencia, nivel, categoría, límite y desplazamiento.
+- La lista devuelve elementos y total antes de paginar; el detalle carga nivel, categorías,
+  traducciones, capítulos y párrafos.
+- `SqlAlchemyUnitOfWork` comparte una sesión entre repositorios. Los casos de uso llaman `commit`
+  explícitamente; al salir del contexto siempre se ejecutan rollback defensivo y cierre.
+
 ## Validación de diseño
 
 - Entidades del prompt cubiertas: 22 de 22.

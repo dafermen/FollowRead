@@ -63,8 +63,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | COMPLETED | High |
 | FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | COMPLETED | High |
 | FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | COMPLETED | Critical |
-| FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | IN_PROGRESS | Critical |
-| FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | NOT_STARTED | Critical |
+| FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | COMPLETED | Critical |
+| FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | IN_PROGRESS | Critical |
 | FR-PH03-TASK-010 | Exponer catálogo y contenido por API | NOT_STARTED | Critical |
 | FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | NOT_STARTED | High |
 | FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | NOT_STARTED | Critical |
@@ -1099,18 +1099,20 @@ de Fase 2; la prueba inspecciona tablas/FKs y ejecuta upgrade, downgrade y upgra
 **Fase:** 3  
 **Descripción:** Crear persistencia desacoplada de HTTP con transacciones explícitas.  
 **Objetivo:** Centralizar consultas y evitar commits implícitos en rutas.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-007.  
 **Archivos relacionados:** `apps/api/src/followread_api/repositories/`.  
 **Criterios de aceptación:** CRUD base, consultas de catálogo y transacciones son testeables.  
 **Pruebas requeridas:** Commit, rollback, not-found, duplicados y paginación.  
 **Documentación requerida:** Contratos de repositorio.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** Ninguno; las consultas correlacionadas de relaciones evitan duplicar
+filas al filtrar idiomas y categorías.  
+**Decisiones tomadas:** Los repositorios sólo preparan cambios; `SqlAlchemyUnitOfWork` controla
+commit/rollback. El catálogo exige publicación activa, estado `published`, checksum y paquete.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar unidad de trabajo y repositorio de catálogo.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-009.
 
 ---
 
@@ -1120,7 +1122,7 @@ de Fase 2; la prueba inspecciona tablas/FKs y ejecuta upgrade, downgrade y upgra
 **Fase:** 3  
 **Descripción:** Aplicar invariantes mediante servicios y un contrato de error estándar.  
 **Objetivo:** Mantener reglas de negocio fuera de rutas y adaptadores.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-008.  
 **Archivos relacionados:** servicios, schemas y manejo de errores.  
@@ -1129,9 +1131,9 @@ de Fase 2; la prueba inspecciona tablas/FKs y ejecuta upgrade, downgrade y upgra
 **Documentación requerida:** Catálogo de errores.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar repositorios.
+**Siguiente acción:** Implementar validaciones de catálogo y contrato estable de errores.
 
 ---
 

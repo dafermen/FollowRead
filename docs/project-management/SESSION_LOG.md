@@ -308,3 +308,19 @@ FR-PH03-TASK-001 quedó `IN_PROGRESS`.
 - `pnpm check` pasó con 19 pruebas Python y cobertura 100%.
 
 FR-PH03-TASK-006 y 007 quedaron `COMPLETED`; FR-PH03-TASK-008 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-24 - Repositorios y unidad de trabajo
+
+- Se creó un repositorio base tipado que prepara altas, consultas por UUID y eliminaciones sin
+  confirmar transacciones.
+- Se implementó el catálogo publicado con filtros por idioma, tipo, audiencia, nivel y categoría,
+  total independiente de la página y orden estable.
+- El detalle carga el árbol editorial completo y excluye borradores, publicaciones inactivas y
+  paquetes incompletos.
+- `SqlAlchemyUnitOfWork` concentra sesión, commit, rollback y cierre.
+- Las pruebas cubren filtros, paginación, detalle/not-found, duplicados, commit, rollback explícito
+  y rollback al salir del contexto; la API conserva 100% de cobertura.
+
+FR-PH03-TASK-008 quedó `COMPLETED`; FR-PH03-TASK-009 quedó `IN_PROGRESS`.
