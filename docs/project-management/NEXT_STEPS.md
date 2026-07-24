@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH03-TASK-005 - Modelar identidad, roles y permisos sin autenticación**
+**FR-PH03-TASK-006 - Modelar datos de lectura y sincronización**
 
 ### Objetivo de la próxima sesión
 
-Implementar identidad y RBAC persistentes sin adelantar login, tokens ni contraseñas.
+Implementar datos de lectura con propiedad, versionado e idempotencia.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Crear User y Administrator con relación uno a uno.
-3. Crear Role y Permission.
-4. Crear asociaciones normalizadas de RBAC.
-5. Probar unicidad, asociaciones y borrado restringido.
-6. Completar FR-PH03-TASK-005 y continuar con datos de lectura.
+2. Crear ReadingProgress con anclaje estable.
+3. Crear Favorite y VocabularyWord.
+4. Crear DownloadRecord con clave idempotente.
+5. Probar unicidad, propiedad y referencias de versión.
+6. Completar FR-PH03-TASK-006 y crear la migración funcional.
 
 ## No hacer todavía
 

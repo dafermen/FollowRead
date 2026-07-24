@@ -60,8 +60,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-002 | Crear fundamentos persistentes y tipos comunes | COMPLETED | Critical |
 | FR-PH03-TASK-003 | Modelar contenido editorial, versiones y publicación | COMPLETED | Critical |
 | FR-PH03-TASK-004 | Modelar recursos y trabajos de procesamiento | COMPLETED | High |
-| FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | IN_PROGRESS | High |
-| FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | NOT_STARTED | High |
+| FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | COMPLETED | High |
+| FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | IN_PROGRESS | High |
 | FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | NOT_STARTED | Critical |
 | FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | NOT_STARTED | Critical |
 | FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | NOT_STARTED | Critical |
@@ -1030,18 +1030,20 @@ trabajo es una clave única; ningún modelo importa SDK de AWS.
 **Fase:** 3  
 **Descripción:** Persistir User, Administrator, Role y Permission sin emitir tokens ni contraseñas.  
 **Objetivo:** Preparar el esquema requerido para la implementación segura de Fase 4.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-002.  
 **Archivos relacionados:** modelos, migraciones y pruebas.  
 **Criterios de aceptación:** Roles/permisos son normalizados y Administrator especializa User.  
 **Pruebas requeridas:** Unicidad, asociaciones y eliminación restringida.  
 **Documentación requerida:** Límite explícito con Fase 4.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** Ninguno; el esquema puede representar administradores sin almacenar
+credenciales prematuramente.  
+**Decisiones tomadas:** Administrator es una extensión uno a uno de User; RBAC usa tablas de unión;
+contraseñas, tokens y endpoints de sesión permanecen en Fase 4.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar identidad y RBAC persistente sin credenciales.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-006.
 
 ---
 
@@ -1051,7 +1053,7 @@ trabajo es una clave única; ningún modelo importa SDK de AWS.
 **Fase:** 3  
 **Descripción:** Implementar progreso, favoritos, vocabulario y registros de descarga.  
 **Objetivo:** Preservar propiedad, versión y claves idempotentes para Reader/offline.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-003, FR-PH03-TASK-005.  
 **Archivos relacionados:** modelos, migraciones y pruebas.  
@@ -1060,9 +1062,9 @@ trabajo es una clave única; ningún modelo importa SDK de AWS.
 **Documentación requerida:** Mapeo con FR-BR-009 y Fase 9.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar dependencias.
+**Siguiente acción:** Implementar progreso, favoritos, vocabulario y descargas.
 
 ---
 
