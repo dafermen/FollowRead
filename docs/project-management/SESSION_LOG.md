@@ -279,3 +279,17 @@ La migración y `pnpm check` pasaron en `C:\Projects\FollowRead`; la API alcanz�
 Pytest requirió usar `.pytest-temp/` dentro del checkout porque la carpeta temporal global de
 Windows no era accesible en el entorno de validación. FR-PH02-TASK-009 y 010 quedaron completadas.
 FR-PH02-TASK-011 pasó a `READY_FOR_REVIEW` para ejecutar la auditoría limpia final.
+
+---
+
+## Continuación 2026-07-24 - Cierre de Fase 2 e inicio de Fase 3
+
+La auditoría final se ejecutó sobre un clon Git limpio del commit `c348ca1`. Se instalaron
+dependencias Node/Python, se configuraron hooks, se aplicó Alembic sobre SQLite y `pnpm check` pasó.
+
+El primer clon reveló una discrepancia real de saltos de línea: Git convertía texto a CRLF en
+Windows mientras Prettier exige LF. Se corrigió `.gitattributes`, se creó `c348ca1` y un segundo clon
+pasó la puerta completa. La evidencia quedó en `PHASE_2_REVIEW.md`.
+
+FR-PH02-TASK-011 quedó `COMPLETED`, la Fase 2 quedó cerrada y se prepararon 12 tareas para la Fase 3.
+FR-PH03-TASK-001 quedó `IN_PROGRESS`.

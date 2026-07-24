@@ -14,8 +14,8 @@
 |---:|---|---|---|
 | 0 | Descubrimiento, definición y planificación | Definir el producto y el plan verificable | COMPLETED |
 | 1 | Diseño UX/UI y sistema visual | Diseñar flujos, pantallas y accesibilidad | COMPLETED |
-| 2 | Monorepo y entorno de desarrollo | Preparar proyectos, herramientas y CI base | IN_PROGRESS |
-| 3 | Modelado de datos y API base | Crear la base funcional del backend | NOT_STARTED |
+| 2 | Monorepo y entorno de desarrollo | Preparar proyectos, herramientas y CI base | COMPLETED |
+| 3 | Modelado de datos y API base | Crear la base funcional del backend | IN_PROGRESS |
 | 4 | Autenticación y autorización | Proteger Admin y preparar usuarios Reader | NOT_STARTED |
 | 5 | FollowRead Admin | Crear la administración de contenido | NOT_STARTED |
 | 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | NOT_STARTED |
@@ -98,7 +98,7 @@ implementar pantallas.
 
 Fase 1 cerrada el 2026-07-24. Evidencia: `PHASE_1_REVIEW.md`.
 
-## Fase activa: Fase 2
+## Fase 2 - Cerrada
 
 ### Objetivo
 
@@ -114,6 +114,28 @@ funcionalidad de producto.
 5. Variables de entorno están documentadas sin secretos.
 6. Scripts, hooks y CI ejecutan la misma validación.
 7. Instalación limpia está documentada y verificada.
+
+### Resultado
+
+Fase 2 cerrada el 2026-07-24. Evidencia: `PHASE_2_REVIEW.md`.
+
+## Fase activa: Fase 3
+
+### Objetivo
+
+Crear la base funcional del backend mediante un modelo relacional consistente, migraciones,
+repositorios, servicios, contratos HTTP, errores, logging, health checks, OpenAPI y pruebas.
+
+### Criterios de salida
+
+1. Las 22 entidades iniciales del prompt tienen modelo o aplazamiento explícito y trazable.
+2. Relaciones, restricciones, estados, versionado y borrado preservan las reglas de negocio.
+3. Una migración funcional crea y revierte el esquema SQLite desde una base vacía.
+4. Repositorios y servicios mantienen la lógica de dominio fuera de las rutas HTTP.
+5. Validaciones y respuestas de error usan un contrato estándar sin filtrar detalles internos.
+6. Health/readiness, logging estructurado y OpenAPI reflejan el comportamiento real.
+7. Un corte de catálogo/contenido funciona por API con pruebas unitarias y de integración.
+8. La puerta completa pasa desde una base SQLite desechable.
 
 ## Resumen de criterios de las fases siguientes
 

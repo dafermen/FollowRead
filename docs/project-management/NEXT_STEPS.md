@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH02-TASK-011 - Verificar instalación limpia y cerrar Fase 2**
+**FR-PH03-TASK-004 - Modelar recursos y trabajos de procesamiento**
 
 ### Objetivo de la próxima sesión
 
-Validar un checkout limpio, cerrar formalmente la Fase 2 y preparar las tareas de Fase 3.
+Implementar recursos y trabajos trazables sin conectar AWS.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Crear un checkout limpio desde el commit de la base SQLite.
-3. Ejecutar instalación Node/Python, migración y `pnpm check`.
-4. Registrar evidencia en `PHASE_2_REVIEW.md`.
-5. Completar FR-PH02-TASK-011 y cerrar Fase 2.
-6. Desglosar y activar Fase 3 sin implementar todavía autenticación.
+2. Crear AudioAsset e Illustration asociados a versión.
+3. Crear SpeechMark ordenado y anclado.
+4. Crear ProcessingJob con clave idempotente.
+5. Probar coherencia, restricciones y cascadas.
+6. Completar FR-PH03-TASK-004 y continuar con identidad.
 
 ## No hacer todavía
 
@@ -27,5 +27,5 @@ Validar un checkout limpio, cerrar formalmente la Fase 2 y preparar las tareas d
 ## Comando recomendado
 
 ```powershell
-pnpm check
+pnpm migrate
 ```

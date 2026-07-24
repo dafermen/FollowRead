@@ -50,7 +50,24 @@ aceptación correspondientes están satisfechos.
 | FR-PH02-TASK-008 | Configurar migraciones base | COMPLETED | High |
 | FR-PH02-TASK-009 | Unificar scripts y hooks locales | COMPLETED | High |
 | FR-PH02-TASK-010 | Crear integración continua | COMPLETED | High |
-| FR-PH02-TASK-011 | Verificar instalación limpia y cerrar Fase 2 | READY_FOR_REVIEW | Critical |
+| FR-PH02-TASK-011 | Verificar instalación limpia y cerrar Fase 2 | COMPLETED | Critical |
+
+## Resumen de Fase 3
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH03-TASK-001 | Diseñar el modelo de datos y sus invariantes | COMPLETED | Critical |
+| FR-PH03-TASK-002 | Crear fundamentos persistentes y tipos comunes | COMPLETED | Critical |
+| FR-PH03-TASK-003 | Modelar contenido editorial, versiones y publicación | COMPLETED | Critical |
+| FR-PH03-TASK-004 | Modelar recursos y trabajos de procesamiento | IN_PROGRESS | High |
+| FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | NOT_STARTED | High |
+| FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | NOT_STARTED | High |
+| FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | NOT_STARTED | Critical |
+| FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | NOT_STARTED | Critical |
+| FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | NOT_STARTED | Critical |
+| FR-PH03-TASK-010 | Exponer catálogo y contenido por API | NOT_STARTED | Critical |
+| FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | NOT_STARTED | High |
+| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | NOT_STARTED | Critical |
 
 ---
 
@@ -885,7 +902,7 @@ lectura y la misma puerta `pnpm ci` que el entorno local.
 **Fase:** 2  
 **Descripción:** Auditar todos los criterios de salida desde un entorno reproducible.  
 **Objetivo:** Autorizar modelado de datos sólo con una base técnica estable.  
-**Estado:** READY_FOR_REVIEW  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH02-TASK-001 a 010.  
 **Archivos relacionados:** Todos los entregables de Fase 2.  
@@ -898,10 +915,275 @@ lectura y la misma puerta `pnpm ci` que el entorno local.
 
 **Pruebas requeridas:** Auditoría limpia completa y revisión cruzada.  
 **Documentación requerida:** Revisión de fase, estado, sesión, riesgos, problemas y próximos pasos.  
-**Problemas encontrados:** Ningún bloqueo crítico; falta ejecutar la auditoría desde un checkout
-limpio antes de cerrar.  
-**Decisiones tomadas:** La revisión conservará evidencia de instalación, migración, puerta completa
-y los siete criterios de salida.  
+**Problemas encontrados:** La auditoría detectó que Git convertía texto a CRLF en clones Windows
+aunque Prettier exige LF; `.gitattributes` se corrigió y un segundo clon pasó.  
+**Decisiones tomadas:** El cierre usa un clon Git real del commit `c348ca1`, no un archivo ZIP, y
+conserva evidencia en `PHASE_2_REVIEW.md`.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-001.
+
+---
+
+## FR-PH03-TASK-001
+
+**Título:** Diseñar el modelo de datos y sus invariantes  
+**Fase:** 3  
+**Descripción:** Convertir las 22 entidades iniciales en un modelo relacional trazable.  
+**Objetivo:** Resolver propiedad, cardinalidad, estados, versionado y borrado antes de crear tablas.  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fase 2 COMPLETED.  
+**Archivos relacionados:** `docs/architecture/DATA_MODEL.md`, requisitos y reglas de negocio.  
+**Criterios de aceptación:**
+
+- Las 22 entidades del prompt están inventariadas.
+- Identificadores, cardinalidades y restricciones críticas son explícitos.
+- Autenticación y autorización de ejecución permanecen en Fase 4.
+- El modelo es viable en SQLite y conserva una ruta futura a PostgreSQL.
+
+**Pruebas requeridas:** Revisión contra requisitos, reglas, casos de uso y política de datos.  
+**Documentación requerida:** Modelo relacional, invariantes y diagrama.  
+**Problemas encontrados:** El prompt define `ReadingLevel` como entidad y sus niveles como enum; se
+resolvió con una tabla de referencia cuyo código está restringido al conjunto oficial.  
+**Decisiones tomadas:** `ReadingContent` conserva identidad, `ContentVersion` concentra lo
+publicable, traducciones contienen su estructura editorial y Fase 3 no agrega credenciales.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-002.
+
+---
+
+## FR-PH03-TASK-002
+
+**Título:** Crear fundamentos persistentes y tipos comunes  
+**Fase:** 3  
+**Descripción:** Implementar IDs, timestamps, enums, metadatos y convenciones SQLAlchemy.  
+**Objetivo:** Evitar duplicación y discrepancias entre modelos.  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-001.  
+**Archivos relacionados:** `apps/api/src/followread_api/models/`.  
+**Criterios de aceptación:** UUIDs portables, fechas UTC, enums validados y tipos estrictos.  
+**Pruebas requeridas:** Construcción, defaults y restricciones comunes.  
+**Documentación requerida:** Convenciones de persistencia.  
+**Problemas encontrados:** SQLite no conserva necesariamente zona horaria al leer `DATETIME`; la
+aplicación genera UTC y los contratos normalizarán la salida.  
+**Decisiones tomadas:** UUID usa `sqlalchemy.Uuid`; enums son `StrEnum`; timestamps comparten
+defaults UTC y `updated_at` administrado por SQLAlchemy.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-003.
+
+---
+
+## FR-PH03-TASK-003
+
+**Título:** Modelar contenido editorial, versiones y publicación  
+**Fase:** 3  
+**Descripción:** Implementar contenido, traducciones, capítulos, párrafos, categorías, niveles,
+versiones y publicaciones.  
+**Objetivo:** Crear el agregado editorial que alimentará Admin y Reader.  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-002.  
+**Archivos relacionados:** modelos, migraciones y pruebas API.  
+**Criterios de aceptación:** Orden editorial, bilingüismo, estados y versión publicada son íntegros.  
+**Pruebas requeridas:** Relaciones, unicidad, cascadas seguras y consultas de catálogo.  
+**Documentación requerida:** Mapeo de reglas FR-BR-001..007 y FR-BR-016..017.  
+**Problemas encontrados:** La publicación activa por contenido requiere una relación explícita
+además de la versión; se modeló con unicidad en contenido y versión.  
+**Decisiones tomadas:** Traducciones contienen capítulos/párrafos propios enlazables por
+`stable_key`; versiones publicadas se protegen en servicios y FKs `RESTRICT`.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-004.
+
+---
+
+## FR-PH03-TASK-004
+
+**Título:** Modelar recursos y trabajos de procesamiento  
+**Fase:** 3  
+**Descripción:** Implementar audio, Speech Marks, ilustraciones y trabajos sin integrar AWS.  
+**Objetivo:** Preparar trazabilidad e idempotencia para Fase 6.  
+**Estado:** IN_PROGRESS  
+**Prioridad:** High  
+**Dependencias:** FR-PH03-TASK-003.  
+**Archivos relacionados:** modelos, migraciones y pruebas.  
+**Criterios de aceptación:** Los recursos pertenecen a una versión y los trabajos tienen estado.  
+**Pruebas requeridas:** Integridad versión/recurso, orden de marcas e idempotencia de trabajos.  
+**Documentación requerida:** Límites con adaptadores AWS futuros.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
 **Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Validar un checkout limpio y documentar `PHASE_2_REVIEW.md`.
+**Siguiente acción:** Implementar recursos y trabajos sin adaptadores AWS.
+
+---
+
+## FR-PH03-TASK-005
+
+**Título:** Modelar identidad, roles y permisos sin autenticación  
+**Fase:** 3  
+**Descripción:** Persistir User, Administrator, Role y Permission sin emitir tokens ni contraseñas.  
+**Objetivo:** Preparar el esquema requerido para la implementación segura de Fase 4.  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH03-TASK-002.  
+**Archivos relacionados:** modelos, migraciones y pruebas.  
+**Criterios de aceptación:** Roles/permisos son normalizados y Administrator especializa User.  
+**Pruebas requeridas:** Unicidad, asociaciones y eliminación restringida.  
+**Documentación requerida:** Límite explícito con Fase 4.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar FR-PH03-TASK-002.
+
+---
+
+## FR-PH03-TASK-006
+
+**Título:** Modelar datos de lectura y sincronización  
+**Fase:** 3  
+**Descripción:** Implementar progreso, favoritos, vocabulario y registros de descarga.  
+**Objetivo:** Preservar propiedad, versión y claves idempotentes para Reader/offline.  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH03-TASK-003, FR-PH03-TASK-005.  
+**Archivos relacionados:** modelos, migraciones y pruebas.  
+**Criterios de aceptación:** Claves únicas evitan duplicados y progreso conserva anclaje/versionado.  
+**Pruebas requeridas:** Upsert lógico, propiedad y aislamiento entre usuarios/perfiles.  
+**Documentación requerida:** Mapeo con FR-BR-009 y Fase 9.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar dependencias.
+
+---
+
+## FR-PH03-TASK-007
+
+**Título:** Crear la migración funcional y validar integridad  
+**Fase:** 3  
+**Descripción:** Generar y revisar la migración que materializa el modelo funcional.  
+**Objetivo:** Crear/revertir el esquema completo desde una base vacía.  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-003 a 006.  
+**Archivos relacionados:** `apps/api/migrations/versions/`, pruebas de migración.  
+**Criterios de aceptación:** Una cabeza, upgrade/downgrade, FK activas e índices verificados.  
+**Pruebas requeridas:** Migración vacía, inspección de esquema y restricciones.  
+**Documentación requerida:** Revisión de migración.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar modelos.
+
+---
+
+## FR-PH03-TASK-008
+
+**Título:** Implementar repositorios y unidad de trabajo  
+**Fase:** 3  
+**Descripción:** Crear persistencia desacoplada de HTTP con transacciones explícitas.  
+**Objetivo:** Centralizar consultas y evitar commits implícitos en rutas.  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-007.  
+**Archivos relacionados:** `apps/api/src/followread_api/repositories/`.  
+**Criterios de aceptación:** CRUD base, consultas de catálogo y transacciones son testeables.  
+**Pruebas requeridas:** Commit, rollback, not-found, duplicados y paginación.  
+**Documentación requerida:** Contratos de repositorio.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar migración.
+
+---
+
+## FR-PH03-TASK-009
+
+**Título:** Implementar servicios, validaciones y errores  
+**Fase:** 3  
+**Descripción:** Aplicar invariantes mediante servicios y un contrato de error estándar.  
+**Objetivo:** Mantener reglas de negocio fuera de rutas y adaptadores.  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-008.  
+**Archivos relacionados:** servicios, schemas y manejo de errores.  
+**Criterios de aceptación:** Errores estables, validación de estados y respuestas tipadas.  
+**Pruebas requeridas:** Reglas válidas/inválidas y traducción a HTTP.  
+**Documentación requerida:** Catálogo de errores.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar repositorios.
+
+---
+
+## FR-PH03-TASK-010
+
+**Título:** Exponer catálogo y contenido por API  
+**Fase:** 3  
+**Descripción:** Crear el primer corte HTTP para listar y consultar contenido publicado.  
+**Objetivo:** Demostrar persistencia-servicio-API sin adelantar Admin ni autenticación.  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-009.  
+**Archivos relacionados:** rutas, schemas, servicios y pruebas de integración.  
+**Criterios de aceptación:** Lista paginada y detalle sólo exponen publicaciones válidas.  
+**Pruebas requeridas:** 200, 404, paginación, filtros y contenido no publicado.  
+**Documentación requerida:** OpenAPI y README API.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar servicios.
+
+---
+
+## FR-PH03-TASK-011
+
+**Título:** Añadir logging, readiness y OpenAPI verificable  
+**Fase:** 3  
+**Descripción:** Completar observabilidad base y contratos operativos.  
+**Objetivo:** Distinguir vida/disponibilidad y diagnosticar sin filtrar datos sensibles.  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH03-TASK-010.  
+**Archivos relacionados:** configuración, middleware, rutas health y OpenAPI.  
+**Criterios de aceptación:** Logs estructurados, readiness de SQLite y esquema OpenAPI comprobado.  
+**Pruebas requeridas:** Vida, readiness, request ID, error y esquema.  
+**Documentación requerida:** Operación y troubleshooting.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes de implementación.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar API.
+
+---
+
+## FR-PH03-TASK-012
+
+**Título:** Auditar y cerrar Fase 3  
+**Fase:** 3  
+**Descripción:** Revisar criterios, trazabilidad, migraciones, API y pruebas.  
+**Objetivo:** Autorizar autenticación sólo con una base backend estable.  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH03-TASK-001 a 011.  
+**Archivos relacionados:** Todos los entregables de Fase 3.  
+**Criterios de aceptación:** Ocho criterios de salida pasan y la tarea usa READY_FOR_REVIEW.  
+**Pruebas requeridas:** Auditoría desde SQLite vacía y puerta completa.  
+**Documentación requerida:** Revisión de fase y actualización de gestión.  
+**Problemas encontrados:** Ninguno al planificar.  
+**Decisiones tomadas:** Pendientes del cierre.  
+**Fecha de inicio:** —  
+**Fecha de finalización:** —  
+**Siguiente acción:** Esperar todas las tareas de Fase 3.
