@@ -3,7 +3,7 @@
 **Última actualización:** 2026-07-24  
 **Fase activa:** Fase 3 - Modelado de datos y API base  
 **Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH03-TASK-004 - Modelar recursos y trabajos de procesamiento  
+**Tarea activa:** FR-PH03-TASK-005 - Modelar identidad, roles y permisos sin autenticación  
 **Estado de la tarea:** IN_PROGRESS
 
 ## Resumen ejecutivo
@@ -19,7 +19,7 @@ las 22 entidades iniciales del prompt en una base backend funcional y trazable.
 | Tareas de Fase 0 completadas | 12 de 12 |
 | Tareas de Fase 1 completadas | 8 de 8 |
 | Tareas de Fase 2 completadas | 11 de 11 |
-| Tareas de Fase 3 completadas | 3 de 12 |
+| Tareas de Fase 3 completadas | 4 de 12 |
 | Tareas en progreso | 1 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 12 |

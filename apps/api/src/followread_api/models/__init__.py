@@ -22,9 +22,11 @@ from followread_api.models.enums import (
     ReadingLevelCode,
     ResourceStatus,
 )
+from followread_api.models.resources import AudioAsset, Illustration, ProcessingJob, SpeechMark
 
 __all__ = [
     "Audience",
+    "AudioAsset",
     "Base",
     "Category",
     "Chapter",
@@ -33,14 +35,17 @@ __all__ = [
     "ContentVersion",
     "DownloadStatus",
     "EditorialStatus",
+    "Illustration",
     "JobStatus",
     "Language",
     "Paragraph",
+    "ProcessingJob",
     "Publication",
     "ReadingContent",
     "ReadingLevel",
     "ReadingLevelCode",
     "ResourceStatus",
+    "SpeechMark",
     "TimestampMixin",
     "UuidPrimaryKeyMixin",
     "content_categories",

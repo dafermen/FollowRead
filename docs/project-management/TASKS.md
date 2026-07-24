@@ -59,8 +59,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-001 | Diseñar el modelo de datos y sus invariantes | COMPLETED | Critical |
 | FR-PH03-TASK-002 | Crear fundamentos persistentes y tipos comunes | COMPLETED | Critical |
 | FR-PH03-TASK-003 | Modelar contenido editorial, versiones y publicación | COMPLETED | Critical |
-| FR-PH03-TASK-004 | Modelar recursos y trabajos de procesamiento | IN_PROGRESS | High |
-| FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | NOT_STARTED | High |
+| FR-PH03-TASK-004 | Modelar recursos y trabajos de procesamiento | COMPLETED | High |
+| FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | IN_PROGRESS | High |
 | FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | NOT_STARTED | High |
 | FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | NOT_STARTED | Critical |
 | FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | NOT_STARTED | Critical |
@@ -1007,18 +1007,20 @@ además de la versión; se modeló con unicidad en contenido y versión.
 **Fase:** 3  
 **Descripción:** Implementar audio, Speech Marks, ilustraciones y trabajos sin integrar AWS.  
 **Objetivo:** Preparar trazabilidad e idempotencia para Fase 6.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-003.  
 **Archivos relacionados:** modelos, migraciones y pruebas.  
 **Criterios de aceptación:** Los recursos pertenecen a una versión y los trabajos tienen estado.  
 **Pruebas requeridas:** Integridad versión/recurso, orden de marcas e idempotencia de trabajos.  
 **Documentación requerida:** Límites con adaptadores AWS futuros.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** Speech Marks requieren rangos temporales y de caracteres además del
+orden; se añadieron restricciones para ambos.  
+**Decisiones tomadas:** Recursos pertenecen a versión/idioma, marcas a un audio, e idempotencia de
+trabajo es una clave única; ningún modelo importa SDK de AWS.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar recursos y trabajos sin adaptadores AWS.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-005.
 
 ---
 
@@ -1028,7 +1030,7 @@ además de la versión; se modeló con unicidad en contenido y versión.
 **Fase:** 3  
 **Descripción:** Persistir User, Administrator, Role y Permission sin emitir tokens ni contraseñas.  
 **Objetivo:** Preparar el esquema requerido para la implementación segura de Fase 4.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-002.  
 **Archivos relacionados:** modelos, migraciones y pruebas.  
@@ -1037,9 +1039,9 @@ además de la versión; se modeló con unicidad en contenido y versión.
 **Documentación requerida:** Límite explícito con Fase 4.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar FR-PH03-TASK-002.
+**Siguiente acción:** Implementar identidad y RBAC persistente sin credenciales.
 
 ---
 

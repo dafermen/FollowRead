@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH03-TASK-004 - Modelar recursos y trabajos de procesamiento**
+**FR-PH03-TASK-005 - Modelar identidad, roles y permisos sin autenticación**
 
 ### Objetivo de la próxima sesión
 
-Implementar recursos y trabajos trazables sin conectar AWS.
+Implementar identidad y RBAC persistentes sin adelantar login, tokens ni contraseñas.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Crear AudioAsset e Illustration asociados a versión.
-3. Crear SpeechMark ordenado y anclado.
-4. Crear ProcessingJob con clave idempotente.
-5. Probar coherencia, restricciones y cascadas.
-6. Completar FR-PH03-TASK-004 y continuar con identidad.
+2. Crear User y Administrator con relación uno a uno.
+3. Crear Role y Permission.
+4. Crear asociaciones normalizadas de RBAC.
+5. Probar unicidad, asociaciones y borrado restringido.
+6. Completar FR-PH03-TASK-005 y continuar con datos de lectura.
 
 ## No hacer todavía
 
