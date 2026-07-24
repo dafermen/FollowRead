@@ -45,3 +45,6 @@
 - **Tarea bloqueada:** FR-PH02-TASK-007.
 - **Progreso seguro:** Compose, variables, DSN y validación estática están completos y pasan
   `pnpm check`; sólo quedan pruebas que requieren el runtime.
+- **Auditoría repetida:** Confirmado en tres intentos. No existe `docker` en `PATH`, rutas habituales,
+  registro de aplicaciones instaladas, procesos o servicios; tampoco existe Podman como runtime
+  compatible disponible.

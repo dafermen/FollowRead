@@ -58,6 +58,8 @@ sigue abierta, pero no se necesita hasta Fase 14.
 
 La parte estática de la tarea está completa: imagen oficial PostgreSQL 18.4 fijada, volumen compatible
 con PostgreSQL 18, puerto en loopback, healthcheck, variables y DSN validados por `pnpm check`.
+La ausencia del runtime fue confirmada en tres intentos, incluidas rutas de instalación, registro,
+servicios y procesos.
 
 ## Regla de continuación
 

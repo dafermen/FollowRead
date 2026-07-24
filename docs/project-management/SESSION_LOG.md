@@ -234,3 +234,19 @@ FR-PH02-TASK-007:
 
 `pnpm check` pasó completo: validación Compose, formato, lint, tipos, seis pruebas, cobertura base
 100% y builds. Permanecen pendientes `docker compose config`, arranque y confirmación `healthy`.
+
+---
+
+## Continuación 2026-07-24 - Auditoría final del bloqueo Docker
+
+Se repitió la comprobación por tercera vez y se inspeccionaron:
+
+- resolución del comando mediante `PATH` y `where`;
+- rutas habituales de Docker Desktop y Docker CLI;
+- registro de aplicaciones instaladas;
+- servicios y procesos de Docker;
+- disponibilidad de Podman como runtime alternativo.
+
+Todos los resultados fueron negativos. Las tareas 008 a 011 dependen de PostgreSQL/migraciones o de
+la puerta completa que las incluye, por lo que no existe otro avance seguro que respete dependencias.
+El proyecto queda detenido hasta instalar/iniciar Docker Desktop.
