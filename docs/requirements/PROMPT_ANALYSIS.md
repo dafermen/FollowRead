@@ -50,7 +50,8 @@
 - El contenido editorial se prepara antes de publicarse; Reader nunca edita contenido.
 - Las traducciones del MVP serán editoriales para funcionar offline y evitar dependencia de IA.
 - El uso infantil minimizará datos personales hasta decidir un modelo de cuenta.
-- PostgreSQL será la fuente autoritativa del backend; S3 contendrá objetos grandes.
+- El prompt original proponía PostgreSQL como fuente autoritativa; FR-DEC-013 lo sustituye por SQLite
+  para el MVP debido a la restricción operativa confirmada. S3 conservará objetos grandes.
 
 ## Resultado del análisis
 

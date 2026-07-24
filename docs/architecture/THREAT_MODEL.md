@@ -12,7 +12,7 @@ endpoints y almacenamiento concretos.
 
 1. Navegador/dispositivo -> Admin o Reader.
 2. Admin/Reader -> API pública.
-3. API -> PostgreSQL.
+3. API -> archivo SQLite local.
 4. API/worker -> Polly y S3.
 5. Reader -> almacenamiento local modificable.
 6. Pipeline de build -> artefactos desplegados.

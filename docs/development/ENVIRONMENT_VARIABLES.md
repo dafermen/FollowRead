@@ -19,14 +19,10 @@
 | `FOLLOWREAD_ENVIRONMENT` | API | No | `development` | `development`, `test` o `production` |
 | `FOLLOWREAD_APP_NAME` | API | No | `FollowRead API` | texto no vacío |
 | `FOLLOWREAD_API_PREFIX` | API | No | vacío | vacío o ruta que comienza con `/` |
-| `FOLLOWREAD_DATABASE_URL` | API | No | PostgreSQL local | DSN PostgreSQL |
-| `FOLLOWREAD_POSTGRES_DB` | Compose | No | `followread` | nombre local |
-| `FOLLOWREAD_POSTGRES_USER` | Compose | No | `followread` | usuario local |
-| `FOLLOWREAD_POSTGRES_PASSWORD` | Compose | No | sólo desarrollo | secreto local no reutilizable |
-| `FOLLOWREAD_POSTGRES_PORT` | Compose | No | `5432` | puerto enlazado a loopback |
+| `FOLLOWREAD_DATABASE_URL` | API | No | `sqlite:///./var/followread.db` | DSN SQLite |
 
 ## Configuración futura
 
-Las credenciales PostgreSQL del ejemplo son exclusivamente locales y no pueden reutilizarse en
-entornos compartidos. AWS no se configura hasta su fase de integración. Producción usará un gestor
-de secretos, no archivos `.env` versionados.
+SQLite no requiere credenciales. El directorio y archivo de base quedan fuera de Git. AWS no se
+configura hasta su fase de integración. Producción usará un gestor de secretos para cualquier valor
+sensible, no archivos `.env` versionados.

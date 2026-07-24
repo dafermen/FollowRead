@@ -110,7 +110,7 @@ funcionalidad de producto.
 1. Admin, Reader y API existen separados y arrancan.
 2. TypeScript strict, Python type hints, lint y formato están configurados.
 3. Pruebas base y builds pasan.
-4. Docker/PostgreSQL y migraciones base funcionan.
+4. SQLite y migraciones base funcionan sin Docker ni servicios externos.
 5. Variables de entorno están documentadas sin secretos.
 6. Scripts, hooks y CI ejecutan la misma validación.
 7. Instalación limpia está documentada y verificada.

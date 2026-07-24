@@ -121,7 +121,8 @@ crear -> procesar -> revisar -> publicar -> descubrir -> descargar
 
 - Amazon Polly;
 - Amazon S3;
-- PostgreSQL;
+- SQLite incluido en Python para el MVP;
+- PostgreSQL sólo como evolución futura cuando escala, concurrencia o despliegue lo requieran;
 - tiendas Apple y Google en Fase 10+;
 - proveedor de hosting y observabilidad por definir.
 
@@ -131,6 +132,7 @@ crear -> procesar -> revisar -> publicar -> descubrir -> descargar
 - El MVP no crea cuentas personales de menores.
 - Traducciones y significados esenciales son editoriales.
 - Favoritos y posición están en MVP; notas libres quedan después.
+- SQLite es la base autoritativa del MVP y elimina la dependencia de Docker/PostgreSQL.
 
 ## Validación
 

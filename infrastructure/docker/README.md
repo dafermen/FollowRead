@@ -1,24 +1,8 @@
-# Docker local
+# Docker diferido
 
-`compose.yaml` define PostgreSQL 18.4 para desarrollo. El puerto se enlaza sólo a `127.0.0.1`, los
-datos usan un volumen nombrado y el servicio informa salud mediante `pg_isready`.
+Docker no es requisito del MVP. La base local y de demostración usa SQLite mediante la biblioteca
+estándar de Python y no necesita un servicio externo.
 
-## Uso
-
-```powershell
-Copy-Item .env.example .env
-docker compose config
-docker compose up -d postgres
-docker compose ps
-```
-
-El servicio debe mostrar `healthy` antes de ejecutar migraciones o pruebas de integración.
-
-Para detenerlo sin borrar datos:
-
-```powershell
-docker compose down
-```
-
-`docker compose down --volumes` elimina datos locales y sólo debe utilizarse conscientemente. La
-validación estática se ejecuta con `pnpm validate:compose`.
+Este directorio se conserva para una evolución futura a PostgreSQL o para empaquetar servicios de
+despliegue cuando exista una necesidad operativa demostrada. No debe reintroducirse Docker en las
+puertas del MVP sin una decisión nueva y pruebas de migración SQLite -> PostgreSQL.

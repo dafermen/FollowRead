@@ -46,11 +46,11 @@ aceptación correspondientes están satisfechos.
 | FR-PH02-TASK-004 | Crear aplicación base FastAPI | COMPLETED | Critical |
 | FR-PH02-TASK-005 | Configurar calidad y pruebas base | COMPLETED | Critical |
 | FR-PH02-TASK-006 | Definir configuración y variables de entorno | COMPLETED | High |
-| FR-PH02-TASK-007 | Preparar Docker y PostgreSQL local | BLOCKED | High |
-| FR-PH02-TASK-008 | Configurar migraciones base | NOT_STARTED | High |
-| FR-PH02-TASK-009 | Unificar scripts y hooks locales | NOT_STARTED | High |
-| FR-PH02-TASK-010 | Crear integración continua | NOT_STARTED | High |
-| FR-PH02-TASK-011 | Verificar instalación limpia y cerrar Fase 2 | NOT_STARTED | Critical |
+| FR-PH02-TASK-007 | Preparar SQLite local | COMPLETED | High |
+| FR-PH02-TASK-008 | Configurar migraciones base | COMPLETED | High |
+| FR-PH02-TASK-009 | Unificar scripts y hooks locales | COMPLETED | High |
+| FR-PH02-TASK-010 | Crear integración continua | COMPLETED | High |
+| FR-PH02-TASK-011 | Verificar instalación limpia y cerrar Fase 2 | READY_FOR_REVIEW | Critical |
 
 ---
 
@@ -768,32 +768,30 @@ Pydantic antes de consumir valores.
 
 ## FR-PH02-TASK-007
 
-**Título:** Preparar Docker y PostgreSQL local  
+**Título:** Preparar SQLite local  
 **Fase:** 2  
-**Descripción:** Crear servicios locales reproducibles y comprobación de salud.  
-**Objetivo:** Disponer de persistencia local sin depender de infraestructura remota.  
-**Estado:** BLOCKED  
+**Descripción:** Crear persistencia local reproducible y comprobación de disponibilidad.  
+**Objetivo:** Disponer de persistencia MVP sin Docker ni infraestructura remota.  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH02-TASK-004, FR-PH02-TASK-006.  
-**Archivos relacionados:** `compose.yaml`, `infrastructure/docker/`,
-`scripts/validate_compose.py`, `.env.example`, configuración API.  
+**Archivos relacionados:** `apps/api/src/followread_api/database.py`,
+`infrastructure/database/`, `.env.example`, configuración API.  
 **Criterios de aceptación:**
 
-- PostgreSQL tiene volumen, healthcheck y credenciales sólo locales.
-- La API puede apuntar al servicio mediante configuración.
-- La composición no incluye AWS real.
+- SQLite crea su directorio/archivo fuera de Git.
+- La API valida el DSN y puede comprobar una conexión real.
+- Tests usan archivos temporales y no comparten estado.
+- No se requieren Docker, credenciales ni AWS real.
 
-**Pruebas requeridas:** Validar configuración y healthcheck si Docker está disponible.  
-**Documentación requerida:** Inicio, parada y limpieza segura.  
-**Problemas encontrados:** FR-ISSUE-005: Docker no está instalado o no está disponible en `PATH`.
-La definición, variables, DSN y validador estático están completos; falta validar `config`, arranque y
-estado `healthy` con el runtime real.  
-**Decisiones tomadas:** FR-DEC-012: PostgreSQL 18.4 oficial, volumen raíz de PostgreSQL 18, loopback
-y `pg_isready`.  
+**Pruebas requeridas:** Crear, conectar, escribir/leer transaccionalmente y aislar una base temporal.  
+**Documentación requerida:** Ubicación, backup, limpieza y límites de concurrencia.  
+**Problemas encontrados:** FR-ISSUE-005 se resolvió mediante cambio de alcance autorizado; mypy
+requirió sustituir el tipo dinámico `SqliteDsn` por una cadena con patrón Pydantic.  
+**Decisiones tomadas:** FR-DEC-013: SQLite sustituye PostgreSQL en el MVP.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Instalar/iniciar Docker Desktop; ejecutar `docker compose config`,
-`docker compose up -d postgres` y confirmar estado `healthy`.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH02-TASK-008.
 
 ---
 
@@ -803,7 +801,7 @@ y `pg_isready`.
 **Fase:** 2  
 **Descripción:** Integrar Alembic y crear una migración inicial reproducible.  
 **Objetivo:** Controlar la evolución del esquema desde el inicio.  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH02-TASK-007.  
 **Archivos relacionados:** `apps/api/alembic.ini`, `apps/api/migrations/`  
@@ -815,11 +813,12 @@ y `pg_isready`.
 
 **Pruebas requeridas:** Upgrade, downgrade y upgrade en base desechable.  
 **Documentación requerida:** Flujo para crear y revisar migraciones.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
-**Fecha de finalización:** —  
-**Siguiente acción:** Esperar PostgreSQL local.
+**Problemas encontrados:** Ninguno; la línea base es deliberadamente vacía porque las tablas
+funcionales pertenecen a Fase 3.  
+**Decisiones tomadas:** Alembic 1.18.5, batch mode SQLite y convención de nombres SQLAlchemy.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH02-TASK-009.
 
 ---
 
@@ -829,7 +828,7 @@ y `pg_isready`.
 **Fase:** 2  
 **Descripción:** Crear scripts multiplataforma y hooks que ejecuten verificaciones rápidas.  
 **Objetivo:** Dar a desarrollo y CI una interfaz común.  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH02-TASK-005, FR-PH02-TASK-008.  
 **Archivos relacionados:** `scripts/`, configuración de hooks, `package.json`  
@@ -841,11 +840,13 @@ y `pg_isready`.
 
 **Pruebas requeridas:** Ejecutar scripts desde un checkout limpio.  
 **Documentación requerida:** Tabla de comandos.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
-**Fecha de finalización:** —  
-**Siguiente acción:** Esperar herramientas de calidad.
+**Problemas encontrados:** Pytest intentó usar una carpeta temporal de Windows sin permisos; la
+puerta se hizo reproducible con `.pytest-temp/` dentro del checkout.  
+**Decisiones tomadas:** `pnpm check` es la puerta completa y `pnpm check:fast` la del pre-commit;
+el hook sólo valida y nunca modifica archivos.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH02-TASK-010.
 
 ---
 
@@ -855,7 +856,7 @@ y `pg_isready`.
 **Fase:** 2  
 **Descripción:** Ejecutar la puerta de calidad en GitHub Actions con cachés y versiones fijadas.  
 **Objetivo:** Impedir que cambios no validados lleguen a la rama principal.  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH02-TASK-009.  
 **Archivos relacionados:** `.github/workflows/ci.yml`  
@@ -868,11 +869,13 @@ y `pg_isready`.
 
 **Pruebas requeridas:** Validación sintáctica y equivalencia con puerta local.  
 **Documentación requerida:** Descripción del workflow y solución de fallos.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
-**Fecha de finalización:** —  
-**Siguiente acción:** Esperar scripts unificados.
+**Problemas encontrados:** No existe un ejecutor local de GitHub Actions; se añadió un validador
+estático que comprueba versiones, permisos y equivalencia de comandos sin exponer secretos.  
+**Decisiones tomadas:** CI usa Node 24, pnpm 10.32.1 y Python 3.12, permisos de contenido de sólo
+lectura y la misma puerta `pnpm ci` que el entorno local.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH02-TASK-011.
 
 ---
 
@@ -882,7 +885,7 @@ y `pg_isready`.
 **Fase:** 2  
 **Descripción:** Auditar todos los criterios de salida desde un entorno reproducible.  
 **Objetivo:** Autorizar modelado de datos sólo con una base técnica estable.  
-**Estado:** NOT_STARTED  
+**Estado:** READY_FOR_REVIEW  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH02-TASK-001 a 010.  
 **Archivos relacionados:** Todos los entregables de Fase 2.  
@@ -895,8 +898,10 @@ y `pg_isready`.
 
 **Pruebas requeridas:** Auditoría limpia completa y revisión cruzada.  
 **Documentación requerida:** Revisión de fase, estado, sesión, riesgos, problemas y próximos pasos.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes del cierre.  
-**Fecha de inicio:** —  
+**Problemas encontrados:** Ningún bloqueo crítico; falta ejecutar la auditoría desde un checkout
+limpio antes de cerrar.  
+**Decisiones tomadas:** La revisión conservará evidencia de instalación, migración, puerta completa
+y los siete criterios de salida.  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar todas las tareas técnicas.
+**Siguiente acción:** Validar un checkout limpio y documentar `PHASE_2_REVIEW.md`.

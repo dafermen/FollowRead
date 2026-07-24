@@ -20,7 +20,7 @@ requiere. No define todavía clases, tablas ni endpoints.
 | Publicador/administrador | Autoriza publicación y opera el sistema |
 | Amazon Polly | Genera audio y Speech Marks |
 | Amazon S3 | Guarda audio, imágenes y paquetes |
-| PostgreSQL | Conserva datos autoritativos y relaciones |
+| SQLite | Conserva datos autoritativos y relaciones del MVP dentro del servicio API |
 | Proveedor de identidad | No decidido; la primera arquitectura permite identidad propia o externa |
 | Tiendas móviles | Distribuyen Reader en fases posteriores |
 
@@ -32,7 +32,7 @@ flowchart LR
     editors["Editores, revisores y publicadores"] --> admin["FollowRead Admin<br/>Sólo web"]
     reader --> api["FollowRead API"]
     admin --> api
-    api --> db["PostgreSQL"]
+    api --> db["SQLite<br/>MVP"]
     api --> polly["Amazon Polly"]
     api --> s3["Amazon S3"]
     reader --> local["Almacenamiento local<br/>catálogo, paquetes y progreso"]
@@ -43,7 +43,7 @@ flowchart LR
 
 1. Navegadores y dispositivos son clientes no confiables.
 2. API es el único límite autorizado para lógica privilegiada y AWS.
-3. PostgreSQL es privado y no accesible desde internet o clientes.
+3. El archivo SQLite pertenece exclusivamente a la API y no es accesible desde clientes.
 4. S3 usa acceso controlado; URLs temporales o entrega mediada se decidirán después.
 5. Almacenamiento local puede dañarse o modificarse; Reader valida paquetes.
 

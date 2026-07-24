@@ -1,7 +1,7 @@
 from functools import lru_cache
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import Field, PostgresDsn
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,9 +15,7 @@ class Settings(BaseSettings):
     app_name: str = Field(default="FollowRead API", min_length=1)
     environment: Literal["development", "test", "production"] = "development"
     api_prefix: str = Field(default="", pattern=r"^$|^/")
-    database_url: PostgresDsn = PostgresDsn(
-        "postgresql+psycopg://followread:followread-local-only@localhost:5432/followread"
-    )
+    database_url: Annotated[str, Field(pattern=r"^sqlite:///")] = "sqlite:///./var/followread.db"
 
 
 @lru_cache

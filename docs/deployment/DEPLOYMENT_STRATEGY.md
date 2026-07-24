@@ -18,7 +18,7 @@ Los proveedores y comandos concretos se decidirán en fases de infraestructura.
 - Reader web/PWA;
 - API FastAPI;
 - worker de procesamiento cuando se agregue;
-- PostgreSQL;
+- archivo SQLite persistente del MVP;
 - almacenamiento de objetos;
 - apps móviles Reader a partir de Fase 10.
 
@@ -55,7 +55,7 @@ nativas se versionan por plataforma. Contenido nuevo no obliga a publicar otra a
 - proveedor y regiones;
 - alta disponibilidad, RTO y RPO;
 - dominio, TLS y CDN;
-- backup/restore de PostgreSQL;
+- backup/restore de SQLite y futura migración a PostgreSQL;
 - ciclo de vida S3;
 - estrategia de migraciones sin interrupción;
 - firma y cuentas de tiendas;

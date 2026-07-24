@@ -13,13 +13,16 @@
 | API routers | HTTP, autenticación y traducción de errores | Servicios de aplicación | SQLAlchemy/AWS directos |
 | Servicios API | Casos de uso y transacciones | Dominio, puertos | Componentes frontend |
 | Dominio API | Estados y reglas | Tipos propios | FastAPI, SQLAlchemy, AWS |
-| Adaptadores API | PostgreSQL, Polly, S3, cola | SDKs/infraestructura | UI |
+| Adaptadores API | SQLite/SQLAlchemy, Polly, S3, cola | SDKs/infraestructura | UI |
 | Reader Engine | Tiempo, segmentos, controles y progreso lógico | Tipos puros | React, DOM, Capacitor, red, AWS |
 | Shared types/models | Contratos estables | Ninguna app concreta | Lógica privilegiada |
 
 ## Componentes de infraestructura
 
-- **PostgreSQL:** fuente autoritativa de contenido, identidades, trabajos, auditoría y datos remotos.
+- **SQLite:** fuente autoritativa del MVP para contenido, identidades, trabajos, auditoría y datos
+  remotos; sólo la API abre el archivo.
+- **PostgreSQL futuro:** sustituirá el adaptador cuando haya una necesidad operativa y una migración
+  probada, sin cambiar dominio ni routers.
 - **S3:** objetos grandes e inmutables; nunca fuente única de relaciones de negocio.
 - **Polly:** proveedor detrás de `PollyService`; falso durante automatización.
 - **Almacenamiento local:** catálogo, paquetes, preferencias y operaciones pendientes.

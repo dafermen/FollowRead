@@ -17,7 +17,7 @@
 | Unitarias | Dominio, estado, parser, checksums, progreso, utilidades |
 | Componentes | UI, formularios, lector, estados y accesibilidad |
 | API | Validación, auth, permisos, errores, repositorios |
-| Integración | PostgreSQL, almacenamiento falso, contratos y transacciones |
+| Integración | SQLite real, almacenamiento falso, contratos y transacciones |
 | E2E | Publicación, lectura, offline, reanudación y aprendizaje |
 | Arquitectura | Límites de dependencias y ausencia de AWS/React donde no corresponde |
 | Seguridad | Entradas maliciosas, IDOR, sesiones, secretos y permisos |
@@ -29,7 +29,9 @@
 - Pytest para API y dominio Python.
 - Playwright para flujos web/PWA y accesibilidad automatizable.
 - Mocks, fixtures y adaptadores falsos para Polly y S3.
-- PostgreSQL aislado para integración; no simular semántica SQL crítica.
+- SQLite real en archivo temporal para integración; no simular transacciones ni restricciones.
+- Las consultas deben mantenerse compatibles con SQLAlchemy portable para una migración futura a
+  PostgreSQL, que añadirá una matriz de integración propia cuando se decida.
 
 La selección final se confirma en Fase 2; no se agrega otra librería sin justificación.
 

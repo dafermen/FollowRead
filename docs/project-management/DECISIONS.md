@@ -112,13 +112,26 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
 ### FR-DEC-012 - PostgreSQL 18.4 oficial para desarrollo local
 
 - **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
+- **Estado:** SUPERSEDED_BY_FR-DEC-013
 - **Decisión:** El entorno local usa la imagen oficial `postgres:18.4-alpine3.24`, con datos
   persistidos en `/var/lib/postgresql`, puerto limitado a loopback y salud mediante `pg_isready`.
 - **Razón:** PostgreSQL 18.4 es la versión estable actual y la imagen oficial cambió en la versión 18
   la raíz persistente recomendada a `/var/lib/postgresql`.
 - **Consecuencias:** El tag de parche se actualiza de forma deliberada; no se usa `latest`; los
   upgrades mayores requieren plan y prueba de migración.
+
+### FR-DEC-013 - SQLite sustituye PostgreSQL en el MVP
+
+- **Fecha:** 2026-07-24
+- **Estado:** ACCEPTED
+- **Decisión:** El MVP usa SQLite como base autoritativa mediante SQLAlchemy y Alembic. No requiere
+  Docker. PostgreSQL queda fuera del MVP y podrá retomarse cuando exista capacidad operativa o una
+  necesidad demostrada de concurrencia/escala.
+- **Razón:** El propietario confirmó que no dispone de PostgreSQL para este MVP y autorizó continuar
+  con SQLite.
+- **Consecuencias:** La API es la única propietaria del archivo; tests usan archivos temporales; se
+  evitan extensiones específicas de SQLite cuando impidan portabilidad; una migración futura a
+  PostgreSQL exige decisión, exportación/importación y pruebas de integridad.
 
 ## Decisiones abiertas
 

@@ -19,4 +19,11 @@ Comprobaciones:
 .\apps\api\.venv\Scripts\python.exe -m mypy .\apps\api\src .\apps\api\tests
 ```
 
-El endpoint `GET /health` no requiere PostgreSQL, Redis ni AWS.
+Migraciones:
+
+```powershell
+pnpm migrate
+```
+
+El endpoint `GET /health` no requiere SQLite, Redis ni AWS. SQLite usa
+`var/followread.db` por defecto y PostgreSQL queda fuera del MVP.

@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+
+hook_environment="$(git rev-parse --git-path followread-hooks.env)"
+
+if [ -f "$hook_environment" ]; then
+  . "$hook_environment"
+fi
+
+if [ -n "${FOLLOWREAD_PNPM:-}" ]; then
+  "$FOLLOWREAD_PNPM" check:fast
+elif command -v pnpm >/dev/null 2>&1; then
+  pnpm check:fast
+elif command -v pnpm.cmd >/dev/null 2>&1; then
+  pnpm.cmd check:fast
+else
+  echo "FollowRead pre-commit: run 'pnpm hooks:install' to register pnpm." >&2
+  exit 1
+fi

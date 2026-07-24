@@ -37,7 +37,7 @@
 
 ## FR-ISSUE-005 - Docker no disponible
 
-- **Estado:** OPEN
+- **Estado:** RESOLVED_BY_SCOPE_CHANGE
 - **Severidad:** Medium
 - **Síntoma:** PowerShell no reconoce `docker` ni puede consultar `docker compose version`.
 - **Impacto:** No se puede validar PostgreSQL local, healthcheck ni migraciones.
@@ -48,3 +48,4 @@
 - **Auditoría repetida:** Confirmado en tres intentos. No existe `docker` en `PATH`, rutas habituales,
   registro de aplicaciones instaladas, procesos o servicios; tampoco existe Podman como runtime
   compatible disponible.
+- **Resolución:** El propietario autorizó FR-DEC-013: SQLite reemplaza PostgreSQL/Docker en el MVP.

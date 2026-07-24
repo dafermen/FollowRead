@@ -17,11 +17,11 @@
 
 | Categoría | Datos | Propósito | Ubicación | Retención inicial |
 |---|---|---|---|---|
-| Admin | email/identificador, hash, roles | Acceso editorial | API/PostgreSQL | Mientras esté activa + política |
-| Contenido | texto, traducción, metadatos | Publicación/lectura | PostgreSQL/S3/local | Por versión/política editorial |
+| Admin | email/identificador, hash, roles | Acceso editorial | API/SQLite | Mientras esté activa + política |
+| Contenido | texto, traducción, metadatos | Publicación/lectura | SQLite/S3/local | Por versión/política editorial |
 | Recursos | audio, marcas, imágenes | Lectura sincronizada | S3/local | Por versión |
-| Auditoría | actor, acción, objetivo, resultado | Seguridad/trazabilidad | PostgreSQL/logs | >=365 días |
-| Trabajo | etapa, error seguro, costo estimado | Procesamiento/diagnóstico | PostgreSQL/logs | 90 días tras terminar |
+| Auditoría | actor, acción, objetivo, resultado | Seguridad/trazabilidad | SQLite/logs | >=365 días |
+| Trabajo | etapa, error seguro, costo estimado | Procesamiento/diagnóstico | SQLite/logs | 90 días tras terminar |
 | Perfil local | preferencias y alias no identificable | Personalización | Dispositivo | Hasta borrar app/datos |
 | Progreso | contenido, versión, anclaje, fecha | Reanudar/sincronizar | Local/API opcional | Hasta eliminación |
 | Favoritos | IDs de contenido | Biblioteca personal | Local/API opcional | Hasta eliminación |

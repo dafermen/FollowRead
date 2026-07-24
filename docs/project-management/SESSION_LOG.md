@@ -250,3 +250,32 @@ Se repitió la comprobación por tercera vez y se inspeccionaron:
 Todos los resultados fueron negativos. Las tareas 008 a 011 dependen de PostgreSQL/migraciones o de
 la puerta completa que las incluye, por lo que no existe otro avance seguro que respete dependencias.
 El proyecto queda detenido hasta instalar/iniciar Docker Desktop.
+
+---
+
+## Reanudación 2026-07-24 - SQLite autorizado para el MVP
+
+El propietario indicó que PostgreSQL no está disponible para el MVP y autorizó SQLite. Se registró
+FR-DEC-013, que sustituye FR-DEC-012 para el alcance actual. FR-ISSUE-005 queda resuelto por cambio de
+alcance y FR-PH02-TASK-007 vuelve a `IN_PROGRESS`.
+
+PostgreSQL permanece como evolución futura; no es requisito para continuar las fases del MVP.
+
+---
+
+## Continuación 2026-07-24 - SQLite, migraciones, hooks y CI
+
+Se sustituyó la preparación PostgreSQL/Docker por una base SQLite local conforme a FR-DEC-013:
+
+- configuración tipada y resolución reproducible de la ruta de la base;
+- conexión SQLAlchemy con claves foráneas activas y sesiones aisladas;
+- Alembic con migración base, upgrade/downgrade probado y una sola cabeza;
+- scripts de instalación, migración y calidad compatibles con Windows/CI;
+- pre-commit verificable que ejecuta `pnpm check:fast` sin modificar archivos;
+- workflow de GitHub Actions con permisos mínimos, versiones declaradas y puerta equivalente;
+- documentación de instalación, variables, operación y límites de SQLite.
+
+La migración y `pnpm check` pasaron en `C:\Projects\FollowRead`; la API alcanzó 100% de cobertura.
+Pytest requirió usar `.pytest-temp/` dentro del checkout porque la carpeta temporal global de
+Windows no era accesible en el entorno de validación. FR-PH02-TASK-009 y 010 quedaron completadas.
+FR-PH02-TASK-011 pasó a `READY_FOR_REVIEW` para ejecutar la auditoría limpia final.

@@ -34,4 +34,6 @@ def test_settings_reject_invalid_environment_and_prefix() -> None:
         Settings.model_validate({"api_prefix": "api"})
 
     with pytest.raises(ValidationError):
-        Settings.model_validate({"database_url": "sqlite:///followread.db"})
+        Settings.model_validate(
+            {"database_url": "postgresql://followread:secret@localhost/followread"}
+        )

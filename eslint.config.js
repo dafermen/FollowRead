@@ -8,6 +8,13 @@ import tseslint from "typescript-eslint";
 export default defineConfig(
   globalIgnores(["**/dist/**", "**/coverage/**", "**/node_modules/**", "**/.venv/**"]),
   {
+    files: ["scripts/*.mjs"],
+    extends: [eslint.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
     files: [
       "apps/admin-web/src/**/*.{ts,tsx}",
       "apps/reader/src/**/*.{ts,tsx}",

@@ -10,6 +10,7 @@ coverage/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.pytest-temp/
 .mypy_cache/
 .ruff_cache/
 .venv/
@@ -39,6 +40,7 @@ tmp/
 # Local databases and containers
 *.sqlite
 *.sqlite3
+var/
 postgres-data/
 
 # Mobile output (Reader only in a later phase)

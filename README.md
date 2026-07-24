@@ -18,15 +18,26 @@ hay funcionalidad de producto implementada.
 - `docs`: requisitos, arquitectura, UX/UI, pruebas, despliegue y gestión.
 - `scripts`: comandos multiplataforma de desarrollo y validación.
 
-## Herramientas previstas
+## Herramientas
 
 - Node.js 24 y pnpm 11 para JavaScript/TypeScript.
 - Python 3.12 para la API.
 - React/Vite para Admin y Reader.
 - FastAPI para la API.
-- PostgreSQL para persistencia.
+- SQLite para persistencia del MVP; PostgreSQL queda como evolución futura.
 
-Los comandos definitivos de instalación y validación se documentarán durante la Fase 2.
+## Instalación
+
+Con Node.js 24, pnpm 11 y Python 3.12 disponibles:
+
+```powershell
+pnpm setup
+pnpm migrate
+pnpm check
+```
+
+`pnpm setup` instala dependencias JavaScript, crea `apps/api/.venv`, instala la API y configura los
+hooks Git. SQLite se crea en `var/followread.db` al conectarse o migrar.
 
 ## Seguridad y licencia
 

@@ -118,8 +118,10 @@ versión mínima y compatibilidad. El paquete se considera inmutable.
 
 ## Datos
 
-PostgreSQL conservará usuarios, roles, contenido, versiones, trabajos, auditoría y progreso remoto.
-S3 conservará objetos grandes. Reader mantendrá sólo un subconjunto local orientado a lectura.
+SQLite conservará en el MVP usuarios, roles, contenido, versiones, trabajos, auditoría y progreso
+remoto. S3 conservará objetos grandes. Reader mantendrá sólo un subconjunto local orientado a
+lectura. SQLAlchemy y Alembic mantendrán una frontera que permita migrar a PostgreSQL sin cambiar
+routers o dominio.
 
 ## Decisiones aplazadas
 
@@ -129,6 +131,7 @@ S3 conservará objetos grandes. Reader mantendrá sólo un subconjunto local ori
 - ORM o almacenamiento local de Reader;
 - entrega de objetos S3;
 - hosting y observabilidad.
+- momento y estrategia de migración de SQLite a PostgreSQL.
 
 Cada elección añadirá una dependencia sólo después de justificarla en una decisión.
 

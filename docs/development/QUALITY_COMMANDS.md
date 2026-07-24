@@ -8,15 +8,16 @@ pnpm check
 
 La puerta se detiene ante el primer error y ejecuta, en orden:
 
-1. Prettier para código y configuración JS/TS.
-2. Ruff format para Python.
-3. ESLint con reglas estrictas y tipadas.
-4. Ruff lint.
-5. TypeScript strict en aplicaciones y paquetes.
-6. mypy strict en API y pruebas.
-7. Vitest con cobertura para Admin y Reader.
-8. pytest con cobertura y advertencias como errores.
-9. builds de todas las aplicaciones y paquetes TypeScript.
+1. Validador estático de GitHub Actions.
+2. Prettier para código y configuración JS/TS.
+3. Ruff format para Python.
+4. ESLint con reglas estrictas y tipadas.
+5. Ruff lint.
+6. TypeScript strict en aplicaciones y paquetes.
+7. mypy strict en API y pruebas.
+8. Vitest con cobertura para Admin, Reader y configuración.
+9. pytest con SQLite/Alembic, cobertura y advertencias como errores.
+10. builds de todas las aplicaciones y paquetes TypeScript.
 
 ## Comandos parciales
 
@@ -27,9 +28,13 @@ La puerta se detiene ante el primer error y ejecuta, en orden:
 | Tipos | `pnpm typecheck` |
 | Pruebas y cobertura | `pnpm test` |
 | Builds | `pnpm build` |
+| Migrar SQLite | `pnpm migrate` |
+| Puerta rápida del hook | `pnpm check:fast` |
+| Verificar hooks | `pnpm hooks:verify` |
 
 `scripts/run-python.mjs` selecciona el ejecutable del entorno virtual en Windows o sistemas tipo Unix.
 Si el entorno no existe, falla con una instrucción explícita y no usa silenciosamente otro Python.
+El hook pre-commit ejecuta la puerta rápida y nunca modifica archivos automáticamente.
 
 ## Cobertura base
 
