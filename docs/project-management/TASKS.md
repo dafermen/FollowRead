@@ -67,7 +67,7 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | COMPLETED | Critical |
 | FR-PH03-TASK-010 | Exponer catálogo y contenido por API | COMPLETED | Critical |
 | FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | COMPLETED | High |
-| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | READY_FOR_REVIEW | Critical |
+| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | COMPLETED | Critical |
 
 ---
 
@@ -1191,7 +1191,7 @@ inesperados devuelven 500 genérico. Readiness consulta SQLite y liveness no lo 
 **Fase:** 3  
 **Descripción:** Revisar criterios, trazabilidad, migraciones, API y pruebas.  
 **Objetivo:** Autorizar autenticación sólo con una base backend estable.  
-**Estado:** READY_FOR_REVIEW  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-001 a 011.  
 **Archivos relacionados:** Todos los entregables de Fase 3.  
@@ -1203,5 +1203,5 @@ de logging quedaron resueltos antes de la auditoría.
 **Decisiones tomadas:** Los ocho criterios pasan; la tarea entra en `READY_FOR_REVIEW` antes del
 cierre obligatorio. Evidencia en `PHASE_3_REVIEW.md`.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Revisar la evidencia y cerrar tarea/fase si no aparece una discrepancia.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Preparar y activar las tareas de Fase 4.

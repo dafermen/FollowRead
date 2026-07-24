@@ -2,15 +2,15 @@
 
 **Última actualización:** 2026-07-24  
 **Fase activa:** Fase 3 - Modelado de datos y API base  
-**Estado de la fase:** READY_FOR_REVIEW  
-**Tarea activa:** FR-PH03-TASK-012 - Auditar y cerrar Fase 3  
-**Estado de la tarea:** READY_FOR_REVIEW
+**Estado de la fase:** COMPLETED  
+**Tarea activa:** Ninguna; siguiente paso: preparar Fase 4  
+**Estado de la tarea:** NOT_STARTED
 
 ## Resumen ejecutivo
 
-Fases 0, 1 y 2 están completadas y auditadas. Un clon limpio del commit `c348ca1` instaló
-dependencias, aplicó SQLite/Alembic y pasó la puerta completa. La Fase 3 está activa para convertir
-las 22 entidades iniciales del prompt en una base backend funcional y trazable.
+Fases 0, 1, 2 y 3 están completadas y auditadas. La Fase 3 materializó las 22 entidades iniciales,
+migraciones SQLite reversibles, repositorios, servicios, catálogo HTTP, errores seguros,
+observabilidad y OpenAPI verificable.
 
 ## Progreso
 
@@ -19,7 +19,7 @@ las 22 entidades iniciales del prompt en una base backend funcional y trazable.
 | Tareas de Fase 0 completadas | 12 de 12 |
 | Tareas de Fase 1 completadas | 8 de 8 |
 | Tareas de Fase 2 completadas | 11 de 11 |
-| Tareas de Fase 3 completadas | 11 de 12 |
+| Tareas de Fase 3 completadas | 12 de 12 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 12 |
@@ -33,7 +33,7 @@ las 22 entidades iniciales del prompt en una base backend funcional y trazable.
 |---|---|---|
 | FollowRead Admin | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
 | FollowRead Reader | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
-| FollowRead API | PHASE_3_READY_FOR_REVIEW | Ocho criterios de salida en PASS |
+| FollowRead API | PHASE_3_COMPLETED | Ocho criterios de salida en PASS |
 | Reader Engine | BASE_COMPILES | Paquete TypeScript sin React validado |
 | AWS / Polly / S3 | NOT_STARTED | Sólo arquitectura conceptual; sin integración |
 | Modo offline | NOT_STARTED | Estrategia de doble catálogo aceptada |
@@ -60,4 +60,4 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 ## Regla de continuación
 
 La siguiente sesión debe comenzar leyendo los archivos de gestión indicados por el prompt maestro y
-revisar `PHASE_3_REVIEW.md` y cerrar FR-PH03-TASK-012/Fase 3 si la evidencia permanece íntegra.
+preparar el desglose completo de Fase 4 antes de implementar autenticación o autorización.
