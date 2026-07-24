@@ -26,9 +26,17 @@ hay funcionalidad de producto implementada.
 - FastAPI para la API.
 - SQLite para persistencia del MVP; PostgreSQL queda como evolución futura.
 
-## Instalación
+## Instalación en Windows
 
-Con Node.js 24, pnpm 11 y Python 3.12 disponibles:
+1. Instala Node.js 24 y confirma `node --version`.
+2. Instala la versión de pnpm declarada por el proyecto:
+
+```powershell
+npm install --global pnpm@11.9.0
+```
+
+3. Cierra y abre PowerShell, y confirma `pnpm --version`. Debe responder `11.9.0`.
+4. Desde `C:\Projects\FollowRead`:
 
 ```powershell
 pnpm setup
@@ -38,6 +46,10 @@ pnpm check
 
 `pnpm setup` instala dependencias JavaScript, crea `apps/api/.venv`, instala la API y configura los
 hooks Git. SQLite se crea en `var/followread.db` al conectarse o migrar.
+
+Si PowerShell bloquea `pnpm.ps1`, usa `pnpm.cmd` en los comandos. Reader y Admin incluyen una
+página de ayuda en `/documentation`; la API ofrece su contrato interactivo en
+`http://localhost:8000/docs`.
 
 ## Seguridad y licencia
 
