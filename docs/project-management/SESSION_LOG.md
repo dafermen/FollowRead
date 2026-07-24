@@ -324,3 +324,17 @@ FR-PH03-TASK-006 y 007 quedaron `COMPLETED`; FR-PH03-TASK-008 quedó `IN_PROGRES
   y rollback al salir del contexto; la API conserva 100% de cobertura.
 
 FR-PH03-TASK-008 quedó `COMPLETED`; FR-PH03-TASK-009 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-24 - Servicios, validaciones y errores
+
+- Se implementó `CatalogService` mediante un protocolo de lectura desacoplado de SQLAlchemy.
+- El servicio valida límite 1..100, desplazamiento no negativo y slugs canónicos.
+- Se definieron códigos estables `catalog.invalid_query` y `content.not_found`.
+- El manejador global traduce errores de dominio a un contenedor JSON documentado sin exponer
+  detalles internos.
+- Las pruebas cubren entradas válidas e inválidas, contenido presente/ausente y estados HTTP
+  404/422; la API conserva 100% de cobertura.
+
+FR-PH03-TASK-009 quedó `COMPLETED`; FR-PH03-TASK-010 quedó `IN_PROGRESS`.

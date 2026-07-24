@@ -64,8 +64,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | COMPLETED | High |
 | FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | COMPLETED | Critical |
 | FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | COMPLETED | Critical |
-| FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | IN_PROGRESS | Critical |
-| FR-PH03-TASK-010 | Exponer catálogo y contenido por API | NOT_STARTED | Critical |
+| FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | COMPLETED | Critical |
+| FR-PH03-TASK-010 | Exponer catálogo y contenido por API | IN_PROGRESS | Critical |
 | FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | NOT_STARTED | High |
 | FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | NOT_STARTED | Critical |
 
@@ -1122,18 +1122,20 @@ commit/rollback. El catálogo exige publicación activa, estado `published`, che
 **Fase:** 3  
 **Descripción:** Aplicar invariantes mediante servicios y un contrato de error estándar.  
 **Objetivo:** Mantener reglas de negocio fuera de rutas y adaptadores.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-008.  
 **Archivos relacionados:** servicios, schemas y manejo de errores.  
 **Criterios de aceptación:** Errores estables, validación de estados y respuestas tipadas.  
 **Pruebas requeridas:** Reglas válidas/inválidas y traducción a HTTP.  
 **Documentación requerida:** Catálogo de errores.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** FastAPI tipa el manejador global contra `Exception`; el adaptador hace
+un cast controlado después de registrarse exclusivamente para `DomainError`.  
+**Decisiones tomadas:** Los códigos `catalog.invalid_query` y `content.not_found` son estables;
+mensajes y detalles son seguros. El servicio valida límites y slugs antes de consultar persistencia.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar validaciones de catálogo y contrato estable de errores.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-010.
 
 ---
 
@@ -1143,7 +1145,7 @@ commit/rollback. El catálogo exige publicación activa, estado `published`, che
 **Fase:** 3  
 **Descripción:** Crear el primer corte HTTP para listar y consultar contenido publicado.  
 **Objetivo:** Demostrar persistencia-servicio-API sin adelantar Admin ni autenticación.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-009.  
 **Archivos relacionados:** rutas, schemas, servicios y pruebas de integración.  
@@ -1152,9 +1154,9 @@ commit/rollback. El catálogo exige publicación activa, estado `published`, che
 **Documentación requerida:** OpenAPI y README API.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar servicios.
+**Siguiente acción:** Crear schemas y rutas públicas de catálogo/detalle.
 
 ---
 

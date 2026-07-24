@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH03-TASK-009 - Implementar servicios, validaciones y errores**
+**FR-PH03-TASK-010 - Exponer catálogo y contenido por API**
 
 ### Objetivo de la próxima sesión
 
-Aplicar invariantes del catálogo mediante servicios tipados y errores estables.
+Crear el primer contrato HTTP del catálogo público sobre servicios y repositorios.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Definir jerarquía de errores de dominio y códigos estables.
-3. Validar límites de paginación y filtros.
-4. Implementar servicio de catálogo independiente de HTTP.
-5. Probar entradas válidas, inválidas y contenido inexistente.
-6. Completar FR-PH03-TASK-009 e iniciar rutas HTTP.
+2. Crear schemas de lista, resumen y detalle editorial.
+3. Inyectar sesión/repositorio/servicio sin commits en rutas.
+4. Exponer lista paginada con filtros y detalle por slug.
+5. Probar 200, 404, 422, filtros y exclusión de borradores.
+6. Completar FR-PH03-TASK-010 e iniciar observabilidad.
 
 ## No hacer todavía
 
