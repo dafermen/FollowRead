@@ -1,10 +1,10 @@
 # Estado del proyecto FollowRead
 
 **Última actualización:** 2026-07-24  
-**Fase activa:** Fase 3 - Modelado de datos y API base  
-**Estado de la fase:** COMPLETED  
-**Tarea activa:** Ninguna; siguiente paso: preparar Fase 4  
-**Estado de la tarea:** NOT_STARTED
+**Fase activa:** Fase 4 - Autenticación y autorización  
+**Estado de la fase:** IN_PROGRESS  
+**Tarea activa:** FR-PH04-TASK-002 - Modelar credenciales y sesiones revocables  
+**Estado de la tarea:** IN_PROGRESS
 
 ## Resumen ejecutivo
 
@@ -20,9 +20,10 @@ observabilidad y OpenAPI verificable.
 | Tareas de Fase 1 completadas | 8 de 8 |
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 12 de 12 |
-| Tareas en progreso | 0 |
+| Tareas de Fase 4 completadas | 1 de 10 |
+| Tareas en progreso | 1 |
 | Tareas bloqueadas | 0 |
-| Decisiones aceptadas | 12 |
+| Decisiones aceptadas | 13 |
 | Decisiones abiertas | 1 |
 | Riesgos abiertos | 8 |
 | Problemas conocidos abiertos | 0 |
@@ -60,4 +61,4 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 ## Regla de continuación
 
 La siguiente sesión debe comenzar leyendo los archivos de gestión indicados por el prompt maestro y
-preparar el desglose completo de Fase 4 antes de implementar autenticación o autorización.
+continuar FR-PH04-TASK-002 con modelos y migración reversible de credenciales/sesiones.

@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**Preparar Fase 4 - Autenticación y autorización**
+**FR-PH04-TASK-002 - Modelar credenciales y sesiones revocables**
 
 ### Objetivo de la próxima sesión
 
-Descomponer la siguiente fase con límites de seguridad, pruebas y dependencias explícitas.
+Materializar FR-DEC-014 sin implementar todavía login ni cookies.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Revisar requisitos de identidad, sesiones, RBAC, privacidad y amenazas.
-3. Definir criterios de salida y tareas de Fase 4.
-4. Resolver decisiones de credenciales, sesión, recuperación y bootstrap administrativo.
-5. Activar únicamente la primera tarea sin adelantar endpoints.
-6. Implementar sólo después de validar el diseño de seguridad.
+2. Añadir `UserCredential` uno a uno con `User`.
+3. Añadir `UserSession` con hash único, expiración y revocación.
+4. Crear y revisar la migración Alembic.
+5. Probar integridad, expiración lógica y downgrade/upgrade.
+6. Completar tarea e iniciar primitivas criptográficas.
 
 ## No hacer todavía
 

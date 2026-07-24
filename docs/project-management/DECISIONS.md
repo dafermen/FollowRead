@@ -133,6 +133,25 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
   evitan extensiones específicas de SQLite cuando impidan portabilidad; una migración futura a
   PostgreSQL exige decisión, exportación/importación y pruebas de integridad.
 
+### FR-DEC-014 - Sesiones opacas revocables para el Admin MVP
+
+- **Fecha:** 2026-07-24
+- **Estado:** ACCEPTED
+- **Decisión:** Las cuentas adultas/editoriales usan contraseña con Argon2id y sesiones opacas
+  aleatorias. La API persiste sólo el hash del token y lo entrega en cookie host-only `HttpOnly`,
+  `SameSite=Strict` y `Secure` en producción. No se guardan JWT, refresh tokens ni credenciales en
+  `localStorage`/`sessionStorage`.
+- **Protecciones:** expiración inactiva de 30 minutos, absoluta de 8 horas, revocación en logout,
+  rotación al autenticar/cambiar privilegios, `Cache-Control: no-store`, verificación CSRF y origen
+  para métodos inseguros, mensajes que no enumeran cuentas y límites de intentos.
+- **Alcance:** recuperación de contraseña y cuentas de menores permanecen fuera del MVP. El primer
+  superadministrador se crea mediante comando local explícito, nunca mediante credenciales seed.
+- **Razón:** simplifica revocación y evita credenciales accesibles a JavaScript. Sigue las guías
+  actuales de OWASP para Argon2id, cookies de sesión y CSRF.
+- **Referencias:** [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html),
+  [Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html),
+  [CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
+
 ## Decisiones abiertas
 
 ### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio

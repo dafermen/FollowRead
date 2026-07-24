@@ -388,3 +388,14 @@ confirmó la transición obligatoria `IN_PROGRESS -> READY_FOR_REVIEW -> COMPLET
 
 FR-PH03-TASK-012 quedó `COMPLETED` y la Fase 3 quedó cerrada. El siguiente paso es preparar y
 activar el desglose de Fase 4 antes de implementar autenticación o autorización.
+
+---
+
+## Continuación 2026-07-24 - Preparación de Fase 4
+
+Se contrastó la estrategia con guías actuales de OWASP. FR-DEC-014 selecciona contraseña Argon2id y
+sesión opaca revocable en cookie HttpOnly, sin JWT ni almacenamiento web de credenciales. También
+fija TTL, CSRF/origen, no-store, bootstrap local y exclusión de recuperación/cuentas infantiles.
+
+Se definieron 10 tareas y ocho criterios de salida. FR-PH04-TASK-001 quedó `COMPLETED`;
+FR-PH04-TASK-002 quedó `IN_PROGRESS` para modelar credenciales y sesiones antes de endpoints.

@@ -146,3 +146,21 @@ Fase 3 cerrada el 2026-07-24. Evidencia: `PHASE_3_REVIEW.md`.
 Cada fase posterior deberá definir, antes de comenzar, tareas completas con dependencias, archivos,
 pruebas y criterios de aceptación. La descripción detallada de actividades del prompt maestro se
 considera la fuente mínima; `TASKS.md` se ampliará al preparar cada fase.
+
+## Fase activa: Fase 4
+
+### Objetivo
+
+Implementar autenticación adulta/editorial, sesiones revocables y autorización RBAC de servidor sin
+crear cuentas infantiles ni ampliar recuperación de contraseña.
+
+### Criterios de salida
+
+1. Contraseñas usan Argon2id y nunca se almacenan o registran en claro.
+2. Sesiones opacas se pueden crear, expirar, rotar y revocar.
+3. Cookies, CSRF, origen, caché y CORS protegen el flujo web.
+4. Login, logout y sesión actual tienen contrato seguro y no enumeran cuentas.
+5. Cada acción protegida niega por defecto y exige permisos explícitos.
+6. Bootstrap administrativo no incluye credenciales predeterminadas.
+7. Auditoría y limitación de intentos cubren éxitos y fallos sin secretos.
+8. Pruebas positivas/negativas, OpenAPI y puerta completa pasan sobre SQLite.

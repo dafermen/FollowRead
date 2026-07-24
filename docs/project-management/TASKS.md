@@ -69,6 +69,21 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | COMPLETED | High |
 | FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | COMPLETED | Critical |
 
+## Resumen de Fase 4
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH04-TASK-001 | Diseñar identidad, sesión y controles web | COMPLETED | Critical |
+| FR-PH04-TASK-002 | Modelar credenciales y sesiones revocables | IN_PROGRESS | Critical |
+| FR-PH04-TASK-003 | Implementar primitivas de contraseña y token | NOT_STARTED | Critical |
+| FR-PH04-TASK-004 | Crear bootstrap seguro de superadministrador | NOT_STARTED | Critical |
+| FR-PH04-TASK-005 | Exponer login, logout y sesión actual | NOT_STARTED | Critical |
+| FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | NOT_STARTED | Critical |
+| FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | NOT_STARTED | Critical |
+| FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | NOT_STARTED | High |
+| FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | NOT_STARTED | Critical |
+| FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | NOT_STARTED | Critical |
+
 ---
 
 ## FR-PH00-TASK-001
@@ -1205,3 +1220,140 @@ cierre obligatorio. Evidencia en `PHASE_3_REVIEW.md`.
 **Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** 2026-07-24  
 **Siguiente acción:** Preparar y activar las tareas de Fase 4.
+
+---
+
+## FR-PH04-TASK-001
+
+**Título:** Diseñar identidad, sesión y controles web  
+**Fase:** 4  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fase 3 COMPLETED.  
+**Criterios de aceptación:** Tecnología, TTL, almacenamiento, cookie, CSRF y límites MVP decididos.  
+**Pruebas requeridas:** Revisión contra FR-THREAT-001/006/007 y FR-AC-018/021.  
+**Documentación requerida:** FR-DEC-014 y criterios de salida de Fase 4.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH04-TASK-002.
+
+---
+
+## FR-PH04-TASK-002
+
+**Título:** Modelar credenciales y sesiones revocables  
+**Fase:** 4  
+**Estado:** IN_PROGRESS  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-001.  
+**Criterios de aceptación:** Hash de contraseña separado; token sólo hasheado; expiración,
+revocación y metadatos mínimos con índices/restricciones.  
+**Pruebas requeridas:** Migración reversible, unicidad, expiración y revocación.  
+**Documentación requerida:** Actualizar modelo y política de retención.  
+**Fecha de inicio:** 2026-07-24  
+**Fecha de finalización:** —  
+**Siguiente acción:** Diseñar modelos `UserCredential` y `UserSession`.
+
+---
+
+## FR-PH04-TASK-003
+
+**Título:** Implementar primitivas de contraseña y token  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-002.  
+**Criterios de aceptación:** Argon2id verificable/actualizable y token aleatorio hasheado.  
+**Pruebas requeridas:** Hash, rechazo, rehash, entropía y comparación segura.  
+**Siguiente acción:** Esperar modelos.
+
+---
+
+## FR-PH04-TASK-004
+
+**Título:** Crear bootstrap seguro de superadministrador  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-003.  
+**Criterios de aceptación:** Comando local idempotente, entrada no registrada y sin contraseña seed.  
+**Pruebas requeridas:** Creación, duplicado y entrada inválida.  
+**Siguiente acción:** Esperar primitivas.
+
+---
+
+## FR-PH04-TASK-005
+
+**Título:** Exponer login, logout y sesión actual  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-003 y 004.  
+**Criterios de aceptación:** Contratos seguros, expiración/revocación y mensajes no enumerables.  
+**Pruebas requeridas:** Éxito, credencial inválida, expirada, logout y repetición.  
+**Siguiente acción:** Esperar bootstrap.
+
+---
+
+## FR-PH04-TASK-006
+
+**Título:** Aplicar cookie, CSRF, origen, caché y CORS  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-005.  
+**Criterios de aceptación:** Atributos por entorno, no-store y rechazo cross-site en cambios.  
+**Pruebas requeridas:** Headers, origen válido/inválido, CSRF ausente y preflight.  
+**Siguiente acción:** Esperar endpoints.
+
+---
+
+## FR-PH04-TASK-007
+
+**Título:** Aplicar autorización RBAC por permiso  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-005.  
+**Criterios de aceptación:** Dependencias deny-by-default y permisos explícitos por acción.  
+**Pruebas requeridas:** Matriz positiva/negativa, sesión revocada y usuario inactivo.  
+**Siguiente acción:** Esperar sesión actual.
+
+---
+
+## FR-PH04-TASK-008
+
+**Título:** Añadir auditoría y límite de intentos  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH04-TASK-005 y 007.  
+**Criterios de aceptación:** Éxitos/fallos auditados sin secretos y abuso temporalmente limitado.  
+**Pruebas requeridas:** Ventana, recuperación, correlación y redacción.  
+**Siguiente acción:** Esperar flujos protegidos.
+
+---
+
+## FR-PH04-TASK-009
+
+**Título:** Verificar seguridad, OpenAPI y documentación  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-002 a 008.  
+**Criterios de aceptación:** FR-AC-018/021, amenazas, contratos y guías cubiertos.  
+**Pruebas requeridas:** Suite de seguridad y puerta completa.  
+**Siguiente acción:** Esperar implementación.
+
+---
+
+## FR-PH04-TASK-010
+
+**Título:** Auditar y cerrar Fase 4  
+**Fase:** 4  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH04-TASK-001 a 009.  
+**Criterios de aceptación:** Ocho criterios pasan y la tarea usa READY_FOR_REVIEW.  
+**Pruebas requeridas:** Auditoría desde SQLite vacía y sesión hostil.  
+**Siguiente acción:** Esperar todas las tareas.
