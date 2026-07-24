@@ -66,8 +66,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | COMPLETED | Critical |
 | FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | COMPLETED | Critical |
 | FR-PH03-TASK-010 | Exponer catálogo y contenido por API | COMPLETED | Critical |
-| FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | IN_PROGRESS | High |
-| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | NOT_STARTED | Critical |
+| FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | COMPLETED | High |
+| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | IN_PROGRESS | Critical |
 
 ---
 
@@ -1168,18 +1168,20 @@ expone el árbol editorial. Las rutas son de sólo lectura y no confirman transa
 **Fase:** 3  
 **Descripción:** Completar observabilidad base y contratos operativos.  
 **Objetivo:** Distinguir vida/disponibilidad y diagnosticar sin filtrar datos sensibles.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-010.  
 **Archivos relacionados:** configuración, middleware, rutas health y OpenAPI.  
 **Criterios de aceptación:** Logs estructurados, readiness de SQLite y esquema OpenAPI comprobado.  
 **Pruebas requeridas:** Vida, readiness, request ID, error y esquema.  
 **Documentación requerida:** Operación y troubleshooting.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** La captura de logging compartida entre varias instancias de la app era
+frágil en la suite; la prueba verifica el evento emitido y prueba el formatter JSON por separado.  
+**Decisiones tomadas:** Request ID seguro de hasta 64 caracteres; logs sin query/cuerpo; errores
+inesperados devuelven 500 genérico. Readiness consulta SQLite y liveness no lo hace.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Añadir request ID, logging JSON, readiness y pruebas de OpenAPI.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-012.
 
 ---
 
@@ -1189,7 +1191,7 @@ expone el árbol editorial. Las rutas son de sólo lectura y no confirman transa
 **Fase:** 3  
 **Descripción:** Revisar criterios, trazabilidad, migraciones, API y pruebas.  
 **Objetivo:** Autorizar autenticación sólo con una base backend estable.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-001 a 011.  
 **Archivos relacionados:** Todos los entregables de Fase 3.  
@@ -1198,6 +1200,6 @@ expone el árbol editorial. Las rutas son de sólo lectura y no confirman transa
 **Documentación requerida:** Revisión de fase y actualización de gestión.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes del cierre.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar todas las tareas de Fase 3.
+**Siguiente acción:** Ejecutar auditoría completa desde SQLite vacía.

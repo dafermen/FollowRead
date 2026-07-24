@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH03-TASK-011 - Añadir logging, readiness y OpenAPI verificable**
+**FR-PH03-TASK-012 - Auditar y cerrar Fase 3**
 
 ### Objetivo de la próxima sesión
 
-Completar la base operativa de la API y verificar su contrato generado.
+Comprobar todos los criterios de salida y cerrar formalmente la Fase 3.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Añadir identificador de solicitud y logs JSON seguros.
-3. Exponer readiness separado de liveness y comprobar SQLite.
-4. Verificar rutas, schemas y errores en OpenAPI.
-5. Probar éxito, fallo y propagación de request ID.
-6. Completar FR-PH03-TASK-011 e iniciar auditoría de fase.
+2. Crear una base SQLite vacía y aplicar todas las migraciones.
+3. Ejecutar la puerta completa y comprobar una sola cabeza Alembic.
+4. Revisar modelo, integridad, repositorios, API, errores, logs y OpenAPI.
+5. Registrar evidencia y pasar la tarea a `READY_FOR_REVIEW`.
+6. Completar la tarea/fase sólo si los ocho criterios de salida pasan.
 
 ## No hacer todavía
 

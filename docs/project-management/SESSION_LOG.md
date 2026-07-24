@@ -352,3 +352,16 @@ FR-PH03-TASK-009 quedó `COMPLETED`; FR-PH03-TASK-010 quedó `IN_PROGRESS`.
 - La API pasó 39 pruebas y mantiene 100% de cobertura.
 
 FR-PH03-TASK-010 quedó `COMPLETED`; FR-PH03-TASK-011 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-24 - Observabilidad, readiness y OpenAPI
+
+- Se separó liveness (`/health`) de readiness (`/ready`) con una consulta real a SQLite.
+- Cada respuesta incorpora `X-Request-ID`; valores entrantes inválidos se reemplazan.
+- Los eventos de solicitud se emiten en JSON sin query, cuerpos ni secretos.
+- Fallos inesperados se registran con correlación y devuelven un 500 genérico.
+- OpenAPI verifica rutas operativas, catálogo, detalle y schemas 404/503.
+- Las pruebas cubren éxito/fallo de SQLite, logs, request ID, 500 seguro y contrato OpenAPI.
+
+FR-PH03-TASK-011 quedó `COMPLETED`; FR-PH03-TASK-012 quedó `IN_PROGRESS`.
