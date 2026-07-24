@@ -2,20 +2,20 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH03-TASK-010 - Exponer catálogo y contenido por API**
+**FR-PH03-TASK-011 - Añadir logging, readiness y OpenAPI verificable**
 
 ### Objetivo de la próxima sesión
 
-Crear el primer contrato HTTP del catálogo público sobre servicios y repositorios.
+Completar la base operativa de la API y verificar su contrato generado.
 
 ### Orden de trabajo
 
 1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Crear schemas de lista, resumen y detalle editorial.
-3. Inyectar sesión/repositorio/servicio sin commits en rutas.
-4. Exponer lista paginada con filtros y detalle por slug.
-5. Probar 200, 404, 422, filtros y exclusión de borradores.
-6. Completar FR-PH03-TASK-010 e iniciar observabilidad.
+2. Añadir identificador de solicitud y logs JSON seguros.
+3. Exponer readiness separado de liveness y comprobar SQLite.
+4. Verificar rutas, schemas y errores en OpenAPI.
+5. Probar éxito, fallo y propagación de request ID.
+6. Completar FR-PH03-TASK-011 e iniciar auditoría de fase.
 
 ## No hacer todavía
 

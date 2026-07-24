@@ -65,8 +65,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | COMPLETED | Critical |
 | FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | COMPLETED | Critical |
 | FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | COMPLETED | Critical |
-| FR-PH03-TASK-010 | Exponer catálogo y contenido por API | IN_PROGRESS | Critical |
-| FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | NOT_STARTED | High |
+| FR-PH03-TASK-010 | Exponer catálogo y contenido por API | COMPLETED | Critical |
+| FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | IN_PROGRESS | High |
 | FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | NOT_STARTED | Critical |
 
 ---
@@ -1145,18 +1145,20 @@ mensajes y detalles son seguros. El servicio valida límites y slugs antes de co
 **Fase:** 3  
 **Descripción:** Crear el primer corte HTTP para listar y consultar contenido publicado.  
 **Objetivo:** Demostrar persistencia-servicio-API sin adelantar Admin ni autenticación.  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH03-TASK-009.  
 **Archivos relacionados:** rutas, schemas, servicios y pruebas de integración.  
 **Criterios de aceptación:** Lista paginada y detalle sólo exponen publicaciones válidas.  
 **Pruebas requeridas:** 200, 404, paginación, filtros y contenido no publicado.  
 **Documentación requerida:** OpenAPI y README API.  
-**Problemas encontrados:** Ninguno al planificar.  
-**Decisiones tomadas:** Pendientes de implementación.  
+**Problemas encontrados:** SQLite en memoria creaba conexiones aisladas cuando FastAPI ejecutaba
+rutas síncronas en otro hilo; la fábrica ahora usa `StaticPool` sólo para bases en memoria.  
+**Decisiones tomadas:** `GET /catalog` expone resumen paginado y filtros; `GET /catalog/{slug}`
+expone el árbol editorial. Las rutas son de sólo lectura y no confirman transacciones.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Crear schemas y rutas públicas de catálogo/detalle.
+**Fecha de finalización:** 2026-07-24  
+**Siguiente acción:** Ejecutar FR-PH03-TASK-011.
 
 ---
 
@@ -1166,7 +1168,7 @@ mensajes y detalles son seguros. El servicio valida límites y slugs antes de co
 **Fase:** 3  
 **Descripción:** Completar observabilidad base y contratos operativos.  
 **Objetivo:** Distinguir vida/disponibilidad y diagnosticar sin filtrar datos sensibles.  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** High  
 **Dependencias:** FR-PH03-TASK-010.  
 **Archivos relacionados:** configuración, middleware, rutas health y OpenAPI.  
@@ -1175,9 +1177,9 @@ mensajes y detalles son seguros. El servicio valida límites y slugs antes de co
 **Documentación requerida:** Operación y troubleshooting.  
 **Problemas encontrados:** Ninguno al planificar.  
 **Decisiones tomadas:** Pendientes de implementación.  
-**Fecha de inicio:** —  
+**Fecha de inicio:** 2026-07-24  
 **Fecha de finalización:** —  
-**Siguiente acción:** Esperar API.
+**Siguiente acción:** Añadir request ID, logging JSON, readiness y pruebas de OpenAPI.
 
 ---
 

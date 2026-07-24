@@ -6,6 +6,7 @@ from typing import cast
 from sqlalchemy import Engine, create_engine, event, text
 from sqlalchemy.engine import URL, make_url
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.pool import StaticPool
 
 from followread_api.config import get_settings
 
@@ -30,7 +31,12 @@ def resolve_sqlite_url(database_url: str) -> URL:
 
 def create_database_engine(database_url: str) -> Engine:
     url = resolve_sqlite_url(database_url)
-    engine = create_engine(url, connect_args={"check_same_thread": False})
+    engine_options: dict[str, object] = {
+        "connect_args": {"check_same_thread": False},
+    }
+    if url.database in (None, "", ":memory:"):
+        engine_options["poolclass"] = StaticPool
+    engine = create_engine(url, **engine_options)
 
     @event.listens_for(engine, "connect")
     def enable_foreign_keys(dbapi_connection: object, _: object) -> None:

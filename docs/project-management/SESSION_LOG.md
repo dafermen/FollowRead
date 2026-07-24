@@ -338,3 +338,17 @@ FR-PH03-TASK-008 quedó `COMPLETED`; FR-PH03-TASK-009 quedó `IN_PROGRESS`.
   404/422; la API conserva 100% de cobertura.
 
 FR-PH03-TASK-009 quedó `COMPLETED`; FR-PH03-TASK-010 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-24 - API pública de catálogo
+
+- Se añadieron schemas tipados para resumen, paginación, traducciones, capítulos y párrafos.
+- `GET /catalog` admite filtros por idioma, tipo, audiencia, nivel y categoría.
+- `GET /catalog/{slug}` devuelve el árbol editorial publicado o un 404 estable.
+- La integración excluye borradores y comprueba 200, 404 y 422.
+- Las pruebas detectaron aislamiento de SQLite `:memory:` entre hilos; `StaticPool` lo corrige sin
+  alterar bases SQLite de archivo.
+- La API pasó 39 pruebas y mantiene 100% de cobertura.
+
+FR-PH03-TASK-010 quedó `COMPLETED`; FR-PH03-TASK-011 quedó `IN_PROGRESS`.
