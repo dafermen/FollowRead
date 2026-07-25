@@ -504,3 +504,16 @@ FR-PH05-TASK-003 quedó `COMPLETED`; FR-PH05-TASK-004 quedó `IN_PROGRESS`.
 - La puerta integral pasó con 81 pruebas Python, ocho pruebas web y cobertura configurada en 100%.
 
 FR-PH05-TASK-004 quedó `COMPLETED`; FR-PH05-TASK-005 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Catálogo editorial conectado
+
+- Se añadió una lista administrativa protegida con búsqueda, estado, tipo, orden y paginación.
+- Cada resultado usa la versión editorial más reciente y muestra título, audiencia e idiomas.
+- La API calcula acciones visibles de edición, procesamiento, revisión y publicación por permiso.
+- La pantalla conserva datos de demostración interactivos cuando no existe una sesión local.
+- Se incorporaron estados de carga, error y catálogo vacío en composiciones desktop y compactas.
+- La puerta pasó con 83 pruebas Python, nueve pruebas web, cobertura 100% y todos los builds.
+
+FR-PH05-TASK-005 quedó `COMPLETED`; FR-PH05-TASK-006 quedó `IN_PROGRESS`.

@@ -153,3 +153,39 @@ def test_admin_dashboard_requires_access_and_returns_an_empty_summary() -> None:
             engine.dispose()
 
     asyncio.run(exercise())
+
+
+def test_admin_content_requires_access_and_validates_pagination() -> None:
+    async def exercise() -> None:
+        client, engine = build_admin_client()
+        try:
+            async with client:
+                unauthenticated = await client.get("/admin/content")
+                assert unauthenticated.status_code == 401
+
+                await login(client, "admin@example.com")
+                response = await client.get(
+                    "/admin/content",
+                    params={
+                        "search": "story",
+                        "status": "draft",
+                        "content_type": "story",
+                        "sort": "title",
+                        "limit": 5,
+                        "offset": 0,
+                    },
+                )
+                assert response.status_code == 200
+                assert response.json() == {
+                    "items": [],
+                    "total": 0,
+                    "limit": 5,
+                    "offset": 0,
+                }
+
+                invalid = await client.get("/admin/content", params={"limit": 0})
+                assert invalid.status_code == 422
+        finally:
+            engine.dispose()
+
+    asyncio.run(exercise())

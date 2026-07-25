@@ -11,7 +11,7 @@ const authenticatedSession = {
     email: "editor@example.com",
     display_name: "Daniela Editora",
     roles: ["editor"],
-    permissions: ["admin.access", "content.read", "content.write"],
+    permissions: ["admin.access", "content.create", "content.edit"],
   },
 };
 
@@ -73,6 +73,57 @@ describe("FollowRead Admin", () => {
     });
 
     expect(screen.getByRole("heading", { level: 1, name: "Contenidos" })).toBeInTheDocument();
+  });
+
+  it("loads and filters the authenticated editorial catalog", async () => {
+    window.history.pushState({}, "", "/content");
+    const catalogResponse = {
+      items: [
+        {
+          id: "content-1",
+          slug: "aventura-real",
+          title: "Una aventura real",
+          content_type: "story",
+          audience: "children",
+          languages: ["es", "en"],
+          version: 2,
+          status: "draft",
+          updated_at: new Date().toISOString(),
+          actions: ["view", "edit"],
+        },
+      ],
+      total: 1,
+      limit: 8,
+      offset: 0,
+    };
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: vi.fn().mockResolvedValue(authenticatedSession),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: vi.fn().mockResolvedValue(catalogResponse),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: vi.fn().mockResolvedValue({ ...catalogResponse, items: [], total: 0 }),
+      });
+    vi.stubGlobal("fetch", fetchMock);
+    render(<App />);
+
+    expect(await screen.findByText("Una aventura real")).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("searchbox", { name: "Buscar contenido" }), {
+      target: { value: "inexistente" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Buscar" }));
+
+    expect(await screen.findByText("No encontramos contenidos")).toBeInTheDocument();
+    expect(String(fetchMock.mock.calls[2]?.[0])).toContain("search=inexistente");
   });
 
   it("keeps pnpm setup and one-command startup in the embedded documentation", () => {

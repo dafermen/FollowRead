@@ -996,6 +996,46 @@ select:focus-visible {
   background: #f7f8fa;
 }
 
+.catalog-action {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.catalog-action span {
+  margin-left: 0.2rem;
+}
+
+.catalog-empty {
+  display: grid;
+  min-height: 220px;
+  padding: 2rem;
+  place-items: center;
+  align-content: center;
+  color: #7c8798;
+  text-align: center;
+}
+
+.catalog-empty > span {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  border-radius: 1rem;
+  place-items: center;
+  color: var(--primary);
+  background: var(--primary-soft);
+  font-size: 1.5rem;
+}
+
+.catalog-empty strong {
+  color: #344054;
+}
+
+.catalog-empty p {
+  margin: 0.35rem 0 0;
+  font-size: 0.76rem;
+}
+
 /* Login */
 
 .login-page {

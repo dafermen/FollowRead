@@ -3,7 +3,7 @@
 **Última actualización:** 2026-07-25  
 **Fase activa:** Fase 5 - FollowRead Admin  
 **Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH05-TASK-005 - Implementar lista y filtros de contenido  
+**Tarea activa:** FR-PH05-TASK-006 - Implementar creación y metadatos de contenido  
 **Estado de la tarea:** IN_PROGRESS
 
 ## Resumen ejecutivo
@@ -12,7 +12,8 @@ Fases 0 a 4 están completadas y auditadas. La Fase 5 está activa con desglose 
 visual aplicado y un primer corte navegable de Login, Dashboard y Contenidos. El acceso ya crea,
 restaura y cierra sesiones reales, aplica permisos a la navegación y conserva una vista previa local
 identificada. El Dashboard autenticado ya obtiene métricas, prioridades, contenido reciente y
-actividad desde SQLite; falta conectar el catálogo de Contenidos a datos reales.
+actividad desde SQLite. El catálogo autenticado ya consulta contenido real con búsqueda, filtros,
+orden y paginación; la siguiente capacidad es crear borradores.
 
 ## Progreso
 
@@ -23,7 +24,7 @@ actividad desde SQLite; falta conectar el catálogo de Contenidos a datos reales
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 12 de 12 |
 | Tareas de Fase 4 completadas | 10 de 10 |
-| Tareas de Fase 5 completadas | 4 de 12 |
+| Tareas de Fase 5 completadas | 5 de 12 |
 | Tareas en progreso | 1 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
@@ -35,7 +36,7 @@ actividad desde SQLite; falta conectar el catálogo de Contenidos a datos reales
 
 | Área | Estado | Observación |
 |---|---|---|
-| FollowRead Admin | PHASE_5_IN_PROGRESS | Login y Dashboard reales; catálogo visual responsive |
+| FollowRead Admin | PHASE_5_IN_PROGRESS | Login, Dashboard y catálogo real responsive |
 | FollowRead Reader | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
 | FollowRead API | PHASE_4_COMPLETED | Ocho criterios de salida en PASS |
 | Reader Engine | BASE_COMPILES | Paquete TypeScript sin React validado |
@@ -51,8 +52,9 @@ actividad desde SQLite; falta conectar el catálogo de Contenidos a datos reales
 - login, restauración y logout conectados a la API sin persistir tokens en almacenamiento web;
 - navegación filtrada por permisos recibidos del servidor;
 - resumen editorial protegido con métricas, atención, contenido reciente y auditoría desde SQLite;
+- catálogo editorial protegido con búsqueda, filtros, orden, paginación y acciones por permiso;
 - documentación integrada conservada y rediseñada;
-- ocho pruebas web, 81 pruebas API y cobertura configurada en 100%.
+- nueve pruebas web, 83 pruebas API y cobertura configurada en 100%.
 
 ## Bloqueadores
 
@@ -61,6 +63,6 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 
 ## Regla de continuación
 
-Continuar FR-PH05-TASK-005: exponer y consumir la lista administrativa paginada con búsqueda,
-filtros de estado y acciones según permiso. Conservar estados vacío, carga y error, y mantener la
-vista previa identificada cuando no exista una sesión local.
+Continuar FR-PH05-TASK-006: crear el formulario visual y el contrato autorizado para registrar un
+borrador con tipo, audiencia, nivel e idiomas. Validar campos, duplicados, permisos y recuperación
+ante errores sin perder la información introducida.

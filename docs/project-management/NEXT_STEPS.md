@@ -2,18 +2,18 @@
 
 ## Siguiente tarea exacta
 
-**Completar FR-PH05-TASK-005 - Lista y filtros de contenido**
+**Completar FR-PH05-TASK-006 - Creación y metadatos de contenido**
 
 ### Objetivo de la próxima sesión
 
-Conectar el catálogo visual a una lista administrativa autorizada y paginada.
+Permitir crear un borrador editorial completo desde el panel visual.
 
 ### Orden de trabajo
 
-1. Exponer búsqueda, paginación y filtros editoriales desde la API administrativa.
-2. Consumir la lista real desde Contenidos conservando el diseño responsive.
-3. Mostrar acciones disponibles según permisos y estado.
-4. Probar resultados, vacío, filtros combinados, permiso parcial y recuperación.
+1. Diseñar el formulario de tipo, título, slug, audiencia, nivel e idiomas.
+2. Exponer una creación administrativa protegida por `content.create`.
+3. Validar duplicados y entradas incompletas sin perder el formulario.
+4. Probar creación, validación, permiso, error y retorno al catálogo.
 
 ## No hacer todavía
 

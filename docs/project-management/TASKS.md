@@ -92,8 +92,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH05-TASK-002 | Crear shell y fundamentos visuales de Admin | COMPLETED | Critical |
 | FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | COMPLETED | Critical |
 | FR-PH05-TASK-004 | Implementar Dashboard editorial | COMPLETED | High |
-| FR-PH05-TASK-005 | Implementar lista y filtros de contenido | IN_PROGRESS | Critical |
-| FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | NOT_STARTED | Critical |
+| FR-PH05-TASK-005 | Implementar lista y filtros de contenido | COMPLETED | Critical |
+| FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | IN_PROGRESS | Critical |
 | FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | NOT_STARTED | Critical |
 | FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | NOT_STARTED | High |
 | FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | NOT_STARTED | High |
@@ -1457,13 +1457,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar lista y filtros de contenido  
 **Fase:** 5  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-003.  
 **Criterios de aceptación:** Catálogo paginado, búsqueda, filtros y acciones según permiso.  
 **Pruebas requeridas:** Resultados, vacío, combinación de filtros, error y representación compacta.  
 **Fecha de inicio:** 2026-07-25  
-**Siguiente acción:** Definir y consumir el contrato de lista editorial.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; implementar creación de borradores.
 
 ---
 
@@ -1471,11 +1472,13 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar creación y metadatos de contenido  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-005.  
 **Criterios de aceptación:** Crear borrador con tipo, idiomas, audiencia, nivel y categorías válidos.  
 **Pruebas requeridas:** Creación, validación, duplicado, permiso y error recuperable.  
+**Fecha de inicio:** 2026-07-25  
+**Siguiente acción:** Diseñar y conectar el formulario de metadatos.
 
 ---
 

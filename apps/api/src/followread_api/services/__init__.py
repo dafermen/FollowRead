@@ -19,6 +19,11 @@ from followread_api.services.bootstrap import (
 )
 from followread_api.services.catalog import CatalogReader, CatalogService
 from followread_api.services.dashboard import DashboardService, DashboardSummary
+from followread_api.services.editorial_catalog import (
+    EditorialCatalogFilters,
+    EditorialCatalogPage,
+    EditorialCatalogService,
+)
 from followread_api.services.errors import (
     AuthenticationRequiredError,
     ContentNotFoundError,
@@ -46,6 +51,9 @@ __all__ = [
     "DashboardService",
     "DashboardSummary",
     "DomainError",
+    "EditorialCatalogFilters",
+    "EditorialCatalogPage",
+    "EditorialCatalogService",
     "ErrorCode",
     "InvalidCatalogQueryError",
     "InvalidCredentialsError",
