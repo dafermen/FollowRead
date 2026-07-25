@@ -2,22 +2,21 @@
 
 ## Siguiente tarea exacta
 
-**Preparar el desglose de la Fase 5 - Panel administrativo**
+**Completar FR-PH05-TASK-003 - Acceso y sesión en Admin**
 
 ### Objetivo de la próxima sesión
 
-Convertir las actividades de Fase 5 en tareas verificables antes de implementar pantallas.
+Convertir el acceso visual actual en un flujo completo que restaure y cierre sesiones de forma segura.
 
 ### Orden de trabajo
 
-1. Leer el prompt maestro y los archivos de gestión.
-2. Descomponer Fase 5 con dependencias, archivos, pruebas y documentación.
-3. Confirmar qué flujo Admin se implementa primero.
-4. Activar sólo la primera tarea tras revisar criterios de salida.
+1. Consultar `/auth/session` al iniciar y conservar sólo identidad y permisos en memoria.
+2. Aplicar los permisos del servidor a la navegación y acciones visibles.
+3. Implementar logout enviando el token CSRF de la cookie.
+4. Probar sesión válida, expirada, acceso denegado y salida.
 
 ## No hacer todavía
 
-- No conectar credenciales, AWS ni servicios remotos.
 - No almacenar tokens o contraseñas en logs ni almacenamiento web.
 - No crear `LICENSE` sin decisión del propietario.
 - No usar credenciales ni servicios de AWS.

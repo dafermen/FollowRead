@@ -84,6 +84,23 @@ aceptación correspondientes están satisfechos.
 | FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | COMPLETED | Critical |
 | FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | COMPLETED | Critical |
 
+## Resumen de Fase 5
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH05-TASK-001 | Descomponer y activar la Fase 5 | COMPLETED | Critical |
+| FR-PH05-TASK-002 | Crear shell y fundamentos visuales de Admin | COMPLETED | Critical |
+| FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | IN_PROGRESS | Critical |
+| FR-PH05-TASK-004 | Implementar Dashboard editorial | NOT_STARTED | High |
+| FR-PH05-TASK-005 | Implementar lista y filtros de contenido | NOT_STARTED | Critical |
+| FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | NOT_STARTED | Critical |
+| FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | NOT_STARTED | Critical |
+| FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | NOT_STARTED | High |
+| FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | NOT_STARTED | High |
+| FR-PH05-TASK-010 | Implementar revisión, publicación e historial | NOT_STARTED | Critical |
+| FR-PH05-TASK-011 | Verificar responsive, accesibilidad y estados | NOT_STARTED | Critical |
+| FR-PH05-TASK-012 | Auditar y cerrar Fase 5 | NOT_STARTED | Critical |
+
 ---
 
 ## FR-PH00-TASK-001
@@ -1373,3 +1390,155 @@ revocación y metadatos mínimos con índices/restricciones.
 **Fecha de inicio:** 2026-07-25  
 **Fecha de finalización:** 2026-07-25  
 **Siguiente acción:** Completada; preparar el desglose de Fase 5.
+
+---
+
+## FR-PH05-TASK-001
+
+**Título:** Descomponer y activar la Fase 5  
+**Fase:** 5  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fase 4 COMPLETED.  
+**Criterios de aceptación:** Tareas, dependencias, pruebas y criterios de salida de Admin definidos.  
+**Pruebas requeridas:** Revisión contra FR-ADMIN-001 a 011 y FR-SCREEN-A01 a A14.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; implementar fundamentos visuales.
+
+---
+
+## FR-PH05-TASK-002
+
+**Título:** Crear shell y fundamentos visuales de Admin  
+**Fase:** 5  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-001.  
+**Criterios de aceptación:** Shell, navegación, tokens y composición responsive desde 320 CSS px.  
+**Pruebas requeridas:** Render de rutas, landmarks, navegación y build estricto.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completar sesión y permisos reales.
+
+---
+
+## FR-PH05-TASK-003
+
+**Título:** Integrar acceso y sesión en Admin  
+**Fase:** 5  
+**Estado:** IN_PROGRESS  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-002 y Fase 4.  
+**Criterios de aceptación:** Login, restauración, expiración y logout seguros; permisos controlan UI.  
+**Pruebas requeridas:** Éxito, inválido, límite, indisponibilidad, expiración, logout y permiso parcial.  
+**Fecha de inicio:** 2026-07-25  
+**Siguiente acción:** Restaurar sesión al cargar y completar logout con CSRF.
+
+---
+
+## FR-PH05-TASK-004
+
+**Título:** Implementar Dashboard editorial  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH05-TASK-003.  
+**Criterios de aceptación:** Prioridades, métricas, actividad y estados vacío/error provienen de API.  
+**Pruebas requeridas:** Carga, datos, vacío, permiso parcial y error recuperable.  
+
+---
+
+## FR-PH05-TASK-005
+
+**Título:** Implementar lista y filtros de contenido  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-003.  
+**Criterios de aceptación:** Catálogo paginado, búsqueda, filtros y acciones según permiso.  
+**Pruebas requeridas:** Resultados, vacío, combinación de filtros, error y representación compacta.  
+
+---
+
+## FR-PH05-TASK-006
+
+**Título:** Implementar creación y metadatos de contenido  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-005.  
+**Criterios de aceptación:** Crear borrador con tipo, idiomas, audiencia, nivel y categorías válidos.  
+**Pruebas requeridas:** Creación, validación, duplicado, permiso y error recuperable.  
+
+---
+
+## FR-PH05-TASK-007
+
+**Título:** Implementar editor, estructura y recuperación  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-006.  
+**Criterios de aceptación:** Editar capítulos/párrafos, autoguardar, recuperar y resolver conflicto.  
+**Pruebas requeridas:** Guardado, salida, recuperación, reordenamiento por teclado y conflicto.  
+
+---
+
+## FR-PH05-TASK-008
+
+**Título:** Implementar traducciones, recursos y voz  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH05-TASK-007.  
+**Criterios de aceptación:** Pares bilingües, carga validada y selección de voz compatible.  
+**Pruebas requeridas:** Faltante, desalineación, archivo inválido, voz incompatible y guardado.  
+
+---
+
+## FR-PH05-TASK-009
+
+**Título:** Implementar procesamiento y diagnóstico  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** High  
+**Dependencias:** FR-PH05-TASK-008 y contratos de Fase 6 cuando correspondan.  
+**Criterios de aceptación:** Progreso, costo, cancelación, error y reintento idempotente visibles.  
+**Pruebas requeridas:** Cola, progreso, fallo parcial, reintento, cancelación y permiso.  
+
+---
+
+## FR-PH05-TASK-010
+
+**Título:** Implementar revisión, publicación e historial  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-007 a 009.  
+**Criterios de aceptación:** Preview, checklist y transiciones auditadas respetan permisos y estado.  
+**Pruebas requeridas:** Aprobar, rechazar, publicar, despublicar, archivar y denegaciones.  
+
+---
+
+## FR-PH05-TASK-011
+
+**Título:** Verificar responsive, accesibilidad y estados  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-003 a 010.  
+**Criterios de aceptación:** Flujos funcionan a 320 px, zoom/reflow, teclado y lector de pantalla.  
+**Pruebas requeridas:** Automatizadas y manuales de WCAG 2.2 AA para recorridos críticos.  
+
+---
+
+## FR-PH05-TASK-012
+
+**Título:** Auditar y cerrar Fase 5  
+**Fase:** 5  
+**Estado:** NOT_STARTED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH05-TASK-001 a 011.  
+**Criterios de aceptación:** Ocho criterios de salida pasan y la puerta completa queda en verde.  
+**Pruebas requeridas:** Recorrido login → editar → revisar → publicar sobre SQLite desechable.

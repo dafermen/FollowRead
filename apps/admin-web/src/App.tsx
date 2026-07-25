@@ -1,56 +1,47 @@
-const Documentation = () => (
-  <main className="shell">
-    <article className="status-card docs-card" aria-labelledby="docs-title">
-      <p className="eyebrow">Ayuda para desarrollo</p>
-      <h1 id="docs-title">Documentación de FollowRead</h1>
-      <h2>Preparar el proyecto en Windows</h2>
-      <ol>
-        <li>Instala Node.js 24 y abre una nueva terminal de PowerShell.</li>
-        <li>
-          Ejecuta <code>npm install --global pnpm@11.9.0</code>.
-        </li>
-        <li>
-          En <code>C:\Projects\FollowRead</code>, ejecuta <code>pnpm setup</code>.
-        </li>
-      </ol>
-      <p>
-        Si PowerShell bloquea <code>pnpm.ps1</code>, usa <code>pnpm.cmd</code>.
-      </p>
-      <h2>Levantar todo</h2>
-      <p>
-        Después de preparar y migrar el proyecto, ejecuta <code>pnpm dev</code> para iniciar API,
-        Admin y Reader. Presiona <code>Ctrl+C</code> para detenerlos.
-      </p>
-      <div className="actions">
-        <a className="button-link" href="/">
-          Volver al Admin
-        </a>
-        <a className="text-link" href="http://localhost:8000/docs">
-          Abrir documentación de la API
-        </a>
-      </div>
-    </article>
-  </main>
-);
+import { useCallback, useEffect, useState } from "react";
 
-const AdminHome = () => (
-  <main className="shell">
-    <section className="status-card" aria-labelledby="admin-title">
-      <p className="eyebrow">Aplicación en desarrollo</p>
-      <h1 id="admin-title">FollowRead Admin</h1>
-      <p>
-        El espacio editorial está preparado. Los flujos de contenido se implementarán en una fase
-        posterior.
-      </p>
-      <p role="status" className="status">
-        Aplicación base disponible
-      </p>
-      <a className="button-link" href="/documentation">
-        Ver documentación
-      </a>
-    </section>
-  </main>
-);
+import { ContentPage } from "./pages/ContentPage.js";
+import { DashboardPage } from "./pages/DashboardPage.js";
+import { DocumentationPage } from "./pages/DocumentationPage.js";
+import { LoginPage } from "./pages/LoginPage.js";
 
-export const App = () =>
-  window.location.pathname === "/documentation" ? <Documentation /> : <AdminHome />;
+export const App = () => {
+  const [pathname, setPathname] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handleNavigation = () => {
+      setPathname(window.location.pathname);
+    };
+
+    window.addEventListener("popstate", handleNavigation);
+    return () => {
+      window.removeEventListener("popstate", handleNavigation);
+    };
+  }, []);
+
+  const navigate = useCallback((path: string) => {
+    window.history.pushState({}, "", path);
+    setPathname(path);
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  if (pathname === "/login") {
+    return (
+      <LoginPage
+        onAuthenticated={() => {
+          navigate("/");
+        }}
+      />
+    );
+  }
+
+  if (pathname === "/documentation") {
+    return <DocumentationPage />;
+  }
+
+  if (pathname === "/content") {
+    return <ContentPage />;
+  }
+
+  return <DashboardPage />;
+};

@@ -466,3 +466,16 @@ FR-PH04-TASK-008 quedó `COMPLETED`; FR-PH04-TASK-009 quedó `IN_PROGRESS`.
 
 FR-PH04-TASK-009, FR-PH04-TASK-010 y la Fase 4 quedaron `COMPLETED`. El siguiente paso es preparar
 el desglose de Fase 5.
+
+---
+
+## Continuación 2026-07-25 - Inicio visual de Fase 5
+
+- Se descompuso Fase 5 en 12 tareas verificables y se activó el flujo de acceso.
+- Se reemplazó la tarjeta provisional por un shell administrativo responsive.
+- Dashboard y Contenidos muestran una vista previa identificada con datos editoriales de ejemplo.
+- Login consume `/auth/login` y presenta estados de envío, credencial inválida, límite e indisponibilidad.
+- La documentación integrada se adaptó al nuevo sistema visual sin perder instalación de pnpm.
+- Admin pasó siete pruebas, cobertura configurada al 100%, typecheck y build de producción.
+
+FR-PH05-TASK-001 y 002 quedaron `COMPLETED`; FR-PH05-TASK-003 quedó `IN_PROGRESS`.

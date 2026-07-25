@@ -15,9 +15,9 @@
 | 0 | Descubrimiento, definición y planificación | Definir el producto y el plan verificable | COMPLETED |
 | 1 | Diseño UX/UI y sistema visual | Diseñar flujos, pantallas y accesibilidad | COMPLETED |
 | 2 | Monorepo y entorno de desarrollo | Preparar proyectos, herramientas y CI base | COMPLETED |
-| 3 | Modelado de datos y API base | Crear la base funcional del backend | IN_PROGRESS |
-| 4 | Autenticación y autorización | Proteger Admin y preparar usuarios Reader | NOT_STARTED |
-| 5 | FollowRead Admin | Crear la administración de contenido | NOT_STARTED |
+| 3 | Modelado de datos y API base | Crear la base funcional del backend | COMPLETED |
+| 4 | Autenticación y autorización | Proteger Admin y preparar usuarios Reader | COMPLETED |
+| 5 | FollowRead Admin | Crear la administración de contenido | IN_PROGRESS |
 | 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | NOT_STARTED |
 | 7 | Motor de lectura | Implementar sincronización audio-texto reusable | NOT_STARTED |
 | 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | NOT_STARTED |
@@ -147,20 +147,20 @@ Cada fase posterior deberá definir, antes de comenzar, tareas completas con dep
 pruebas y criterios de aceptación. La descripción detallada de actividades del prompt maestro se
 considera la fuente mínima; `TASKS.md` se ampliará al preparar cada fase.
 
-## Fase activa: Fase 4
+## Fase activa: Fase 5
 
 ### Objetivo
 
-Implementar autenticación adulta/editorial, sesiones revocables y autorización RBAC de servidor sin
-crear cuentas infantiles ni ampliar recuperación de contraseña.
+Crear una aplicación administrativa accesible que permita al equipo editorial iniciar sesión,
+visualizar el trabajo prioritario y gestionar el contenido desde el borrador hasta la publicación.
 
 ### Criterios de salida
 
-1. Contraseñas usan Argon2id y nunca se almacenan o registran en claro.
-2. Sesiones opacas se pueden crear, expirar, rotar y revocar.
-3. Cookies, CSRF, origen, caché y CORS protegen el flujo web.
-4. Login, logout y sesión actual tienen contrato seguro y no enumeran cuentas.
-5. Cada acción protegida niega por defecto y exige permisos explícitos.
-6. Bootstrap administrativo no incluye credenciales predeterminadas.
-7. Auditoría y limitación de intentos cubren éxitos y fallos sin secretos.
-8. Pruebas positivas/negativas, OpenAPI y puerta completa pasan sobre SQLite.
+1. Login, restauración de sesión y logout usan los contratos seguros de Fase 4.
+2. Shell, dashboard y navegación responden a permisos y funcionan desde 320 CSS px.
+3. Lista, creación y edición de contenido persisten metadatos, estructura y traducciones válidas.
+4. Borradores conservan cambios, comunican guardado y evitan sobreescritura ante conflicto.
+5. Recursos, voz y procesamiento presentan estados, errores recuperables y acciones autorizadas.
+6. Revisión, previsualización y publicación siguen la máquina de estados auditada.
+7. Estados vacío, carga, error y permiso parcial son accesibles y conservan contexto.
+8. Pruebas de componentes, integración y recorrido crítico pasan con la puerta completa.
