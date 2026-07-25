@@ -81,8 +81,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | COMPLETED | Critical |
 | FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | COMPLETED | Critical |
 | FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | COMPLETED | High |
-| FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | IN_PROGRESS | Critical |
-| FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | NOT_STARTED | Critical |
+| FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | COMPLETED | Critical |
+| FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | COMPLETED | Critical |
 
 ---
 
@@ -1350,14 +1350,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Verificar seguridad, OpenAPI y documentación  
 **Fase:** 4  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-002 a 008.  
 **Criterios de aceptación:** FR-AC-018/021, amenazas, contratos y guías cubiertos.  
 **Pruebas requeridas:** Suite de seguridad y puerta completa.  
 **Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** —  
-**Siguiente acción:** Verificar FR-AC-018/021, amenazas, OpenAPI y guía operativa.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; ejecutar auditoría de cierre.
 
 ---
 
@@ -1365,9 +1365,11 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Auditar y cerrar Fase 4  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-001 a 009.  
 **Criterios de aceptación:** Ocho criterios pasan y la tarea usa READY_FOR_REVIEW.  
 **Pruebas requeridas:** Auditoría desde SQLite vacía y sesión hostil.  
-**Siguiente acción:** Esperar todas las tareas.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; preparar el desglose de Fase 5.

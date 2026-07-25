@@ -2,9 +2,9 @@
 
 **Última actualización:** 2026-07-25  
 **Fase activa:** Fase 4 - Autenticación y autorización  
-**Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH04-TASK-009 - Verificar seguridad, OpenAPI y documentación  
-**Estado de la tarea:** IN_PROGRESS
+**Estado de la fase:** COMPLETED  
+**Tarea activa:** Ninguna; preparar desglose de Fase 5  
+**Estado de la tarea:** NOT_STARTED
 
 ## Resumen ejecutivo
 
@@ -21,8 +21,8 @@ verificación formal de seguridad y contratos.
 | Tareas de Fase 1 completadas | 8 de 8 |
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 12 de 12 |
-| Tareas de Fase 4 completadas | 8 de 10 |
-| Tareas en progreso | 1 |
+| Tareas de Fase 4 completadas | 10 de 10 |
+| Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
 | Decisiones abiertas | 1 |
@@ -35,7 +35,7 @@ verificación formal de seguridad y contratos.
 |---|---|---|
 | FollowRead Admin | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
 | FollowRead Reader | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
-| FollowRead API | PHASE_4_IN_PROGRESS | Controles funcionales listos; verificación en curso |
+| FollowRead API | PHASE_4_COMPLETED | Ocho criterios de salida en PASS |
 | Reader Engine | BASE_COMPILES | Paquete TypeScript sin React validado |
 | AWS / Polly / S3 | NOT_STARTED | Sólo arquitectura conceptual; sin integración |
 | Modo offline | NOT_STARTED | Estrategia de doble catálogo aceptada |
@@ -62,4 +62,4 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 ## Regla de continuación
 
 La siguiente sesión debe comenzar leyendo los archivos de gestión indicados por el prompt maestro y
-continuar FR-PH04-TASK-009 con verificación de seguridad, OpenAPI y documentación.
+preparar y activar el desglose de Fase 5 antes de desarrollar el panel administrativo.

@@ -2,19 +2,18 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH04-TASK-009 - Verificar seguridad, OpenAPI y documentación**
+**Preparar el desglose de la Fase 5 - Panel administrativo**
 
 ### Objetivo de la próxima sesión
 
-Contrastar toda la implementación de Fase 4 con criterios, amenazas y contratos.
+Convertir las actividades de Fase 5 en tareas verificables antes de implementar pantallas.
 
 ### Orden de trabajo
 
-1. Verificar FR-AC-018 y FR-AC-021.
-2. Revisar casos positivos/negativos de sesión, CSRF, origen, CORS y RBAC.
-3. Confirmar OpenAPI y guía operativa.
-4. Ejecutar puerta integral y prueba de migración limpia.
-5. Preparar la auditoría de cierre de Fase 4.
+1. Leer el prompt maestro y los archivos de gestión.
+2. Descomponer Fase 5 con dependencias, archivos, pruebas y documentación.
+3. Confirmar qué flujo Admin se implementa primero.
+4. Activar sólo la primera tarea tras revisar criterios de salida.
 
 ## No hacer todavía
 
