@@ -477,6 +477,17 @@ select:focus-visible {
   background: linear-gradient(105deg, #fffbec, #fffdf7);
 }
 
+.inline-alert {
+  padding: 0.75rem 1rem;
+  border: 1px solid #f1b7b2;
+  border-radius: 0.65rem;
+  margin-bottom: 1rem;
+  color: #8e1f17;
+  background: #fff4f3;
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+
 .attention-card__icon {
   display: grid;
   width: 2.35rem;
@@ -578,6 +589,33 @@ select:focus-visible {
 .content-list {
   display: grid;
   padding: 0 0.75rem 0.75rem;
+}
+
+.empty-state {
+  display: grid;
+  min-height: 190px;
+  padding: 2rem;
+  border-top: 1px solid #edf0f4;
+  color: #667085;
+  text-align: center;
+  place-content: center;
+  justify-items: center;
+}
+
+.empty-state strong {
+  color: #344054;
+  font-size: 0.9rem;
+}
+
+.empty-state p {
+  margin: 0.35rem 0 0.8rem;
+  font-size: 0.72rem;
+}
+
+.empty-state a {
+  color: #2457d6;
+  font-size: 0.75rem;
+  font-weight: 750;
 }
 
 .content-row {
@@ -783,6 +821,15 @@ select:focus-visible {
 .timeline time {
   color: #98a1af;
   font-size: 0.63rem;
+}
+
+.timeline .timeline__empty {
+  display: block;
+  min-height: 80px;
+  padding: 1.2rem 0;
+  color: #8a94a5;
+  font-size: 0.72rem;
+  text-align: center;
 }
 
 /* Content catalog */

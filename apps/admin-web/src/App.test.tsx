@@ -15,6 +15,13 @@ const authenticatedSession = {
   },
 };
 
+const emptyDashboardSummary = {
+  metrics: { total: 0, drafts: 0, in_review: 0, published: 0 },
+  attention: { reviews: 0, failed_jobs: 0 },
+  recent_content: [],
+  activity: [],
+};
+
 describe("FollowRead Admin", () => {
   beforeEach(() => {
     window.history.pushState({}, "", "/");
@@ -122,11 +129,23 @@ describe("FollowRead Admin", () => {
     window.history.pushState({}, "", "/login");
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({
-        ok: true,
-        status: 200,
-        json: vi.fn().mockResolvedValue(authenticatedSession),
-      }),
+      vi
+        .fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: vi.fn().mockResolvedValue(authenticatedSession),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: vi.fn().mockResolvedValue(authenticatedSession),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: vi.fn().mockResolvedValue(emptyDashboardSummary),
+        }),
     );
     render(<App />);
 
@@ -161,6 +180,11 @@ describe("FollowRead Admin", () => {
           status: 200,
           json: vi.fn().mockResolvedValue(authenticatedSession),
         })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: vi.fn().mockResolvedValue(emptyDashboardSummary),
+        })
         .mockResolvedValueOnce({ ok: true, status: 204 }),
     );
     render(<App />);
@@ -168,6 +192,7 @@ describe("FollowRead Admin", () => {
     expect(
       await screen.findByRole("heading", { level: 1, name: "Buenos días, Daniela" }),
     ).toBeInTheDocument();
+    expect(await screen.findByText("El catálogo todavía está vacío")).toBeInTheDocument();
     const [logoutButton] = screen.getAllByRole("button", { name: "Cerrar sesión" });
     if (logoutButton === undefined) {
       throw new Error("The logout button is required.");

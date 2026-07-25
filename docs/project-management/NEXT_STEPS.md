@@ -2,18 +2,18 @@
 
 ## Siguiente tarea exacta
 
-**Completar FR-PH05-TASK-004 - Dashboard editorial**
+**Completar FR-PH05-TASK-005 - Lista y filtros de contenido**
 
 ### Objetivo de la próxima sesión
 
-Servir prioridades, métricas y actividad del Dashboard desde un contrato administrativo real.
+Conectar el catálogo visual a una lista administrativa autorizada y paginada.
 
 ### Orden de trabajo
 
-1. Definir un esquema de resumen editorial autorizado.
-2. Consultar conteos por estado y trabajo reciente desde SQLite.
-3. Conectar métricas, atención y actividad sin ocultar estados vacío o error.
-4. Probar carga, datos, vacío, permiso parcial y recuperación.
+1. Exponer búsqueda, paginación y filtros editoriales desde la API administrativa.
+2. Consumir la lista real desde Contenidos conservando el diseño responsive.
+3. Mostrar acciones disponibles según permisos y estado.
+4. Probar resultados, vacío, filtros combinados, permiso parcial y recuperación.
 
 ## No hacer todavía
 

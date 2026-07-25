@@ -11,13 +11,19 @@ type AdminShellProps = {
 
 const navigationItems = [
   { id: "dashboard", icon: "⌂", label: "Resumen", href: "/" },
-  { id: "content", icon: "▤", label: "Contenidos", href: "/content", permission: "content.read" },
+  {
+    id: "content",
+    icon: "▤",
+    label: "Contenidos",
+    href: "/content",
+    permissions: ["content.create", "content.edit", "content.review", "content.publish"],
+  },
   {
     id: "processing",
     icon: "◌",
     label: "Procesamiento",
     href: "/#processing",
-    permission: "processing.run",
+    permissions: ["content.process"],
   },
   {
     id: "reviews",
@@ -25,21 +31,23 @@ const navigationItems = [
     label: "Revisión",
     href: "/#reviews",
     count: 3,
-    permission: "content.publish",
+    permissions: ["content.review", "content.publish"],
   },
   {
     id: "publication",
     icon: "↑",
     label: "Publicaciones",
     href: "/#publication",
-    permission: "content.publish",
+    permissions: ["content.publish"],
   },
 ] as const;
 
 export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellProps) => {
   const availableNavigation = navigationItems.filter(
     (item) =>
-      !("permission" in item) || user === undefined || user.permissions.includes(item.permission),
+      !("permissions" in item) ||
+      user === undefined ||
+      item.permissions.some((permission) => user.permissions.includes(permission)),
   );
   const displayName = user?.display_name ?? "Daniela Editora";
   const role = user?.roles[0]?.replaceAll("_", " ") ?? "Equipo editorial";

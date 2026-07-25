@@ -2,10 +2,15 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends
 
-from followread_api.api.dependencies import PermissionRequirement
+from followread_api.api.dependencies import DatabaseSession, PermissionRequirement
 from followread_api.api.errors import ErrorResponse
-from followread_api.api.schemas import AuthenticatedUserResponse, authenticated_user_response
-from followread_api.services import AuthenticatedUser
+from followread_api.api.schemas import (
+    AuthenticatedUserResponse,
+    DashboardSummaryResponse,
+    authenticated_user_response,
+    dashboard_summary_response,
+)
+from followread_api.services import AuthenticatedUser, DashboardService
 
 router = APIRouter(prefix="/admin", tags=["administration"])
 ACCESS_ERRORS: dict[int | str, dict[str, Any]] = {
@@ -25,3 +30,15 @@ AdminAccessUser = Annotated[
 )
 def verify_admin_access(user: AdminAccessUser) -> AuthenticatedUserResponse:
     return authenticated_user_response(user)
+
+
+@router.get(
+    "/dashboard",
+    response_model=DashboardSummaryResponse,
+    responses=ACCESS_ERRORS,
+)
+def get_dashboard_summary(
+    session: DatabaseSession,
+    _user: AdminAccessUser,
+) -> DashboardSummaryResponse:
+    return dashboard_summary_response(DashboardService(session).get_summary())

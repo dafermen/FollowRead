@@ -491,3 +491,16 @@ FR-PH05-TASK-001 y 002 quedaron `COMPLETED`; FR-PH05-TASK-003 quedó `IN_PROGRES
 - Ocho pruebas web cubren rutas, login, restauración, permiso parcial y logout con cobertura 100%.
 
 FR-PH05-TASK-003 quedó `COMPLETED`; FR-PH05-TASK-004 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Dashboard editorial conectado
+
+- Se añadió un resumen administrativo protegido por `admin.access`.
+- La API calcula métricas, prioridades, contenido reciente y actividad desde SQLite.
+- El Dashboard autenticado consume datos reales y presenta estados de carga, vacío y error.
+- La vista previa de desarrollo sigue identificada y separada de la información real.
+- Los permisos de navegación se alinearon con los permisos efectivos de la API.
+- La puerta integral pasó con 81 pruebas Python, ocho pruebas web y cobertura configurada en 100%.
+
+FR-PH05-TASK-004 quedó `COMPLETED`; FR-PH05-TASK-005 quedó `IN_PROGRESS`.

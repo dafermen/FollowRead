@@ -91,8 +91,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH05-TASK-001 | Descomponer y activar la Fase 5 | COMPLETED | Critical |
 | FR-PH05-TASK-002 | Crear shell y fundamentos visuales de Admin | COMPLETED | Critical |
 | FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | COMPLETED | Critical |
-| FR-PH05-TASK-004 | Implementar Dashboard editorial | IN_PROGRESS | High |
-| FR-PH05-TASK-005 | Implementar lista y filtros de contenido | NOT_STARTED | Critical |
+| FR-PH05-TASK-004 | Implementar Dashboard editorial | COMPLETED | High |
+| FR-PH05-TASK-005 | Implementar lista y filtros de contenido | IN_PROGRESS | Critical |
 | FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | NOT_STARTED | Critical |
 | FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | NOT_STARTED | Critical |
 | FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | NOT_STARTED | High |
@@ -1442,13 +1442,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar Dashboard editorial  
 **Fase:** 5  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH05-TASK-003.  
 **Criterios de aceptación:** Prioridades, métricas, actividad y estados vacío/error provienen de API.  
 **Pruebas requeridas:** Carga, datos, vacío, permiso parcial y error recuperable.  
 **Fecha de inicio:** 2026-07-25  
-**Siguiente acción:** Definir y consumir el contrato de resumen editorial.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; conectar la lista administrativa de contenido.
 
 ---
 
@@ -1456,11 +1457,13 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar lista y filtros de contenido  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-003.  
 **Criterios de aceptación:** Catálogo paginado, búsqueda, filtros y acciones según permiso.  
 **Pruebas requeridas:** Resultados, vacío, combinación de filtros, error y representación compacta.  
+**Fecha de inicio:** 2026-07-25  
+**Siguiente acción:** Definir y consumir el contrato de lista editorial.
 
 ---
 

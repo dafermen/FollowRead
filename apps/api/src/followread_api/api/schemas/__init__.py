@@ -20,6 +20,10 @@ from followread_api.api.schemas.catalog import (
     catalog_page_response,
     content_detail_response,
 )
+from followread_api.api.schemas.dashboard import (
+    DashboardSummaryResponse,
+    dashboard_summary_response,
+)
 
 __all__ = [
     "AuthenticatedUserResponse",
@@ -28,6 +32,7 @@ __all__ = [
     "CategoryResponse",
     "ChapterResponse",
     "ContentDetailResponse",
+    "DashboardSummaryResponse",
     "LoginRequest",
     "ParagraphResponse",
     "ReadingLevelResponse",
@@ -37,5 +42,6 @@ __all__ = [
     "catalog_item_response",
     "catalog_page_response",
     "content_detail_response",
+    "dashboard_summary_response",
     "issued_session_response",
 ]

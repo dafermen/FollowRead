@@ -127,3 +127,29 @@ def test_admin_access_rejects_a_revoked_session() -> None:
             engine.dispose()
 
     asyncio.run(exercise())
+
+
+def test_admin_dashboard_requires_access_and_returns_an_empty_summary() -> None:
+    async def exercise() -> None:
+        client, engine = build_admin_client()
+        try:
+            async with client:
+                unauthenticated = await client.get("/admin/dashboard")
+                assert unauthenticated.status_code == 401
+
+                await login(client, "admin@example.com")
+                response = await client.get("/admin/dashboard")
+                assert response.status_code == 200
+                assert response.json()["metrics"] == {
+                    "total": 0,
+                    "drafts": 0,
+                    "in_review": 0,
+                    "published": 0,
+                }
+                assert response.json()["attention"] == {"reviews": 0, "failed_jobs": 0}
+                assert response.json()["recent_content"] == []
+                assert response.json()["activity"][0]["action"] == "auth.login"
+        finally:
+            engine.dispose()
+
+    asyncio.run(exercise())
