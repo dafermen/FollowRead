@@ -248,6 +248,52 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                 assert created.status_code == 201
                 assert created.json()["status"] == "draft"
                 assert created.json()["actions"] == ["view", "edit", "process"]
+                content_id = created.json()["id"]
+                editor = await client.get(f"/admin/content/{content_id}/editor")
+                assert editor.status_code == 200
+                assert editor.json()["translations"][0]["chapters"] == []
+                original_updated_at = editor.json()["updated_at"]
+
+                saved = await client.put(
+                    f"/admin/content/{content_id}/editor",
+                    json={
+                        "expected_updated_at": original_updated_at,
+                        "translations": [
+                            {
+                                "language": "es",
+                                "title": "Aventura en el bosque",
+                                "summary": "Una aventura accesible.",
+                                "chapters": [
+                                    {
+                                        "stable_key": "chapter-1",
+                                        "position": 0,
+                                        "title": "El sendero",
+                                        "paragraphs": [
+                                            {
+                                                "stable_key": "paragraph-1",
+                                                "position": 0,
+                                                "text": "Luna entró al bosque.",
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert saved.status_code == 200
+                assert saved.json()["translations"][0]["chapters"][0]["title"] == "El sendero"
+                stale = await client.put(
+                    f"/admin/content/{content_id}/editor",
+                    json={
+                        "expected_updated_at": original_updated_at,
+                        "translations": saved.json()["translations"],
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert stale.status_code == 409
+                assert stale.json()["error"]["code"] == "editor.conflict"
 
                 second = await client.post(
                     "/admin/content",
@@ -267,6 +313,11 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                 )
                 assert duplicate.status_code == 422
                 assert duplicate.json()["error"]["details"]["slug"]
+
+                missing_editor = await client.get(
+                    "/admin/content/00000000-0000-0000-0000-000000000000/editor",
+                )
+                assert missing_editor.status_code == 404
 
                 with Session(engine) as session:
                     assert len(session.scalars(select(ReadingContent)).all()) == 2

@@ -530,3 +530,16 @@ FR-PH05-TASK-005 quedó `COMPLETED`; FR-PH05-TASK-006 quedó `IN_PROGRESS`.
 - La puerta pasó con 85 pruebas Python, diez pruebas web, cobertura 100% y todos los builds.
 
 FR-PH05-TASK-006 quedó `COMPLETED`; FR-PH05-TASK-007 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Editor estructural y recuperación
+
+- Se añadió lectura y guardado protegido de documentos editoriales por contenido.
+- El editor visual organiza idiomas, capítulos y párrafos y permite reordenar con controles accesibles.
+- Los cambios se autoguardan, muestran estado y se conservan localmente hasta confirmar persistencia.
+- Una fecha esperada detecta ediciones concurrentes y presenta conflicto recuperable.
+- El guardado exige `content.edit`, origen permitido y CSRF, y genera auditoría.
+- La puerta pasó con 86 pruebas Python, once pruebas web y cobertura 100%.
+
+FR-PH05-TASK-007 quedó `COMPLETED`; FR-PH05-TASK-008 quedó `IN_PROGRESS`.

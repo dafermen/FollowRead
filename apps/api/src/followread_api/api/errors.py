@@ -14,6 +14,7 @@ ERROR_STATUS = {
     ErrorCode.INVALID_CSRF_TOKEN: 403,
     ErrorCode.INVALID_ORIGIN: 403,
     ErrorCode.PERMISSION_DENIED: 403,
+    ErrorCode.EDITOR_CONFLICT: 409,
 }
 
 

@@ -37,6 +37,44 @@ export type CreateEditorialContentRequest = {
   categories: string[];
 };
 
+export type EditorParagraph = {
+  stable_key: string;
+  position: number;
+  text: string;
+};
+
+export type EditorChapter = {
+  stable_key: string;
+  position: number;
+  title: string | null;
+  paragraphs: EditorParagraph[];
+};
+
+export type EditorTranslation = {
+  language: string;
+  title: string;
+  summary: string | null;
+  chapters: EditorChapter[];
+};
+
+export type EditorDocument = {
+  content_id: string;
+  slug: string;
+  version: number;
+  status: string;
+  updated_at: string;
+  translations: EditorTranslation[];
+};
+
+export class EditorRequestError extends Error {
+  readonly status: number;
+
+  constructor(status: number) {
+    super("Editor request failed.");
+    this.status = status;
+  }
+}
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export const getEditorialContent = async (
@@ -88,5 +126,40 @@ export const createEditorialContent = async (
     throw new Error(`Editorial content creation failed with status ${String(response.status)}.`);
   }
   return (await response.json()) as EditorialCatalogItem;
+};
+
+export const getEditorDocument = async (contentId: string): Promise<EditorDocument> => {
+  const response = await fetch(`${API_BASE_URL}/admin/content/${contentId}/editor`, {
+    credentials: "include",
+    headers: { Accept: "application/json" },
+  });
+  if (!response.ok) {
+    throw new EditorRequestError(response.status);
+  }
+  return (await response.json()) as EditorDocument;
+};
+
+export const saveEditorDocument = async (document: EditorDocument): Promise<EditorDocument> => {
+  const csrfToken = getCookie("followread_csrf");
+  const headers: Record<string, string> = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  if (csrfToken !== undefined) {
+    headers["X-CSRF-Token"] = csrfToken;
+  }
+  const response = await fetch(`${API_BASE_URL}/admin/content/${document.content_id}/editor`, {
+    method: "PUT",
+    credentials: "include",
+    headers,
+    body: JSON.stringify({
+      expected_updated_at: document.updated_at,
+      translations: document.translations,
+    }),
+  });
+  if (!response.ok) {
+    throw new EditorRequestError(response.status);
+  }
+  return (await response.json()) as EditorDocument;
 };
 import { getCookie } from "../auth/authClient.js";

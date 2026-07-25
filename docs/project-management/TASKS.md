@@ -94,8 +94,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH05-TASK-004 | Implementar Dashboard editorial | COMPLETED | High |
 | FR-PH05-TASK-005 | Implementar lista y filtros de contenido | COMPLETED | Critical |
 | FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | COMPLETED | Critical |
-| FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | IN_PROGRESS | Critical |
-| FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | NOT_STARTED | High |
+| FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | COMPLETED | Critical |
+| FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | IN_PROGRESS | High |
 | FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | NOT_STARTED | High |
 | FR-PH05-TASK-010 | Implementar revisión, publicación e historial | NOT_STARTED | Critical |
 | FR-PH05-TASK-011 | Verificar responsive, accesibilidad y estados | NOT_STARTED | Critical |
@@ -1487,13 +1487,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar editor, estructura y recuperación  
 **Fase:** 5  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-006.  
 **Criterios de aceptación:** Editar capítulos/párrafos, autoguardar, recuperar y resolver conflicto.  
 **Pruebas requeridas:** Guardado, salida, recuperación, reordenamiento por teclado y conflicto.  
 **Fecha de inicio:** 2026-07-25  
-**Siguiente acción:** Diseñar la experiencia de edición y su contrato persistente.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; preparar traducciones, recursos y voces.
 
 ---
 
@@ -1501,11 +1502,13 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar traducciones, recursos y voz  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** High  
 **Dependencias:** FR-PH05-TASK-007.  
 **Criterios de aceptación:** Pares bilingües, carga validada y selección de voz compatible.  
 **Pruebas requeridas:** Faltante, desalineación, archivo inválido, voz incompatible y guardado.  
+**Fecha de inicio:** 2026-07-25  
+**Siguiente acción:** Conectar idiomas y voces con contratos listos para Fase 6.
 
 ---
 

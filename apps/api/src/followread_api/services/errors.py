@@ -11,6 +11,7 @@ class ErrorCode(StrEnum):
     INVALID_CSRF_TOKEN = "auth.invalid_csrf_token"
     INVALID_ORIGIN = "auth.invalid_origin"
     PERMISSION_DENIED = "auth.permission_denied"
+    EDITOR_CONFLICT = "editor.conflict"
 
 
 class DomainError(Exception):
@@ -84,4 +85,12 @@ class PermissionDeniedError(DomainError):
         super().__init__(
             ErrorCode.PERMISSION_DENIED,
             "You do not have permission to perform this action.",
+        )
+
+
+class EditorConflictError(DomainError):
+    def __init__(self) -> None:
+        super().__init__(
+            ErrorCode.EDITOR_CONFLICT,
+            "The draft changed in another session. Reload before saving again.",
         )

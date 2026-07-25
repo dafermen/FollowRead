@@ -9,6 +9,7 @@ import {
 import { ContentPage } from "../pages/ContentPage.js";
 import { DashboardPage } from "../pages/DashboardPage.js";
 import { CreateContentPage } from "../pages/CreateContentPage.js";
+import { EditorPage } from "../pages/EditorPage.js";
 
 type AdminExperienceProps = {
   pathname: string;
@@ -103,8 +104,11 @@ export const AdminExperience = ({ pathname, onAuthenticationRequired }: AdminExp
           }
         };
 
+  const editorMatch = /^\/content\/([^/]+)\/edit$/.exec(pathname);
   const page =
-    pathname === "/content/new" ? (
+    editorMatch?.[1] !== undefined ? (
+      <EditorPage contentId={editorMatch[1]} user={user} onLogout={handleLogout} />
+    ) : pathname === "/content/new" ? (
       <CreateContentPage user={user} onLogout={handleLogout} />
     ) : pathname === "/content" ? (
       <ContentPage user={user} onLogout={handleLogout} />

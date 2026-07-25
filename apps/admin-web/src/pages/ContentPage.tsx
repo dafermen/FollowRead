@@ -315,7 +315,11 @@ export const ContentPage = ({ user, onLogout }: ContentPageProps) => {
             {displayCatalog.items.map((item, index) => (
               <a
                 className="catalog-row"
-                href={`/content?selected=${item.id}`}
+                href={
+                  item.actions.includes("edit")
+                    ? `/content/${item.id}/edit`
+                    : `/content?selected=${item.id}`
+                }
                 role="row"
                 key={item.id}
               >

@@ -163,6 +163,23 @@ describe("FollowRead Admin", () => {
     );
   });
 
+  it("edits, reorders and autosaves a structured draft", async () => {
+    window.history.pushState({}, "", "/content/preview/edit");
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { level: 2, name: "Estado del borrador" }),
+    ).toBeInTheDocument();
+    const paragraph = screen.getByLabelText("Párrafo 1");
+    fireEvent.change(paragraph, {
+      target: { value: "Milo siguió la luz entre los árboles." },
+    });
+    expect(screen.getByText("Cambios pendientes")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Bajar Una luz en el bosque" }));
+    expect(screen.getByRole("button", { name: "Subir Una luz en el bosque" })).toBeEnabled();
+    expect(await screen.findByText("✓ Guardado", {}, { timeout: 2000 })).toBeInTheDocument();
+  });
+
   it("shows the secure login form and toggles password visibility", () => {
     window.history.pushState({}, "", "/login");
     render(<App />);

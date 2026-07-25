@@ -2,18 +2,18 @@
 
 ## Siguiente tarea exacta
 
-**Completar FR-PH05-TASK-007 - Editor, estructura y recuperación**
+**Completar FR-PH05-TASK-008 - Traducciones, recursos y voz**
 
 ### Objetivo de la próxima sesión
 
-Permitir escribir y organizar capítulos y párrafos dentro de un borrador real.
+Preparar cada idioma y su voz para la generación de audio.
 
 ### Orden de trabajo
 
-1. Diseñar el editor visual con navegación de capítulos y área de escritura.
-2. Exponer lectura y actualización protegidas por `content.edit`.
-3. Añadir guardado recuperable, versión esperada y conflicto visible.
-4. Probar carga, guardado, reordenamiento, recuperación y salida segura.
+1. Validar la estructura paralela español/inglés.
+2. Añadir selección de voces compatibles por idioma.
+3. Registrar recursos e imágenes con metadatos seguros.
+4. Probar faltantes, desalineación, voz incompatible y guardado.
 
 ## No hacer todavía
 

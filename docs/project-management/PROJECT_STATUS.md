@@ -3,7 +3,7 @@
 **Última actualización:** 2026-07-25  
 **Fase activa:** Fase 5 - FollowRead Admin  
 **Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH05-TASK-007 - Implementar editor, estructura y recuperación  
+**Tarea activa:** FR-PH05-TASK-008 - Implementar traducciones, recursos y voz  
 **Estado de la tarea:** IN_PROGRESS
 
 ## Resumen ejecutivo
@@ -25,7 +25,7 @@ con validación, CSRF y auditoría; la siguiente capacidad es editar su estructu
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 12 de 12 |
 | Tareas de Fase 4 completadas | 10 de 10 |
-| Tareas de Fase 5 completadas | 6 de 12 |
+| Tareas de Fase 5 completadas | 7 de 12 |
 | Tareas en progreso | 1 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
@@ -55,8 +55,9 @@ con validación, CSRF y auditoría; la siguiente capacidad es editar su estructu
 - resumen editorial protegido con métricas, atención, contenido reciente y auditoría desde SQLite;
 - catálogo editorial protegido con búsqueda, filtros, orden, paginación y acciones por permiso;
 - formulario responsive para crear borradores reales con idiomas, nivel y categorías;
+- editor estructural responsive con capítulos, párrafos, autoguardado y recuperación local;
 - documentación integrada conservada y rediseñada;
-- diez pruebas web, 85 pruebas API y cobertura configurada en 100%.
+- once pruebas web, 86 pruebas API y cobertura configurada en 100%.
 
 ## Bloqueadores
 
@@ -65,6 +66,5 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 
 ## Regla de continuación
 
-Continuar FR-PH05-TASK-007: diseñar el editor de capítulos y párrafos, cargar un borrador real y
-guardar cambios de forma recuperable. Incluir reordenamiento accesible, indicador de guardado y
-manejo explícito de conflictos.
+Continuar FR-PH05-TASK-008: completar la edición bilingüe, selección de voces y recursos validados
+que desbloquean la generación de audio de Fase 6.

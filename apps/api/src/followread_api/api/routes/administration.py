@@ -1,4 +1,5 @@
 from typing import Annotated, Any, Literal
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, Request, status
 
@@ -12,10 +13,13 @@ from followread_api.api.schemas import (
     AuthenticatedUserResponse,
     CreateEditorialContentRequest,
     DashboardSummaryResponse,
+    EditorDocumentResponse,
     EditorialCatalogItemResponse,
     EditorialCatalogPageResponse,
+    SaveEditorDocumentRequest,
     authenticated_user_response,
     dashboard_summary_response,
+    editor_document_response,
     editorial_catalog_item_response,
     editorial_catalog_page_response,
 )
@@ -27,6 +31,7 @@ from followread_api.services import (
     DashboardService,
     EditorialCatalogFilters,
     EditorialCatalogService,
+    EditorialEditorService,
     InvalidCsrfTokenError,
     InvalidOriginError,
 )
@@ -43,6 +48,10 @@ AdminAccessUser = Annotated[
 ContentCreatorUser = Annotated[
     AuthenticatedUser,
     Depends(PermissionRequirement("content.create")),
+]
+ContentEditorUser = Annotated[
+    AuthenticatedUser,
+    Depends(PermissionRequirement("content.edit")),
 ]
 
 
@@ -120,6 +129,50 @@ def create_editorial_content(
         correlation_id=request.state.request_id,
     )
     return editorial_catalog_item_response(item)
+
+
+@router.get(
+    "/content/{content_id}/editor",
+    response_model=EditorDocumentResponse,
+    responses={
+        **ACCESS_ERRORS,
+        404: {"model": ErrorResponse, "description": "Content draft not found"},
+    },
+)
+def get_editor_document(
+    content_id: UUID,
+    session: DatabaseSession,
+    _user: AdminAccessUser,
+) -> EditorDocumentResponse:
+    return editor_document_response(EditorialEditorService(session).get_document(content_id))
+
+
+@router.put(
+    "/content/{content_id}/editor",
+    response_model=EditorDocumentResponse,
+    responses={
+        **ACCESS_ERRORS,
+        404: {"model": ErrorResponse, "description": "Content draft not found"},
+        409: {"model": ErrorResponse, "description": "Draft changed in another session"},
+    },
+)
+def save_editor_document(
+    content_id: UUID,
+    body: SaveEditorDocumentRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: ContentEditorUser,
+) -> EditorDocumentResponse:
+    _validate_mutation_request(request, authentication)
+    document = EditorialEditorService(session).save_document(
+        content_id,
+        expected_updated_at=body.expected_updated_at,
+        translations=tuple(translation.to_domain() for translation in body.translations),
+        actor_user_id=user.id,
+        correlation_id=request.state.request_id,
+    )
+    return editor_document_response(document)
 
 
 def _validate_mutation_request(
