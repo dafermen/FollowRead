@@ -50,8 +50,20 @@ credenciales.
 
 ## Autorización
 
-Roles iniciales: `super_admin`, `content_admin`, `reviewer`, `reader`. El rol orienta permisos, pero API
-verifica cada acción. Publicar y administrar usuarios serán permisos explícitos.
+La API verifica permisos explícitos y deniega por defecto; los nombres de rol no se usan como
+autorización directa.
+
+| Rol | Permisos iniciales |
+|---|---|
+| `super_admin` | todos los permisos del MVP |
+| `content_admin` | acceso Admin, crear, editar, procesar y publicar contenido |
+| `reviewer` | acceso Admin y revisar contenido |
+| `reader` | ninguno de administración |
+
+Permisos estables: `admin.access`, `users.manage`, `content.create`, `content.edit`,
+`content.process`, `content.review`, `content.publish` y `audit.read`. El bootstrap sincroniza la
+matriz de forma idempotente. Toda ruta administrativa requiere sesión activa y cada acción declara
+su permiso; `/admin/access` verifica el acceso inicial.
 
 ## Datos y privacidad
 

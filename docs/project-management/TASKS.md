@@ -79,8 +79,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH04-TASK-004 | Crear bootstrap seguro de superadministrador | COMPLETED | Critical |
 | FR-PH04-TASK-005 | Exponer login, logout y sesión actual | COMPLETED | Critical |
 | FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | COMPLETED | Critical |
-| FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | IN_PROGRESS | Critical |
-| FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | NOT_STARTED | High |
+| FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | COMPLETED | Critical |
+| FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | IN_PROGRESS | High |
 | FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | NOT_STARTED | Critical |
 | FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | NOT_STARTED | Critical |
 
@@ -1320,14 +1320,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Aplicar autorización RBAC por permiso  
 **Fase:** 4  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-005.  
 **Criterios de aceptación:** Dependencias deny-by-default y permisos explícitos por acción.  
 **Pruebas requeridas:** Matriz positiva/negativa, sesión revocada y usuario inactivo.  
 **Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** —  
-**Siguiente acción:** Crear dependencias deny-by-default y matriz inicial de permisos.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; auditar decisiones y limitar intentos.
 
 ---
 
@@ -1335,12 +1335,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Añadir auditoría y límite de intentos  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** High  
 **Dependencias:** FR-PH04-TASK-005 y 007.  
 **Criterios de aceptación:** Éxitos/fallos auditados sin secretos y abuso temporalmente limitado.  
 **Pruebas requeridas:** Ventana, recuperación, correlación y redacción.  
-**Siguiente acción:** Esperar flujos protegidos.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** —  
+**Siguiente acción:** Implementar ventana de intentos y eventos de seguridad sin secretos.
 
 ---
 

@@ -2,19 +2,19 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH04-TASK-007 - Aplicar autorización RBAC por permiso**
+**FR-PH04-TASK-008 - Añadir auditoría y límite de intentos**
 
 ### Objetivo de la próxima sesión
 
-Proteger cada acción administrativa con permisos de servidor y denegación por defecto.
+Limitar abuso de login y conservar evidencia útil sin registrar secretos.
 
 ### Orden de trabajo
 
-1. Definir la matriz inicial de roles y permisos.
-2. Crear dependencias para sesión activa y permiso explícito.
-3. Aplicar denegación por defecto a acciones administrativas.
-4. Probar permisos positivos/negativos, sesión revocada y usuario inactivo.
-5. Continuar con auditoría y límite de intentos en FR-PH04-TASK-008.
+1. Definir ventana, umbral y recuperación del límite de login.
+2. Registrar éxito/fallo/bloqueo con identificadores internos, nunca contraseña o token.
+3. Añadir correlación de solicitud a los eventos relevantes.
+4. Probar ventana, desbloqueo, cuenta inexistente y redacción.
+5. Continuar con la verificación de seguridad y OpenAPI.
 
 ## No hacer todavía
 

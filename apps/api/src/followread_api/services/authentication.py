@@ -7,12 +7,12 @@ from sqlalchemy.orm import Session, selectinload
 
 from followread_api.models import Role, User, UserSession
 from followread_api.security import PasswordService, TokenService
-from followread_api.services.bootstrap import normalize_email
 from followread_api.services.errors import (
     AuthenticationRequiredError,
     InvalidCredentialsError,
     InvalidCsrfTokenError,
 )
+from followread_api.services.identity import normalize_email
 
 SESSION_IDLE_TTL = timedelta(minutes=30)
 SESSION_ABSOLUTE_TTL = timedelta(hours=8)
@@ -112,7 +112,11 @@ class AuthenticationService:
     ) -> AuthenticatedUser:
         now = now or datetime.now(UTC)
         stored_session = self._find_session(session_token)
-        if stored_session is None or not stored_session.is_active(now):
+        if (
+            stored_session is None
+            or not stored_session.is_active(now)
+            or stored_session.user.status != "active"
+        ):
             raise AuthenticationRequiredError
 
         stored_session.last_seen_at = now

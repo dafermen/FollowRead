@@ -5,6 +5,12 @@ from followread_api.services.authentication import (
     AuthenticationService,
     IssuedSession,
 )
+from followread_api.services.authorization import (
+    PERMISSION_DESCRIPTIONS,
+    ROLE_PERMISSION_MATRIX,
+    ensure_rbac_matrix,
+    require_permission,
+)
 from followread_api.services.bootstrap import (
     BootstrapConflictError,
     BootstrapInputError,
@@ -21,9 +27,12 @@ from followread_api.services.errors import (
     InvalidCredentialsError,
     InvalidCsrfTokenError,
     InvalidOriginError,
+    PermissionDeniedError,
 )
 
 __all__ = [
+    "PERMISSION_DESCRIPTIONS",
+    "ROLE_PERMISSION_MATRIX",
     "AuthenticatedUser",
     "AuthenticationRequiredError",
     "AuthenticationService",
@@ -40,5 +49,8 @@ __all__ = [
     "InvalidCsrfTokenError",
     "InvalidOriginError",
     "IssuedSession",
+    "PermissionDeniedError",
     "bootstrap_superadmin",
+    "ensure_rbac_matrix",
+    "require_permission",
 ]

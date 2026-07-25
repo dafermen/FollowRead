@@ -428,3 +428,16 @@ FR-PH04-TASK-002, 003 y 004 quedaron `COMPLETED`; FR-PH04-TASK-005 quedó `IN_PR
 - La suite de API alcanzó 73 pruebas Python con 100% de cobertura antes de la puerta integral.
 
 FR-PH04-TASK-005 y 006 quedaron `COMPLETED`; FR-PH04-TASK-007 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Autorización RBAC
+
+- Se definieron cuatro roles y ocho permisos estables con sincronización idempotente.
+- El bootstrap asigna todos los permisos MVP a `super_admin`.
+- Las dependencias HTTP resuelven una sesión activa y exigen un permiso explícito.
+- `/admin/access` valida el ingreso al Admin mediante `admin.access`.
+- Cuentas sin permiso, inactivas, revocadas o sin sesión quedan rechazadas.
+- La suite alcanzó 77 pruebas Python con cobertura 100% antes de la puerta integral.
+
+FR-PH04-TASK-007 quedó `COMPLETED`; FR-PH04-TASK-008 quedó `IN_PROGRESS`.

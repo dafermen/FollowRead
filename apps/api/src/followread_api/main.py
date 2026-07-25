@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from followread_api import __version__
 from followread_api.api.errors import domain_error_handler
+from followread_api.api.routes.administration import router as administration_router
 from followread_api.api.routes.authentication import (
     authentication_cache_control,
 )
@@ -38,6 +39,7 @@ def create_app() -> FastAPI:
     application.add_exception_handler(DomainError, domain_error_handler)
     application.include_router(health_router, prefix=settings.api_prefix)
     application.include_router(authentication_router, prefix=settings.api_prefix)
+    application.include_router(administration_router, prefix=settings.api_prefix)
     application.include_router(catalog_router, prefix=settings.api_prefix)
     return application
 

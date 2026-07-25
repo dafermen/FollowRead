@@ -5,8 +5,10 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from followread_api.models import Administrator, Role, User, UserCredential
+from followread_api.models import Administrator, User, UserCredential
 from followread_api.security import PasswordService
+from followread_api.services.authorization import ensure_rbac_matrix
+from followread_api.services.identity import InvalidEmailError, normalize_email
 
 SUPERADMIN_ROLE = "super_admin"
 MINIMUM_PASSWORD_LENGTH = 15
@@ -26,20 +28,6 @@ class BootstrapResult:
     user_id: UUID
     email: str
     created: bool
-
-
-def normalize_email(email: str) -> str:
-    normalized = email.strip().casefold()
-    local_part, separator, domain = normalized.partition("@")
-    if (
-        separator != "@"
-        or not local_part
-        or not domain
-        or len(normalized) > 320
-        or any(character.isspace() for character in normalized)
-    ):
-        raise BootstrapInputError("Enter a valid email address.")
-    return normalized
 
 
 def validate_display_name(display_name: str) -> str:
@@ -65,12 +53,16 @@ def bootstrap_superadmin(
     password_service: PasswordService | None = None,
     now: datetime | None = None,
 ) -> BootstrapResult:
-    normalized_email = normalize_email(email)
+    try:
+        normalized_email = normalize_email(email)
+    except InvalidEmailError as error:
+        raise BootstrapInputError(str(error)) from error
     normalized_display_name = validate_display_name(display_name)
     validate_password(password)
     password_service = password_service or PasswordService()
     now = now or datetime.now(UTC)
 
+    roles = ensure_rbac_matrix(session)
     existing_user = session.scalar(
         select(User)
         .where(User.email_normalized == normalized_email)
@@ -96,13 +88,6 @@ def bootstrap_superadmin(
             created=False,
         )
 
-    role = session.scalar(select(Role).where(Role.name == SUPERADMIN_ROLE))
-    if role is None:
-        role = Role(
-            name=SUPERADMIN_ROLE,
-            description="Unrestricted administrative access for the FollowRead MVP.",
-        )
-
     user = User(
         email_normalized=normalized_email,
         administrator=Administrator(display_name=normalized_display_name),
@@ -110,7 +95,7 @@ def bootstrap_superadmin(
             password_hash=password_service.hash(password),
             password_changed_at=now,
         ),
-        roles=[role],
+        roles=[roles[SUPERADMIN_ROLE]],
     )
     session.add(user)
     session.flush()

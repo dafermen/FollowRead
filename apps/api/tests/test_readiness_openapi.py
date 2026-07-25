@@ -57,6 +57,7 @@ def test_openapi_exposes_operational_catalog_and_authentication_contracts() -> N
         "/auth/login",
         "/auth/logout",
         "/auth/session",
+        "/admin/access",
     }.issubset(schema["paths"])
     assert schema["paths"]["/catalog"]["get"]["responses"]["200"]["content"]["application/json"][
         "schema"
@@ -71,6 +72,9 @@ def test_openapi_exposes_operational_catalog_and_authentication_contracts() -> N
         "application/json"
     ]["schema"]["$ref"].endswith("/SessionResponse")
     assert schema["paths"]["/auth/logout"]["post"]["responses"]["403"]["content"][
+        "application/json"
+    ]["schema"]["$ref"].endswith("/ErrorResponse")
+    assert schema["paths"]["/admin/access"]["get"]["responses"]["403"]["content"][
         "application/json"
     ]["schema"]["$ref"].endswith("/ErrorResponse")
     assert "ContentDetailResponse" in schema["components"]["schemas"]

@@ -9,7 +9,6 @@ from followread_api.database import create_database_engine
 from followread_api.models import (
     Administrator,
     Base,
-    Permission,
     Role,
     User,
     UserCredential,
@@ -17,6 +16,7 @@ from followread_api.models import (
 )
 from followread_api.security import PasswordService, TokenService
 from followread_api.services import (
+    ROLE_PERMISSION_MATRIX,
     AuthenticationRequiredError,
     AuthenticationService,
     InvalidCredentialsError,
@@ -39,9 +39,6 @@ def build_authenticated_session() -> tuple[Engine, Session, AuthenticationServic
     )
     role = session.scalar(select(Role).where(Role.name == "super_admin"))
     assert role is not None
-    role.permissions.append(
-        Permission(code="content.publish", description="Publish content"),
-    )
     session.commit()
     return engine, session, AuthenticationService(session)
 
@@ -56,7 +53,7 @@ def test_login_current_and_idempotent_logout_use_revocable_tokens() -> None:
     assert issued.user.email == "admin@example.com"
     assert issued.user.display_name == "FollowRead Owner"
     assert issued.user.roles == ("super_admin",)
-    assert issued.user.permissions == ("content.publish",)
+    assert issued.user.permissions == tuple(sorted(ROLE_PERMISSION_MATRIX["super_admin"]))
     assert issued.session_token not in stored.token_hash
     assert issued.csrf_token not in stored.csrf_token_hash
     assert stored.idle_expires_at == now + timedelta(minutes=30)

@@ -12,15 +12,16 @@ from followread_api.api.schemas import (
     issued_session_response,
 )
 from followread_api.config import get_settings
+from followread_api.security.session import (
+    CSRF_COOKIE,
+    SESSION_COOKIE,
+    SESSION_MAX_AGE_SECONDS,
+)
 from followread_api.services import (
     AuthenticationRequiredError,
     InvalidCsrfTokenError,
     InvalidOriginError,
 )
-
-SESSION_COOKIE = "followread_session"
-CSRF_COOKIE = "followread_csrf"
-SESSION_MAX_AGE_SECONDS = 8 * 60 * 60
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 AUTHENTICATION_ERROR: dict[int | str, dict[str, Any]] = {

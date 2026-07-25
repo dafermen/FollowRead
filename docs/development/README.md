@@ -50,4 +50,4 @@ pnpm admin:bootstrap -- --email admin@example.com --display-name "FollowRead Own
 
 El comando solicita y confirma la contraseña sin mostrarla ni incluirla en los argumentos. Debe
 tener entre 15 y 128 caracteres. Repetir el comando para el mismo superadministrador es seguro y no
-cambia su contraseña.
+cambia su contraseña. También sincroniza la matriz inicial de roles y permisos.

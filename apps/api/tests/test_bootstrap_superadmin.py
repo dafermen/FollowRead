@@ -53,7 +53,12 @@ def test_bootstrap_creates_superadministrator_and_is_idempotent() -> None:
             user.credential.password_hash,
         )[0]
         assert [role.name for role in user.roles] == ["super_admin"]
-        assert session.scalars(select(Role)).all() == user.roles
+        assert sorted(role.name for role in session.scalars(select(Role))) == [
+            "content_admin",
+            "reader",
+            "reviewer",
+            "super_admin",
+        ]
 
     engine.dispose()
 

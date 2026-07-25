@@ -10,6 +10,7 @@ class ErrorCode(StrEnum):
     AUTHENTICATION_REQUIRED = "auth.authentication_required"
     INVALID_CSRF_TOKEN = "auth.invalid_csrf_token"
     INVALID_ORIGIN = "auth.invalid_origin"
+    PERMISSION_DENIED = "auth.permission_denied"
 
 
 class DomainError(Exception):
@@ -75,4 +76,12 @@ class InvalidOriginError(DomainError):
         super().__init__(
             ErrorCode.INVALID_ORIGIN,
             "The request origin is not allowed.",
+        )
+
+
+class PermissionDeniedError(DomainError):
+    def __init__(self) -> None:
+        super().__init__(
+            ErrorCode.PERMISSION_DENIED,
+            "You do not have permission to perform this action.",
         )
