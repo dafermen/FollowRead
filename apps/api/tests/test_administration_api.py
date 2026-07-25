@@ -12,7 +12,16 @@ from followread_api.database import (
     get_database_session,
 )
 from followread_api.main import create_app
-from followread_api.models import Administrator, Base, Role, User, UserCredential, UserSession
+from followread_api.models import (
+    Administrator,
+    AuditLog,
+    Base,
+    ReadingContent,
+    Role,
+    User,
+    UserCredential,
+    UserSession,
+)
 from followread_api.security import PasswordService
 from followread_api.services import bootstrap_superadmin
 
@@ -185,6 +194,87 @@ def test_admin_content_requires_access_and_validates_pagination() -> None:
 
                 invalid = await client.get("/admin/content", params={"limit": 0})
                 assert invalid.status_code == 422
+        finally:
+            engine.dispose()
+
+    asyncio.run(exercise())
+
+
+def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> None:
+    async def exercise() -> None:
+        client, engine = build_admin_client()
+        body = {
+            "slug": "forest-adventure",
+            "title": "Aventura en el bosque",
+            "content_type": "story",
+            "audience": "children",
+            "reading_level": "beginner",
+            "languages": ["es", "en"],
+            "categories": ["adventure", "nature"],
+        }
+        try:
+            async with client:
+                unauthenticated = await client.post("/admin/content", json=body)
+                assert unauthenticated.status_code == 401
+
+                await login(client, "admin@example.com")
+                csrf_token = client.cookies.get("followread_csrf")
+                assert csrf_token is not None
+
+                untrusted = await client.post(
+                    "/admin/content",
+                    json=body,
+                    headers={"Origin": "https://attacker.example", "X-CSRF-Token": csrf_token},
+                )
+                assert untrusted.status_code == 403
+                missing_csrf = await client.post(
+                    "/admin/content",
+                    json=body,
+                    headers={"Origin": TRUSTED_ORIGIN},
+                )
+                assert missing_csrf.status_code == 403
+                wrong_csrf = await client.post(
+                    "/admin/content",
+                    json=body,
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": "wrong"},
+                )
+                assert wrong_csrf.status_code == 403
+
+                created = await client.post(
+                    "/admin/content",
+                    json=body,
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert created.status_code == 201
+                assert created.json()["status"] == "draft"
+                assert created.json()["actions"] == ["view", "edit", "process"]
+
+                second = await client.post(
+                    "/admin/content",
+                    json={
+                        **body,
+                        "slug": "second-adventure",
+                        "title": "Otra aventura",
+                        "languages": ["es"],
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert second.status_code == 201
+                duplicate = await client.post(
+                    "/admin/content",
+                    json=body,
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert duplicate.status_code == 422
+                assert duplicate.json()["error"]["details"]["slug"]
+
+                with Session(engine) as session:
+                    assert len(session.scalars(select(ReadingContent)).all()) == 2
+                    audit = session.scalar(
+                        select(AuditLog).where(AuditLog.action == "content.created"),
+                    )
+                    assert audit is not None
+                    assert audit.event_metadata == {"slug": "forest-adventure"}
         finally:
             engine.dispose()
 

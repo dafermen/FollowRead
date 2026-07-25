@@ -211,10 +211,10 @@ export const ContentPage = ({ user, onLogout }: ContentPageProps) => {
             </p>
           </div>
           {canCreate ? (
-            <button className="button button--primary" type="button">
+            <a className="button button--primary" href="/content/new">
               <span aria-hidden="true">＋</span>
               Crear contenido
-            </button>
+            </a>
           ) : null}
         </div>
 

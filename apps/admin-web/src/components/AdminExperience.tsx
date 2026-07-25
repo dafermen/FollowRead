@@ -8,6 +8,7 @@ import {
 } from "../auth/authClient.js";
 import { ContentPage } from "../pages/ContentPage.js";
 import { DashboardPage } from "../pages/DashboardPage.js";
+import { CreateContentPage } from "../pages/CreateContentPage.js";
 
 type AdminExperienceProps = {
   pathname: string;
@@ -103,7 +104,9 @@ export const AdminExperience = ({ pathname, onAuthenticationRequired }: AdminExp
         };
 
   const page =
-    pathname === "/content" ? (
+    pathname === "/content/new" ? (
+      <CreateContentPage user={user} onLogout={handleLogout} />
+    ) : pathname === "/content" ? (
       <ContentPage user={user} onLogout={handleLogout} />
     ) : (
       <DashboardPage user={user} onLogout={handleLogout} />

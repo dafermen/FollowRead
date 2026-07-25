@@ -126,6 +126,28 @@ describe("FollowRead Admin", () => {
     expect(String(fetchMock.mock.calls[2]?.[0])).toContain("search=inexistente");
   });
 
+  it("creates a draft from the visual metadata form", async () => {
+    window.history.pushState({}, "", "/content/new");
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Crear contenido" }),
+    ).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Título principal"), {
+      target: { value: "El viaje de Luna" },
+    });
+    expect(screen.getByLabelText(/Identificador URL/)).toHaveValue("el-viaje-de-luna");
+    fireEvent.click(screen.getByLabelText(/Inglés/));
+    fireEvent.click(screen.getByText("Aventura"));
+    fireEvent.click(screen.getByRole("button", { name: "Crear borrador" }));
+
+    expect(
+      await screen.findByRole("heading", { level: 2, name: "El viaje de Luna" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Borrador creado")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Ver catálogo" })).toHaveAttribute("href", "/content");
+  });
+
   it("keeps pnpm setup and one-command startup in the embedded documentation", () => {
     window.history.pushState({}, "", "/documentation");
     render(<App />);

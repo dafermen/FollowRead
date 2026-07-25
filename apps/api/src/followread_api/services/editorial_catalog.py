@@ -7,12 +7,19 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from followread_api.models import (
+    Audience,
+    AuditLog,
+    Category,
+    ContentTranslation,
     ContentType,
     ContentVersion,
     EditorialStatus,
     Language,
     ReadingContent,
+    ReadingLevel,
+    ReadingLevelCode,
 )
+from followread_api.services.errors import InvalidCatalogQueryError
 
 EditorialSort = Literal["recent", "title", "status"]
 
@@ -47,6 +54,17 @@ class EditorialCatalogPage:
     total: int
     limit: int
     offset: int
+
+
+@dataclass(frozen=True)
+class CreateEditorialContent:
+    slug: str
+    title: str
+    content_type: ContentType
+    audience: Audience
+    reading_level: ReadingLevelCode
+    languages: tuple[Language, ...]
+    categories: tuple[str, ...]
 
 
 class EditorialCatalogService:
@@ -92,6 +110,79 @@ class EditorialCatalogService:
             limit=filters.limit,
             offset=filters.offset,
         )
+
+    def create_draft(
+        self,
+        command: CreateEditorialContent,
+        *,
+        actor_user_id: UUID,
+        permissions: frozenset[str],
+        correlation_id: str,
+    ) -> EditorialCatalogItem:
+        existing = self._session.scalar(
+            select(ReadingContent).where(ReadingContent.slug == command.slug),
+        )
+        if existing is not None:
+            raise InvalidCatalogQueryError("slug", "A content item already uses this slug.")
+
+        level = self._session.scalar(
+            select(ReadingLevel).where(ReadingLevel.code == command.reading_level),
+        )
+        if level is None:
+            level_codes = list(ReadingLevelCode)
+            level = ReadingLevel(
+                code=command.reading_level,
+                label=command.reading_level.value.replace("-", " ").title(),
+                display_order=level_codes.index(command.reading_level),
+            )
+            self._session.add(level)
+
+        stored_categories = {
+            category.slug: category
+            for category in self._session.scalars(
+                select(Category).where(Category.slug.in_(command.categories)),
+            ).all()
+        }
+        categories = [
+            stored_categories.get(slug) or Category(slug=slug, name=slug.replace("-", " ").title())
+            for slug in command.categories
+        ]
+        version = ContentVersion(
+            version_number=1,
+            status=EditorialStatus.DRAFT,
+            minimum_app_version="1.0.0",
+            translations=[
+                ContentTranslation(language=language, title=command.title)
+                for language in command.languages
+            ],
+        )
+        content = ReadingContent(
+            slug=command.slug,
+            content_type=command.content_type,
+            audience=command.audience,
+            reading_level=level,
+            categories=categories,
+            versions=[version],
+        )
+        self._session.add(content)
+        self._session.flush()
+        self._session.add(
+            AuditLog(
+                actor_user_id=actor_user_id,
+                action="content.created",
+                target_type="content",
+                target_id=content.id,
+                outcome="succeeded",
+                correlation_id=correlation_id,
+                event_metadata={"slug": command.slug},
+            ),
+        )
+        item = replace(
+            self._item(content, version),
+            actions=self._actions(version.status, permissions),
+        )
+        self._session.commit()
+        return item
 
     @staticmethod
     def _item(content: ReadingContent, version: ContentVersion) -> EditorialCatalogItem:

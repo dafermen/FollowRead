@@ -73,7 +73,7 @@ export const getCurrentSession = async (): Promise<SessionResponse> => {
   return readSessionResponse(response);
 };
 
-const getCookie = (name: string) => {
+export const getCookie = (name: string) => {
   const prefix = `${name}=`;
   const cookie = document.cookie
     .split(";")

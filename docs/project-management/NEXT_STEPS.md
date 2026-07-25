@@ -2,18 +2,18 @@
 
 ## Siguiente tarea exacta
 
-**Completar FR-PH05-TASK-006 - Creación y metadatos de contenido**
+**Completar FR-PH05-TASK-007 - Editor, estructura y recuperación**
 
 ### Objetivo de la próxima sesión
 
-Permitir crear un borrador editorial completo desde el panel visual.
+Permitir escribir y organizar capítulos y párrafos dentro de un borrador real.
 
 ### Orden de trabajo
 
-1. Diseñar el formulario de tipo, título, slug, audiencia, nivel e idiomas.
-2. Exponer una creación administrativa protegida por `content.create`.
-3. Validar duplicados y entradas incompletas sin perder el formulario.
-4. Probar creación, validación, permiso, error y retorno al catálogo.
+1. Diseñar el editor visual con navegación de capítulos y área de escritura.
+2. Exponer lectura y actualización protegidas por `content.edit`.
+3. Añadir guardado recuperable, versión esperada y conflicto visible.
+4. Probar carga, guardado, reordenamiento, recuperación y salida segura.
 
 ## No hacer todavía
 

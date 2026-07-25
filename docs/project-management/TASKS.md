@@ -93,8 +93,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | COMPLETED | Critical |
 | FR-PH05-TASK-004 | Implementar Dashboard editorial | COMPLETED | High |
 | FR-PH05-TASK-005 | Implementar lista y filtros de contenido | COMPLETED | Critical |
-| FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | IN_PROGRESS | Critical |
-| FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | NOT_STARTED | Critical |
+| FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | COMPLETED | Critical |
+| FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | IN_PROGRESS | Critical |
 | FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | NOT_STARTED | High |
 | FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | NOT_STARTED | High |
 | FR-PH05-TASK-010 | Implementar revisión, publicación e historial | NOT_STARTED | Critical |
@@ -1472,13 +1472,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar creación y metadatos de contenido  
 **Fase:** 5  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-005.  
 **Criterios de aceptación:** Crear borrador con tipo, idiomas, audiencia, nivel y categorías válidos.  
 **Pruebas requeridas:** Creación, validación, duplicado, permiso y error recuperable.  
 **Fecha de inicio:** 2026-07-25  
-**Siguiente acción:** Diseñar y conectar el formulario de metadatos.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; implementar el editor estructural.
 
 ---
 
@@ -1486,11 +1487,13 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar editor, estructura y recuperación  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-006.  
 **Criterios de aceptación:** Editar capítulos/párrafos, autoguardar, recuperar y resolver conflicto.  
 **Pruebas requeridas:** Guardado, salida, recuperación, reordenamiento por teclado y conflicto.  
+**Fecha de inicio:** 2026-07-25  
+**Siguiente acción:** Diseñar la experiencia de edición y su contrato persistente.
 
 ---
 

@@ -1,8 +1,13 @@
 from datetime import UTC, datetime, timedelta
 
+import pytest
+from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from followread_api.api.schemas import editorial_catalog_page_response
+from followread_api.api.schemas import (
+    CreateEditorialContentRequest,
+    editorial_catalog_page_response,
+)
 from followread_api.database import create_database_engine
 from followread_api.models import (
     Audience,
@@ -136,6 +141,32 @@ def test_editorial_catalog_filters_sorts_paginates_and_assigns_actions() -> None
         assert no_result.total == 0
 
     engine.dispose()
+
+
+def test_create_content_request_validates_languages_categories_and_builds_command() -> None:
+    valid = CreateEditorialContentRequest(
+        slug="new-story",
+        title="Nueva historia",
+        content_type=ContentType.STORY,
+        audience=Audience.CHILDREN,
+        reading_level=ReadingLevelCode.BEGINNER,
+        languages=[Language.SPANISH],
+        categories=["adventure"],
+    )
+    assert valid.to_command().languages == (Language.SPANISH,)
+
+    with pytest.raises(ValidationError):
+        CreateEditorialContentRequest(
+            **{**valid.model_dump(), "languages": [Language.SPANISH, Language.SPANISH]},
+        )
+    with pytest.raises(ValidationError):
+        CreateEditorialContentRequest(
+            **{**valid.model_dump(), "categories": ["adventure", "adventure"]},
+        )
+    with pytest.raises(ValidationError):
+        CreateEditorialContentRequest(
+            **{**valid.model_dump(), "categories": ["Not valid"]},
+        )
 
 
 def _content(

@@ -20,6 +20,7 @@ from followread_api.services.bootstrap import (
 from followread_api.services.catalog import CatalogReader, CatalogService
 from followread_api.services.dashboard import DashboardService, DashboardSummary
 from followread_api.services.editorial_catalog import (
+    CreateEditorialContent,
     EditorialCatalogFilters,
     EditorialCatalogPage,
     EditorialCatalogService,
@@ -48,6 +49,7 @@ __all__ = [
     "CatalogReader",
     "CatalogService",
     "ContentNotFoundError",
+    "CreateEditorialContent",
     "DashboardService",
     "DashboardSummary",
     "DomainError",

@@ -517,3 +517,16 @@ FR-PH05-TASK-004 quedó `COMPLETED`; FR-PH05-TASK-005 quedó `IN_PROGRESS`.
 - La puerta pasó con 83 pruebas Python, nueve pruebas web, cobertura 100% y todos los builds.
 
 FR-PH05-TASK-005 quedó `COMPLETED`; FR-PH05-TASK-006 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Creación visual de borradores
+
+- Se añadió una pantalla responsive de creación con título, slug automático, tipo y audiencia.
+- El formulario incluye nivel lector, uno o dos idiomas y categorías editoriales.
+- `POST /admin/content` exige `content.create`, origen permitido, cookie de sesión y token CSRF.
+- SQLite crea o reutiliza niveles y categorías, registra la versión 1 en borrador y deja auditoría.
+- La vista previa simula el resultado para demostraciones sin cuenta; la sesión real persiste datos.
+- La puerta pasó con 85 pruebas Python, diez pruebas web, cobertura 100% y todos los builds.
+
+FR-PH05-TASK-006 quedó `COMPLETED`; FR-PH05-TASK-007 quedó `IN_PROGRESS`.

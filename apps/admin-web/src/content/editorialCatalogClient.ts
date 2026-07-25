@@ -27,6 +27,16 @@ export type EditorialCatalogQuery = {
   offset: number;
 };
 
+export type CreateEditorialContentRequest = {
+  slug: string;
+  title: string;
+  content_type: string;
+  audience: string;
+  reading_level: string;
+  languages: string[];
+  categories: string[];
+};
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export const getEditorialContent = async (
@@ -56,3 +66,27 @@ export const getEditorialContent = async (
   }
   return (await response.json()) as EditorialCatalogPage;
 };
+
+export const createEditorialContent = async (
+  body: CreateEditorialContentRequest,
+): Promise<EditorialCatalogItem> => {
+  const csrfToken = getCookie("followread_csrf");
+  const headers: Record<string, string> = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  if (csrfToken !== undefined) {
+    headers["X-CSRF-Token"] = csrfToken;
+  }
+  const response = await fetch(`${API_BASE_URL}/admin/content`, {
+    method: "POST",
+    credentials: "include",
+    headers,
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    throw new Error(`Editorial content creation failed with status ${String(response.status)}.`);
+  }
+  return (await response.json()) as EditorialCatalogItem;
+};
+import { getCookie } from "../auth/authClient.js";
