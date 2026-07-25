@@ -21,6 +21,8 @@
     "typescript-eslint": "catalog:"
   },
   "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:check": "node scripts/dev.mjs --check",
     "setup": "pnpm install --frozen-lockfile && pnpm setup:python && pnpm hooks:install",
     "setup:python": "node scripts/setup-python.mjs",
     "check": "pnpm validate:ci && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",

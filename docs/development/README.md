@@ -21,6 +21,17 @@ pnpm migrate
 pnpm check
 ```
 
+## Iniciar todo con un comando
+
+Después de `pnpm setup` y `pnpm migrate`:
+
+```powershell
+pnpm dev
+```
+
+Esto inicia API (`8000`), Admin (`5173`) y Reader (`5174`) en la misma terminal. `Ctrl+C` detiene
+los tres procesos. Puedes validar los prerrequisitos sin iniciar servidores con `pnpm dev:check`.
+
 ## Documentación visible en las aplicaciones
 
 - Reader: `http://localhost:5174/documentation`

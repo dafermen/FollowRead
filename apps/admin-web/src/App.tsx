@@ -16,6 +16,11 @@ const Documentation = () => (
       <p>
         Si PowerShell bloquea <code>pnpm.ps1</code>, usa <code>pnpm.cmd</code>.
       </p>
+      <h2>Levantar todo</h2>
+      <p>
+        Después de preparar y migrar el proyecto, ejecuta <code>pnpm dev</code> para iniciar API,
+        Admin y Reader. Presiona <code>Ctrl+C</code> para detenerlos.
+      </p>
       <div className="actions">
         <a className="button-link" href="/">
           Volver al Admin

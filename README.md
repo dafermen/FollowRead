@@ -47,6 +47,14 @@ pnpm check
 `pnpm setup` instala dependencias JavaScript, crea `apps/api/.venv`, instala la API y configura los
 hooks Git. SQLite se crea en `var/followread.db` al conectarse o migrar.
 
+Para iniciar API, Admin y Reader al mismo tiempo:
+
+```powershell
+pnpm dev
+```
+
+El comando muestra las tres direcciones y las detiene juntas con `Ctrl+C`.
+
 Si PowerShell bloquea `pnpm.ps1`, usa `pnpm.cmd` en los comandos. Reader y Admin incluyen una
 página de ayuda en `/documentation`; la API ofrece su contrato interactivo en
 `http://localhost:8000/docs`.
