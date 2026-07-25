@@ -95,11 +95,26 @@ aceptación correspondientes están satisfechos.
 | FR-PH05-TASK-005 | Implementar lista y filtros de contenido | COMPLETED | Critical |
 | FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | COMPLETED | Critical |
 | FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | COMPLETED | Critical |
-| FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | IN_PROGRESS | High |
-| FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | NOT_STARTED | High |
-| FR-PH05-TASK-010 | Implementar revisión, publicación e historial | NOT_STARTED | Critical |
-| FR-PH05-TASK-011 | Verificar responsive, accesibilidad y estados | NOT_STARTED | Critical |
-| FR-PH05-TASK-012 | Auditar y cerrar Fase 5 | NOT_STARTED | Critical |
+| FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | COMPLETED | High |
+| FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | COMPLETED | High |
+| FR-PH05-TASK-010 | Implementar revisión, publicación e historial | COMPLETED | Critical |
+| FR-PH05-TASK-011 | Verificar responsive, accesibilidad y estados | COMPLETED | Critical |
+| FR-PH05-TASK-012 | Auditar y cerrar Fase 5 | COMPLETED | Critical |
+
+## Resumen de Fase 6
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH06-TASK-001 | Descomponer y activar la Fase 6 | COMPLETED | Critical |
+| FR-PH06-TASK-002 | Definir configuración, contratos y voces | COMPLETED | Critical |
+| FR-PH06-TASK-003 | Dividir texto y estimar costos | COMPLETED | Critical |
+| FR-PH06-TASK-004 | Implementar adaptadores local y Amazon Polly | COMPLETED | Critical |
+| FR-PH06-TASK-005 | Almacenar audio con integridad | COMPLETED | High |
+| FR-PH06-TASK-006 | Procesar y mapear Speech Marks | COMPLETED | Critical |
+| FR-PH06-TASK-007 | Orquestar trabajos, idempotencia y reintentos | COMPLETED | Critical |
+| FR-PH06-TASK-008 | Exponer API segura de procesamiento | COMPLETED | Critical |
+| FR-PH06-TASK-009 | Integrar progreso y diagnóstico en Admin | COMPLETED | High |
+| FR-PH06-TASK-010 | Verificar, documentar y cerrar Fase 6 | COMPLETED | Critical |
 
 ---
 
@@ -1502,13 +1517,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar traducciones, recursos y voz  
 **Fase:** 5  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH05-TASK-007.  
 **Criterios de aceptación:** Pares bilingües, carga validada y selección de voz compatible.  
 **Pruebas requeridas:** Faltante, desalineación, archivo inválido, voz incompatible y guardado.  
 **Fecha de inicio:** 2026-07-25  
-**Siguiente acción:** Conectar idiomas y voces con contratos listos para Fase 6.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; traducciones, ilustraciones y voces conectadas.
 
 ---
 
@@ -1516,11 +1532,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar procesamiento y diagnóstico  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH05-TASK-008 y contratos de Fase 6 cuando correspondan.  
 **Criterios de aceptación:** Progreso, costo, cancelación, error y reintento idempotente visibles.  
 **Pruebas requeridas:** Cola, progreso, fallo parcial, reintento, cancelación y permiso.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada en `/processing`.
 
 ---
 
@@ -1528,11 +1547,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar revisión, publicación e historial  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-007 a 009.  
 **Criterios de aceptación:** Preview, checklist y transiciones auditadas respetan permisos y estado.  
 **Pruebas requeridas:** Aprobar, rechazar, publicar, despublicar, archivar y denegaciones.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada en `/reviews` y API administrativa.
 
 ---
 
@@ -1540,11 +1562,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Verificar responsive, accesibilidad y estados  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-003 a 010.  
 **Criterios de aceptación:** Flujos funcionan a 320 px, zoom/reflow, teclado y lector de pantalla.  
 **Pruebas requeridas:** Automatizadas y manuales de WCAG 2.2 AA para recorridos críticos.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; evidencia en `PHASE_5_REVIEW.md`.
 
 ---
 
@@ -1552,8 +1577,143 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Auditar y cerrar Fase 5  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-001 a 011.  
 **Criterios de aceptación:** Ocho criterios de salida pasan y la puerta completa queda en verde.  
 **Pruebas requeridas:** Recorrido login → editar → revisar → publicar sobre SQLite desechable.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; Fase 5 cerrada en PASS.
+
+---
+
+## FR-PH06-TASK-001
+
+**Título:** Descomponer y activar la Fase 6  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Criterios de aceptación:** El alcance de Polly, Speech Marks, costos y pruebas queda trazable.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-002
+
+**Título:** Definir configuración, contratos y voces  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-001.  
+**Criterios de aceptación:** Proveedor, almacenamiento, límite, fragmento e idiomas se validan.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-003
+
+**Título:** Dividir texto y estimar costos  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-002.  
+**Criterios de aceptación:** No corta palabras y bloquea costos sobre el máximo antes del proveedor.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-004
+
+**Título:** Implementar adaptadores local y Amazon Polly  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-002.  
+**Criterios de aceptación:** Modo local sin red y límite AWS intercambiables por configuración.  
+**Pruebas requeridas:** Cliente AWS simulado; nunca una llamada AWS real automatizada.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-005
+
+**Título:** Almacenar audio con integridad  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH06-TASK-003 y 004.  
+**Criterios de aceptación:** URI, duración, voz, idioma, estado y checksum quedan persistidos.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-006
+
+**Título:** Procesar y mapear Speech Marks  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-004.  
+**Criterios de aceptación:** Palabras conservan tiempo, caracteres, orden y vínculo al párrafo.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-007
+
+**Título:** Orquestar trabajos, idempotencia y reintentos  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-003 a 006.  
+**Criterios de aceptación:** Estado, progreso, error, cancelación, tres intentos y clave única funcionan.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-008
+
+**Título:** Exponer API segura de procesamiento  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-007.  
+**Criterios de aceptación:** Endpoints exigen sesión, permiso, origen y CSRF en mutaciones.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-009
+
+**Título:** Integrar progreso y diagnóstico en Admin  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH06-TASK-008.  
+**Criterios de aceptación:** Voz, idioma, costo, progreso, error, reintento y cancelación son visibles.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25
+
+---
+
+## FR-PH06-TASK-010
+
+**Título:** Verificar, documentar y cerrar Fase 6  
+**Fase:** 6  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH06-TASK-001 a 009.  
+**Criterios de aceptación:** Puerta completa en verde y evidencia sin AWS real.  
+**Pruebas requeridas:** Mocks, errores, costos, fragmentos, marcas, API y pantalla.  
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Descomponer la Fase 7 antes de activarla.

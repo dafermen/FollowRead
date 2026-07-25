@@ -6,6 +6,7 @@ import {
   EditorRequestError,
   getEditorDocument,
   saveEditorDocument,
+  uploadIllustration,
   type EditorDocument,
   type EditorTranslation,
 } from "../content/editorialCatalogClient.js";
@@ -18,6 +19,7 @@ type EditorPageProps = {
 
 const previewDocument: EditorDocument = {
   content_id: "preview",
+  content_version_id: "preview-version",
   slug: "el-zorro-y-la-luna",
   version: 3,
   status: "draft",
@@ -78,6 +80,10 @@ export const EditorPage = ({ contentId, user, onLogout }: EditorPageProps) => {
   const [state, setState] = useState<
     "loading" | "saved" | "dirty" | "saving" | "error" | "conflict"
   >(isPreview ? "saved" : "loading");
+  const [resourceState, setResourceState] = useState<"ready" | "uploading" | "saved" | "error">(
+    "ready",
+  );
+  const [altText, setAltText] = useState("");
 
   useEffect(() => {
     if (isPreview) {
@@ -201,9 +207,9 @@ export const EditorPage = ({ contentId, user, onLogout }: EditorPageProps) => {
             </span>
             <a
               className="button button--secondary"
-              href={`/content?selected=${document.content_id}`}
+              href={`/processing?version=${document.content_version_id}`}
             >
-              Vista previa
+              Generar audio
             </a>
           </div>
         </header>
@@ -430,6 +436,56 @@ export const EditorPage = ({ contentId, user, onLogout }: EditorPageProps) => {
                 <strong>Recuperación activa</strong>
                 Tus cambios se conservan en este dispositivo hasta confirmar el guardado.
               </p>
+            </div>
+            <div className="resource-uploader">
+              <p className="eyebrow">Ilustración</p>
+              <label>
+                <span>Descripción accesible</span>
+                <textarea
+                  value={altText}
+                  placeholder="Describe lo importante de la imagen."
+                  onChange={(event) => {
+                    setAltText(event.target.value);
+                  }}
+                />
+              </label>
+              <label className="resource-file">
+                <span>
+                  {resourceState === "uploading"
+                    ? "Cargando…"
+                    : resourceState === "saved"
+                      ? "✓ Ilustración guardada"
+                      : "Añadir PNG, JPEG o WebP"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  disabled={resourceState === "uploading" || altText.trim() === ""}
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file === undefined) {
+                      return;
+                    }
+                    setResourceState("uploading");
+                    if (isPreview) {
+                      setResourceState("saved");
+                      return;
+                    }
+                    void uploadIllustration(contentId, file, altText)
+                      .then(() => {
+                        setResourceState("saved");
+                      })
+                      .catch(() => {
+                        setResourceState("error");
+                      });
+                  }}
+                />
+              </label>
+              {resourceState === "error" ? (
+                <p className="resource-error" role="alert">
+                  Archivo inválido o demasiado grande. Revisa el formato y la descripción.
+                </p>
+              ) : null}
             </div>
           </aside>
         </div>

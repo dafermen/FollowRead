@@ -543,3 +543,19 @@ FR-PH05-TASK-006 quedó `COMPLETED`; FR-PH05-TASK-007 quedó `IN_PROGRESS`.
 - La puerta pasó con 86 pruebas Python, once pruebas web y cobertura 100%.
 
 FR-PH05-TASK-007 quedó `COMPLETED`; FR-PH05-TASK-008 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Cierre visual de Admin y Fase 6
+
+- El editor completó traducciones, selección compatible de voces y carga validada de ilustraciones.
+- La pantalla Procesamiento muestra costo, progreso, idioma, voz, diagnóstico, cancelación y reintento.
+- La API divide texto, calcula costo, genera audio local y vincula Speech Marks con cada párrafo.
+- El límite Amazon Polly quedó desacoplado, configurable y probado con un cliente simulado sin red.
+- Revisión y publicación incorporaron checklist, aprobación, rechazo, publicación, despublicación,
+  archivo e historial auditado.
+- Las composiciones responsive cubren 320 px, etiquetas, alertas, progreso ARIA y movimiento reducido.
+- La puerta rápida pasó con 91 pruebas Python, 13 pruebas Admin y cobertura backend de 100%.
+
+FR-PH05-TASK-008 a 012 y FR-PH06-TASK-001 a 010 quedaron `COMPLETED`. Fases 5 y 6 quedaron
+cerradas en PASS; el siguiente paso es descomponer la Fase 7.

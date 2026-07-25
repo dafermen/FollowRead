@@ -27,3 +27,12 @@ pnpm migrate
 
 El endpoint `GET /health` no requiere SQLite, Redis ni AWS. SQLite usa
 `var/followread.db` por defecto y PostgreSQL queda fuera del MVP.
+
+## Procesamiento del MVP
+
+La API usa audio local simulado por defecto. Genera archivos y Speech Marks deterministas sin
+cuenta, red ni costo. El contrato opcional de Amazon Polly se activa sólo con
+`FOLLOWREAD_POLLY_PROVIDER=aws`; las pruebas nunca realizan llamadas AWS reales.
+
+Los contratos administrativos de contenido, ilustraciones, procesamiento, revisión y publicación
+se pueden explorar en `http://localhost:8000/docs` al levantar el proyecto.

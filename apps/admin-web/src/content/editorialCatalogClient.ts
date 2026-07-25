@@ -59,6 +59,7 @@ export type EditorTranslation = {
 
 export type EditorDocument = {
   content_id: string;
+  content_version_id: string;
   slug: string;
   version: number;
   status: string;
@@ -162,4 +163,51 @@ export const saveEditorDocument = async (document: EditorDocument): Promise<Edit
   }
   return (await response.json()) as EditorDocument;
 };
+
+export const uploadIllustration = async (
+  contentId: string,
+  file: File,
+  altText: string,
+): Promise<void> => {
+  const payloadBase64 = await readFileAsBase64(file);
+  const csrfToken = getCookie("followread_csrf");
+  const headers: Record<string, string> = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  if (csrfToken !== undefined) {
+    headers["X-CSRF-Token"] = csrfToken;
+  }
+  const response = await fetch(`${API_BASE_URL}/admin/content/${contentId}/illustrations`, {
+    method: "POST",
+    credentials: "include",
+    headers,
+    body: JSON.stringify({
+      content_type: file.type,
+      payload_base64: payloadBase64,
+      alt_text: altText,
+      position: 0,
+    }),
+  });
+  if (!response.ok) {
+    throw new Error(`Illustration upload failed with status ${String(response.status)}.`);
+  }
+};
+
+const readFileAsBase64 = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      if (typeof reader.result !== "string") {
+        reject(new Error("The illustration encoding is unavailable."));
+        return;
+      }
+      const value = reader.result;
+      resolve(value.includes(",") ? (value.split(",")[1] ?? "") : value);
+    });
+    reader.addEventListener("error", () => {
+      reject(new Error("The illustration could not be read."));
+    });
+    reader.readAsDataURL(file);
+  });
 import { getCookie } from "../auth/authClient.js";

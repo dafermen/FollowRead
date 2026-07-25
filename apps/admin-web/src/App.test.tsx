@@ -177,7 +177,60 @@ describe("FollowRead Admin", () => {
     expect(screen.getByText("Cambios pendientes")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Bajar Una luz en el bosque" }));
     expect(screen.getByRole("button", { name: "Subir Una luz en el bosque" })).toBeEnabled();
+    fireEvent.change(screen.getByLabelText("Descripción accesible"), {
+      target: { value: "Un bosque iluminado por la luna." },
+    });
+    fireEvent.change(screen.getByLabelText("Añadir PNG, JPEG o WebP"), {
+      target: { files: [new File(["png"], "forest.png", { type: "image/png" })] },
+    });
+    expect(screen.getByText("✓ Ilustración guardada")).toBeInTheDocument();
     expect(await screen.findByText("✓ Guardado", {}, { timeout: 2000 })).toBeInTheDocument();
+  });
+
+  it("shows and controls the audio processing workspace", async () => {
+    window.history.pushState({}, "", "/processing?version=version-2");
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Procesamiento" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Adaptador local seguro")).toBeInTheDocument();
+    expect(screen.getAllByRole("progressbar")).toHaveLength(3);
+
+    fireEvent.click(screen.getByRole("button", { name: "Reintentar" }));
+    expect(screen.queryByRole("button", { name: "Reintentar" })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancelar" }));
+    expect(screen.queryByRole("button", { name: "Cancelar" })).not.toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText("Idioma"), { target: { value: "en" } });
+    expect(screen.getByLabelText("Voz")).toHaveValue("Joanna");
+    fireEvent.click(screen.getByRole("button", { name: "Generar audio" }));
+    expect(screen.getAllByRole("progressbar")).toHaveLength(4);
+  });
+
+  it("reviews, approves and publishes from the editorial board", async () => {
+    window.history.pushState({}, "", "/reviews");
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Revisión y publicación" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("The River Between Us")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Aprobar" }));
+    const publishButtons = screen.getAllByRole("button", { name: "Publicar" });
+    expect(publishButtons).toHaveLength(2);
+    if (publishButtons[0] === undefined) {
+      throw new Error("A publish action is required.");
+    }
+    fireEvent.click(publishButtons[0]);
+    expect(screen.getAllByText("Publicado")).toHaveLength(2);
+    const unpublishButtons = screen.getAllByRole("button", { name: "Despublicar" });
+    if (unpublishButtons[0] === undefined) {
+      throw new Error("An unpublish action is required.");
+    }
+    fireEvent.click(unpublishButtons[0]);
+    expect(screen.getByText("Sin publicar")).toBeInTheDocument();
   });
 
   it("shows the secure login form and toggles password visibility", () => {

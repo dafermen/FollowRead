@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { AuthenticatedUser } from "../auth/authClient.js";
 
 type AdminShellProps = {
-  activeItem: "dashboard" | "content";
+  activeItem: "dashboard" | "content" | "processing" | "reviews";
   children: ReactNode;
   user?: AuthenticatedUser | undefined;
   onLogout?: (() => Promise<void>) | undefined;
@@ -22,14 +22,14 @@ const navigationItems = [
     id: "processing",
     icon: "◌",
     label: "Procesamiento",
-    href: "/#processing",
+    href: "/processing",
     permissions: ["content.process"],
   },
   {
     id: "reviews",
     icon: "✓",
     label: "Revisión",
-    href: "/#reviews",
+    href: "/reviews",
     count: 3,
     permissions: ["content.review", "content.publish"],
   },
@@ -37,7 +37,7 @@ const navigationItems = [
     id: "publication",
     icon: "↑",
     label: "Publicaciones",
-    href: "/#publication",
+    href: "/reviews#publication",
     permissions: ["content.publish"],
   },
 ] as const;

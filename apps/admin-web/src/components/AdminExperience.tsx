@@ -10,6 +10,8 @@ import { ContentPage } from "../pages/ContentPage.js";
 import { DashboardPage } from "../pages/DashboardPage.js";
 import { CreateContentPage } from "../pages/CreateContentPage.js";
 import { EditorPage } from "../pages/EditorPage.js";
+import { ProcessingPage } from "../pages/ProcessingPage.js";
+import { ReviewPage } from "../pages/ReviewPage.js";
 
 type AdminExperienceProps = {
   pathname: string;
@@ -112,6 +114,10 @@ export const AdminExperience = ({ pathname, onAuthenticationRequired }: AdminExp
       <CreateContentPage user={user} onLogout={handleLogout} />
     ) : pathname === "/content" ? (
       <ContentPage user={user} onLogout={handleLogout} />
+    ) : pathname === "/processing" ? (
+      <ProcessingPage user={user} onLogout={handleLogout} />
+    ) : pathname === "/reviews" ? (
+      <ReviewPage user={user} onLogout={handleLogout} />
     ) : (
       <DashboardPage user={user} onLogout={handleLogout} />
     );

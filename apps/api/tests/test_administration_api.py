@@ -1,4 +1,5 @@
 import asyncio
+from base64 import b64encode
 from collections.abc import Generator
 from datetime import UTC, datetime
 
@@ -295,6 +296,196 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                 assert stale.status_code == 409
                 assert stale.json()["error"]["code"] == "editor.conflict"
 
+                image_body = {
+                    "content_type": "image/png",
+                    "payload_base64": b64encode(b"\x89PNG\r\n\x1a\n").decode(),
+                    "alt_text": "Luna camina entre árboles verdes.",
+                    "position": 0,
+                }
+                invalid_image_type = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={**image_body, "content_type": "text/plain"},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_image_type.status_code == 422
+                invalid_image_encoding = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={**image_body, "payload_base64": "not-base64"},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_image_encoding.status_code == 422
+                missing_alt_text = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={**image_body, "alt_text": "   "},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert missing_alt_text.status_code == 422
+                invalid_signature = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={**image_body, "payload_base64": b64encode(b"not-png").decode()},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_signature.status_code == 422
+                invalid_webp_signature = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={
+                        **image_body,
+                        "content_type": "image/webp",
+                        "payload_base64": b64encode(b"RIFFxxxxNOPE").decode(),
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_webp_signature.status_code == 422
+                oversized_image = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={
+                        **image_body,
+                        "payload_base64": b64encode(
+                            b"\x89PNG\r\n\x1a\n" + b"x" * (5 * 1024 * 1024),
+                        ).decode(),
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert oversized_image.status_code == 422
+                invalid_paragraph = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={**image_body, "paragraph_id": "00000000-0000-0000-0000-000000000000"},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_paragraph.status_code == 422
+                illustration = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json=image_body,
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert illustration.status_code == 201
+                assert illustration.json()["status"] == "ready"
+                replaced_illustration = await client.post(
+                    f"/admin/content/{content_id}/illustrations",
+                    json={**image_body, "alt_text": "Descripción actualizada."},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert replaced_illustration.json()["id"] == illustration.json()["id"]
+
+                voices = await client.get("/admin/voices")
+                assert voices.status_code == 200
+                assert {item["id"] for item in voices.json()["items"]} == {
+                    "Lucia",
+                    "Sergio",
+                    "Joanna",
+                    "Matthew",
+                }
+                empty_jobs = await client.get("/admin/processing")
+                assert empty_jobs.status_code == 200
+                assert empty_jobs.json()["items"] == []
+                processing = await client.post(
+                    "/admin/processing",
+                    json={
+                        "content_version_id": saved.json()["content_version_id"],
+                        "language": "es",
+                        "voice_id": "Lucia",
+                        "idempotency_key": "forest-adventure-es-v1",
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert processing.status_code == 202
+                assert processing.json()["status"] == "succeeded"
+                repeated_processing = await client.post(
+                    "/admin/processing",
+                    json={
+                        "content_version_id": saved.json()["content_version_id"],
+                        "language": "es",
+                        "voice_id": "Lucia",
+                        "idempotency_key": "forest-adventure-es-v1",
+                    },
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert repeated_processing.json()["id"] == processing.json()["id"]
+                jobs = await client.get("/admin/processing")
+                assert len(jobs.json()["items"]) == 1
+                cancelled_completed = await client.post(
+                    f"/admin/processing/{processing.json()['id']}/cancel",
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert cancelled_completed.json()["status"] == "succeeded"
+                invalid_retry = await client.post(
+                    f"/admin/processing/{processing.json()['id']}/retry",
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_retry.status_code == 422
+
+                review = await client.get(f"/admin/content/{content_id}/review")
+                assert review.status_code == 200
+                assert all(item["passed"] for item in review.json()["checks"])
+                submitted = await client.post(
+                    f"/admin/content/{content_id}/review/submit",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert submitted.json()["status"] == "ready_for_review"
+                missing_rejection_note = await client.post(
+                    f"/admin/content/{content_id}/review/reject",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert missing_rejection_note.status_code == 422
+                rejected = await client.post(
+                    f"/admin/content/{content_id}/review/reject",
+                    json={"note": "Ajustar el cierre."},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert rejected.json()["status"] == "review_rejected"
+                await client.post(
+                    f"/admin/content/{content_id}/review/submit",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                approved = await client.post(
+                    f"/admin/content/{content_id}/review/approve",
+                    json={"note": "Lectura verificada."},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert approved.json()["status"] == "approved"
+                published = await client.post(
+                    f"/admin/content/{content_id}/review/publish",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert published.json()["status"] == "published"
+                unpublished = await client.post(
+                    f"/admin/content/{content_id}/review/unpublish",
+                    json={"note": "Pausa editorial."},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert unpublished.json()["status"] == "unpublished"
+                republished = await client.post(
+                    f"/admin/content/{content_id}/review/publish",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert republished.json()["status"] == "published"
+                await client.post(
+                    f"/admin/content/{content_id}/review/unpublish",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                archived = await client.post(
+                    f"/admin/content/{content_id}/review/archive",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert archived.json()["status"] == "archived"
+                assert [item["action"] for item in archived.json()["history"]][:2] == [
+                    "archive",
+                    "unpublish",
+                ]
+                invalid_transition = await client.post(
+                    f"/admin/content/{content_id}/review/publish",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert invalid_transition.status_code == 422
+
                 second = await client.post(
                     "/admin/content",
                     json={
@@ -306,6 +497,12 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                     headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
                 )
                 assert second.status_code == 201
+                incomplete_review = await client.post(
+                    f"/admin/content/{second.json()['id']}/review/submit",
+                    json={},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert incomplete_review.status_code == 422
                 duplicate = await client.post(
                     "/admin/content",
                     json=body,
@@ -318,6 +515,16 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                     "/admin/content/00000000-0000-0000-0000-000000000000/editor",
                 )
                 assert missing_editor.status_code == 404
+                missing_review = await client.get(
+                    "/admin/content/00000000-0000-0000-0000-000000000000/review",
+                )
+                assert missing_review.status_code == 404
+                missing_illustration_content = await client.post(
+                    "/admin/content/00000000-0000-0000-0000-000000000000/illustrations",
+                    json=image_body,
+                    headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
+                )
+                assert missing_illustration_content.status_code == 404
 
                 with Session(engine) as session:
                     assert len(session.scalars(select(ReadingContent)).all()) == 2

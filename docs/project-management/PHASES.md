@@ -17,8 +17,8 @@
 | 2 | Monorepo y entorno de desarrollo | Preparar proyectos, herramientas y CI base | COMPLETED |
 | 3 | Modelado de datos y API base | Crear la base funcional del backend | COMPLETED |
 | 4 | Autenticación y autorización | Proteger Admin y preparar usuarios Reader | COMPLETED |
-| 5 | FollowRead Admin | Crear la administración de contenido | IN_PROGRESS |
-| 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | NOT_STARTED |
+| 5 | FollowRead Admin | Crear la administración de contenido | COMPLETED |
+| 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | COMPLETED |
 | 7 | Motor de lectura | Implementar sincronización audio-texto reusable | NOT_STARTED |
 | 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | NOT_STARTED |
 | 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | NOT_STARTED |
@@ -147,7 +147,7 @@ Cada fase posterior deberá definir, antes de comenzar, tareas completas con dep
 pruebas y criterios de aceptación. La descripción detallada de actividades del prompt maestro se
 considera la fuente mínima; `TASKS.md` se ampliará al preparar cada fase.
 
-## Fase activa: Fase 5
+## Fase 5 - Cerrada
 
 ### Objetivo
 
@@ -164,3 +164,19 @@ visualizar el trabajo prioritario y gestionar el contenido desde el borrador has
 6. Revisión, previsualización y publicación siguen la máquina de estados auditada.
 7. Estados vacío, carga, error y permiso parcial son accesibles y conservan contexto.
 8. Pruebas de componentes, integración y recorrido crítico pasan con la puerta completa.
+
+### Resultado
+
+Fase 5 cerrada el 2026-07-25. Evidencia: `PHASE_5_REVIEW.md`.
+
+## Fase 6 - Cerrada
+
+### Objetivo
+
+Generar audio y Speech Marks desde traducciones editoriales mediante contratos desacoplados,
+control de costo, almacenamiento íntegro y una experiencia administrativa recuperable.
+
+### Resultado
+
+Fase 6 cerrada el 2026-07-25. Evidencia: `PHASE_6_REVIEW.md`. El MVP mantiene el adaptador local
+como opción predeterminada y no requiere una cuenta AWS.

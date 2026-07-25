@@ -39,6 +39,25 @@ from followread_api.api.schemas.editorial_catalog import (
     editorial_catalog_item_response,
     editorial_catalog_page_response,
 )
+from followread_api.api.schemas.illustrations import (
+    IllustrationResponse,
+    UploadIllustrationRequest,
+    illustration_response,
+)
+from followread_api.api.schemas.processing import (
+    ProcessingJobResponse,
+    ProcessingJobsResponse,
+    StartProcessingRequest,
+    VoiceResponse,
+    VoicesResponse,
+    processing_job_response,
+    voices_response,
+)
+from followread_api.api.schemas.review import (
+    ReviewSnapshotResponse,
+    ReviewTransitionRequest,
+    review_snapshot_response,
+)
 
 __all__ = [
     "AuthenticatedUserResponse",
@@ -55,12 +74,21 @@ __all__ = [
     "EditorTranslationPayload",
     "EditorialCatalogItemResponse",
     "EditorialCatalogPageResponse",
+    "IllustrationResponse",
     "LoginRequest",
     "ParagraphResponse",
+    "ProcessingJobResponse",
+    "ProcessingJobsResponse",
     "ReadingLevelResponse",
+    "ReviewSnapshotResponse",
+    "ReviewTransitionRequest",
     "SaveEditorDocumentRequest",
     "SessionResponse",
+    "StartProcessingRequest",
     "TranslationResponse",
+    "UploadIllustrationRequest",
+    "VoiceResponse",
+    "VoicesResponse",
     "authenticated_user_response",
     "catalog_item_response",
     "catalog_page_response",
@@ -69,5 +97,9 @@ __all__ = [
     "editor_document_response",
     "editorial_catalog_item_response",
     "editorial_catalog_page_response",
+    "illustration_response",
     "issued_session_response",
+    "processing_job_response",
+    "review_snapshot_response",
+    "voices_response",
 ]

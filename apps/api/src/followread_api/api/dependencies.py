@@ -1,9 +1,11 @@
 from dataclasses import dataclass
-from typing import Annotated
+from importlib import import_module
+from typing import Annotated, Any, cast
 
 from fastapi import Depends, Request
 from sqlalchemy.orm import Session
 
+from followread_api.config import get_settings
 from followread_api.database import get_database_session
 from followread_api.repositories import PublishedCatalogRepository
 from followread_api.security.session import SESSION_COOKIE
@@ -11,7 +13,13 @@ from followread_api.services import (
     AuthenticatedUser,
     AuthenticationRequiredError,
     AuthenticationService,
+    AwsPollyAdapter,
     CatalogService,
+    FakePollyAdapter,
+    LocalAudioStorage,
+    PollyAdapter,
+    PollyProcessingService,
+    RetryingPollyAdapter,
     require_permission,
 )
 
@@ -23,6 +31,29 @@ def get_catalog_service(session: DatabaseSession) -> CatalogService:
 
 
 CatalogServiceDependency = Annotated[CatalogService, Depends(get_catalog_service)]
+
+
+def get_processing_service(session: DatabaseSession) -> PollyProcessingService:
+    settings = get_settings()
+    adapter: PollyAdapter
+    if settings.polly_provider == "aws":
+        boto3 = cast(Any, import_module("boto3"))
+        adapter = AwsPollyAdapter(boto3.client("polly"))
+    else:
+        adapter = FakePollyAdapter()
+    return PollyProcessingService(
+        session,
+        adapter=RetryingPollyAdapter(adapter),
+        storage=LocalAudioStorage(settings.audio_output_dir),
+        chunk_characters=settings.polly_chunk_characters,
+        maximum_cost=settings.maximum_processing_cost,
+    )
+
+
+ProcessingServiceDependency = Annotated[
+    PollyProcessingService,
+    Depends(get_processing_service),
+]
 
 
 def get_authentication_service(session: DatabaseSession) -> AuthenticationService:

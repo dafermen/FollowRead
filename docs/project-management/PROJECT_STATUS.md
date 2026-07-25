@@ -1,20 +1,18 @@
 # Estado del proyecto FollowRead
 
 **Última actualización:** 2026-07-25  
-**Fase activa:** Fase 5 - FollowRead Admin  
-**Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH05-TASK-008 - Implementar traducciones, recursos y voz  
-**Estado de la tarea:** IN_PROGRESS
+**Fase activa:** Fase 6 - Integración de audio con Amazon Polly  
+**Estado de la fase:** COMPLETED  
+**Tarea activa:** Ninguna; Fase 7 pendiente de desglose  
+**Estado de la tarea:** NOT_STARTED
 
 ## Resumen ejecutivo
 
-Fases 0 a 4 están completadas y auditadas. La Fase 5 está activa con desglose verificable, sistema
-visual aplicado y un primer corte navegable de Login, Dashboard y Contenidos. El acceso ya crea,
-restaura y cierra sesiones reales, aplica permisos a la navegación y conserva una vista previa local
-identificada. El Dashboard autenticado ya obtiene métricas, prioridades, contenido reciente y
-actividad desde SQLite. El catálogo autenticado ya consulta contenido real con búsqueda, filtros,
-orden y paginación. La creación de borradores ya guarda tipo, audiencia, nivel, idiomas y categorías
-con validación, CSRF y auditoría; la siguiente capacidad es editar su estructura.
+Fases 0 a 6 están completadas y auditadas. FollowRead Admin ya ofrece el recorrido visual y
+funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
+audio, revisión y publicación. La Fase 6 agregó división segura de texto, costos, audio local,
+Speech Marks, idempotencia, reintentos y un límite opcional de Amazon Polly sin usar AWS real en el
+MVP ni en pruebas.
 
 ## Progreso
 
@@ -25,8 +23,9 @@ con validación, CSRF y auditoría; la siguiente capacidad es editar su estructu
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 12 de 12 |
 | Tareas de Fase 4 completadas | 10 de 10 |
-| Tareas de Fase 5 completadas | 7 de 12 |
-| Tareas en progreso | 1 |
+| Tareas de Fase 5 completadas | 12 de 12 |
+| Tareas de Fase 6 completadas | 10 de 10 |
+| Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
 | Decisiones abiertas | 1 |
@@ -37,15 +36,15 @@ con validación, CSRF y auditoría; la siguiente capacidad es editar su estructu
 
 | Área | Estado | Observación |
 |---|---|---|
-| FollowRead Admin | PHASE_5_IN_PROGRESS | Login, Dashboard, catálogo y creación reales |
+| FollowRead Admin | PHASE_5_COMPLETED | Recorrido editorial y publicación completos |
 | FollowRead Reader | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
-| FollowRead API | PHASE_4_COMPLETED | Ocho criterios de salida en PASS |
+| FollowRead API | PHASE_6_COMPLETED | Audio, recursos, revisión y seguridad en PASS |
 | Reader Engine | BASE_COMPILES | Paquete TypeScript sin React validado |
-| AWS / Polly / S3 | NOT_STARTED | Sólo arquitectura conceptual; sin integración |
+| AWS / Polly / S3 | POLLY_BOUNDARY_READY | Fake local por defecto; AWS opcional y desacoplado |
 | Modo offline | NOT_STARTED | Estrategia de doble catálogo aceptada |
 | Móvil / Capacitor | NOT_STARTED | Se abordará en la Fase 10 |
 
-## Entregables activos de Fase 5
+## Entregables cerrados de Fases 5 y 6
 
 - desglose de 12 tareas con dependencias y criterios de aceptación;
 - shell administrativo responsive con navegación amplia y compacta;
@@ -56,15 +55,20 @@ con validación, CSRF y auditoría; la siguiente capacidad es editar su estructu
 - catálogo editorial protegido con búsqueda, filtros, orden, paginación y acciones por permiso;
 - formulario responsive para crear borradores reales con idiomas, nivel y categorías;
 - editor estructural responsive con capítulos, párrafos, autoguardado y recuperación local;
+- carga local validada de ilustraciones con descripción alternativa obligatoria;
+- procesamiento visual con voces, costo, progreso, errores, cancelación y reintentos;
+- generación local de audio y Speech Marks vinculados a cada párrafo;
+- límite Amazon Polly implementado y probado exclusivamente con cliente simulado;
+- checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- once pruebas web, 86 pruebas API y cobertura configurada en 100%.
+- trece pruebas web, 91 pruebas API y cobertura backend de 100%.
 
 ## Bloqueadores
 
-No hay bloqueadores activos. FR-ISSUE-005 quedó resuelto mediante FR-DEC-013: SQLite sustituye
-PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita hasta Fase 14.
+No hay bloqueadores activos. SQLite y los adaptadores locales permiten continuar sin PostgreSQL,
+Docker ni AWS. La licencia sigue abierta, pero no se necesita hasta Fase 14.
 
 ## Regla de continuación
 
-Continuar FR-PH05-TASK-008: completar la edición bilingüe, selección de voces y recursos validados
-que desbloquean la generación de audio de Fase 6.
+Descomponer la Fase 7 contra el prompt maestro antes de activarla. No adelantar implementación sin
+registrar dependencias, criterios de aceptación y pruebas.

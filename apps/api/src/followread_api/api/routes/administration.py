@@ -7,6 +7,7 @@ from followread_api.api.dependencies import (
     AuthenticationServiceDependency,
     DatabaseSession,
     PermissionRequirement,
+    ProcessingServiceDependency,
 )
 from followread_api.api.errors import ErrorResponse
 from followread_api.api.schemas import (
@@ -16,12 +17,24 @@ from followread_api.api.schemas import (
     EditorDocumentResponse,
     EditorialCatalogItemResponse,
     EditorialCatalogPageResponse,
+    IllustrationResponse,
+    ProcessingJobResponse,
+    ProcessingJobsResponse,
+    ReviewSnapshotResponse,
+    ReviewTransitionRequest,
     SaveEditorDocumentRequest,
+    StartProcessingRequest,
+    UploadIllustrationRequest,
+    VoicesResponse,
     authenticated_user_response,
     dashboard_summary_response,
     editor_document_response,
     editorial_catalog_item_response,
     editorial_catalog_page_response,
+    illustration_response,
+    processing_job_response,
+    review_snapshot_response,
+    voices_response,
 )
 from followread_api.config import get_settings
 from followread_api.models import ContentType, EditorialStatus
@@ -32,6 +45,8 @@ from followread_api.services import (
     EditorialCatalogFilters,
     EditorialCatalogService,
     EditorialEditorService,
+    EditorialReviewService,
+    IllustrationService,
     InvalidCsrfTokenError,
     InvalidOriginError,
 )
@@ -52,6 +67,18 @@ ContentCreatorUser = Annotated[
 ContentEditorUser = Annotated[
     AuthenticatedUser,
     Depends(PermissionRequirement("content.edit")),
+]
+ContentProcessorUser = Annotated[
+    AuthenticatedUser,
+    Depends(PermissionRequirement("content.process")),
+]
+ContentReviewerUser = Annotated[
+    AuthenticatedUser,
+    Depends(PermissionRequirement("content.review")),
+]
+ContentPublisherUser = Annotated[
+    AuthenticatedUser,
+    Depends(PermissionRequirement("content.publish")),
 ]
 
 
@@ -173,6 +200,216 @@ def save_editor_document(
         correlation_id=request.state.request_id,
     )
     return editor_document_response(document)
+
+
+@router.post(
+    "/content/{content_id}/illustrations",
+    response_model=IllustrationResponse,
+    status_code=status.HTTP_201_CREATED,
+    responses=ACCESS_ERRORS,
+)
+def upload_illustration(
+    content_id: UUID,
+    body: UploadIllustrationRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: ContentEditorUser,
+) -> IllustrationResponse:
+    _validate_mutation_request(request, authentication)
+    resource = IllustrationService(
+        session,
+        get_settings().illustration_output_dir,
+    ).upload(
+        content_id,
+        content_type=body.content_type,
+        payload_base64=body.payload_base64,
+        alt_text=body.alt_text,
+        position=body.position,
+        paragraph_id=body.paragraph_id,
+        actor_user_id=user.id,
+        correlation_id=request.state.request_id,
+    )
+    return illustration_response(resource)
+
+
+@router.get(
+    "/voices",
+    response_model=VoicesResponse,
+    responses=ACCESS_ERRORS,
+)
+def list_voices(_user: AdminAccessUser) -> VoicesResponse:
+    return voices_response()
+
+
+@router.get(
+    "/processing",
+    response_model=ProcessingJobsResponse,
+    responses=ACCESS_ERRORS,
+)
+def list_processing_jobs(
+    processing: ProcessingServiceDependency,
+    _user: AdminAccessUser,
+) -> ProcessingJobsResponse:
+    return ProcessingJobsResponse(
+        items=[processing_job_response(job) for job in processing.list_jobs()],
+    )
+
+
+@router.post(
+    "/processing",
+    response_model=ProcessingJobResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+    responses=ACCESS_ERRORS,
+)
+def start_processing(
+    body: StartProcessingRequest,
+    request: Request,
+    authentication: AuthenticationServiceDependency,
+    processing: ProcessingServiceDependency,
+    _user: ContentProcessorUser,
+) -> ProcessingJobResponse:
+    _validate_mutation_request(request, authentication)
+    return processing_job_response(
+        processing.process(
+            content_version_id=body.content_version_id,
+            language=body.language,
+            voice_id=body.voice_id,
+            idempotency_key=body.idempotency_key,
+        ),
+    )
+
+
+@router.post(
+    "/processing/{job_id}/retry",
+    response_model=ProcessingJobResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+    responses=ACCESS_ERRORS,
+)
+def retry_processing(
+    job_id: UUID,
+    request: Request,
+    authentication: AuthenticationServiceDependency,
+    processing: ProcessingServiceDependency,
+    _user: ContentProcessorUser,
+) -> ProcessingJobResponse:
+    _validate_mutation_request(request, authentication)
+    return processing_job_response(processing.retry(job_id))
+
+
+@router.post(
+    "/processing/{job_id}/cancel",
+    response_model=ProcessingJobResponse,
+    responses=ACCESS_ERRORS,
+)
+def cancel_processing(
+    job_id: UUID,
+    request: Request,
+    authentication: AuthenticationServiceDependency,
+    processing: ProcessingServiceDependency,
+    _user: ContentProcessorUser,
+) -> ProcessingJobResponse:
+    _validate_mutation_request(request, authentication)
+    return processing_job_response(processing.cancel(job_id))
+
+
+@router.get(
+    "/content/{content_id}/review",
+    response_model=ReviewSnapshotResponse,
+    responses=ACCESS_ERRORS,
+)
+def get_review_snapshot(
+    content_id: UUID,
+    session: DatabaseSession,
+    _user: AdminAccessUser,
+) -> ReviewSnapshotResponse:
+    return review_snapshot_response(EditorialReviewService(session).get_snapshot(content_id))
+
+
+@router.post(
+    "/content/{content_id}/review/submit",
+    response_model=ReviewSnapshotResponse,
+    responses=ACCESS_ERRORS,
+)
+def submit_for_review(
+    content_id: UUID,
+    body: ReviewTransitionRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: ContentEditorUser,
+) -> ReviewSnapshotResponse:
+    return _transition_review(content_id, "submit", body, request, session, authentication, user)
+
+
+@router.post(
+    "/content/{content_id}/review/approve",
+    response_model=ReviewSnapshotResponse,
+    responses=ACCESS_ERRORS,
+)
+def approve_review(
+    content_id: UUID,
+    body: ReviewTransitionRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: ContentReviewerUser,
+) -> ReviewSnapshotResponse:
+    return _transition_review(content_id, "approve", body, request, session, authentication, user)
+
+
+@router.post(
+    "/content/{content_id}/review/reject",
+    response_model=ReviewSnapshotResponse,
+    responses=ACCESS_ERRORS,
+)
+def reject_review(
+    content_id: UUID,
+    body: ReviewTransitionRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: ContentReviewerUser,
+) -> ReviewSnapshotResponse:
+    return _transition_review(content_id, "reject", body, request, session, authentication, user)
+
+
+@router.post(
+    "/content/{content_id}/review/{action}",
+    response_model=ReviewSnapshotResponse,
+    responses=ACCESS_ERRORS,
+)
+def transition_publication(
+    content_id: UUID,
+    action: Literal["publish", "unpublish", "archive"],
+    body: ReviewTransitionRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: ContentPublisherUser,
+) -> ReviewSnapshotResponse:
+    return _transition_review(content_id, action, body, request, session, authentication, user)
+
+
+def _transition_review(
+    content_id: UUID,
+    action: Literal["submit", "approve", "reject", "publish", "unpublish", "archive"],
+    body: ReviewTransitionRequest,
+    request: Request,
+    session: DatabaseSession,
+    authentication: AuthenticationServiceDependency,
+    user: AuthenticatedUser,
+) -> ReviewSnapshotResponse:
+    _validate_mutation_request(request, authentication)
+    return review_snapshot_response(
+        EditorialReviewService(session).transition(
+            content_id,
+            action,
+            actor_user_id=user.id,
+            correlation_id=request.state.request_id,
+            note=body.note,
+        ),
+    )
 
 
 def _validate_mutation_request(

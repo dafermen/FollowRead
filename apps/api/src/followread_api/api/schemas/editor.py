@@ -94,6 +94,7 @@ class SaveEditorDocumentRequest(BaseModel):
 
 class EditorDocumentResponse(BaseModel):
     content_id: UUID
+    content_version_id: UUID
     slug: str
     version: int
     status: str
@@ -104,6 +105,7 @@ class EditorDocumentResponse(BaseModel):
 def editor_document_response(document: EditorDocument) -> EditorDocumentResponse:
     return EditorDocumentResponse(
         content_id=document.content_id,
+        content_version_id=document.content_version_id,
         slug=document.slug,
         version=document.version,
         status=document.status,

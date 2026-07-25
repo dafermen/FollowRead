@@ -44,6 +44,7 @@ class EditorTranslation:
 @dataclass(frozen=True)
 class EditorDocument:
     content_id: UUID
+    content_version_id: UUID
     slug: str
     version: int
     status: str
@@ -135,6 +136,7 @@ class EditorialEditorService:
     def _document(content: ReadingContent, version: ContentVersion) -> EditorDocument:
         return EditorDocument(
             content_id=content.id,
+            content_version_id=version.id,
             slug=content.slug,
             version=version.version_number,
             status=version.status.value,
