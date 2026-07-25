@@ -399,3 +399,18 @@ fija TTL, CSRF/origen, no-store, bootstrap local y exclusión de recuperación/c
 
 Se definieron 10 tareas y ocho criterios de salida. FR-PH04-TASK-001 quedó `COMPLETED`;
 FR-PH04-TASK-002 quedó `IN_PROGRESS` para modelar credenciales y sesiones antes de endpoints.
+
+---
+
+## Continuación 2026-07-25 - Persistencia, criptografía y bootstrap de autenticación
+
+- Se añadieron `UserCredential` y `UserSession` con hashes separados, expiración, revocación,
+  restricciones e índices, junto con una migración Alembic reversible.
+- SQLite normaliza fechas de sesión a UTC al evaluar vigencia.
+- Las contraseñas usan Argon2id mediante `pwdlib`; los tokens opacos usan aleatoriedad criptográfica,
+  SHA-256 para persistencia y comparación de tiempo constante.
+- `pnpm admin:bootstrap` crea el primer superadministrador de forma local, idempotente y sin
+  contraseña seed ni contraseña en argumentos.
+- La API alcanzó 60 pruebas con 100% de cobertura antes de la verificación integral.
+
+FR-PH04-TASK-002, 003 y 004 quedaron `COMPLETED`; FR-PH04-TASK-005 quedó `IN_PROGRESS`.

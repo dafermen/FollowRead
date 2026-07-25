@@ -28,6 +28,8 @@ from followread_api.models.identity import (
     Permission,
     Role,
     User,
+    UserCredential,
+    UserSession,
     role_permissions,
     user_roles,
 )
@@ -65,6 +67,8 @@ __all__ = [
     "SpeechMark",
     "TimestampMixin",
     "User",
+    "UserCredential",
+    "UserSession",
     "UuidPrimaryKeyMixin",
     "VocabularyWord",
     "content_categories",

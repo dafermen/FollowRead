@@ -2,25 +2,24 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH04-TASK-002 - Modelar credenciales y sesiones revocables**
+**FR-PH04-TASK-005 - Exponer login, logout y sesión actual**
 
 ### Objetivo de la próxima sesión
 
-Materializar FR-DEC-014 sin implementar todavía login ni cookies.
+Crear contratos de sesión seguros sobre los modelos y primitivas ya validados.
 
 ### Orden de trabajo
 
-1. Leer los archivos de gestión requeridos por el prompt maestro.
-2. Añadir `UserCredential` uno a uno con `User`.
-3. Añadir `UserSession` con hash único, expiración y revocación.
-4. Crear y revisar la migración Alembic.
-5. Probar integridad, expiración lógica y downgrade/upgrade.
-6. Completar tarea e iniciar primitivas criptográficas.
+1. Implementar el servicio de autenticación sin enumerar cuentas.
+2. Emitir sesiones con inactividad de 30 minutos y máximo absoluto de 8 horas.
+3. Exponer login, logout y sesión actual.
+4. Probar éxito, credencial inválida, expiración, revocación y repetición de logout.
+5. Continuar con cookie, CSRF, origen, caché y CORS en FR-PH04-TASK-006.
 
 ## No hacer todavía
 
-- No implementar autenticación ni autorización de Fase 4.
 - No conectar credenciales, AWS ni servicios remotos.
+- No almacenar tokens o contraseñas en logs ni almacenamiento web.
 - No crear `LICENSE` sin decisión del propietario.
 - No usar credenciales ni servicios de AWS.
 

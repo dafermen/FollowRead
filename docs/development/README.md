@@ -39,3 +39,15 @@ los tres procesos. Puedes validar los prerrequisitos sin iniciar servidores con 
 - OpenAPI: `http://localhost:8000/docs`
 
 Los enlaces “Ver documentación” de las pantallas iniciales abren la guía integrada.
+
+## Crear el primer superadministrador
+
+Después de migrar SQLite, ejecuta desde la raíz:
+
+```powershell
+pnpm admin:bootstrap -- --email admin@example.com --display-name "FollowRead Owner"
+```
+
+El comando solicita y confirma la contraseña sin mostrarla ni incluirla en los argumentos. Debe
+tener entre 15 y 128 caracteres. Repetir el comando para el mismo superadministrador es seguro y no
+cambia su contraseña.

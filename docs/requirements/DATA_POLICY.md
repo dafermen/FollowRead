@@ -18,6 +18,7 @@
 | Categoría | Datos | Propósito | Ubicación | Retención inicial |
 |---|---|---|---|---|
 | Admin | email/identificador, hash, roles | Acceso editorial | API/SQLite | Mientras esté activa + política |
+| Sesión Admin | hashes de token/CSRF, tiempos y revocación | Acceso autenticado revocable | API/SQLite | Hasta expirar/revocar + limpieza operativa de 30 días |
 | Contenido | texto, traducción, metadatos | Publicación/lectura | SQLite/S3/local | Por versión/política editorial |
 | Recursos | audio, marcas, imágenes | Lectura sincronizada | S3/local | Por versión |
 | Auditoría | actor, acción, objetivo, resultado | Seguridad/trazabilidad | SQLite/logs | >=365 días |
@@ -46,6 +47,10 @@ Permitido: correlation ID, identificadores internos, etapa, duración, código d
 
 Prohibido por defecto: contraseñas, tokens, claves, texto completo privado, vocabulario personal,
 correo en texto libre, datos de menores y URLs firmadas completas.
+
+Los tokens de sesión y CSRF se entregan sólo al cliente correspondiente. SQLite conserva sus hashes,
+nunca sus valores utilizables. Las sesiones revocadas o expiradas pueden eliminarse mediante una
+limpieza operativa una vez cumplidos 30 días; la evidencia de seguridad necesaria vive en auditoría.
 
 ## Derechos y eliminación
 

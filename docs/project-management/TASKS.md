@@ -74,10 +74,10 @@ aceptación correspondientes están satisfechos.
 | ID | Título | Estado | Prioridad |
 |---|---|---|---|
 | FR-PH04-TASK-001 | Diseñar identidad, sesión y controles web | COMPLETED | Critical |
-| FR-PH04-TASK-002 | Modelar credenciales y sesiones revocables | IN_PROGRESS | Critical |
-| FR-PH04-TASK-003 | Implementar primitivas de contraseña y token | NOT_STARTED | Critical |
-| FR-PH04-TASK-004 | Crear bootstrap seguro de superadministrador | NOT_STARTED | Critical |
-| FR-PH04-TASK-005 | Exponer login, logout y sesión actual | NOT_STARTED | Critical |
+| FR-PH04-TASK-002 | Modelar credenciales y sesiones revocables | COMPLETED | Critical |
+| FR-PH04-TASK-003 | Implementar primitivas de contraseña y token | COMPLETED | Critical |
+| FR-PH04-TASK-004 | Crear bootstrap seguro de superadministrador | COMPLETED | Critical |
+| FR-PH04-TASK-005 | Exponer login, logout y sesión actual | IN_PROGRESS | Critical |
 | FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | NOT_STARTED | Critical |
 | FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | NOT_STARTED | Critical |
 | FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | NOT_STARTED | High |
@@ -1243,7 +1243,7 @@ cierre obligatorio. Evidencia en `PHASE_3_REVIEW.md`.
 
 **Título:** Modelar credenciales y sesiones revocables  
 **Fase:** 4  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-001.  
 **Criterios de aceptación:** Hash de contraseña separado; token sólo hasheado; expiración,
@@ -1251,8 +1251,8 @@ revocación y metadatos mínimos con índices/restricciones.
 **Pruebas requeridas:** Migración reversible, unicidad, expiración y revocación.  
 **Documentación requerida:** Actualizar modelo y política de retención.  
 **Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** —  
-**Siguiente acción:** Diseñar modelos `UserCredential` y `UserSession`.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; continuar primitivas criptográficas.
 
 ---
 
@@ -1260,12 +1260,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar primitivas de contraseña y token  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-002.  
 **Criterios de aceptación:** Argon2id verificable/actualizable y token aleatorio hasheado.  
 **Pruebas requeridas:** Hash, rechazo, rehash, entropía y comparación segura.  
-**Siguiente acción:** Esperar modelos.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; usar primitivas en bootstrap y sesiones.
 
 ---
 
@@ -1273,12 +1275,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Crear bootstrap seguro de superadministrador  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-003.  
 **Criterios de aceptación:** Comando local idempotente, entrada no registrada y sin contraseña seed.  
 **Pruebas requeridas:** Creación, duplicado y entrada inválida.  
-**Siguiente acción:** Esperar primitivas.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; usar la cuenta inicial en login.
 
 ---
 
@@ -1286,12 +1290,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Exponer login, logout y sesión actual  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-003 y 004.  
 **Criterios de aceptación:** Contratos seguros, expiración/revocación y mensajes no enumerables.  
 **Pruebas requeridas:** Éxito, credencial inválida, expirada, logout y repetición.  
-**Siguiente acción:** Esperar bootstrap.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** —  
+**Siguiente acción:** Implementar servicio y rutas de sesión con contratos no enumerables.
 
 ---
 

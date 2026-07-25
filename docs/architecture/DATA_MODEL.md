@@ -19,7 +19,7 @@
 
 | Agregado | Raíz | Entidades |
 |---|---|---|
-| Identidad | `User` | `Administrator`, `Role`, `Permission` |
+| Identidad | `User` | `Administrator`, `Role`, `Permission`, `UserCredential`, `UserSession` |
 | Contenido editorial | `ReadingContent` | `ReadingLevel`, `Category`, `ContentVersion`, `ContentTranslation`, `Chapter`, `Paragraph`, `Publication` |
 | Recursos y procesamiento | `ContentVersion` | `AudioAsset`, `SpeechMark`, `Illustration`, `ProcessingJob` |
 | Lectura | `User` | `ReadingProgress`, `Favorite`, `VocabularyWord`, `DownloadRecord` |
@@ -36,6 +36,8 @@ relacionales, no nuevas entidades de dominio.
 | `Administrator` | UUID y FK única a User | un User tiene como máximo un perfil administrativo |
 | `Role` | UUID y nombre estable | nombre único |
 | `Permission` | UUID y código estable | código único |
+| `UserCredential` | UUID y FK única a User | hash Argon2id separado; intentos y bloqueo no negativos |
+| `UserSession` | UUID; pertenece a User | hashes únicos de sesión/CSRF; expiración ordenada y revocación consistente |
 | `ReadingContent` | UUID estable entre versiones | `slug` único; tipo y audiencia válidos |
 | `ContentTranslation` | UUID; pertenece a ContentVersion | único por versión/idioma |
 | `Chapter` | UUID; pertenece a ContentTranslation | posición y `stable_key` únicos por traducción |
@@ -74,6 +76,8 @@ sigue rechazando cualquier valor fuera del conjunto anterior.
 ```mermaid
 erDiagram
     USER ||--o| ADMINISTRATOR : "puede ser"
+    USER ||--o| USER_CREDENTIAL : "autentica"
+    USER ||--o{ USER_SESSION : "mantiene"
     USER }o--o{ ROLE : "tiene"
     ROLE }o--o{ PERMISSION : "concede"
     READING_LEVEL ||--o{ READING_CONTENT : "clasifica"
@@ -113,8 +117,12 @@ mediante una restricción de una sola fila.
 
 ## Identidad y privacidad
 
-- Fase 3 crea el esquema de identidad, pero no contraseñas, tokens ni endpoints de login.
-- Fase 4 añadirá credenciales y autorización de ejecución.
+- `UserCredential` guarda únicamente el hash Argon2id, la fecha de cambio y el estado mínimo de
+  intentos/bloqueo; nunca contiene la contraseña.
+- `UserSession` guarda únicamente hashes SHA-256 del token opaco y del token CSRF. El valor que
+  recibe el navegador no puede reconstruirse desde SQLite.
+- La sesión expira tras 30 minutos de inactividad o 8 horas absolutas y admite revocación explícita.
+- Los endpoints de login y la autorización de ejecución se completan durante la Fase 4.
 - `Administrator` representa el perfil editorial de un `User`.
 - Un menor usa un perfil local no identificable; no se crea `User` infantil en el MVP.
 - Progreso, favoritos y vocabulario pueden vivir sólo en el dispositivo. Si se sincronizan,
@@ -131,6 +139,7 @@ mediante una restricción de una sola fila.
 | Traducción -> capítulos -> párrafos | `CASCADE` dentro de versión no publicada |
 | Audio -> Speech Marks | `CASCADE` dentro de versión no publicada |
 | User -> preferencias de lectura | `CASCADE` tras flujo autorizado de eliminación |
+| User -> credencial/sesiones | `CASCADE`; revocar sesiones antes de eliminar la cuenta |
 | User/contenido -> AuditLog | `SET NULL` para actor; objetivo se conserva como texto/UUID |
 | Role/Permission asignados | `RESTRICT` mientras existan asociaciones |
 
@@ -178,5 +187,5 @@ Los servicios rechazan borrado físico de contenido publicado, publicaciones y e
 - Entidades del prompt cubiertas: 22 de 22.
 - Reglas FR-BR-001..025 con ubicación o fase futura explícita: PASS.
 - Dependencia de Docker/PostgreSQL: ninguna para el MVP.
-- Credenciales/autenticación implementadas prematuramente: no.
+- Credenciales/sesiones modeladas según FR-DEC-014: PASS.
 - Borrado de publicaciones o auditoría por cascada: no.
