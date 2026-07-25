@@ -3,15 +3,15 @@
 **Última actualización:** 2026-07-25  
 **Fase activa:** Fase 5 - FollowRead Admin  
 **Estado de la fase:** IN_PROGRESS  
-**Tarea activa:** FR-PH05-TASK-003 - Integrar acceso y sesión en Admin  
+**Tarea activa:** FR-PH05-TASK-004 - Implementar Dashboard editorial  
 **Estado de la tarea:** IN_PROGRESS
 
 ## Resumen ejecutivo
 
 Fases 0 a 4 están completadas y auditadas. La Fase 5 está activa con desglose verificable, sistema
-visual aplicado y un primer corte navegable de Login, Dashboard y Contenidos. La vista previa usa
-datos de ejemplo identificados; el login ya consume el contrato real y falta completar restauración
-de sesión, logout y conexión del catálogo.
+visual aplicado y un primer corte navegable de Login, Dashboard y Contenidos. El acceso ya crea,
+restaura y cierra sesiones reales, aplica permisos a la navegación y conserva una vista previa local
+identificada. Falta conectar Dashboard y Contenidos a datos reales.
 
 ## Progreso
 
@@ -22,7 +22,7 @@ de sesión, logout y conexión del catálogo.
 | Tareas de Fase 2 completadas | 11 de 11 |
 | Tareas de Fase 3 completadas | 12 de 12 |
 | Tareas de Fase 4 completadas | 10 de 10 |
-| Tareas de Fase 5 completadas | 2 de 12 |
+| Tareas de Fase 5 completadas | 3 de 12 |
 | Tareas en progreso | 1 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
@@ -47,7 +47,8 @@ de sesión, logout y conexión del catálogo.
 - desglose de 12 tareas con dependencias y criterios de aceptación;
 - shell administrativo responsive con navegación amplia y compacta;
 - Dashboard y catálogo visual con estados editoriales realistas;
-- formulario de login conectado a `/auth/login` con estados seguro, inválido, limitado e indisponible;
+- login, restauración y logout conectados a la API sin persistir tokens en almacenamiento web;
+- navegación filtrada por permisos recibidos del servidor;
 - documentación integrada conservada y rediseñada;
 - siete pruebas web y cobertura configurada en 100%.
 
@@ -58,6 +59,6 @@ PostgreSQL/Docker para el MVP. La licencia sigue abierta, pero no se necesita ha
 
 ## Regla de continuación
 
-Continuar FR-PH05-TASK-003: restaurar sesión, aplicar permisos al shell y completar logout con CSRF.
-Después conectar Dashboard y Contenidos a contratos API sin retirar la vista previa hasta disponer de
-datos locales suficientes.
+Continuar FR-PH05-TASK-004: definir el contrato mínimo de resumen editorial y sustituir gradualmente
+las métricas y actividad de ejemplo. Después conectar la lista de Contenidos sin retirar la vista
+previa hasta disponer de datos locales suficientes.

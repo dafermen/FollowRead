@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { ContentPage } from "./pages/ContentPage.js";
-import { DashboardPage } from "./pages/DashboardPage.js";
+import { AdminExperience } from "./components/AdminExperience.js";
 import { DocumentationPage } from "./pages/DocumentationPage.js";
 import { LoginPage } from "./pages/LoginPage.js";
 
@@ -39,9 +38,12 @@ export const App = () => {
     return <DocumentationPage />;
   }
 
-  if (pathname === "/content") {
-    return <ContentPage />;
-  }
-
-  return <DashboardPage />;
+  return (
+    <AdminExperience
+      pathname={pathname}
+      onAuthenticationRequired={() => {
+        navigate("/login");
+      }}
+    />
+  );
 };

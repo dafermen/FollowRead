@@ -259,8 +259,12 @@ select:focus-visible {
 
 .icon-link {
   padding: 0.35rem;
+  border: 0;
   color: #a6b2c5;
+  background: transparent;
+  font: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .admin-workspace {
@@ -1538,6 +1542,17 @@ kbd {
     text-decoration: none;
   }
 
+  .mobile-menu nav button {
+    padding: 0.75rem;
+    border: 0;
+    border-radius: 0.5rem;
+    color: #344054;
+    background: transparent;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: left;
+  }
+
   .mobile-menu nav a:hover {
     background: #f2f5fa;
   }
@@ -1607,6 +1622,62 @@ kbd {
   .login-form-section {
     padding: 4rem 1.5rem 5rem;
   }
+}
+
+.session-state {
+  display: grid;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #596579;
+  background: #f4f6fa;
+  text-align: center;
+  place-content: center;
+  justify-items: center;
+}
+
+.session-state__mark {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.8rem;
+  color: #172033;
+  background: #f4c95d;
+  font-size: 1.3rem;
+  font-weight: 900;
+  place-items: center;
+}
+
+.session-state h1 {
+  margin: 1rem 0 0;
+  color: #172033;
+  font-size: 1.6rem;
+}
+
+.session-state p {
+  margin: 0.7rem 0 1.2rem;
+}
+
+.session-state--error .session-state__mark {
+  color: #fff;
+  background: #b42318;
+}
+
+.floating-alert {
+  position: fixed;
+  z-index: 50;
+  top: 1rem;
+  left: 50%;
+  width: min(calc(100% - 2rem), 420px);
+  padding: 0.8rem 1rem;
+  border: 1px solid #f1b7b2;
+  border-radius: 0.65rem;
+  color: #8e1f17;
+  background: #fff4f3;
+  box-shadow: 0 0.8rem 2rem rgb(16 24 40 / 14%);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-align: center;
+  transform: translateX(-50%);
 }
 
 @media (max-width: 650px) {

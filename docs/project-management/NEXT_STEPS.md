@@ -2,18 +2,18 @@
 
 ## Siguiente tarea exacta
 
-**Completar FR-PH05-TASK-003 - Acceso y sesión en Admin**
+**Completar FR-PH05-TASK-004 - Dashboard editorial**
 
 ### Objetivo de la próxima sesión
 
-Convertir el acceso visual actual en un flujo completo que restaure y cierre sesiones de forma segura.
+Servir prioridades, métricas y actividad del Dashboard desde un contrato administrativo real.
 
 ### Orden de trabajo
 
-1. Consultar `/auth/session` al iniciar y conservar sólo identidad y permisos en memoria.
-2. Aplicar los permisos del servidor a la navegación y acciones visibles.
-3. Implementar logout enviando el token CSRF de la cookie.
-4. Probar sesión válida, expirada, acceso denegado y salida.
+1. Definir un esquema de resumen editorial autorizado.
+2. Consultar conteos por estado y trabajo reciente desde SQLite.
+3. Conectar métricas, atención y actividad sin ocultar estados vacío o error.
+4. Probar carga, datos, vacío, permiso parcial y recuperación.
 
 ## No hacer todavía
 

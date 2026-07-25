@@ -1,12 +1,12 @@
 import { useState, type SyntheticEvent } from "react";
 
+import { AuthenticationError, login } from "../auth/authClient.js";
+
 type LoginPageProps = {
   onAuthenticated: () => void;
 };
 
 type LoginState = "idle" | "submitting" | "invalid" | "limited" | "unavailable";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export const LoginPage = ({ onAuthenticated }: LoginPageProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,26 +16,22 @@ export const LoginPage = ({ onAuthenticated }: LoginPageProps) => {
     event.preventDefault();
     setLoginState("submitting");
     const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    if (typeof email !== "string" || typeof password !== "string") {
+      setLoginState("invalid");
+      return;
+    }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.get("email"),
-          password: formData.get("password"),
-        }),
-      });
-
-      if (response.ok) {
-        onAuthenticated();
-        return;
+      await login(email, password);
+      onAuthenticated();
+    } catch (error) {
+      if (error instanceof AuthenticationError) {
+        setLoginState(error.status === 429 ? "limited" : "invalid");
+      } else {
+        setLoginState("unavailable");
       }
-
-      setLoginState(response.status === 429 ? "limited" : "invalid");
-    } catch {
-      setLoginState("unavailable");
     }
   };
 

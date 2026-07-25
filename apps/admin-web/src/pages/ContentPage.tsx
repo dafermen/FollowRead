@@ -1,4 +1,5 @@
 import { AdminShell } from "../components/AdminShell.js";
+import type { AuthenticatedUser } from "../auth/authClient.js";
 
 const catalogItems = [
   {
@@ -51,8 +52,13 @@ const catalogItems = [
   },
 ] as const;
 
-export const ContentPage = () => (
-  <AdminShell activeItem="content">
+type ContentPageProps = {
+  user?: AuthenticatedUser | undefined;
+  onLogout?: (() => Promise<void>) | undefined;
+};
+
+export const ContentPage = ({ user, onLogout }: ContentPageProps) => (
+  <AdminShell activeItem="content" user={user} onLogout={onLogout}>
     <main className="dashboard content-page">
       <div className="page-heading">
         <div>

@@ -90,8 +90,8 @@ aceptación correspondientes están satisfechos.
 |---|---|---|---|
 | FR-PH05-TASK-001 | Descomponer y activar la Fase 5 | COMPLETED | Critical |
 | FR-PH05-TASK-002 | Crear shell y fundamentos visuales de Admin | COMPLETED | Critical |
-| FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | IN_PROGRESS | Critical |
-| FR-PH05-TASK-004 | Implementar Dashboard editorial | NOT_STARTED | High |
+| FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | COMPLETED | Critical |
+| FR-PH05-TASK-004 | Implementar Dashboard editorial | IN_PROGRESS | High |
 | FR-PH05-TASK-005 | Implementar lista y filtros de contenido | NOT_STARTED | Critical |
 | FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | NOT_STARTED | Critical |
 | FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | NOT_STARTED | Critical |
@@ -1427,13 +1427,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Integrar acceso y sesión en Admin  
 **Fase:** 5  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH05-TASK-002 y Fase 4.  
 **Criterios de aceptación:** Login, restauración, expiración y logout seguros; permisos controlan UI.  
 **Pruebas requeridas:** Éxito, inválido, límite, indisponibilidad, expiración, logout y permiso parcial.  
 **Fecha de inicio:** 2026-07-25  
-**Siguiente acción:** Restaurar sesión al cargar y completar logout con CSRF.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; conectar el Dashboard a un resumen autorizado.
 
 ---
 
@@ -1441,11 +1442,13 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Implementar Dashboard editorial  
 **Fase:** 5  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** High  
 **Dependencias:** FR-PH05-TASK-003.  
 **Criterios de aceptación:** Prioridades, métricas, actividad y estados vacío/error provienen de API.  
 **Pruebas requeridas:** Carga, datos, vacío, permiso parcial y error recuperable.  
+**Fecha de inicio:** 2026-07-25  
+**Siguiente acción:** Definir y consumir el contrato de resumen editorial.
 
 ---
 

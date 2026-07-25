@@ -5,11 +5,22 @@ import { App } from "./App.js";
 
 let scrollToMock: ReturnType<typeof vi.fn>;
 
+const authenticatedSession = {
+  user: {
+    id: "user-1",
+    email: "editor@example.com",
+    display_name: "Daniela Editora",
+    roles: ["editor"],
+    permissions: ["admin.access", "content.read", "content.write"],
+  },
+};
+
 describe("FollowRead Admin", () => {
   beforeEach(() => {
     window.history.pushState({}, "", "/");
     scrollToMock = vi.fn();
     vi.stubGlobal("scrollTo", scrollToMock);
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("API unavailable in preview")));
   });
 
   afterEach(() => {
@@ -17,11 +28,11 @@ describe("FollowRead Admin", () => {
     vi.unstubAllGlobals();
   });
 
-  it("shows the visual dashboard preview", () => {
+  it("shows the visual dashboard preview", async () => {
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { level: 1, name: "Buenos días, Daniela" }),
+      await screen.findByRole("heading", { level: 1, name: "Buenos días, Daniela" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("Vista previa visual");
     expect(
@@ -33,18 +44,21 @@ describe("FollowRead Admin", () => {
     );
   });
 
-  it("shows the responsive content catalog", () => {
+  it("shows the responsive content catalog", async () => {
     window.history.pushState({}, "", "/content");
     render(<App />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Contenidos" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Contenidos" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("table", { name: "Contenidos" })).toBeInTheDocument();
     expect(screen.getByRole("searchbox", { name: "Buscar contenido" })).toBeInTheDocument();
     expect(screen.getByText("La casa de los sonidos")).toBeInTheDocument();
   });
 
-  it("updates the active page when browser navigation changes", () => {
+  it("updates the active page when browser navigation changes", async () => {
     render(<App />);
+    await screen.findByRole("heading", { level: 1, name: "Buenos días, Daniela" });
 
     act(() => {
       window.history.pushState({}, "", "/content");
@@ -106,7 +120,14 @@ describe("FollowRead Admin", () => {
 
   it("opens the dashboard after a valid login response", async () => {
     window.history.pushState({}, "", "/login");
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, status: 200 }));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: vi.fn().mockResolvedValue(authenticatedSession),
+      }),
+    );
     render(<App />);
 
     fireEvent.change(screen.getByLabelText("Correo electrónico"), {
@@ -128,5 +149,34 @@ describe("FollowRead Admin", () => {
     });
     expect(window.location.pathname).toBe("/");
     expect(scrollToMock).toHaveBeenCalledWith({ top: 0 });
+  });
+
+  it("closes an authenticated session and returns to login", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: vi.fn().mockResolvedValue(authenticatedSession),
+        })
+        .mockResolvedValueOnce({ ok: true, status: 204 }),
+    );
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Buenos días, Daniela" }),
+    ).toBeInTheDocument();
+    const [logoutButton] = screen.getAllByRole("button", { name: "Cerrar sesión" });
+    if (logoutButton === undefined) {
+      throw new Error("The logout button is required.");
+    }
+    fireEvent.click(logoutButton);
+
+    expect(
+      await screen.findByRole("heading", { level: 2, name: "Bienvenida de nuevo" }),
+    ).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/login");
   });
 });

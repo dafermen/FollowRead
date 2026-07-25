@@ -479,3 +479,15 @@ el desglose de Fase 5.
 - Admin pasó siete pruebas, cobertura configurada al 100%, typecheck y build de producción.
 
 FR-PH05-TASK-001 y 002 quedaron `COMPLETED`; FR-PH05-TASK-003 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Sesión completa de Admin
+
+- Admin restaura la sesión desde `/auth/session` y conserva identidad y permisos sólo en memoria.
+- El cierre de sesión envía el token CSRF de la cookie y vuelve al acceso protegido.
+- La navegación oculta áreas sin permiso, mientras la API mantiene la autorización definitiva.
+- Una sesión válida muestra la identidad real; desarrollo conserva la vista previa si no hay cuenta.
+- Ocho pruebas web cubren rutas, login, restauración, permiso parcial y logout con cobertura 100%.
+
+FR-PH05-TASK-003 quedó `COMPLETED`; FR-PH05-TASK-004 quedó `IN_PROGRESS`.
