@@ -48,6 +48,9 @@ Permitido: correlation ID, identificadores internos, etapa, duración, código d
 Prohibido por defecto: contraseñas, tokens, claves, texto completo privado, vocabulario personal,
 correo en texto libre, datos de menores y URLs firmadas completas.
 
+Los eventos de autenticación usan identificadores internos, acción, resultado y correlation ID. No
+guardan la contraseña intentada, el token, el correo solicitado ni cuerpos HTTP.
+
 Los tokens de sesión y CSRF se entregan sólo al cliente correspondiente. SQLite conserva sus hashes,
 nunca sus valores utilizables. Las sesiones revocadas o expiradas pueden eliminarse mediante una
 limpieza operativa una vez cumplidos 30 días; la evidencia de seguridad necesaria vive en auditoría.

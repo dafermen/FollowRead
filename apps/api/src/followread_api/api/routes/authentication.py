@@ -103,7 +103,11 @@ def login(
     service: AuthenticationServiceDependency,
 ) -> SessionResponse:
     _require_trusted_origin(request)
-    issued_session = service.login(body.email, body.password)
+    issued_session = service.login(
+        body.email,
+        body.password,
+        correlation_id=request.state.request_id,
+    )
     _set_authentication_cookies(
         response,
         issued_session.session_token,
@@ -146,5 +150,8 @@ def logout(
         if csrf_cookie is None or csrf_header is None or csrf_cookie != csrf_header:
             raise InvalidCsrfTokenError
         service.validate_csrf(session_token, csrf_header)
-        service.logout(session_token)
+        service.logout(
+            session_token,
+            correlation_id=request.state.request_id,
+        )
     _clear_authentication_cookies(response)

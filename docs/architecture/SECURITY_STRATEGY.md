@@ -48,6 +48,11 @@ origen exacto; logout requiere coincidencia entre cookie, encabezado CSRF y hash
 respuestas `/auth` usan `Cache-Control: no-store`, y CORS sólo permite los orígenes configurados con
 credenciales.
 
+Cinco fallos dentro de una ventana de 15 minutos bloquean la credencial durante 15 minutos. Una
+ventana vencida reinicia el contador y un login válido limpia el estado. Login exitoso, fallido,
+bloqueado y logout generan auditoría con ID de correlación; la evidencia no contiene email libre,
+contraseña ni tokens.
+
 ## Autorización
 
 La API verifica permisos explícitos y deniega por defecto; los nombres de rol no se usan como

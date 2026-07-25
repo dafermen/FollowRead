@@ -5,7 +5,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from followread_api.models import Role, User, UserSession
+from followread_api.models import AuditLog, Role, User, UserCredential, UserSession
 from followread_api.security import PasswordService, TokenService
 from followread_api.services.errors import (
     AuthenticationRequiredError,
@@ -16,7 +16,11 @@ from followread_api.services.identity import normalize_email
 
 SESSION_IDLE_TTL = timedelta(minutes=30)
 SESSION_ABSOLUTE_TTL = timedelta(hours=8)
+LOGIN_ATTEMPT_WINDOW = timedelta(minutes=15)
+LOGIN_LOCK_DURATION = timedelta(minutes=15)
+LOGIN_MAXIMUM_ATTEMPTS = 5
 _DUMMY_PASSWORD_HASH = PasswordService().hash("followread-invalid-credential-timing-value")
+_UNKNOWN_USER_ID = UUID(int=0)
 
 
 def _as_utc(timestamp: datetime) -> datetime:
@@ -60,6 +64,7 @@ class AuthenticationService:
         password: str,
         *,
         now: datetime | None = None,
+        correlation_id: str | None = None,
     ) -> IssuedSession:
         now = now or datetime.now(UTC)
         user = self._find_user(email)
@@ -69,15 +74,36 @@ class AuthenticationService:
             else _DUMMY_PASSWORD_HASH
         )
         verified, updated_hash = self._passwords.verify_and_update(password, credential_hash)
+        locked = (
+            user is not None
+            and user.credential is not None
+            and user.credential.locked_until is not None
+            and _as_utc(user.credential.locked_until) > now
+        )
         if (
             user is None
             or user.credential is None
             or user.administrator is None
             or user.status != "active"
             or not verified
+            or locked
         ):
+            if user is not None and user.credential is not None and not locked:
+                self._record_failed_attempt(user.credential, now)
+            self._audit(
+                action="auth.login",
+                user=user,
+                outcome="denied"
+                if locked or (user is not None and user.status != "active")
+                else "failed",
+                correlation_id=correlation_id,
+            )
+            self._session.commit()
             raise InvalidCredentialsError
 
+        user.credential.failed_attempt_count = 0
+        user.credential.failed_attempt_window_started_at = None
+        user.credential.locked_until = None
         if updated_hash is not None:
             user.credential.password_hash = updated_hash
             user.credential.password_changed_at = now
@@ -94,6 +120,12 @@ class AuthenticationService:
                 idle_expires_at=idle_expires_at,
                 absolute_expires_at=absolute_expires_at,
             ),
+        )
+        self._audit(
+            action="auth.login",
+            user=user,
+            outcome="succeeded",
+            correlation_id=correlation_id,
         )
         self._session.commit()
         return IssuedSession(
@@ -132,12 +164,19 @@ class AuthenticationService:
         session_token: str,
         *,
         now: datetime | None = None,
+        correlation_id: str | None = None,
     ) -> None:
         now = now or datetime.now(UTC)
         stored_session = self._find_session(session_token)
         if stored_session is not None and stored_session.revoked_at is None:
             stored_session.revoked_at = now
             stored_session.revocation_reason = "logout"
+            self._audit(
+                action="auth.logout",
+                user=stored_session.user,
+                outcome="succeeded",
+                correlation_id=correlation_id,
+            )
             self._session.commit()
 
     def validate_csrf(
@@ -194,5 +233,35 @@ class AuthenticationService:
                 sorted(
                     {permission.code for role in user.roles for permission in role.permissions},
                 ),
+            ),
+        )
+
+    def _record_failed_attempt(self, credential: UserCredential, now: datetime) -> None:
+        window_started_at = credential.failed_attempt_window_started_at
+        if window_started_at is None or now - _as_utc(window_started_at) >= LOGIN_ATTEMPT_WINDOW:
+            credential.failed_attempt_count = 1
+            credential.failed_attempt_window_started_at = now
+        else:
+            credential.failed_attempt_count += 1
+        if credential.failed_attempt_count >= LOGIN_MAXIMUM_ATTEMPTS:
+            credential.locked_until = now + LOGIN_LOCK_DURATION
+
+    def _audit(
+        self,
+        *,
+        action: str,
+        user: User | None,
+        outcome: str,
+        correlation_id: str | None,
+    ) -> None:
+        self._session.add(
+            AuditLog(
+                actor_user_id=user.id if user is not None else None,
+                action=action,
+                target_type="User",
+                target_id=user.id if user is not None else _UNKNOWN_USER_ID,
+                outcome=outcome,
+                correlation_id=correlation_id,
+                event_metadata={},
             ),
         )

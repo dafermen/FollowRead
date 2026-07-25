@@ -108,7 +108,7 @@ def test_authentication_api_does_not_enumerate_accounts() -> None:
                 wrong = await client.post(
                     "/auth/login",
                     json={"email": "admin@example.com", "password": "wrong password"},
-                    headers={"Origin": TRUSTED_ORIGIN},
+                    headers={"Origin": TRUSTED_ORIGIN, "X-Request-ID": "wrong-login"},
                 )
                 missing = await client.post(
                     "/auth/login",
@@ -119,6 +119,7 @@ def test_authentication_api_does_not_enumerate_accounts() -> None:
                 assert wrong.status_code == missing.status_code == 401
                 assert wrong.json() == missing.json()
                 assert wrong.headers["cache-control"] == "no-store"
+                assert wrong.headers["x-request-id"] == "wrong-login"
                 assert no_cookie.status_code == 401
         finally:
             engine.dispose()

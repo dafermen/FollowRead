@@ -80,8 +80,8 @@ aceptación correspondientes están satisfechos.
 | FR-PH04-TASK-005 | Exponer login, logout y sesión actual | COMPLETED | Critical |
 | FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | COMPLETED | Critical |
 | FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | COMPLETED | Critical |
-| FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | IN_PROGRESS | High |
-| FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | NOT_STARTED | Critical |
+| FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | COMPLETED | High |
+| FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | IN_PROGRESS | Critical |
 | FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | NOT_STARTED | Critical |
 
 ---
@@ -1335,14 +1335,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Añadir auditoría y límite de intentos  
 **Fase:** 4  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** High  
 **Dependencias:** FR-PH04-TASK-005 y 007.  
 **Criterios de aceptación:** Éxitos/fallos auditados sin secretos y abuso temporalmente limitado.  
 **Pruebas requeridas:** Ventana, recuperación, correlación y redacción.  
 **Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar ventana de intentos y eventos de seguridad sin secretos.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; ejecutar verificación formal de seguridad.
 
 ---
 
@@ -1350,12 +1350,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Verificar seguridad, OpenAPI y documentación  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-002 a 008.  
 **Criterios de aceptación:** FR-AC-018/021, amenazas, contratos y guías cubiertos.  
 **Pruebas requeridas:** Suite de seguridad y puerta completa.  
-**Siguiente acción:** Esperar implementación.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** —  
+**Siguiente acción:** Verificar FR-AC-018/021, amenazas, OpenAPI y guía operativa.
 
 ---
 

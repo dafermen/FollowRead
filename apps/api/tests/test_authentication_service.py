@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from followread_api.database import create_database_engine
 from followread_api.models import (
     Administrator,
+    AuditLog,
     Base,
     Role,
     User,
@@ -47,7 +48,12 @@ def test_login_current_and_idempotent_logout_use_revocable_tokens() -> None:
     engine, session, service = build_authenticated_session()
     now = datetime.now(UTC)
 
-    issued = service.login(" ADMIN@example.com ", PASSWORD, now=now)
+    issued = service.login(
+        " ADMIN@example.com ",
+        PASSWORD,
+        now=now,
+        correlation_id="request-login",
+    )
     stored = session.scalar(select(UserSession))
     assert stored is not None
     assert issued.user.email == "admin@example.com"
@@ -64,11 +70,90 @@ def test_login_current_and_idempotent_logout_use_revocable_tokens() -> None:
     assert stored.last_seen_at == later
     assert stored.idle_expires_at == later + timedelta(minutes=30)
 
-    service.logout(issued.session_token, now=later)
+    service.logout(issued.session_token, now=later, correlation_id="request-logout")
     service.logout(issued.session_token, now=later)
     assert stored.revocation_reason == "logout"
     with pytest.raises(AuthenticationRequiredError):
         service.current(issued.session_token, now=later)
+    audit = session.scalars(select(AuditLog).order_by(AuditLog.created_at)).all()
+    assert [(event.action, event.outcome, event.correlation_id) for event in audit] == [
+        ("auth.login", "succeeded", "request-login"),
+        ("auth.logout", "succeeded", "request-logout"),
+    ]
+    assert all(event.event_metadata == {} for event in audit)
+
+    session.close()
+    engine.dispose()
+
+
+def test_login_attempt_window_locks_and_recovers_without_exposing_secrets() -> None:
+    engine, session, service = build_authenticated_session()
+    now = datetime.now(UTC)
+
+    for attempt in range(5):
+        with pytest.raises(InvalidCredentialsError):
+            service.login(
+                "admin@example.com",
+                f"incorrect password {attempt}",
+                now=now + timedelta(minutes=attempt),
+                correlation_id=f"failure-{attempt}",
+            )
+
+    user = session.scalar(select(User).where(User.email_normalized == "admin@example.com"))
+    assert user is not None
+    assert user.credential is not None
+    assert user.credential.failed_attempt_count == 5
+    assert user.credential.locked_until is not None
+    assert user.credential.locked_until.replace(tzinfo=UTC) == now + timedelta(minutes=19)
+
+    with pytest.raises(InvalidCredentialsError):
+        service.login("admin@example.com", PASSWORD, now=now + timedelta(minutes=5))
+
+    recovered = service.login(
+        "admin@example.com",
+        PASSWORD,
+        now=now + timedelta(minutes=20),
+    )
+    assert recovered.user.email == "admin@example.com"
+    assert user.credential.failed_attempt_count == 0
+    assert user.credential.failed_attempt_window_started_at is None
+    assert user.credential.locked_until is None
+
+    audit = session.scalars(select(AuditLog).order_by(AuditLog.created_at)).all()
+    assert [event.outcome for event in audit[:5]] == ["failed"] * 5
+    assert audit[5].outcome == "denied"
+    assert audit[6].outcome == "succeeded"
+    serialized_audit = repr(
+        [(event.correlation_id, event.event_metadata) for event in audit],
+    )
+    assert PASSWORD not in serialized_audit
+    assert "incorrect password" not in serialized_audit
+
+    session.close()
+    engine.dispose()
+
+
+def test_failed_attempt_window_restarts_after_fifteen_minutes() -> None:
+    engine, session, service = build_authenticated_session()
+    now = datetime.now(UTC)
+
+    with pytest.raises(InvalidCredentialsError):
+        service.login("admin@example.com", "wrong one", now=now)
+    with pytest.raises(InvalidCredentialsError):
+        service.login(
+            "admin@example.com",
+            "wrong two",
+            now=now + timedelta(minutes=16),
+        )
+
+    user = session.scalar(select(User).where(User.email_normalized == "admin@example.com"))
+    assert user is not None
+    assert user.credential is not None
+    assert user.credential.failed_attempt_count == 1
+    assert user.credential.failed_attempt_window_started_at is not None
+    assert user.credential.failed_attempt_window_started_at.replace(
+        tzinfo=UTC,
+    ) == now + timedelta(minutes=16)
 
     session.close()
     engine.dispose()

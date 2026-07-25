@@ -441,3 +441,16 @@ FR-PH04-TASK-005 y 006 quedaron `COMPLETED`; FR-PH04-TASK-007 quedó `IN_PROGRES
 - La suite alcanzó 77 pruebas Python con cobertura 100% antes de la puerta integral.
 
 FR-PH04-TASK-007 quedó `COMPLETED`; FR-PH04-TASK-008 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Límite de login y auditoría
+
+- Cinco fallos en 15 minutos bloquean la credencial durante 15 minutos.
+- La ventana se reinicia al vencer y el éxito limpia contadores/bloqueo.
+- Login y logout generan `AuditLog` con resultado y correlation ID.
+- La auditoría no contiene contraseña, token, correo solicitado ni cuerpo HTTP.
+- Cuentas inexistentes conservan el mismo contrato externo y evidencia minimizada.
+- La suite alcanzó 79 pruebas Python con cobertura 100%.
+
+FR-PH04-TASK-008 quedó `COMPLETED`; FR-PH04-TASK-009 quedó `IN_PROGRESS`.

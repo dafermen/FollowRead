@@ -2,19 +2,19 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH04-TASK-008 - Añadir auditoría y límite de intentos**
+**FR-PH04-TASK-009 - Verificar seguridad, OpenAPI y documentación**
 
 ### Objetivo de la próxima sesión
 
-Limitar abuso de login y conservar evidencia útil sin registrar secretos.
+Contrastar toda la implementación de Fase 4 con criterios, amenazas y contratos.
 
 ### Orden de trabajo
 
-1. Definir ventana, umbral y recuperación del límite de login.
-2. Registrar éxito/fallo/bloqueo con identificadores internos, nunca contraseña o token.
-3. Añadir correlación de solicitud a los eventos relevantes.
-4. Probar ventana, desbloqueo, cuenta inexistente y redacción.
-5. Continuar con la verificación de seguridad y OpenAPI.
+1. Verificar FR-AC-018 y FR-AC-021.
+2. Revisar casos positivos/negativos de sesión, CSRF, origen, CORS y RBAC.
+3. Confirmar OpenAPI y guía operativa.
+4. Ejecutar puerta integral y prueba de migración limpia.
+5. Preparar la auditoría de cierre de Fase 4.
 
 ## No hacer todavía
 
