@@ -16,6 +16,10 @@ class Settings(BaseSettings):
     environment: Literal["development", "test", "production"] = "development"
     api_prefix: str = Field(default="", pattern=r"^$|^/")
     database_url: Annotated[str, Field(pattern=r"^sqlite:///")] = "sqlite:///./var/followread.db"
+    allowed_origins: tuple[str, ...] = (
+        "http://localhost:5173",
+        "http://localhost:5174",
+    )
 
 
 @lru_cache

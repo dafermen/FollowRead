@@ -38,9 +38,15 @@
 
 ## Identidad y sesión
 
-La tecnología final no está elegida. Los requisitos mínimos son almacenamiento seguro de contraseña si
-es propia, tokens cortos, refresh rotatorio o sesión equivalente, revocación, protección CSRF cuando
-aplique, rate limiting y recuperación segura.
+Las cuentas editoriales usan Argon2id y sesiones opacas revocables de servidor. SQLite conserva sólo
+los hashes del token de sesión y del token CSRF. El navegador recibe una cookie de sesión host-only,
+`HttpOnly`, `SameSite=Strict` y `Secure` en producción, más una cookie CSRF separada. No se usan JWT
+ni almacenamiento web para credenciales.
+
+La inactividad expira a los 30 minutos y el máximo absoluto es de 8 horas. Login y logout validan un
+origen exacto; logout requiere coincidencia entre cookie, encabezado CSRF y hash persistido. Todas las
+respuestas `/auth` usan `Cache-Control: no-store`, y CORS sólo permite los orígenes configurados con
+credenciales.
 
 ## Autorización
 
@@ -73,10 +79,9 @@ en `docs/requirements/DATA_POLICY.md`.
 
 ## Sesiones y protección web
 
-- hash Argon2id o estándar resistente vigente;
-- sesiones/tokens de corta duración y revocables;
-- refresh rotatorio o sesión servidor equivalente;
-- protección CSRF cuando se usen cookies;
+- hash Argon2id actualizable;
+- sesiones opacas de corta duración, revocables y rotadas al autenticar;
+- protección CSRF y verificación de origen para métodos inseguros;
 - CSP, HSTS y encabezados apropiados en producción;
 - rate limiting para login, recuperación y procesamiento;
 - mensajes de autenticación que no revelen existencia de cuenta.

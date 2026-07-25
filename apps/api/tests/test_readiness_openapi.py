@@ -46,10 +46,18 @@ def test_readiness_reports_database_success_and_failure() -> None:
     ready_engine.dispose()
 
 
-def test_openapi_exposes_operational_and_catalog_contracts() -> None:
+def test_openapi_exposes_operational_catalog_and_authentication_contracts() -> None:
     schema = create_app().openapi()
 
-    assert {"/health", "/ready", "/catalog", "/catalog/{slug}"}.issubset(schema["paths"])
+    assert {
+        "/health",
+        "/ready",
+        "/catalog",
+        "/catalog/{slug}",
+        "/auth/login",
+        "/auth/logout",
+        "/auth/session",
+    }.issubset(schema["paths"])
     assert schema["paths"]["/catalog"]["get"]["responses"]["200"]["content"]["application/json"][
         "schema"
     ]["$ref"].endswith("/CatalogPageResponse")
@@ -59,4 +67,10 @@ def test_openapi_exposes_operational_and_catalog_contracts() -> None:
     assert schema["paths"]["/ready"]["get"]["responses"]["503"]["content"]["application/json"][
         "schema"
     ]["$ref"].endswith("/ReadinessErrorResponse")
+    assert schema["paths"]["/auth/login"]["post"]["responses"]["200"]["content"][
+        "application/json"
+    ]["schema"]["$ref"].endswith("/SessionResponse")
+    assert schema["paths"]["/auth/logout"]["post"]["responses"]["403"]["content"][
+        "application/json"
+    ]["schema"]["$ref"].endswith("/ErrorResponse")
     assert "ContentDetailResponse" in schema["components"]["schemas"]

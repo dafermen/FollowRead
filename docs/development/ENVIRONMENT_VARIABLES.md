@@ -20,6 +20,7 @@
 | `FOLLOWREAD_APP_NAME` | API | No | `FollowRead API` | texto no vacío |
 | `FOLLOWREAD_API_PREFIX` | API | No | vacío | vacío o ruta que comienza con `/` |
 | `FOLLOWREAD_DATABASE_URL` | API | No | `sqlite:///./var/followread.db` | DSN SQLite |
+| `FOLLOWREAD_ALLOWED_ORIGINS` | API | No | `["http://localhost:5173","http://localhost:5174"]` | lista JSON de orígenes exactos |
 
 ## Configuración futura
 

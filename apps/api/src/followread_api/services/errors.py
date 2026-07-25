@@ -6,6 +6,10 @@ from types import MappingProxyType
 class ErrorCode(StrEnum):
     INVALID_CATALOG_QUERY = "catalog.invalid_query"
     CONTENT_NOT_FOUND = "content.not_found"
+    INVALID_CREDENTIALS = "auth.invalid_credentials"
+    AUTHENTICATION_REQUIRED = "auth.authentication_required"
+    INVALID_CSRF_TOKEN = "auth.invalid_csrf_token"
+    INVALID_ORIGIN = "auth.invalid_origin"
 
 
 class DomainError(Exception):
@@ -39,4 +43,36 @@ class ContentNotFoundError(DomainError):
             ErrorCode.CONTENT_NOT_FOUND,
             "The requested content is not available.",
             details={"slug": slug},
+        )
+
+
+class InvalidCredentialsError(DomainError):
+    def __init__(self) -> None:
+        super().__init__(
+            ErrorCode.INVALID_CREDENTIALS,
+            "The email or password is invalid.",
+        )
+
+
+class AuthenticationRequiredError(DomainError):
+    def __init__(self) -> None:
+        super().__init__(
+            ErrorCode.AUTHENTICATION_REQUIRED,
+            "A valid session is required.",
+        )
+
+
+class InvalidCsrfTokenError(DomainError):
+    def __init__(self) -> None:
+        super().__init__(
+            ErrorCode.INVALID_CSRF_TOKEN,
+            "The request security token is invalid.",
+        )
+
+
+class InvalidOriginError(DomainError):
+    def __init__(self) -> None:
+        super().__init__(
+            ErrorCode.INVALID_ORIGIN,
+            "The request origin is not allowed.",
         )

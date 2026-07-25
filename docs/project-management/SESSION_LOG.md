@@ -414,3 +414,17 @@ FR-PH04-TASK-002 quedó `IN_PROGRESS` para modelar credenciales y sesiones antes
 - La API alcanzó 60 pruebas con 100% de cobertura antes de la verificación integral.
 
 FR-PH04-TASK-002, 003 y 004 quedaron `COMPLETED`; FR-PH04-TASK-005 quedó `IN_PROGRESS`.
+
+---
+
+## Continuación 2026-07-25 - Sesión HTTP y controles del navegador
+
+- Se expusieron `POST /auth/login`, `GET /auth/session` y `POST /auth/logout`.
+- Los errores de login no distinguen cuenta inexistente, deshabilitada o contraseña incorrecta.
+- La sesión renueva inactividad sin superar ocho horas y logout es revocable e idempotente.
+- La cookie de sesión es host-only, HttpOnly y Strict; producción añade Secure.
+- Logout exige origen permitido y token CSRF verificado contra cookie y hash de servidor.
+- CORS acepta credenciales únicamente desde Admin/Reader configurados y `/auth` nunca se cachea.
+- La suite de API alcanzó 73 pruebas Python con 100% de cobertura antes de la puerta integral.
+
+FR-PH04-TASK-005 y 006 quedaron `COMPLETED`; FR-PH04-TASK-007 quedó `IN_PROGRESS`.

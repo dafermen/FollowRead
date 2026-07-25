@@ -1,5 +1,12 @@
 """HTTP request and response schemas."""
 
+from followread_api.api.schemas.authentication import (
+    AuthenticatedUserResponse,
+    LoginRequest,
+    SessionResponse,
+    authenticated_user_response,
+    issued_session_response,
+)
 from followread_api.api.schemas.catalog import (
     CatalogItemResponse,
     CatalogPageResponse,
@@ -15,15 +22,20 @@ from followread_api.api.schemas.catalog import (
 )
 
 __all__ = [
+    "AuthenticatedUserResponse",
     "CatalogItemResponse",
     "CatalogPageResponse",
     "CategoryResponse",
     "ChapterResponse",
     "ContentDetailResponse",
+    "LoginRequest",
     "ParagraphResponse",
     "ReadingLevelResponse",
+    "SessionResponse",
     "TranslationResponse",
+    "authenticated_user_response",
     "catalog_item_response",
     "catalog_page_response",
     "content_detail_response",
+    "issued_session_response",
 ]

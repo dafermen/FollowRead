@@ -9,6 +9,10 @@ from followread_api.services import DomainError, ErrorCode
 ERROR_STATUS = {
     ErrorCode.INVALID_CATALOG_QUERY: 422,
     ErrorCode.CONTENT_NOT_FOUND: 404,
+    ErrorCode.INVALID_CREDENTIALS: 401,
+    ErrorCode.AUTHENTICATION_REQUIRED: 401,
+    ErrorCode.INVALID_CSRF_TOKEN: 403,
+    ErrorCode.INVALID_ORIGIN: 403,
 }
 
 

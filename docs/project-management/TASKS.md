@@ -77,9 +77,9 @@ aceptación correspondientes están satisfechos.
 | FR-PH04-TASK-002 | Modelar credenciales y sesiones revocables | COMPLETED | Critical |
 | FR-PH04-TASK-003 | Implementar primitivas de contraseña y token | COMPLETED | Critical |
 | FR-PH04-TASK-004 | Crear bootstrap seguro de superadministrador | COMPLETED | Critical |
-| FR-PH04-TASK-005 | Exponer login, logout y sesión actual | IN_PROGRESS | Critical |
-| FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | NOT_STARTED | Critical |
-| FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | NOT_STARTED | Critical |
+| FR-PH04-TASK-005 | Exponer login, logout y sesión actual | COMPLETED | Critical |
+| FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | COMPLETED | Critical |
+| FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | IN_PROGRESS | Critical |
 | FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | NOT_STARTED | High |
 | FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | NOT_STARTED | Critical |
 | FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | NOT_STARTED | Critical |
@@ -1290,14 +1290,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Exponer login, logout y sesión actual  
 **Fase:** 4  
-**Estado:** IN_PROGRESS  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-003 y 004.  
 **Criterios de aceptación:** Contratos seguros, expiración/revocación y mensajes no enumerables.  
 **Pruebas requeridas:** Éxito, credencial inválida, expirada, logout y repetición.  
 **Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** —  
-**Siguiente acción:** Implementar servicio y rutas de sesión con contratos no enumerables.
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; proteger acciones administrativas con la sesión.
 
 ---
 
@@ -1305,12 +1305,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Aplicar cookie, CSRF, origen, caché y CORS  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** COMPLETED  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-005.  
 **Criterios de aceptación:** Atributos por entorno, no-store y rechazo cross-site en cambios.  
 **Pruebas requeridas:** Headers, origen válido/inválido, CSRF ausente y preflight.  
-**Siguiente acción:** Esperar endpoints.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** 2026-07-25  
+**Siguiente acción:** Completada; conservar estos controles en rutas protegidas.
 
 ---
 
@@ -1318,12 +1320,14 @@ revocación y metadatos mínimos con índices/restricciones.
 
 **Título:** Aplicar autorización RBAC por permiso  
 **Fase:** 4  
-**Estado:** NOT_STARTED  
+**Estado:** IN_PROGRESS  
 **Prioridad:** Critical  
 **Dependencias:** FR-PH04-TASK-005.  
 **Criterios de aceptación:** Dependencias deny-by-default y permisos explícitos por acción.  
 **Pruebas requeridas:** Matriz positiva/negativa, sesión revocada y usuario inactivo.  
-**Siguiente acción:** Esperar sesión actual.
+**Fecha de inicio:** 2026-07-25  
+**Fecha de finalización:** —  
+**Siguiente acción:** Crear dependencias deny-by-default y matriz inicial de permisos.
 
 ---
 
