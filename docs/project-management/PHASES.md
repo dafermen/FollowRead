@@ -20,7 +20,7 @@
 | 5 | FollowRead Admin | Crear la administración de contenido | COMPLETED |
 | 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | COMPLETED |
 | 7 | Motor de lectura | Implementar sincronización audio-texto reusable | COMPLETED |
-| 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | NOT_STARTED |
+| 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | IN_PROGRESS |
 | 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | NOT_STARTED |
 | 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | NOT_STARTED |
 | 11 | Modo aprender inglés | Agregar funciones educativas | NOT_STARTED |
@@ -205,3 +205,26 @@ interrupciones.
 
 Fase 7 cerrada el 2026-07-26. Evidencia: `PHASE_7_REVIEW.md`. Se adelantó un corte visual de Fase 8
 para poder demostrar el motor desde el navegador sin cerrar todavía la PWA completa.
+
+## Fase 8 - Cerrada
+
+### Objetivo
+
+Entregar FollowRead Reader Web como una aplicación responsive, accesible e instalable con
+biblioteca, detalle, lector audible, áreas personales, configuración y modos de lectura.
+
+### Criterios de salida
+
+1. Inicio, biblioteca, búsqueda, categorías, detalle y lector consumen el catálogo publicado.
+2. Favoritos, progreso, historial y vocabulario local funcionan sin guardar PII.
+3. Los modos infantil, adulto y aprendizaje aplican preferencias coherentes.
+4. La voz del dispositivo se integra sin API key y degrada a seguimiento visual.
+5. Manifest, icono y service worker hacen instalable el shell.
+6. Navegación, reflow, teclado, foco, reduced motion y safe areas cumplen la especificación.
+7. Vitest y un recorrido Chrome headless cubren los recorridos críticos.
+8. Documentación, revisión visual y puerta completa quedan en verde.
+
+### Resultado
+
+Fase 8 cerrada el 2026-07-26. Evidencia: `PHASE_8_REVIEW.md`. Las descargas verificadas de contenido
+y la operación offline permanecen explícitamente en la Fase 9.

@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App.js";
+import { registerReaderServiceWorker } from "./pwa.js";
 import "./styles.css";
 
 const rootElement = document.querySelector<HTMLDivElement>("#root");
@@ -15,3 +16,7 @@ createRoot(rootElement).render(
     <App />
   </StrictMode>,
 );
+
+window.addEventListener("load", () => {
+  void registerReaderServiceWorker();
+});

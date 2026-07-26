@@ -118,10 +118,39 @@ const storyPackage: ReaderPackage = {
   ],
 };
 
+const catalogPage = {
+  items: [
+    {
+      id: "story-id",
+      slug: "el-zorro-y-la-luna",
+      content_type: "story",
+      audience: "children",
+      reading_level: { code: "A1", label: "Inicial" },
+      categories: [
+        { slug: "adventure", name: "Aventura" },
+        { slug: "friendship", name: "Amistad" },
+      ],
+      languages: ["es", "en"],
+      version: 1,
+      checksum: "demo-checksum",
+      package_url: "/catalog/el-zorro-y-la-luna/reader-package",
+      minimum_app_version: "0.0.0",
+      published_at: "2026-07-24T00:00:00Z",
+    },
+  ],
+  total: 1,
+  limit: 100,
+  offset: 0,
+};
+
 const respondWithStory = () => {
   vi.stubGlobal(
     "fetch",
-    vi.fn(() => Promise.resolve(new Response(JSON.stringify(storyPackage), { status: 200 }))),
+    vi.fn((input: string | URL | Request) => {
+      const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
+      const body = url.includes("/reader-package") ? storyPackage : catalogPage;
+      return Promise.resolve(new Response(JSON.stringify(body), { status: 200 }));
+    }),
   );
 };
 
@@ -145,12 +174,14 @@ describe("FollowRead Reader", () => {
     respondWithStory();
     render(<App />);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Preparando la biblioteca");
-    expect(await screen.findByRole("heading", { name: "El zorro y la luna" })).toBeInTheDocument();
-    expect(screen.getByText("Cuento bilingüe")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Comenzar a leer/ })).toHaveAttribute(
+    expect(screen.getByRole("status")).toHaveTextContent("Preparando tus lecturas");
+    expect(
+      await screen.findByRole("heading", { name: "Una aventura para esta noche" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("El zorro y la luna")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Ver detalles" })).toHaveAttribute(
       "href",
-      "/read/el-zorro-y-la-luna",
+      "/details/el-zorro-y-la-luna",
     );
   });
 
@@ -161,7 +192,8 @@ describe("FollowRead Reader", () => {
     );
     render(<App />);
 
-    expect(await screen.findByRole("alert")).toHaveTextContent("pnpm demo:seed");
+    expect(await screen.findByRole("alert")).toHaveTextContent("No pudimos abrir la biblioteca");
+    expect(screen.getByRole("button", { name: "Reintentar" })).toBeVisible();
   });
 
   it("renders the embedded developer documentation", () => {
@@ -202,7 +234,7 @@ describe("FollowRead Reader", () => {
     act(() => {
       vi.advanceTimersByTime(900);
     });
-    expect(screen.getByRole("status")).toHaveTextContent("Leyendo: mira");
+    expect(screen.getByText("mira")).toHaveClass("story-word--active");
     fireEvent.click(screen.getByRole("button", { name: "Pausar" }));
 
     fireEvent.change(screen.getByRole("combobox", { name: "Velocidad" }), {
@@ -240,7 +272,142 @@ describe("FollowRead Reader", () => {
     ).toBeVisible();
     expect(screen.getByRole("link", { name: "Volver a la biblioteca" })).toHaveAttribute(
       "href",
-      "/",
+      "/library",
     );
+  });
+
+  it("filters the library and resets an empty search", async () => {
+    respondWithStory();
+    window.history.pushState({}, "", "/library");
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { name: "Encuentra tu próxima lectura" }),
+    ).toBeVisible();
+    fireEvent.change(screen.getByRole("searchbox", { name: "Buscar" }), {
+      target: { value: "inexistente" },
+    });
+    expect(screen.getByRole("heading", { name: "No encontramos lecturas" })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Limpiar filtros" }));
+    expect(screen.getByRole("link", { name: /El zorro y la luna/ })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Aventura" }));
+    fireEvent.change(screen.getByRole("combobox", { name: "Idioma" }), {
+      target: { value: "en" },
+    });
+    fireEvent.change(screen.getByRole("combobox", { name: "Nivel" }), {
+      target: { value: "A1" },
+    });
+    expect(screen.getByText("1 de 1")).toBeVisible();
+  });
+
+  it("shows details, saves a favorite and removes it from favorites", async () => {
+    respondWithStory();
+    window.history.pushState({}, "", "/details/el-zorro-y-la-luna");
+    const view = render(<App />);
+
+    expect(await screen.findByRole("heading", { name: "El zorro y la luna" })).toBeVisible();
+    expect(screen.getByText("Inicial")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: /Guardar/ }));
+    expect(screen.getByRole("button", { name: /En favoritos/ })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+
+    view.unmount();
+    window.history.pushState({}, "", "/favorites");
+    render(<App />);
+    expect(await screen.findByRole("heading", { name: "El zorro y la luna" })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: /Quitar El zorro/ }));
+    expect(screen.getByRole("heading", { name: "Todavía no guardaste favoritos" })).toBeVisible();
+  });
+
+  it("renders and clears reading history", () => {
+    window.localStorage.setItem(
+      "followread-reader-history-v1",
+      JSON.stringify([
+        {
+          slug: "el-zorro-y-la-luna",
+          title: "El zorro y la luna",
+          coverUri: null,
+          language: "es",
+          positionMs: 2000,
+          durationMs: 4000,
+          chapterTitle: "Una luz en el bosque",
+          updatedAt: "2026-07-24T00:00:00Z",
+        },
+      ]),
+    );
+    window.history.pushState({}, "", "/history");
+    render(<App />);
+
+    expect(screen.getByText(/50%/)).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Quitar" }));
+    expect(screen.getByRole("heading", { name: "Tu historial está vacío" })).toBeVisible();
+  });
+
+  it("changes reading mode and restores settings", () => {
+    window.history.pushState({}, "", "/settings");
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("radio", { name: /Aprender inglés/ }));
+    expect(screen.getByRole("heading", { name: "Aprender inglés" })).toBeVisible();
+    fireEvent.change(screen.getByRole("combobox", { name: "Tema" }), {
+      target: { value: "dark" },
+    });
+    fireEvent.click(screen.getByRole("switch", { name: /Reducir movimiento/ }));
+    expect(document.documentElement.dataset["readerTheme"]).toBe("dark");
+    fireEvent.click(screen.getByRole("button", { name: "Restaurar valores iniciales" }));
+    expect(screen.getByRole("heading", { name: "Modo infantil" })).toBeVisible();
+  });
+
+  it("shows and removes saved vocabulary", () => {
+    window.localStorage.setItem(
+      "followread-reader-vocabulary-v1",
+      JSON.stringify([
+        {
+          id: "story:en:moon",
+          slug: "story",
+          word: "moon",
+          translation: "luna",
+          language: "en",
+          savedAt: "2026-07-24T00:00:00Z",
+        },
+      ]),
+    );
+    window.history.pushState({}, "", "/vocabulary");
+    render(<App />);
+
+    expect(screen.getByRole("heading", { name: "moon" })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Quitar" }));
+    expect(screen.getByRole("heading", { name: "Aún no guardaste palabras" })).toBeVisible();
+  });
+
+  it("opens learning tools and saves a selected word", async () => {
+    window.localStorage.setItem(
+      "followread-reader-preferences-v1",
+      JSON.stringify({
+        mode: "learning",
+        theme: "system",
+        fontScale: 1.1,
+        showPointer: true,
+        autoScroll: false,
+        reduceMotion: true,
+        narrationEnabled: false,
+        defaultLanguage: "en",
+        playbackRate: 0.75,
+      }),
+    );
+    respondWithStory();
+    window.history.pushState({}, "", "/read/el-zorro-y-la-luna");
+    render(<App />);
+
+    await screen.findByRole("heading", { name: "A Light in the Forest" });
+    fireEvent.click(screen.getByRole("button", { name: "watches" }));
+    expect(screen.getByRole("heading", { name: "watches" })).toBeVisible();
+    expect(screen.getByText("mira")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: /Guardar palabra/ }));
+    expect(screen.getByRole("button", { name: /Guardada/ })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Cerrar ayuda de palabra" }));
+    expect(screen.queryByRole("heading", { name: "watches" })).not.toBeInTheDocument();
   });
 });

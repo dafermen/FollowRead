@@ -2,25 +2,26 @@
 
 ## Siguiente tarea exacta
 
-**Descomponer y activar la Fase 8 - FollowRead Reader Web**
+**Descomponer y activar la Fase 9 - Descargas y modo offline**
 
 ### Objetivo de la próxima sesión
 
-Convertir el corte visual actual en una PWA accesible con audio audible y biblioteca completa.
+Definir tareas, contratos y pruebas para descargar versiones publicadas, validar checksum, activar
+contenido offline y reconciliarlo cuando vuelva la conexión.
 
 ### Orden de trabajo
 
-1. Volver al prompt maestro y extraer todas las actividades y entregables de Fase 8.
-2. Diseñar el límite entre `HTMLAudioElement` y el Reader Engine.
-3. Completar estados, filtros y accesibilidad de la biblioteca.
-4. Añadir manifest, service worker y estrategia instalable sin adelantar descargas de Fase 9.
+1. Relacionar actividades de Fase 9 con requisitos y criterios de salida.
+2. Diseñar catálogo local, cuotas, checksum y activación atómica.
+3. Implementar estados de descarga y administración del espacio.
+4. Probar pérdida/recuperación de red y versiones obsoletas.
 
 ## No hacer todavía
 
 - No almacenar tokens o contraseñas en logs ni almacenamiento web.
 - No crear `LICENSE` sin decisión del propietario.
 - No usar credenciales ni llamadas AWS reales en pruebas.
-- No mezclar almacenamiento web, React ni audio del navegador dentro del Reader Engine.
+- No iniciar Capacitor antes de cerrar el modo offline web.
 
 ## Comando recomendado
 

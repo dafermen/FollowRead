@@ -578,3 +578,19 @@ cerradas en PASS; el siguiente paso es descomponer la Fase 7.
 
 FR-PH07-TASK-001 a 010 quedaron `COMPLETED`. La Fase 7 quedó cerrada en PASS; el siguiente paso es
 descomponer la Fase 8.
+
+---
+
+## Continuación 2026-07-26 - Reader Web y PWA
+
+- Se completaron inicio, biblioteca filtrable, categorías, búsqueda y detalle publicado.
+- Favoritos, progreso, historial, preferencias y vocabulario se guardan localmente sin PII.
+- Infantil, adulto y aprendizaje comparten componentes con defaults y controles adecuados.
+- Web Speech aporta narración audible local; sin voz disponible continúa el seguimiento visual.
+- El modo aprendizaje alinea palabras editoriales entre español e inglés y permite repetir/guardar.
+- Manifest, icono y service worker hacen instalable el shell sin adelantar las descargas de Fase 9.
+- Navegación amplia/compacta, safe areas, 320 px, foco y reduced motion quedaron implementados.
+- Se añadieron 22 pruebas Reader y un recorrido Chrome headless contra API/Reader reales.
+
+FR-PH08-TASK-001 a 012 quedaron `COMPLETED`. La Fase 8 quedó cerrada en PASS; el siguiente paso es
+descomponer la Fase 9.

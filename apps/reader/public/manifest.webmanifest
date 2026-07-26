@@ -1,0 +1,22 @@
+{
+  "name": "FollowRead Reader",
+  "short_name": "FollowRead",
+  "description": "Lectura bilingüe accesible con seguimiento palabra por palabra.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f3f6f1",
+  "theme_color": "#174d3b",
+  "lang": "es",
+  "categories": ["education", "books"],
+  "icons": [
+    {
+      "src": "/icons/followread.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

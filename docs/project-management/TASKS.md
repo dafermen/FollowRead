@@ -131,6 +131,23 @@ aceptación correspondientes están satisfechos.
 | FR-PH07-TASK-009 | Verificar motor, API y recorrido visual | COMPLETED | Critical |
 | FR-PH07-TASK-010 | Documentar y cerrar la Fase 7 | COMPLETED | Critical |
 
+## Resumen de Fase 8
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH08-TASK-001 | Descomponer y activar la Fase 8 | COMPLETED | Critical |
+| FR-PH08-TASK-002 | Crear shell y navegación responsive del Reader | COMPLETED | Critical |
+| FR-PH08-TASK-003 | Implementar inicio, biblioteca, categorías y búsqueda | COMPLETED | Critical |
+| FR-PH08-TASK-004 | Implementar detalle y acceso contextual al lector | COMPLETED | Critical |
+| FR-PH08-TASK-005 | Integrar narración audible con Reader Engine | COMPLETED | Critical |
+| FR-PH08-TASK-006 | Implementar favoritos, progreso e historial | COMPLETED | High |
+| FR-PH08-TASK-007 | Implementar configuración y modos de lectura | COMPLETED | Critical |
+| FR-PH08-TASK-008 | Implementar vocabulario y ayudas de aprendizaje | COMPLETED | High |
+| FR-PH08-TASK-009 | Convertir Reader en PWA instalable | COMPLETED | Critical |
+| FR-PH08-TASK-010 | Verificar responsive y accesibilidad | COMPLETED | Critical |
+| FR-PH08-TASK-011 | Añadir pruebas de integración y E2E | COMPLETED | Critical |
+| FR-PH08-TASK-012 | Documentar, auditar y cerrar la Fase 8 | COMPLETED | Critical |
+
 ---
 
 ## FR-PH00-TASK-001
@@ -1880,3 +1897,195 @@ los ocho criterios de salida pasan.
 **Fecha de inicio:** 2026-07-26  
 **Fecha de finalización:** 2026-07-26  
 **Siguiente acción:** Completar la Fase 8 con PWA, estados de biblioteca y audio real.
+
+---
+
+## FR-PH08-TASK-001
+
+**Título:** Descomponer y activar la Fase 8  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fase 7 COMPLETED.  
+**Criterios de aceptación:** Las quince actividades del prompt quedan relacionadas con pantallas,
+requisitos, pruebas y criterios de salida.  
+**Pruebas requeridas:** Revisión contra FR-READER-001 a 015 y FR-SCREEN-R01 a R12.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-002
+
+**Título:** Crear shell y navegación responsive del Reader  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-001.  
+**Criterios de aceptación:** Navegación amplia y compacta, ruta actual, conexión y acceso a
+preferencias funcionan desde 320 CSS px.  
+**Pruebas requeridas:** Rutas, landmarks, foco, navegación y reflow.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-003
+
+**Título:** Implementar inicio, biblioteca, categorías y búsqueda  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-002.  
+**Criterios de aceptación:** Catálogo publicado se descubre por texto, categoría, idioma y nivel;
+carga, error y vacío conservan contexto.  
+**Pruebas requeridas:** Resultados, filtros combinados, vacío, error y conexión.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-004
+
+**Título:** Implementar detalle y acceso contextual al lector  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-003.  
+**Criterios de aceptación:** Portada, resumen, categorías, idiomas, nivel y progreso llevan a
+comenzar o continuar la versión publicada.  
+**Pruebas requeridas:** Sin progreso, con progreso, favorito y contenido ausente.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-005
+
+**Título:** Integrar narración audible con Reader Engine  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-004 y Fase 7.  
+**Criterios de aceptación:** La voz disponible del dispositivo sigue marcas canónicas, respeta
+pausa, velocidad, idioma y error recuperable sin requerir API keys.  
+**Pruebas requeridas:** Disponible, ausente, pausa, final, boundary, cambio de velocidad e idioma.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-006
+
+**Título:** Implementar favoritos, progreso e historial  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH08-TASK-003 y 004.  
+**Criterios de aceptación:** Datos locales no sensibles se guardan sin duplicados y permiten
+reanudar o eliminar una preferencia.  
+**Pruebas requeridas:** Vacío, agregar, quitar, reanudar, orden temporal y dato corrupto.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-007
+
+**Título:** Implementar configuración y modos de lectura  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-002.  
+**Criterios de aceptación:** Infantil, adulto y aprender inglés aplican idioma, tamaño, tema,
+puntero, movimiento, auto-scroll y narración sin duplicar la aplicación.  
+**Pruebas requeridas:** Defaults, persistencia, cambio de modo, sistema/reduced motion y reset.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-008
+
+**Título:** Implementar vocabulario y ayudas de aprendizaje  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH08-TASK-005 y 007.  
+**Criterios de aceptación:** Una palabra inglesa puede seleccionarse, traducirse con contenido
+editorial alineado, repetirse y guardarse o quitarse del vocabulario local.  
+**Pruebas requeridas:** Panel, foco, traducción, repetición, guardar, quitar y estado vacío.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-009
+
+**Título:** Convertir Reader en PWA instalable  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-002.  
+**Criterios de aceptación:** Manifest, icono, tema, registro seguro y service worker del shell hacen
+Reader instalable sin adelantar descargas de contenido de Fase 9.  
+**Pruebas requeridas:** Manifest válido, registro, actualización y fallback sin soporte.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-010
+
+**Título:** Verificar responsive y accesibilidad  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-002 a 009.  
+**Criterios de aceptación:** 320 px, 400% reflow, teclado, foco, nombres, contraste, reduced motion,
+safe areas y objetivos infantiles cumplen especificación.  
+**Pruebas requeridas:** Automatización y revisión visual en compacto y amplio.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-011
+
+**Título:** Añadir pruebas de integración y E2E  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-003 a 010.  
+**Criterios de aceptación:** Recorridos descubrir-detalle-leer, favorito, historial, ajustes,
+aprendizaje e instalación tienen evidencia automatizada o de navegador real.  
+**Pruebas requeridas:** Vitest y recorrido Chrome headless contra API/Reader reales.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH08-TASK-012
+
+**Título:** Documentar, auditar y cerrar la Fase 8  
+**Fase:** 8  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH08-TASK-001 a 011.  
+**Criterios de aceptación:** Quince actividades, requisitos y criterios de salida pasan; puerta
+completa, evidencia visual y documentación quedan actualizadas.  
+**Pruebas requeridas:** `pnpm check` y auditoría final desde SQLite sembrada.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Descomponer la Fase 9.

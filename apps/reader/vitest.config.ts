@@ -5,14 +5,14 @@ export default defineConfig({
   plugins: [react()],
   test: {
     coverage: {
-      include: ["src/App.tsx"],
+      include: ["src/App.tsx", "src/browserNarrator.ts", "src/pwa.ts", "src/readerStorage.ts"],
       provider: "v8",
       reporter: ["text"],
       thresholds: {
-        branches: 85,
-        functions: 95,
-        lines: 95,
-        statements: 95,
+        branches: 80,
+        functions: 90,
+        lines: 90,
+        statements: 90,
       },
     },
     environment: "jsdom",

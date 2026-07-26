@@ -41,6 +41,37 @@ export type ReaderPackage = {
   translations: ReaderTranslation[];
 };
 
+export type CatalogCategory = { slug: string; name: string };
+
+export type CatalogItem = {
+  id: string;
+  slug: string;
+  content_type: "story" | "article" | "book" | "lesson";
+  audience: "children" | "adults" | "general" | "english_learners";
+  reading_level: { code: string; label: string };
+  categories: CatalogCategory[];
+  languages: ReaderLanguageCode[];
+  version: number;
+  checksum: string;
+  package_url: string;
+  minimum_app_version: string;
+  published_at: string;
+};
+
+export type CatalogPage = {
+  items: CatalogItem[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
+export type ReaderLibraryItem = {
+  catalog: CatalogItem;
+  package: ReaderPackage;
+};
+
+type ReaderLanguageCode = "es" | "en";
+
 const configuredApiBase: unknown = import.meta.env["VITE_API_BASE_URL"];
 const API_BASE_URL =
   typeof configuredApiBase === "string" && configuredApiBase !== ""
@@ -55,4 +86,30 @@ export const getReaderPackage = async (slug = "el-zorro-y-la-luna"): Promise<Rea
     throw new Error(`Reader package failed with status ${String(response.status)}.`);
   }
   return (await response.json()) as ReaderPackage;
+};
+
+export const getCatalog = async (): Promise<CatalogPage> => {
+  const response = await fetch(`${API_BASE_URL}/catalog?limit=100&offset=0`, {
+    headers: { Accept: "application/json" },
+  });
+  if (!response.ok) {
+    throw new Error(`Catalog failed with status ${String(response.status)}.`);
+  }
+  return (await response.json()) as CatalogPage;
+};
+
+/**
+ * Joins catalog metadata with the versioned package consumed by the Reader.
+ *
+ * The catalog intentionally stays lightweight. Fetching packages here keeps all screens on the
+ * same public contracts and automatically supports more published stories without hardcoded cards.
+ */
+export const getReaderLibrary = async (): Promise<ReaderLibraryItem[]> => {
+  const catalog = await getCatalog();
+  return Promise.all(
+    catalog.items.map(async (item) => ({
+      catalog: item,
+      package: await getReaderPackage(item.slug),
+    })),
+  );
 };

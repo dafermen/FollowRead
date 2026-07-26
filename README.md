@@ -5,9 +5,10 @@ por palabra y modos adaptados para niñas y niños, personas adultas y estudiant
 
 ## Estado
 
-Las fases 0 a 7 están cerradas. Admin permite gestionar y publicar contenido; Reader ya ofrece un
-cuento bilingüe visual con sincronización por palabra, controles y progreso. El audio del demo usa
-tiempo simulado local, sin credenciales ni servicios externos.
+Las fases 0 a 8 están cerradas. Admin permite gestionar y publicar contenido; Reader ofrece
+biblioteca, búsqueda, detalle, favoritos, historial, vocabulario, modos de lectura, PWA y un cuento
+bilingüe con sincronización por palabra. La voz del dispositivo es audible cuando el navegador la
+ofrece y no requiere credenciales ni servicios externos.
 
 ## Estructura
 
@@ -56,6 +57,12 @@ pnpm dev
 ```
 
 El comando muestra las tres direcciones y las detiene juntas con `Ctrl+C`.
+
+Con los servicios activos, el recorrido del Reader se verifica en Chrome o Edge con:
+
+```powershell
+pnpm reader:e2e
+```
 
 Si PowerShell bloquea `pnpm.ps1`, usa `pnpm.cmd` en los comandos. Reader y Admin incluyen una
 página de ayuda en `/documentation`; la API ofrece su contrato interactivo en

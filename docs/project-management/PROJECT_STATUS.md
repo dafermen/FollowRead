@@ -1,18 +1,21 @@
 # Estado del proyecto FollowRead
 
 **Última actualización:** 2026-07-26  
-**Fase activa:** Fase 7 - Motor de lectura  
-**Estado de la fase:** COMPLETED  
-**Tarea activa:** Ninguna; Fase 8 pendiente de desglose  
+**Fase activa:** Fase 9 - Descargas y modo offline  
+**Estado de la fase:** NOT_STARTED  
+**Tarea activa:** Preparar desglose de Fase 9  
 **Estado de la tarea:** NOT_STARTED
 
 ## Resumen ejecutivo
 
-Fases 0 a 7 están completadas y auditadas. FollowRead Admin ya ofrece el recorrido visual y
+Fases 0 a 8 están completadas y auditadas. Reader ya es una aplicación web completa con
+descubrimiento, preferencias, PWA, voz local y ayudas de lectura. La siguiente fase implementará
+descargas verificadas y modo offline.
+FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
 audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
 un motor determinista, resaltado por palabra, mano, auto-scroll, controles y recuperación de
-progreso. Todo funciona con SQLite y tiempo de audio local simulado.
+progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no necesita API key.
 
 ## Progreso
 
@@ -26,6 +29,7 @@ progreso. Todo funciona con SQLite y tiempo de audio local simulado.
 | Tareas de Fase 5 completadas | 12 de 12 |
 | Tareas de Fase 6 completadas | 10 de 10 |
 | Tareas de Fase 7 completadas | 10 de 10 |
+| Tareas de Fase 8 completadas | 12 de 12 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
@@ -38,14 +42,14 @@ progreso. Todo funciona con SQLite y tiempo de audio local simulado.
 | Área | Estado | Observación |
 |---|---|---|
 | FollowRead Admin | PHASE_5_COMPLETED | Recorrido editorial y publicación completos |
-| FollowRead Reader | PHASE_7_DEMO | Biblioteca y cuento bilingüe sincronizado |
+| FollowRead Reader | PHASE_8_COMPLETED | Web/PWA completa con biblioteca y lector audible |
 | FollowRead API | PHASE_7_COMPLETED | Paquete publicado y cuento demo en SQLite |
 | Reader Engine | PHASE_7_COMPLETED | Motor determinista sin React ni DOM |
 | AWS / Polly / S3 | POLLY_BOUNDARY_READY | Fake local por defecto; AWS opcional y desacoplado |
 | Modo offline | NOT_STARTED | Estrategia de doble catálogo aceptada |
 | Móvil / Capacitor | NOT_STARTED | Se abordará en la Fase 10 |
 
-## Entregables cerrados de Fases 5 a 7
+## Entregables cerrados de Fases 5 a 8
 
 - desglose de 12 tareas con dependencias y criterios de aceptación;
 - shell administrativo responsive con navegación amplia y compacta;
@@ -64,10 +68,13 @@ progreso. Todo funciona con SQLite y tiempo de audio local simulado.
 - cuento bilingüe original, ilustración propia y siembra idempotente en SQLite;
 - Reader Engine reusable con búsqueda temporal, reproducción y progreso;
 - biblioteca y lector visual con palabra activa, mano, auto-scroll, capítulos e idiomas;
+- biblioteca filtrable, detalle, favoritos, historial, vocabulario y preferencias locales;
+- modos infantil, adulto y aprendizaje con voz audible del dispositivo y fallback visual;
+- PWA instalable con cache exclusivo del shell;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 13 pruebas Admin, 5 Reader, 6 Reader Engine, 3 de configuración y 95 pruebas API;
-- cobertura de 99% en Reader, Reader Engine y backend, con todos los builds en verde.
+- 13 pruebas Admin, 22 Reader, 6 Reader Engine, 3 de configuración y 95 pruebas API;
+- cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
 
 ## Bloqueadores
 
@@ -76,5 +83,5 @@ Docker ni AWS. La licencia sigue abierta, pero no se necesita hasta Fase 14.
 
 ## Regla de continuación
 
-Descomponer la Fase 8 contra el prompt maestro antes de activarla. No adelantar implementación sin
-registrar dependencias, criterios de aceptación y pruebas.
+Descomponer la Fase 9 antes de implementarla. Las descargas de contenido, checksum, activación de
+versiones y sincronización posterior permanecen en esa fase.
