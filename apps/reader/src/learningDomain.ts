@@ -106,6 +106,35 @@ export const matchesVocabularyFilter = (
   return entry.status === filter;
 };
 
+/**
+ * Returns the exact sentence around a selected mark.
+ *
+ * Published speech marks retain terminal punctuation in their values. This lets the Reader find a
+ * sentence boundary without duplicating audio timing or assuming that one paragraph is one
+ * sentence.
+ */
+export const sentenceMarksFor = (
+  translation: ReaderTranslation,
+  selected: ReaderMark,
+): ReaderMark[] => {
+  const paragraphMarks = marksForParagraph(translation, selected.paragraph_key);
+  const selectedIndex = paragraphMarks.findIndex(
+    (mark) => mark.char_start === selected.char_start && mark.char_end === selected.char_end,
+  );
+  if (selectedIndex < 0) {
+    return [];
+  }
+  let start = selectedIndex;
+  while (start > 0 && !endsSentence(paragraphMarks[start - 1]?.value ?? "")) {
+    start -= 1;
+  }
+  let end = selectedIndex;
+  while (end < paragraphMarks.length - 1 && !endsSentence(paragraphMarks[end]?.value ?? "")) {
+    end += 1;
+  }
+  return paragraphMarks.slice(start, end + 1);
+};
+
 const findParagraph = (translation: ReaderTranslation, stableKey: string) =>
   translation.chapters
     .flatMap((chapter) => chapter.paragraphs)
@@ -122,3 +151,5 @@ const cleanWord = (word: string): string =>
 
 const normalizeWord = (word: string): string =>
   cleanWord(word).normalize("NFKC").toLocaleLowerCase();
+
+const endsSentence = (word: string): boolean => /[.!?][”"')\]]*$/u.test(word.trim());

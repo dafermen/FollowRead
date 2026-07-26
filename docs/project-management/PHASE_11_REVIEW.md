@@ -9,7 +9,7 @@
 |---|---|---|
 | Traducción visible u oculta | Toggle y párrafos editoriales pareados | PASS |
 | Repetición de palabras | Control global y panel contextual | PASS |
-| Repetición de oraciones | Reinicio desde el párrafo canónico | PASS |
+| Repetición de oraciones | Límites por puntuación y reproducción aislada | PASS |
 | Cambio de velocidad | 0.5x a 2x, 0.75x por defecto | PASS |
 | Vocabulario | Guardado, búsqueda, filtros y eliminación | PASS |
 | Palabras favoritas | Estrella persistente y filtro | PASS |

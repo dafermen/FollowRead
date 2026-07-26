@@ -17,6 +17,10 @@ Las ayudas esenciales se construyen desde el paquete bilingüe publicado:
 3. `learningDomain.ts` obtiene el equivalente editorial determinista.
 4. El párrafo original y el traducido se usan como ejemplo contextual.
 
+La repetición no supone que un párrafo sea una oración: `sentenceMarksFor` recorre las marcas hasta
+la puntuación terminal anterior y posterior. La voz del dispositivo reproduce únicamente esas
+marcas o la palabra elegida y conserva la velocidad actual.
+
 La alineación relativa es un fallback de MVP, no un diccionario universal. Si no existe un párrafo
 pareado, la interfaz informa que el apoyo no está disponible. Ninguna función esencial llama a
 OpenAI, un traductor automático o un diccionario externo.

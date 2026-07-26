@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildLearningInsight,
   matchesVocabularyFilter,
+  sentenceMarksFor,
   summarizeLearningProgress,
 } from "./learningDomain.js";
 import type { ReaderPackage } from "./readerClient.js";
@@ -126,5 +127,33 @@ describe("learning domain", () => {
     });
     expect(matchesVocabularyFilter(second, "favorites")).toBe(true);
     expect(matchesVocabularyFilter(first, "learning")).toBe(false);
+  });
+
+  it("isolates the selected sentence inside a multi-sentence paragraph", () => {
+    const english = story.translations.find((translation) => translation.language === "en");
+    if (english === undefined) {
+      throw new Error("The English fixture is missing.");
+    }
+    const base = english.audio.marks[0];
+    if (base === undefined) {
+      throw new Error("The English mark fixture is missing.");
+    }
+    const marks = [
+      { ...base, value: "First", char_start: 0, char_end: 5 },
+      { ...base, value: "ends.", char_start: 6, char_end: 11 },
+      { ...base, value: "Second", char_start: 12, char_end: 18 },
+      { ...base, value: "continues", char_start: 19, char_end: 28 },
+      { ...base, value: "here!", char_start: 29, char_end: 34 },
+    ];
+    const translation = { ...english, audio: { ...english.audio, marks } };
+    const selected = marks[3];
+    if (selected === undefined) {
+      throw new Error("The sentence fixture is incomplete.");
+    }
+    expect(sentenceMarksFor(translation, selected).map((mark) => mark.value)).toEqual([
+      "Second",
+      "continues",
+      "here!",
+    ]);
   });
 });

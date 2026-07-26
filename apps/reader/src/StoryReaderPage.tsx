@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { createBrowserNarrator } from "./browserNarrator.js";
 import {
   buildLearningInsight,
+  sentenceMarksFor,
   summarizeLearningProgress,
   type LearningInsight,
 } from "./learningDomain.js";
@@ -54,7 +55,6 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   const learningTriggerRef = useRef<HTMLButtonElement | null>(null);
   const [selectedWord, setSelectedWord] = useState<{
     mark: ReaderMark;
-    index: number;
     insight: LearningInsight;
   } | null>(null);
 
@@ -285,26 +285,60 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     }
     narrator.stop();
     engine.repeatActiveWord();
-    beginNarration(engine.getState().activeMarkIndex);
+    speakLearningText(mark.value);
   };
 
-  const repeatParagraph = () => {
-    const mark = engine.getActiveMark();
+  const speakLearningText = (text: string) => {
+    narrator.stop();
+    engine.pause();
+    if (
+      !preferences.narrationEnabled ||
+      typeof window.speechSynthesis === "undefined" ||
+      typeof SpeechSynthesisUtterance === "undefined"
+    ) {
+      setNarrationWarning(
+        preferences.narrationEnabled
+          ? "La voz del dispositivo no está disponible. El segmento quedó seleccionado."
+          : "Activa la narración del dispositivo para escuchar este segmento.",
+      );
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language === "en" ? "en-US" : "es-ES";
+    utterance.rate = engine.getState().playbackRate;
+    utterance.onerror = () => {
+      setNarrationWarning("La voz se interrumpió. El segmento y tu progreso siguen disponibles.");
+    };
+    setNarrationWarning(null);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const repeatActiveSentence = (selectedMark?: ReaderMark) => {
+    const mark = selectedMark ?? engine.getActiveMark();
     if (mark === null) {
       return;
     }
-    const paragraphStart = translation.audio.marks.find(
-      (item) => item.paragraph_key === mark.paragraphKey,
-    );
-    if (paragraphStart === undefined) {
+    const sourceMark =
+      "paragraphKey" in mark
+        ? translation.audio.marks.find(
+            (candidate) =>
+              candidate.paragraph_key === mark.paragraphKey && candidate.start_ms === mark.startMs,
+          )
+        : mark;
+    if (sourceMark === undefined) {
       return;
     }
-    narrator.stop();
-    engine.seek(paragraphStart.start_ms, true);
-    beginNarration(translation.audio.marks.indexOf(paragraphStart));
+    const sentence = sentenceMarksFor(translation, sourceMark);
+    const firstMark = sentence[0];
+    if (firstMark === undefined) {
+      return;
+    }
+    engine.seek(firstMark.start_ms, true);
+    speakLearningText(sentence.map((item) => item.value).join(" "));
   };
 
-  const selectLearningWord = (mark: ReaderMark, index: number, trigger: HTMLButtonElement) => {
+  const selectLearningWord = (mark: ReaderMark, trigger: HTMLButtonElement) => {
     const insight = buildLearningInsight(story, translation, mark);
     learningTriggerRef.current = trigger;
     recordLearningHistory(window.localStorage, {
@@ -315,7 +349,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       language: insight.language,
     });
     setLearningRevision((value) => value + 1);
-    setSelectedWord({ mark, index, insight });
+    setSelectedWord({ mark, insight });
   };
 
   return (
@@ -462,7 +496,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
                           }
                           type="button"
                           onClick={(event) => {
-                            selectLearningWord(mark, index, event.currentTarget);
+                            selectLearningWord(mark, event.currentTarget);
                           }}
                           key={`${paragraph.stable_key}-${String(index)}`}
                         >
@@ -512,12 +546,11 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
             translatedExample: selectedWord.insight.translatedExample,
           })}
           onRepeatWord={() => {
-            narrator.stop();
             engine.seek(selectedWord.mark.start_ms, true);
-            beginNarration(selectedWord.index);
+            speakLearningText(selectedWord.mark.value);
           }}
           onRepeatSentence={() => {
-            repeatParagraph();
+            repeatActiveSentence(selectedWord.mark);
           }}
           onChanged={() => {
             setLearningRevision((value) => value + 1);
@@ -604,7 +637,13 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
             ↻ Palabra
           </button>
           {preferences.mode === "learning" ? (
-            <button type="button" aria-label="Repetir párrafo" onClick={repeatParagraph}>
+            <button
+              type="button"
+              aria-label="Repetir oración"
+              onClick={() => {
+                repeatActiveSentence();
+              }}
+            >
               ↻ Oración
             </button>
           ) : null}
