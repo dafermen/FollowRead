@@ -14,6 +14,7 @@ from followread_api.database import (
 from followread_api.main import create_app
 from followread_api.models import (
     Audience,
+    AudioAsset,
     Base,
     Category,
     Chapter,
@@ -21,12 +22,15 @@ from followread_api.models import (
     ContentType,
     ContentVersion,
     EditorialStatus,
+    Illustration,
     Language,
     Paragraph,
     Publication,
     ReadingContent,
     ReadingLevel,
     ReadingLevelCode,
+    ResourceStatus,
+    SpeechMark,
 )
 
 
@@ -65,11 +69,40 @@ def seed_content(session: Session, slug: str, status: EditorialStatus) -> None:
     translation.chapters.append(chapter)
     version.translations.append(translation)
     content.versions.append(version)
+    version_audio = AudioAsset(
+        version=version,
+        language=Language.ENGLISH,
+        voice_id="Joanna",
+        uri="var/audio/moon-story.mp3",
+        checksum="sha256:" + ("c" * 64),
+        duration_ms=1000,
+        status=ResourceStatus.READY,
+        speech_marks=[
+            SpeechMark(
+                paragraph=chapter.paragraphs[0],
+                position=0,
+                mark_type="word",
+                value="The",
+                start_ms=0,
+                end_ms=280,
+                char_start=0,
+                char_end=3,
+            ),
+        ],
+    )
+    illustration = Illustration(
+        version=version,
+        position=0,
+        uri="/stories/moon-story.png",
+        checksum="sha256:" + ("d" * 64),
+        alt_text="The moon over a quiet forest.",
+        status=ResourceStatus.READY,
+    )
     content.publication = Publication(
         version=version,
         published_at=datetime.now(UTC),
     )
-    session.add(content)
+    session.add_all([content, version_audio, illustration])
     session.commit()
 
 
@@ -164,6 +197,32 @@ def test_content_endpoint_returns_complete_editorial_detail() -> None:
             ],
         },
     ]
+
+
+def test_reader_package_endpoint_returns_timeline_and_resources() -> None:
+    response = request("GET", "/catalog/moon-story/reader-package")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["slug"] == "moon-story"
+    assert payload["cover_uri"] == "/stories/moon-story.png"
+    assert payload["translations"][0]["audio"] == {
+        "uri": "var/audio/moon-story.mp3",
+        "duration_ms": 1000,
+        "voice_id": "Joanna",
+        "simulated": True,
+        "marks": [
+            {
+                "value": "The",
+                "start_ms": 0,
+                "end_ms": 280,
+                "char_start": 0,
+                "char_end": 3,
+                "paragraph_key": "paragraph-1",
+                "chapter_key": "chapter-1",
+            },
+        ],
+    }
 
 
 def test_catalog_api_returns_stable_errors_and_excludes_drafts() -> None:

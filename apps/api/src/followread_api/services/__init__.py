@@ -56,6 +56,15 @@ from followread_api.services.polly import (
     RetryingPollyAdapter,
     TextChunker,
 )
+from followread_api.services.reader_package import (
+    ReaderAudio,
+    ReaderChapter,
+    ReaderMark,
+    ReaderPackage,
+    ReaderPackageService,
+    ReaderParagraph,
+    ReaderTranslation,
+)
 from followread_api.services.review import (
     EditorialReviewService,
     ReviewCheck,
@@ -105,6 +114,13 @@ __all__ = [
     "PermissionDeniedError",
     "PollyAdapter",
     "PollyProcessingService",
+    "ReaderAudio",
+    "ReaderChapter",
+    "ReaderMark",
+    "ReaderPackage",
+    "ReaderPackageService",
+    "ReaderParagraph",
+    "ReaderTranslation",
     "RetryingPollyAdapter",
     "ReviewCheck",
     "ReviewEvent",

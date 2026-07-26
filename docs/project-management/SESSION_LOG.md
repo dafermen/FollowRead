@@ -559,3 +559,22 @@ FR-PH05-TASK-007 quedó `COMPLETED`; FR-PH05-TASK-008 quedó `IN_PROGRESS`.
 
 FR-PH05-TASK-008 a 012 y FR-PH06-TASK-001 a 010 quedaron `COMPLETED`. Fases 5 y 6 quedaron
 cerradas en PASS; el siguiente paso es descomponer la Fase 7.
+
+---
+
+## Continuación 2026-07-26 - Motor de lectura y primer cuento
+
+- Se implementó `@followread/reader-engine` sin React ni DOM, con línea de tiempo validada,
+  búsqueda binaria, reproducción, pausa, seek, repetición, velocidad, capítulos y progreso.
+- La API expone un paquete de lectura publicado con traducciones, párrafos, ilustración, audio y
+  Speech Marks vinculados.
+- Se creó **El zorro y la luna**, cuento original bilingüe con dos capítulos e ilustración propia.
+- `pnpm demo:seed` crea y publica el cuento idempotentemente en SQLite sin API keys ni servicios.
+- Reader adelantó un corte visual de Fase 8 con biblioteca, resaltado, mano, auto-scroll, controles,
+  cambio de idioma y recuperación local.
+- El audio del MVP simula duración y marcas; la narración audible queda trazada para Fase 8.
+- `pnpm check` pasó en el proyecto final con 95 pruebas API, 24 pruebas de aplicaciones y paquetes,
+  coberturas redondeadas de 99% y todos los builds.
+
+FR-PH07-TASK-001 a 010 quedaron `COMPLETED`. La Fase 7 quedó cerrada en PASS; el siguiente paso es
+descomponer la Fase 8.

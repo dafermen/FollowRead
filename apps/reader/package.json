@@ -13,6 +13,7 @@
     "check": "pnpm run typecheck && pnpm run test && pnpm run build"
   },
   "dependencies": {
+    "@followread/reader-engine": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

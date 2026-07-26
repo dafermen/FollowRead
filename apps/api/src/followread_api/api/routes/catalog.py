@@ -2,16 +2,19 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Query
 
-from followread_api.api.dependencies import CatalogServiceDependency
+from followread_api.api.dependencies import CatalogServiceDependency, DatabaseSession
 from followread_api.api.errors import ErrorResponse
 from followread_api.api.schemas import (
     CatalogPageResponse,
     ContentDetailResponse,
+    ReaderPackageResponse,
     catalog_page_response,
     content_detail_response,
+    reader_package_response,
 )
 from followread_api.models import Audience, ContentType, Language, ReadingLevelCode
 from followread_api.repositories import CatalogFilters
+from followread_api.services import ReaderPackageService
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
 
@@ -48,6 +51,15 @@ def list_catalog(
         ),
     )
     return catalog_page_response(page)
+
+
+@router.get(
+    "/{slug}/reader-package",
+    response_model=ReaderPackageResponse,
+    responses=ERROR_RESPONSES,
+)
+def get_reader_package(slug: str, session: DatabaseSession) -> ReaderPackageResponse:
+    return reader_package_response(ReaderPackageService(session).get_package(slug))
 
 
 @router.get(

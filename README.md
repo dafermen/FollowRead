@@ -5,8 +5,9 @@ por palabra y modos adaptados para niñas y niños, personas adultas y estudiant
 
 ## Estado
 
-Las fases de definición y diseño UX/UI están cerradas. La Fase 2 prepara la base técnica; todavía no
-hay funcionalidad de producto implementada.
+Las fases 0 a 7 están cerradas. Admin permite gestionar y publicar contenido; Reader ya ofrece un
+cuento bilingüe visual con sincronización por palabra, controles y progreso. El audio del demo usa
+tiempo simulado local, sin credenciales ni servicios externos.
 
 ## Estructura
 
@@ -41,6 +42,7 @@ npm install --global pnpm@11.9.0
 ```powershell
 pnpm setup
 pnpm migrate
+pnpm demo:seed
 pnpm check
 ```
 

@@ -1,18 +1,18 @@
 # Estado del proyecto FollowRead
 
-**Última actualización:** 2026-07-25  
-**Fase activa:** Fase 6 - Integración de audio con Amazon Polly  
+**Última actualización:** 2026-07-26  
+**Fase activa:** Fase 7 - Motor de lectura  
 **Estado de la fase:** COMPLETED  
-**Tarea activa:** Ninguna; Fase 7 pendiente de desglose  
+**Tarea activa:** Ninguna; Fase 8 pendiente de desglose  
 **Estado de la tarea:** NOT_STARTED
 
 ## Resumen ejecutivo
 
-Fases 0 a 6 están completadas y auditadas. FollowRead Admin ya ofrece el recorrido visual y
+Fases 0 a 7 están completadas y auditadas. FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
-audio, revisión y publicación. La Fase 6 agregó división segura de texto, costos, audio local,
-Speech Marks, idempotencia, reintentos y un límite opcional de Amazon Polly sin usar AWS real en el
-MVP ni en pruebas.
+audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
+un motor determinista, resaltado por palabra, mano, auto-scroll, controles y recuperación de
+progreso. Todo funciona con SQLite y tiempo de audio local simulado.
 
 ## Progreso
 
@@ -25,6 +25,7 @@ MVP ni en pruebas.
 | Tareas de Fase 4 completadas | 10 de 10 |
 | Tareas de Fase 5 completadas | 12 de 12 |
 | Tareas de Fase 6 completadas | 10 de 10 |
+| Tareas de Fase 7 completadas | 10 de 10 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
 | Decisiones aceptadas | 13 |
@@ -37,14 +38,14 @@ MVP ni en pruebas.
 | Área | Estado | Observación |
 |---|---|---|
 | FollowRead Admin | PHASE_5_COMPLETED | Recorrido editorial y publicación completos |
-| FollowRead Reader | BASE_BUILDS | React/Vite independiente, test de humo en PASS |
-| FollowRead API | PHASE_6_COMPLETED | Audio, recursos, revisión y seguridad en PASS |
-| Reader Engine | BASE_COMPILES | Paquete TypeScript sin React validado |
+| FollowRead Reader | PHASE_7_DEMO | Biblioteca y cuento bilingüe sincronizado |
+| FollowRead API | PHASE_7_COMPLETED | Paquete publicado y cuento demo en SQLite |
+| Reader Engine | PHASE_7_COMPLETED | Motor determinista sin React ni DOM |
 | AWS / Polly / S3 | POLLY_BOUNDARY_READY | Fake local por defecto; AWS opcional y desacoplado |
 | Modo offline | NOT_STARTED | Estrategia de doble catálogo aceptada |
 | Móvil / Capacitor | NOT_STARTED | Se abordará en la Fase 10 |
 
-## Entregables cerrados de Fases 5 y 6
+## Entregables cerrados de Fases 5 a 7
 
 - desglose de 12 tareas con dependencias y criterios de aceptación;
 - shell administrativo responsive con navegación amplia y compacta;
@@ -59,9 +60,14 @@ MVP ni en pruebas.
 - procesamiento visual con voces, costo, progreso, errores, cancelación y reintentos;
 - generación local de audio y Speech Marks vinculados a cada párrafo;
 - límite Amazon Polly implementado y probado exclusivamente con cliente simulado;
+- paquete de lectura publicado con texto, recursos y Speech Marks;
+- cuento bilingüe original, ilustración propia y siembra idempotente en SQLite;
+- Reader Engine reusable con búsqueda temporal, reproducción y progreso;
+- biblioteca y lector visual con palabra activa, mano, auto-scroll, capítulos e idiomas;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- trece pruebas web, 91 pruebas API y cobertura backend de 100%.
+- 13 pruebas Admin, 5 Reader, 6 Reader Engine, 3 de configuración y 95 pruebas API;
+- cobertura de 99% en Reader, Reader Engine y backend, con todos los builds en verde.
 
 ## Bloqueadores
 
@@ -70,5 +76,5 @@ Docker ni AWS. La licencia sigue abierta, pero no se necesita hasta Fase 14.
 
 ## Regla de continuación
 
-Descomponer la Fase 7 contra el prompt maestro antes de activarla. No adelantar implementación sin
+Descomponer la Fase 8 contra el prompt maestro antes de activarla. No adelantar implementación sin
 registrar dependencias, criterios de aceptación y pruebas.

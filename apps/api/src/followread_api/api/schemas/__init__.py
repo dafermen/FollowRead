@@ -53,6 +53,10 @@ from followread_api.api.schemas.processing import (
     processing_job_response,
     voices_response,
 )
+from followread_api.api.schemas.reader_package import (
+    ReaderPackageResponse,
+    reader_package_response,
+)
 from followread_api.api.schemas.review import (
     ReviewSnapshotResponse,
     ReviewTransitionRequest,
@@ -79,6 +83,7 @@ __all__ = [
     "ParagraphResponse",
     "ProcessingJobResponse",
     "ProcessingJobsResponse",
+    "ReaderPackageResponse",
     "ReadingLevelResponse",
     "ReviewSnapshotResponse",
     "ReviewTransitionRequest",
@@ -100,6 +105,7 @@ __all__ = [
     "illustration_response",
     "issued_session_response",
     "processing_job_response",
+    "reader_package_response",
     "review_snapshot_response",
     "voices_response",
 ]

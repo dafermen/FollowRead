@@ -116,6 +116,21 @@ aceptación correspondientes están satisfechos.
 | FR-PH06-TASK-009 | Integrar progreso y diagnóstico en Admin | COMPLETED | High |
 | FR-PH06-TASK-010 | Verificar, documentar y cerrar Fase 6 | COMPLETED | Critical |
 
+## Resumen de Fase 7
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH07-TASK-001 | Descomponer y activar la Fase 7 | COMPLETED | Critical |
+| FR-PH07-TASK-002 | Definir contratos y estados del Reader Engine | COMPLETED | Critical |
+| FR-PH07-TASK-003 | Validar líneas de tiempo y localizar la palabra activa | COMPLETED | Critical |
+| FR-PH07-TASK-004 | Implementar reproducción, búsqueda, velocidad y capítulos | COMPLETED | Critical |
+| FR-PH07-TASK-005 | Recuperar progreso y responder a interrupciones | COMPLETED | High |
+| FR-PH07-TASK-006 | Exponer el paquete publicado para lectura | COMPLETED | Critical |
+| FR-PH07-TASK-007 | Crear y sembrar el cuento bilingüe del MVP | COMPLETED | High |
+| FR-PH07-TASK-008 | Integrar un demostrador visual del motor | COMPLETED | High |
+| FR-PH07-TASK-009 | Verificar motor, API y recorrido visual | COMPLETED | Critical |
+| FR-PH07-TASK-010 | Documentar y cerrar la Fase 7 | COMPLETED | Critical |
+
 ---
 
 ## FR-PH00-TASK-001
@@ -1717,3 +1732,151 @@ revocación y metadatos mínimos con índices/restricciones.
 **Fecha de inicio:** 2026-07-25  
 **Fecha de finalización:** 2026-07-25  
 **Siguiente acción:** Descomponer la Fase 7 antes de activarla.
+
+---
+
+## FR-PH07-TASK-001
+
+**Título:** Descomponer y activar la Fase 7  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fase 6 COMPLETED.  
+**Criterios de aceptación:** Actividades del prompt maestro convertidas en contratos, pruebas y
+criterios de salida verificables.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-002
+
+**Título:** Definir contratos y estados del Reader Engine  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH07-TASK-001.  
+**Criterios de aceptación:** Timeline, Speech Mark, capítulo, progreso y estado de reproducción son
+tipos públicos sin dependencia de React ni DOM.  
+**Pruebas requeridas:** Compilación TypeScript strict.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-003
+
+**Título:** Validar líneas de tiempo y localizar la palabra activa  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH07-TASK-002.  
+**Criterios de aceptación:** Duraciones, orden, límites y capítulos se validan; la palabra activa se
+obtiene mediante búsqueda binaria y tolera pausas entre palabras.  
+**Pruebas requeridas:** Límites, tiempos inválidos, capítulos desconocidos y espacios sin marca.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-004
+
+**Título:** Implementar reproducción, búsqueda, velocidad y capítulos  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH07-TASK-003.  
+**Criterios de aceptación:** Play, pause, tick, seek, skip, repeat, tasa y capítulo producen estados
+deterministas y observables.  
+**Pruebas requeridas:** Recorrido completo, final, reinicio y tasas inválidas.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-005
+
+**Título:** Recuperar progreso y responder a interrupciones  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH07-TASK-004.  
+**Criterios de aceptación:** Posición y anclas se serializan; blur pausa; resize y orientación
+recalculan layout; pérdida de audio entra en error explícito.  
+**Pruebas requeridas:** Recuperación, interrupción, revisión de layout y error de audio.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-006
+
+**Título:** Exponer el paquete publicado para lectura  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fases 3 y 6.  
+**Criterios de aceptación:** La API entrega únicamente la publicación activa con traducciones,
+capítulos, párrafos, ilustración, audio y marcas vinculadas.  
+**Pruebas requeridas:** Éxito, contenido ausente, audio ausente y marca sin párrafo.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-007
+
+**Título:** Crear y sembrar el cuento bilingüe del MVP  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH07-TASK-006.  
+**Criterios de aceptación:** Historia e ilustración originales, dos idiomas alineados, audio local,
+Speech Marks y publicación se crean idempotentemente en SQLite.  
+**Pruebas requeridas:** Primera ejecución, repetición y paquete bilingüe legible.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-008
+
+**Título:** Integrar un demostrador visual del motor  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH07-TASK-004 a 007.  
+**Criterios de aceptación:** El navegador muestra biblioteca, cuento, palabra activa, mano,
+auto-scroll, progreso, capítulos, velocidad, repetición e idiomas.  
+**Pruebas requeridas:** Carga, error, controles, cambio de idioma y persistencia.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-009
+
+**Título:** Verificar motor, API y recorrido visual  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH07-TASK-002 a 008.  
+**Criterios de aceptación:** Pruebas unitarias e integración, tipos, lint, formato y builds pasan en
+la puerta del monorepo.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26
+
+---
+
+## FR-PH07-TASK-010
+
+**Título:** Documentar y cerrar la Fase 7  
+**Fase:** 7  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH07-TASK-001 a 009.  
+**Criterios de aceptación:** Arquitectura, operación, limitaciones y evidencia quedan documentadas y
+los ocho criterios de salida pasan.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completar la Fase 8 con PWA, estados de biblioteca y audio real.

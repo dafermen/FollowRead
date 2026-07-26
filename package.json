@@ -46,6 +46,7 @@
     "migrate": "node scripts/run-python.mjs -m alembic -c apps/api/alembic.ini upgrade head",
     "migrate:down": "node scripts/run-python.mjs -m alembic -c apps/api/alembic.ini downgrade -1",
     "admin:bootstrap": "node scripts/run-python.mjs -m followread_api.cli.bootstrap_superadmin",
+    "demo:seed": "node scripts/run-python.mjs -m followread_api.cli.seed_demo_story",
     "validate:ci": "node scripts/run-python.mjs scripts/validate_workflow.py"
   }
 }

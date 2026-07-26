@@ -19,7 +19,7 @@
 | 4 | Autenticación y autorización | Proteger Admin y preparar usuarios Reader | COMPLETED |
 | 5 | FollowRead Admin | Crear la administración de contenido | COMPLETED |
 | 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | COMPLETED |
-| 7 | Motor de lectura | Implementar sincronización audio-texto reusable | NOT_STARTED |
+| 7 | Motor de lectura | Implementar sincronización audio-texto reusable | COMPLETED |
 | 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | NOT_STARTED |
 | 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | NOT_STARTED |
 | 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | NOT_STARTED |
@@ -180,3 +180,28 @@ control de costo, almacenamiento íntegro y una experiencia administrativa recup
 
 Fase 6 cerrada el 2026-07-25. Evidencia: `PHASE_6_REVIEW.md`. El MVP mantiene el adaptador local
 como opción predeterminada y no requiere una cuenta AWS.
+
+## Fase 7 - Cerrada
+
+### Objetivo
+
+Convertir el contenido publicado y sus Speech Marks en un motor determinista, reusable y ajeno a
+React que controle el tiempo, la palabra activa, capítulos, velocidad, recuperación e
+interrupciones.
+
+### Criterios de salida
+
+1. El motor valida una línea de tiempo y encuentra la palabra activa de forma determinista.
+2. Reproducir, pausar, repetir, buscar, cambiar velocidad y navegar capítulos actualizan un único
+   estado observable.
+3. El progreso puede serializarse y recuperarse por contenido e idioma.
+4. Cambios de viewport, interrupciones y pérdida de audio tienen comportamiento explícito.
+5. La API entrega texto, recursos y Speech Marks publicados en un paquete estable.
+6. Existe un cuento bilingüe original sembrable en SQLite sin servicios externos.
+7. Pruebas unitarias, de integración, tipos, lint y compilación pasan.
+8. La arquitectura y las restricciones del audio simulado están documentadas.
+
+### Resultado
+
+Fase 7 cerrada el 2026-07-26. Evidencia: `PHASE_7_REVIEW.md`. Se adelantó un corte visual de Fase 8
+para poder demostrar el motor desde el navegador sin cerrar todavía la PWA completa.

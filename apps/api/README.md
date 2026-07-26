@@ -23,6 +23,7 @@ Migraciones:
 
 ```powershell
 pnpm migrate
+pnpm demo:seed
 ```
 
 El endpoint `GET /health` no requiere SQLite, Redis ni AWS. SQLite usa
@@ -36,3 +37,6 @@ cuenta, red ni costo. El contrato opcional de Amazon Polly se activa sólo con
 
 Los contratos administrativos de contenido, ilustraciones, procesamiento, revisión y publicación
 se pueden explorar en `http://localhost:8000/docs` al levantar el proyecto.
+
+El cuento demo queda disponible en
+`GET /catalog/el-zorro-y-la-luna/reader-package`. El comando de siembra es idempotente.
