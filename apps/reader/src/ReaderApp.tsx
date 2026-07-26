@@ -20,6 +20,7 @@ import {
   removeOfflinePackage,
   synchronizePendingProgress,
 } from "./offlineService.js";
+import { APP_STATE_EVENT, getReaderConnectivity, subscribeConnectivity } from "./mobileRuntime.js";
 import {
   DEFAULT_READER_PREFERENCES,
   preferencesForMode,
@@ -102,7 +103,7 @@ export const ReaderShell = ({
   active: NavigationKey;
   children: ReactNode;
 }) => {
-  const [online, setOnline] = useState(navigator.onLine);
+  const [online, setOnline] = useState(getReaderConnectivity().connected);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [offlineSummary, setOfflineSummary] = useState({
     packageCount: 0,
@@ -125,12 +126,17 @@ export const ReaderShell = ({
     const refreshOfflineSummary = () => {
       void getOfflineSummary().then(setOfflineSummary);
     };
-    const handleOnline = () => {
-      setOnline(true);
-      void synchronizePendingProgress().finally(refreshOfflineSummary);
+    const handleConnectivity = ({ connected }: { connected: boolean }) => {
+      setOnline(connected);
+      if (connected) {
+        void synchronizePendingProgress().finally(refreshOfflineSummary);
+      }
     };
-    const handleOffline = () => {
-      setOnline(false);
+    const handleAppState = (event: Event) => {
+      const { isActive } = (event as CustomEvent<{ isActive: boolean }>).detail;
+      if (isActive && getReaderConnectivity().connected) {
+        void synchronizePendingProgress().finally(refreshOfflineSummary);
+      }
     };
     const handleInstall = (event: Event) => {
       event.preventDefault();
@@ -139,15 +145,15 @@ export const ReaderShell = ({
     const handleInstalled = () => {
       setInstallPrompt(null);
     };
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    const unsubscribeConnectivity = subscribeConnectivity(handleConnectivity);
+    window.addEventListener(APP_STATE_EVENT, handleAppState);
     window.addEventListener(OFFLINE_STATE_EVENT, refreshOfflineSummary);
     window.addEventListener("beforeinstallprompt", handleInstall);
     window.addEventListener("appinstalled", handleInstalled);
     refreshOfflineSummary();
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+      unsubscribeConnectivity();
+      window.removeEventListener(APP_STATE_EVENT, handleAppState);
       window.removeEventListener(OFFLINE_STATE_EVENT, refreshOfflineSummary);
       window.removeEventListener("beforeinstallprompt", handleInstall);
       window.removeEventListener("appinstalled", handleInstalled);
@@ -1189,6 +1195,13 @@ export const DocumentationPage = () => (
         La sección <a href="/downloads">Descargas</a> muestra el cuento incluido y tus descargas. Si
         publicas cambios, ejecuta <code>pnpm offline:bootstrap</code> con la API activa para
         regenerar el paquete verificable.
+      </p>
+      <h2>Aplicación Android e iOS</h2>
+      <p>
+        Ejecuta <code>pnpm mobile:doctor</code> para revisar las herramientas instaladas y{" "}
+        <code>pnpm mobile:sync</code> para actualizar ambos proyectos nativos. En Windows,{" "}
+        <code>pnpm mobile:build:android</code> genera un APK de prueba. El build iOS requiere macOS
+        con Xcode.
       </p>
       <h2>Rutas principales</h2>
       <ul>

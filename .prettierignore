@@ -4,3 +4,5 @@
 **/.venv
 pnpm-lock.yaml
 docs
+apps/reader/android
+apps/reader/ios

@@ -1,7 +1,7 @@
 # FollowRead Reader
 
-Aplicación web/PWA independiente para descubrir y leer contenido sincronizado. Es la única
-aplicación frontend prevista como base de Capacitor en una fase posterior.
+Aplicación web/PWA/móvil independiente para descubrir y leer contenido sincronizado. Es la única
+aplicación frontend empaquetada con Capacitor; FollowRead Admin permanece sólo web.
 
 ## Demostración local
 
@@ -32,6 +32,13 @@ Abre `http://localhost:5174/`. El cuento **El zorro y la luna** permite:
 - `pnpm reader:e2e` con API y Reader activos
 - `pnpm offline:bootstrap` con la API activa
 - `pnpm reader:offline-e2e` para bloquear/restaurar red en Chrome
+- `pnpm mobile:doctor` para diagnosticar Android/iOS
+- `pnpm mobile:sync` para construir y sincronizar ambos proyectos
+- `pnpm mobile:build:android` para generar un APK debug instalable
+- `pnpm reader:mobile-e2e` para safe areas, reflow y rotación
 
 La narración audible depende de las voces y permisos disponibles en el navegador. Si no existe una
 voz compatible, el seguimiento visual sigue funcionando y muestra un aviso recuperable.
+
+Consulta `docs/architecture/MOBILE_READER.md`, `docs/deployment/MOBILE_RELEASES.md` y las guías
+`docs/troubleshooting/CAPACITOR_ANDROID.md` / `CAPACITOR_IOS.md`.

@@ -25,7 +25,7 @@
     "dev:check": "node scripts/dev.mjs --check",
     "setup": "pnpm install --frozen-lockfile && pnpm setup:python && pnpm hooks:install",
     "setup:python": "node scripts/setup-python.mjs",
-    "check": "pnpm validate:ci && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm validate:ci && pnpm mobile:validate && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "check:fast": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
     "ci": "pnpm check",
     "build": "pnpm --recursive --if-present run build",
@@ -50,6 +50,19 @@
     "offline:bootstrap": "node scripts/export-offline-bootstrap.mjs",
     "reader:e2e": "node scripts/verify-reader-e2e.mjs",
     "reader:offline-e2e": "node scripts/verify-reader-offline-e2e.mjs",
+    "reader:mobile-e2e": "node scripts/verify-reader-mobile-e2e.mjs",
+    "mobile:doctor": "node scripts/mobile-doctor.mjs",
+    "mobile:validate": "node scripts/validate-mobile.mjs",
+    "mobile:assets": "pnpm --filter @followread/reader mobile:assets",
+    "mobile:sync": "pnpm --filter @followread/reader mobile:sync",
+    "mobile:sync:android": "pnpm --filter @followread/reader mobile:sync:android",
+    "mobile:sync:ios": "pnpm --filter @followread/reader mobile:sync:ios",
+    "mobile:open:android": "pnpm --filter @followread/reader mobile:open:android",
+    "mobile:open:ios": "pnpm --filter @followread/reader mobile:open:ios",
+    "mobile:build:android": "pnpm mobile:sync:android && node scripts/mobile-build.mjs android",
+    "mobile:build:ios": "pnpm --filter @followread/reader mobile:build:ios",
+    "mobile:run:android": "pnpm --filter @followread/reader mobile:run:android",
+    "mobile:run:ios": "pnpm --filter @followread/reader mobile:run:ios",
     "validate:ci": "node scripts/run-python.mjs scripts/validate_workflow.py"
   }
 }

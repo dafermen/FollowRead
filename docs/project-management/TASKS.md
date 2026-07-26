@@ -2281,3 +2281,196 @@ quedan documentados; la puerta completa pasa.
 **Fecha de inicio:** 2026-07-26  
 **Fecha de finalización:** 2026-07-26  
 **Siguiente acción:** Descomponer la Fase 10.
+
+---
+
+## FR-PH10-TASK-001
+
+**Título:** Descomponer y activar la Fase 10
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** Fase 9.
+**Criterios de aceptación:** Actividades del prompt, frontera Reader/Admin, plugins, plataformas,
+permisos, recursos, pruebas y publicación quedan convertidos en tareas verificables.
+**Pruebas requeridas:** Revisión textual y visual de la página 23 del prompt maestro.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-002
+
+**Título:** Configurar Capacitor exclusivamente para Reader
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-001.
+**Criterios de aceptación:** Capacitor 8 usa `com.followread.reader` y `apps/reader/dist`; Admin y
+Reader Engine no importan dependencias nativas.
+**Pruebas requeridas:** TypeScript, build y `mobile:validate`.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-003
+
+**Título:** Crear y versionar Android e iOS
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-002.
+**Criterios de aceptación:** Proyectos nativos generados por CLI, Android API 24/36, iOS 15 y SPM
+quedan bajo Reader con configuración sincronizable.
+**Pruebas requeridas:** `cap sync android`, `cap sync ios` y auditoría de archivos.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-004
+
+**Título:** Generar iconos y splash claro/oscuro
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** High
+**Dependencias:** FR-PH10-TASK-003.
+**Criterios de aceptación:** Fuentes 1024/2732 y recursos Android/iOS adaptativos se generan sin
+alterar el icono ni el manifest PWA.
+**Pruebas requeridas:** Dimensiones PNG, catálogos iOS, densidades Android y revisión visual.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-005
+
+**Título:** Integrar red, almacenamiento y ciclo de vida
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-002.
+**Criterios de aceptación:** Conectividad nativa actualiza UI/sync, fondo pausa lectura, regreso
+recalcula/sincroniza, IndexedDB y `localStorage` conservan responsabilidades.
+**Pruebas requeridas:** Vitest web/nativo y regresión offline.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-006
+
+**Título:** Configurar permisos y política de audio
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-003 y 005.
+**Criterios de aceptación:** Sólo red está permitida; no existen permisos sensibles ni declaración
+de audio en segundo plano sin implementación nativa continua.
+**Pruebas requeridas:** Auditoría de manifest/plist y validador negativo.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-007
+
+**Título:** Verificar safe areas y orientación
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-003 y 005.
+**Criterios de aceptación:** Shell y lector respetan insets en ambas orientaciones sin overflow ni
+pérdida de tiempo, palabra o capítulo.
+**Pruebas requeridas:** Chrome 390×844 y 844×390 con insets emulados.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-008
+
+**Título:** Compilar e instalar Android
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-003 a 007.
+**Criterios de aceptación:** Un solo comando detecta JDK/SDK, sincroniza, genera APK debug, instala y
+abre en Android API 35; la actividad sobrevive la rotación.
+**Pruebas requeridas:** Gradle `assembleDebug`, ADB, arranque frío y capturas.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-009
+
+**Título:** Validar el proyecto iOS
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-003 a 007.
+**Criterios de aceptación:** Proyecto Xcode/SPM, bundle ID, iOS 15, recursos, orientaciones,
+permisos y sincronización son válidos; la limitación macOS/Xcode queda explícita.
+**Pruebas requeridas:** `cap sync ios` y auditoría estructural; build físico obligatorio antes de
+TestFlight.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Validar en Mac antes de publicación.
+
+---
+
+## FR-PH10-TASK-010
+
+**Título:** Automatizar la puerta móvil
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-002 a 009.
+**Criterios de aceptación:** La puerta bloquea Admin, permisos, recursos, configuración o proyectos
+incompletos; doctor y E2E producen diagnóstico/evidencia.
+**Pruebas requeridas:** `mobile:validate`, `mobile:doctor`, Vitest y `reader:mobile-e2e`.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-011
+
+**Título:** Documentar builds, publicación y fallos
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** High
+**Dependencias:** FR-PH10-TASK-008 a 010.
+**Criterios de aceptación:** Arquitectura, Android, iOS, firma, tiendas, versionado, rollback,
+variables y troubleshooting tienen instrucciones reproducibles sin secretos.
+**Pruebas requeridas:** Revisión cruzada de comandos y documentación visible en Reader.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH10-TASK-012
+
+**Título:** Auditar y cerrar la Fase 10
+**Fase:** 10
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH10-TASK-001 a 011.
+**Criterios de aceptación:** Requisitos, evidencia, documentación, proyectos nativos, APK y puerta
+completa quedan en verde; validación iOS física permanece como gate externo de publicación.
+**Pruebas requeridas:** `pnpm check`, build Android, E2E móvil y revisión de fase.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Descomponer la Fase 11.

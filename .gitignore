@@ -43,10 +43,6 @@ tmp/
 var/
 postgres-data/
 
-# Mobile output (Reader only in a later phase)
-apps/reader/android/
-apps/reader/ios/
-
 # Infrastructure artifacts
 .terraform/
 *.tfstate

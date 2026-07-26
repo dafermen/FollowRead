@@ -152,6 +152,19 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
   [Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html),
   [CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 
+### FR-DEC-015 - Adaptador móvil mínimo y sin audio en segundo plano
+
+- **Fecha:** 2026-07-26
+- **Estado:** ACCEPTED
+- **Decisión:** Capacitor empaqueta sólo Reader. App, Network, Splash Screen y Status Bar son los
+  únicos plugins de Fase 10. IndexedDB/`localStorage` continúan como almacenamiento. Web Speech se
+  pausa en segundo plano y no se declaran servicios Android ni `UIBackgroundModes`.
+- **Razón:** La experiencia existente ya es offline, evita permisos de archivos y no dispone de una
+  fuente de audio nativa continua. Declarar reproducción en fondo sería engañoso.
+- **Consecuencias:** Audio nativo futuro requiere otra decisión, controles del sistema, foco de
+  audio, interrupciones, batería y pruebas de tienda. Cualquier secreto requerirá almacenamiento
+  cifrado nativo; los datos no sensibles actuales no.
+
 ## Decisiones abiertas
 
 ### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio

@@ -4,6 +4,15 @@ packages:
   - packages/*
 
 catalog:
+  "@capacitor/android": 8.4.2
+  "@capacitor/app": 8.1.1
+  "@capacitor/assets": 3.0.5
+  "@capacitor/cli": 8.4.2
+  "@capacitor/core": 8.4.2
+  "@capacitor/ios": 8.4.2
+  "@capacitor/network": 8.0.1
+  "@capacitor/splash-screen": 8.0.2
+  "@capacitor/status-bar": 8.0.3
   "@eslint/js": 10.0.1
   "@testing-library/jest-dom": 7.0.0
   "@testing-library/react": 16.3.2
@@ -26,4 +35,10 @@ catalog:
 
 catalogMode: strict
 
-onlyBuiltDependencies: []
+allowBuilds:
+  sharp: true
+
+# @capacitor/assets 3.0.5 still declares sharp 0.32, which has no Node 24 binary.
+# The current compatible release preserves the API used by the asset generator.
+overrides:
+  sharp: 0.35.3

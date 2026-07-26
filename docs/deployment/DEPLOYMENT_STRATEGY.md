@@ -1,6 +1,6 @@
 # Estrategia inicial de despliegue
 
-**Estado:** Validada para Fase 0 - FR-PH00-TASK-011 COMPLETED.  
+**Estado:** Validada para Fase 0 - FR-PH00-TASK-011 COMPLETED.
 Los proveedores y comandos concretos se decidirán en fases de infraestructura.
 
 ## Entornos
@@ -49,6 +49,10 @@ Los proveedores y comandos concretos se decidirán en fases de infraestructura.
 
 Reader web es la única fuente que Capacitor empaqueta. Permisos, plugins, iconos y configuraciones
 nativas se versionan por plataforma. Contenido nuevo no obliga a publicar otra app.
+
+Fase 10 dejó Android/iOS bajo `apps/reader`, recursos reproducibles, build Android debug y guías de
+firma/publicación en `MOBILE_RELEASES.md`. La ejecución iOS final se realiza en macOS/Xcode antes de
+TestFlight; firmas, cuentas y credenciales de tiendas siguen fuera del repositorio.
 
 ## Pendientes
 

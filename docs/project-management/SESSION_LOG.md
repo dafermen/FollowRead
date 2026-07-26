@@ -611,3 +611,25 @@ descomponer la Fase 9.
 
 FR-PH09-TASK-001 a 011 quedaron `COMPLETED`. La Fase 9 quedó cerrada en PASS; el siguiente paso es
 descomponer la Fase 10.
+
+---
+
+## Continuación 2026-07-26 - Capacitor, Android e iOS
+
+- Se fijó Capacitor 8.4.2 y `com.followread.reader` con `apps/reader/dist` como única fuente.
+- Android API 24/36 e iOS 15/SPM quedaron generados, sincronizados y versionados bajo Reader.
+- Iconos adaptativos y splash claro/oscuro se generaron desde fuentes 1024/2732 verificadas.
+- Network y App integran conexión, reconexión, pausa en segundo plano y restauración de layout.
+- IndexedDB y `localStorage` conservan offline/progreso sin permisos de archivos ni PII.
+- Android sólo usa Internet/estado de red; iOS no pide permisos sensibles.
+- No se activó audio en segundo plano porque Web Speech no garantiza reproducción continua.
+- Safe areas y orientación pasaron en Chrome 390×844 y 844×390 conservando progreso.
+- El APK debug compiló, se instaló y abrió en un emulador Android API 35; la actividad sobrevivió
+  rotación.
+- El proyecto iOS pasó sync/auditoría; build y dispositivo quedan como gate de macOS/Xcode antes de
+  TestFlight.
+- Se añadieron doctor, validador, E2E, guías de build/publicación y troubleshooting Android/iOS.
+- La puerta final pasó con 98 pruebas API y 33 pruebas Reader.
+
+FR-PH10-TASK-001 a 012 quedaron `COMPLETED`. La Fase 10 quedó cerrada en PASS; el siguiente paso es
+descomponer la Fase 11.

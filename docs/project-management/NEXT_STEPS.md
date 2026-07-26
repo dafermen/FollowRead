@@ -2,23 +2,25 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH10-TASK-001 - Descomponer y activar la Fase 10**
+**FR-PH11-TASK-001 - Descomponer y activar la Fase 11**
 
 ### Objetivo
 
-Convertir las actividades móviles del prompt maestro en tareas verificables, preservando la
-separación entre Reader, Admin y API.
+Convertir el modo aprender inglés del prompt maestro en tareas verificables, reutilizando el
+vocabulario y las herramientas educativas ya adelantadas sin depender de IA para funciones
+esenciales.
 
 ### Orden de trabajo
 
-1. Revisar actividades, requisitos y criterios móviles.
-2. Definir la frontera web/Capacitor y plugins estrictamente necesarios.
-3. Preparar tareas de Android, iOS, permisos, iconos y builds.
-4. Activar únicamente la primera tarea implementable.
+1. Auditar traducción visible/oculta, palabra, oración, velocidad y vocabulario existentes.
+2. Definir contratos editoriales para significado contextual y ejemplos.
+3. Diseñar palabras favoritas, historial de palabras y progreso educativo.
+4. Descomponer pruebas unitarias, E2E web y regresión móvil.
+5. Activar únicamente la primera tarea implementable.
 
 ## No hacer todavía
 
-- No incluir FollowRead Admin dentro de Capacitor.
-- No solicitar permisos nativos sin una función concreta.
-- No introducir credenciales o secretos en el bundle móvil.
-- No alterar la experiencia web offline ya cerrada.
+- No depender de OpenAI ni otro servicio de IA para traducción, significado o ejemplos esenciales.
+- No recopilar identidad ni analítica personal de menores.
+- No duplicar lógica temporal de Reader Engine dentro de la UI.
+- No modificar proyectos nativos si la función puede vivir en el Reader compartido.

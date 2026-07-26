@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     allowed_origins: tuple[str, ...] = (
         "http://localhost:5173",
         "http://localhost:5174",
+        "capacitor://localhost",
+        "https://localhost",
     )
     polly_provider: Literal["fake", "aws"] = "fake"
     audio_output_dir: str = "./var/audio"

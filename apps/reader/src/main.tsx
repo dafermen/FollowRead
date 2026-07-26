@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App.js";
+import { initializeMobileRuntime } from "./mobileRuntime.js";
 import { registerReaderServiceWorker } from "./pwa.js";
 import "./styles.css";
 
@@ -16,6 +17,8 @@ createRoot(rootElement).render(
     <App />
   </StrictMode>,
 );
+
+void initializeMobileRuntime();
 
 window.addEventListener("load", () => {
   void registerReaderServiceWorker();

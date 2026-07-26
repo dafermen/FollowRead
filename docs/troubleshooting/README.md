@@ -6,6 +6,11 @@ prevención.
 
 Áreas previstas: audio, Speech Marks, AWS, base de datos, autenticación, sincronización del Reader,
 Capacitor Android/iOS, offline y despliegue.
+
+Guías móviles:
+
+- `CAPACITOR_ANDROID.md`
+- `CAPACITOR_IOS.md`
 # Solución de problemas
 
 ## `/health` responde pero `/ready` devuelve 503

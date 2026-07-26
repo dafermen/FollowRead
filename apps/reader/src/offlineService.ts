@@ -13,6 +13,7 @@ import {
   resetOfflineRepositoryForTests,
   type OfflineRepository,
 } from "./offlineRepository.js";
+import { isReaderOnline } from "./mobileRuntime.js";
 import type { CatalogItem, CatalogPage, ReaderLibraryItem, ReaderPackage } from "./readerClient.js";
 
 type RemoteReaders = {
@@ -193,13 +194,13 @@ export const queueProgressForSync = async ({
   const repository = await getOfflineRepository();
   await repository.replaceProgressOperation(operation);
   notifyOfflineState();
-  if (navigator.onLine) {
+  if (isReaderOnline()) {
     void synchronizePendingProgress();
   }
 };
 
 export const synchronizePendingProgress = async (): Promise<number> => {
-  if (!navigator.onLine) {
+  if (!isReaderOnline()) {
     return 0;
   }
   const repository = await getOfflineRepository();

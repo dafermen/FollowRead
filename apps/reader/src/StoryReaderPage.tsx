@@ -6,6 +6,7 @@ import {
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import { createBrowserNarrator } from "./browserNarrator.js";
+import { APP_STATE_EVENT, getReaderConnectivity, subscribeConnectivity } from "./mobileRuntime.js";
 import {
   getReaderPackage,
   type ReaderMark,
@@ -34,7 +35,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   const engine = useMemo(() => new ReaderEngine(), []);
   const narrator = useMemo(() => createBrowserNarrator(), []);
   const [story, setStory] = useState<ReaderPackage | null>(null);
-  const [online, setOnline] = useState(navigator.onLine);
+  const [online, setOnline] = useState(getReaderConnectivity().connected);
   const [language, setLanguage] = useState<ReaderLanguage>(preferences.defaultLanguage);
   const [loadState, setLoadState] = useState<"loading" | "ready" | "error">("loading");
   const [engineState, setEngineState] = useState<ReaderEngineState>(engine.getState());
@@ -47,19 +48,13 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
 
   useEffect(() => engine.subscribe(setEngineState), [engine]);
   useEffect(() => {
-    const handleOnline = () => {
-      setOnline(true);
-      void synchronizePendingProgress();
+    const handleConnectivity = ({ connected }: { connected: boolean }) => {
+      setOnline(connected);
+      if (connected) {
+        void synchronizePendingProgress();
+      }
     };
-    const handleOffline = () => {
-      setOnline(false);
-    };
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
+    return subscribeConnectivity(handleConnectivity);
   }, []);
   useEffect(() => {
     let active = true;
@@ -160,13 +155,23 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       narrator.pause();
       engine.handleInterruption();
     };
+    const handleAppState = (event: Event) => {
+      const { isActive } = (event as CustomEvent<{ isActive: boolean }>).detail;
+      if (!isActive) {
+        handleInterruption();
+      } else {
+        engine.handleViewportChange();
+      }
+    };
     window.addEventListener("resize", handleViewport);
     window.addEventListener("orientationchange", handleViewport);
     window.addEventListener("blur", handleInterruption);
+    window.addEventListener(APP_STATE_EVENT, handleAppState);
     return () => {
       window.removeEventListener("resize", handleViewport);
       window.removeEventListener("orientationchange", handleViewport);
       window.removeEventListener("blur", handleInterruption);
+      window.removeEventListener(APP_STATE_EVENT, handleAppState);
       narrator.stop();
     };
   }, [engine, narrator]);

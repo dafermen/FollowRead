@@ -22,7 +22,7 @@
 | 7 | Motor de lectura | Implementar sincronización audio-texto reusable | COMPLETED |
 | 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | COMPLETED |
 | 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | COMPLETED |
-| 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | NOT_STARTED |
+| 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | COMPLETED |
 | 11 | Modo aprender inglés | Agregar funciones educativas | NOT_STARTED |
 | 12 | Calidad, seguridad y rendimiento | Endurecer el sistema para uso estable | NOT_STARTED |
 | 13 | CI/CD y despliegue | Automatizar validaciones y entregas | NOT_STARTED |
@@ -250,3 +250,27 @@ local y sincronizándolo de forma idempotente cuando vuelve la red.
 ### Resultado
 
 Fase 9 cerrada el 2026-07-26. Evidencia: `PHASE_9_REVIEW.md`.
+
+## Fase 10 - Cerrada
+
+### Objetivo
+
+Convertir exclusivamente FollowRead Reader en aplicaciones Android/iOS mediante Capacitor,
+preservando web/PWA, offline, accesibilidad y la separación total de Admin.
+
+### Criterios de salida
+
+1. Capacitor empaqueta sólo `apps/reader/dist` con identificador estable.
+2. Android e iOS, iconos, splash claro/oscuro y configuración nativa están versionados.
+3. Red y ciclo de vida usan plugins mínimos; IndexedDB/`localStorage` persisten sin permisos.
+4. No existen permisos sensibles ni audio en segundo plano engañoso.
+5. Safe areas y orientación conservan controles, tiempo, palabra y progreso.
+6. Un APK Android se compila, instala y abre en un emulador API 35.
+7. iOS se sincroniza y valida estructuralmente; macOS/Xcode es gate de publicación.
+8. Doctor, validador, Vitest, E2E, builds y documentación cubren operación/publicación.
+
+### Resultado
+
+Fase 10 cerrada el 2026-07-26. Evidencia: `PHASE_10_REVIEW.md` y
+`../testing/PHASE_10_MOBILE.md`. La prueba iOS física no puede ejecutarse en Windows y permanece
+obligatoria antes de TestFlight, sin bloquear el desarrollo de la Fase 11.
