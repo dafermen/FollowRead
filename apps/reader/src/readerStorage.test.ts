@@ -6,12 +6,16 @@ import {
   preferencesForMode,
   readFavorites,
   readHistory,
+  readLearningHistory,
   readPreferences,
   readVocabulary,
+  recordLearningHistory,
   removeHistory,
+  reviewVocabulary,
   saveHistory,
   toggleFavorite,
   toggleVocabulary,
+  updateVocabulary,
   writePreferences,
 } from "./readerStorage.js";
 
@@ -106,11 +110,47 @@ describe("reader local storage", () => {
       language: "en",
     });
     expect(entry.id).toBe("cuento:en:moon");
+    expect(entry).toMatchObject({ status: "new", favorite: false, reviewCount: 0 });
     expect(Number.isNaN(Date.parse(entry.savedAt))).toBe(false);
     expect(toggleVocabulary(window.localStorage, entry)).toBe(true);
     expect(readVocabulary(window.localStorage)).toEqual([entry]);
     expect(toggleVocabulary(window.localStorage, entry)).toBe(false);
     window.localStorage.setItem("followread-reader-vocabulary-v1", JSON.stringify([{}, entry]));
     expect(readVocabulary(window.localStorage)).toEqual([entry]);
+  });
+
+  it("tracks word exploration, favorites and study reviews", () => {
+    const entry = createVocabularyEntry({
+      slug: "cuento",
+      word: "Moon",
+      translation: "Luna",
+      language: "en",
+      meaning: "La luna del cuento.",
+      sourceExample: "The moon shines.",
+      translatedExample: "La luna brilla.",
+    });
+    toggleVocabulary(window.localStorage, entry);
+    updateVocabulary(window.localStorage, entry.id, { favorite: true, status: "learning" });
+    const reviewed = reviewVocabulary(window.localStorage, entry.id);
+    expect(reviewed).toMatchObject({ favorite: true, status: "learning", reviewCount: 1 });
+
+    recordLearningHistory(window.localStorage, {
+      id: entry.id,
+      slug: entry.slug,
+      word: entry.word,
+      translation: entry.translation,
+      language: entry.language,
+    });
+    recordLearningHistory(window.localStorage, {
+      id: entry.id,
+      slug: entry.slug,
+      word: entry.word,
+      translation: entry.translation,
+      language: entry.language,
+    });
+    expect(readLearningHistory(window.localStorage)[0]).toMatchObject({
+      id: entry.id,
+      visits: 2,
+    });
   });
 });

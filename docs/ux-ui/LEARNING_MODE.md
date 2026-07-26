@@ -1,6 +1,6 @@
 # Modo aprender inglés
 
-**Estado:** Validado para Fase 1
+**Estado:** Implementado y verificado en Fase 11
 
 ## Propósito
 
@@ -54,3 +54,5 @@ panel contextual; así se resuelve FR-UXF-001 sin esconder funciones.
 
 - FR-PERSONA-002 y FR-US-READER-007/008 cubiertos: PASS.
 - Traducción, repetición, velocidad y vocabulario: PASS.
+- Favoritos, historial, significado, ejemplos y progreso local: PASS.
+- Evidencia: `../testing/PHASE_11_LEARNING.md`.

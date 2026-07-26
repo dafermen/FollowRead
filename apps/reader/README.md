@@ -36,9 +36,12 @@ Abre `http://localhost:5174/`. El cuento **El zorro y la luna** permite:
 - `pnpm mobile:sync` para construir y sincronizar ambos proyectos
 - `pnpm mobile:build:android` para generar un APK debug instalable
 - `pnpm reader:mobile-e2e` para safe areas, reflow y rotación
+- `pnpm reader:learning-e2e` para traducción, vocabulario, favoritos, progreso y vista móvil
 
 La narración audible depende de las voces y permisos disponibles en el navegador. Si no existe una
 voz compatible, el seguimiento visual sigue funcionando y muestra un aviso recuperable.
 
 Consulta `docs/architecture/MOBILE_READER.md`, `docs/deployment/MOBILE_RELEASES.md` y las guías
 `docs/troubleshooting/CAPACITOR_ANDROID.md` / `CAPACITOR_IOS.md`.
+
+El diseño del modo educativo está documentado en `docs/architecture/LEARNING_MODE.md`.

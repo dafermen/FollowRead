@@ -9,5 +9,6 @@
 - `mobile-doctor.mjs`: detecta herramientas Android/iOS sin modificar el equipo.
 - `mobile-build.mjs`: genera el APK Android debug con el JDK de Android Studio.
 - `verify-reader-mobile-e2e.mjs`: prueba safe areas, reflow, rotación y progreso en Chrome.
+- `verify-learning-e2e.mjs`: demuestra el modo aprendizaje, persistencia y reflow móvil.
 
 Los mismos scripts se usan desde Windows y GitHub Actions; no duplican la puerta de calidad.

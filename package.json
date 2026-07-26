@@ -51,6 +51,7 @@
     "reader:e2e": "node scripts/verify-reader-e2e.mjs",
     "reader:offline-e2e": "node scripts/verify-reader-offline-e2e.mjs",
     "reader:mobile-e2e": "node scripts/verify-reader-mobile-e2e.mjs",
+    "reader:learning-e2e": "node scripts/verify-learning-e2e.mjs",
     "mobile:doctor": "node scripts/mobile-doctor.mjs",
     "mobile:validate": "node scripts/validate-mobile.mjs",
     "mobile:assets": "pnpm --filter @followread/reader mobile:assets",

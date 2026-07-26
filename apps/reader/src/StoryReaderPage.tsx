@@ -6,6 +6,11 @@ import {
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import { createBrowserNarrator } from "./browserNarrator.js";
+import {
+  buildLearningInsight,
+  summarizeLearningProgress,
+  type LearningInsight,
+} from "./learningDomain.js";
 import { APP_STATE_EVENT, getReaderConnectivity, subscribeConnectivity } from "./mobileRuntime.js";
 import {
   getReaderPackage,
@@ -16,10 +21,14 @@ import {
 import { queueProgressForSync, synchronizePendingProgress } from "./offlineService.js";
 import {
   createVocabularyEntry,
+  readLearningHistory,
   readPreferences,
   readVocabulary,
+  recordLearningHistory,
   saveHistory,
   toggleVocabulary,
+  updateVocabulary,
+  writePreferences,
   type ReaderLanguage,
   type VocabularyEntry,
 } from "./readerStorage.js";
@@ -40,10 +49,13 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   const [loadState, setLoadState] = useState<"loading" | "ready" | "error">("loading");
   const [engineState, setEngineState] = useState<ReaderEngineState>(engine.getState());
   const [narrationWarning, setNarrationWarning] = useState<string | null>(null);
+  const [showTranslation, setShowTranslation] = useState(preferences.showTranslation);
+  const [, setLearningRevision] = useState(0);
+  const learningTriggerRef = useRef<HTMLButtonElement | null>(null);
   const [selectedWord, setSelectedWord] = useState<{
     mark: ReaderMark;
     index: number;
-    translation: string;
+    insight: LearningInsight;
   } | null>(null);
 
   useEffect(() => engine.subscribe(setEngineState), [engine]);
@@ -213,6 +225,11 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       ? 0
       : Math.round((engineState.currentTimeMs / engineState.durationMs) * 100);
   const narrationEnabled = preferences.narrationEnabled && narrator.available;
+  const learningProgress = summarizeLearningProgress(
+    readVocabulary(window.localStorage),
+    readLearningHistory(window.localStorage),
+  );
+  const pairedTranslation = story.translations.find((item) => item.language !== language);
 
   const beginNarration = (startIndex = engine.getState().activeMarkIndex) => {
     if (!narrationEnabled) {
@@ -287,20 +304,18 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     beginNarration(translation.audio.marks.indexOf(paragraphStart));
   };
 
-  const selectLearningWord = (mark: ReaderMark, index: number) => {
-    const otherLanguage = language === "en" ? "es" : "en";
-    const otherTranslation = story.translations.find((item) => item.language === otherLanguage);
-    const paragraphMarks = translation.audio.marks.filter(
-      (candidate) => candidate.paragraph_key === mark.paragraph_key,
-    );
-    const paragraphPosition = paragraphMarks.findIndex(
-      (candidate) => candidate.char_start === mark.char_start,
-    );
-    const translated =
-      otherTranslation?.audio.marks.filter(
-        (candidate) => candidate.paragraph_key === mark.paragraph_key,
-      )[paragraphPosition]?.value ?? "Traducción no disponible";
-    setSelectedWord({ mark, index, translation: translated });
+  const selectLearningWord = (mark: ReaderMark, index: number, trigger: HTMLButtonElement) => {
+    const insight = buildLearningInsight(story, translation, mark);
+    learningTriggerRef.current = trigger;
+    recordLearningHistory(window.localStorage, {
+      id: insight.id,
+      slug: insight.slug,
+      word: insight.word,
+      translation: insight.translation,
+      language: insight.language,
+    });
+    setLearningRevision((value) => value + 1);
+    setSelectedWord({ mark, index, insight });
   };
 
   return (
@@ -363,6 +378,47 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
         </div>
       ) : null}
 
+      {preferences.mode === "learning" ? (
+        <section className="learning-toolbar" aria-label="Herramientas de aprendizaje">
+          <div className="learning-toolbar__identity">
+            <span aria-hidden="true">Aa</span>
+            <div>
+              <strong>Modo aprender inglés</strong>
+              <small>Toca cualquier palabra para explorarla sin perder tu posición.</small>
+            </div>
+          </div>
+          <div className="learning-toolbar__progress" aria-label="Progreso de aprendizaje">
+            <span>
+              <strong>{learningProgress.explored}</strong> exploradas
+            </span>
+            <span>
+              <strong>{learningProgress.saved}</strong> guardadas
+            </span>
+            <span>
+              <strong>{learningProgress.mastered}</strong> dominadas
+            </span>
+          </div>
+          <div className="learning-toolbar__actions">
+            <button
+              className={showTranslation ? "learning-toggle active" : "learning-toggle"}
+              type="button"
+              aria-pressed={showTranslation}
+              onClick={() => {
+                const next = !showTranslation;
+                setShowTranslation(next);
+                writePreferences(window.localStorage, {
+                  ...preferences,
+                  showTranslation: next,
+                });
+              }}
+            >
+              {showTranslation ? "Ocultar traducción" : "Mostrar traducción"}
+            </button>
+            <a href="/vocabulary">Mi vocabulario →</a>
+          </div>
+        </section>
+      ) : null}
+
       <div className="reading-layout">
         <aside className="story-visual">
           <img
@@ -380,54 +436,65 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
           <h1>{chapter?.title}</h1>
           <div className="story-copy" lang={language}>
             {chapter?.paragraphs.map((paragraph) => (
-              <p key={paragraph.stable_key}>
-                {translation.audio.marks
-                  .map((mark, index) => ({ mark, index }))
-                  .filter(({ mark }) => mark.paragraph_key === paragraph.stable_key)
-                  .map(({ mark, index }) => {
-                    const active = index === engineState.activeMarkIndex;
-                    const className = active ? "story-word story-word--active" : "story-word";
-                    const content = (
-                      <>
-                        {active && preferences.showPointer ? <ReadingHand /> : null}
-                        {mark.value}{" "}
-                      </>
-                    );
-                    return preferences.mode === "learning" ? (
-                      <button
-                        className={className}
-                        ref={
-                          active
-                            ? (element) => {
-                                activeMarkRef.current = element;
-                              }
-                            : undefined
-                        }
-                        type="button"
-                        onClick={() => {
-                          selectLearningWord(mark, index);
-                        }}
-                        key={`${paragraph.stable_key}-${String(index)}`}
-                      >
-                        {content}
-                      </button>
-                    ) : (
-                      <span
-                        className={className}
-                        ref={
-                          active
-                            ? (element) => {
-                                activeMarkRef.current = element;
-                              }
-                            : undefined
-                        }
-                        key={`${paragraph.stable_key}-${String(index)}`}
-                      >
-                        {content}
-                      </span>
-                    );
-                  })}
-              </p>
+              <div className="story-paragraph" key={paragraph.stable_key}>
+                <p>
+                  {translation.audio.marks
+                    .map((mark, index) => ({ mark, index }))
+                    .filter(({ mark }) => mark.paragraph_key === paragraph.stable_key)
+                    .map(({ mark, index }) => {
+                      const active = index === engineState.activeMarkIndex;
+                      const className = active ? "story-word story-word--active" : "story-word";
+                      const content = (
+                        <>
+                          {active && preferences.showPointer ? <ReadingHand /> : null}
+                          {mark.value}{" "}
+                        </>
+                      );
+                      return preferences.mode === "learning" ? (
+                        <button
+                          className={className}
+                          ref={
+                            active
+                              ? (element) => {
+                                  activeMarkRef.current = element;
+                                }
+                              : undefined
+                          }
+                          type="button"
+                          onClick={(event) => {
+                            selectLearningWord(mark, index, event.currentTarget);
+                          }}
+                          key={`${paragraph.stable_key}-${String(index)}`}
+                        >
+                          {content}
+                        </button>
+                      ) : (
+                        <span
+                          className={className}
+                          ref={
+                            active
+                              ? (element) => {
+                                  activeMarkRef.current = element;
+                                }
+                              : undefined
+                          }
+                          key={`${paragraph.stable_key}-${String(index)}`}
+                        >
+                          {content}
+                        </span>
+                      );
+                    })}
+                </p>
+                {preferences.mode === "learning" && showTranslation ? (
+                  <p className="paragraph-translation" lang={pairedTranslation?.language}>
+                    <span>Traducción editorial</span>
+                    {pairedTranslation?.chapters
+                      .flatMap((item) => item.paragraphs)
+                      .find((item) => item.stable_key === paragraph.stable_key)?.text ??
+                      "Traducción no disponible para este párrafo."}
+                  </p>
+                ) : null}
+              </div>
             ))}
           </div>
         </article>
@@ -437,17 +504,29 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
         <LearningPanel
           entry={createVocabularyEntry({
             slug: story.slug,
-            word: selectedWord.mark.value,
-            translation: selectedWord.translation,
+            word: selectedWord.insight.word,
+            translation: selectedWord.insight.translation,
             language,
+            meaning: selectedWord.insight.meaning,
+            sourceExample: selectedWord.insight.sourceExample,
+            translatedExample: selectedWord.insight.translatedExample,
           })}
-          onRepeat={() => {
+          onRepeatWord={() => {
             narrator.stop();
             engine.seek(selectedWord.mark.start_ms, true);
             beginNarration(selectedWord.index);
           }}
+          onRepeatSentence={() => {
+            repeatParagraph();
+          }}
+          onChanged={() => {
+            setLearningRevision((value) => value + 1);
+          }}
           onClose={() => {
             setSelectedWord(null);
+            window.setTimeout(() => {
+              learningTriggerRef.current?.focus();
+            });
           }}
         />
       ) : null}
@@ -563,24 +642,43 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
 
 const LearningPanel = ({
   entry,
-  onRepeat,
+  onRepeatWord,
+  onRepeatSentence,
+  onChanged,
   onClose,
 }: {
   entry: VocabularyEntry;
-  onRepeat: () => void;
+  onRepeatWord: () => void;
+  onRepeatSentence: () => void;
+  onChanged: () => void;
   onClose: () => void;
 }) => {
-  const [saved, setSaved] = useState(() =>
-    readVocabulary(window.localStorage).some((item) => item.id === entry.id),
-  );
+  const existing = readVocabulary(window.localStorage).find((item) => item.id === entry.id);
+  const [saved, setSaved] = useState(existing !== undefined);
+  const [favorite, setFavorite] = useState(existing?.favorite ?? false);
+  const [status, setStatus] = useState(existing?.status ?? "new");
   const closeButton = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     closeButton.current?.focus();
-  }, []);
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
 
   return (
-    <aside className="learning-panel" aria-labelledby="learning-word">
+    <aside
+      className="learning-panel"
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby="learning-word"
+    >
       <button
         ref={closeButton}
         className="learning-panel__close"
@@ -594,22 +692,75 @@ const LearningPanel = ({
       <h2 id="learning-word" lang={entry.language}>
         {entry.word}
       </h2>
-      <p>{entry.translation}</p>
-      <div>
-        <button className="secondary-action" type="button" onClick={onRepeat}>
-          ▶ Escuchar palabra
+      <p className="learning-panel__translation">{entry.translation}</p>
+      <p className="learning-panel__meaning">{entry.meaning}</p>
+      <div className="learning-example">
+        <span>Ejemplo en el cuento</span>
+        <q lang={entry.language}>{entry.sourceExample}</q>
+        <small>{entry.translatedExample}</small>
+      </div>
+      <div className="learning-panel__audio">
+        <button className="secondary-action" type="button" onClick={onRepeatWord}>
+          ▶ Repetir palabra
         </button>
+        <button className="secondary-action" type="button" onClick={onRepeatSentence}>
+          ↻ Repetir oración
+        </button>
+      </div>
+      <div className="learning-panel__study">
         <button
           className="primary-action"
           type="button"
           aria-pressed={saved}
           onClick={() => {
-            setSaved(toggleVocabulary(window.localStorage, entry));
+            const next = toggleVocabulary(window.localStorage, entry);
+            setSaved(next);
+            if (!next) {
+              setFavorite(false);
+              setStatus("new");
+            }
+            onChanged();
           }}
         >
           {saved ? "✓ Guardada" : "+ Guardar palabra"}
         </button>
+        <button
+          className={favorite ? "favorite-word active" : "favorite-word"}
+          type="button"
+          aria-label={favorite ? "Quitar de palabras favoritas" : "Marcar como palabra favorita"}
+          aria-pressed={favorite}
+          onClick={() => {
+            if (!saved) {
+              toggleVocabulary(window.localStorage, entry);
+              setSaved(true);
+            }
+            const next = !favorite;
+            updateVocabulary(window.localStorage, entry.id, { favorite: next });
+            setFavorite(next);
+            onChanged();
+          }}
+        >
+          {favorite ? "★ Favorita" : "☆ Favorita"}
+        </button>
       </div>
+      {saved ? (
+        <label className="learning-status">
+          <span>Mi avance con esta palabra</span>
+          <select
+            value={status}
+            onChange={(event) => {
+              const next = event.target.value as VocabularyEntry["status"];
+              updateVocabulary(window.localStorage, entry.id, { status: next });
+              setStatus(next);
+              onChanged();
+            }}
+          >
+            <option value="new">Nueva</option>
+            <option value="learning">Aprendiendo</option>
+            <option value="mastered">Dominada</option>
+          </select>
+        </label>
+      ) : null}
     </aside>
   );
 };

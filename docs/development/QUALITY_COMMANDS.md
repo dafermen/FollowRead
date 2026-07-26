@@ -35,11 +35,16 @@ La puerta se detiene ante el primer error y ejecuta, en orden:
 | Validar móvil | `pnpm mobile:validate` |
 | Diagnosticar SDKs | `pnpm mobile:doctor` |
 | E2E móvil web | `pnpm reader:mobile-e2e` |
+| E2E modo aprendizaje | `pnpm reader:learning-e2e` |
 | APK Android debug | `pnpm mobile:build:android` |
 
 `scripts/run-python.mjs` selecciona el ejecutable del entorno virtual en Windows o sistemas tipo Unix.
 Si el entorno no existe, falla con una instrucción explícita y no usa silenciosamente otro Python.
 El hook pre-commit ejecuta la puerta rápida y nunca modifica archivos automáticamente.
+
+`pnpm reader:learning-e2e` abre Chrome y verifica traducción editorial, significado contextual,
+ejemplos, guardado, favorito, historial, progreso y reflow móvil. Sus capturas quedan en
+`var/e2e/`.
 
 ## Cobertura base
 

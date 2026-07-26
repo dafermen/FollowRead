@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 
 import {
   getCatalog,
@@ -21,18 +21,23 @@ import {
   synchronizePendingProgress,
 } from "./offlineService.js";
 import { APP_STATE_EVENT, getReaderConnectivity, subscribeConnectivity } from "./mobileRuntime.js";
+import { matchesVocabularyFilter, summarizeLearningProgress } from "./learningDomain.js";
 import {
+  clearLearningHistory,
   DEFAULT_READER_PREFERENCES,
   preferencesForMode,
   readFavorites,
   readHistory,
+  readLearningHistory,
   readPreferences,
   readVocabulary,
   removeHistory,
   toggleFavorite,
   toggleVocabulary,
+  updateVocabulary,
   writePreferences,
   type ReaderPreferences,
+  type VocabularyEntry,
 } from "./readerStorage.js";
 import { isStandaloneReader, type BeforeInstallPromptEvent } from "./pwa.js";
 
@@ -940,54 +945,261 @@ export const HistoryPage = () => {
 
 export const VocabularyPage = () => {
   const [entries, setEntries] = useState(() => readVocabulary(window.localStorage));
+  const [history, setHistory] = useState(() => readLearningHistory(window.localStorage));
+  const [filter, setFilter] = useState<"all" | "new" | "learning" | "mastered" | "favorites">(
+    "all",
+  );
+  const [query, setQuery] = useState("");
+  const progress = summarizeLearningProgress(entries, history);
+  const visibleEntries = entries.filter(
+    (entry) =>
+      matchesVocabularyFilter(entry, filter) &&
+      `${entry.word} ${entry.translation}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+  );
+
+  const refresh = () => {
+    setEntries(readVocabulary(window.localStorage));
+    setHistory(readLearningHistory(window.localStorage));
+  };
 
   return (
     <ReaderShell active="vocabulary">
-      <section className="page-heading">
+      <section className="page-heading page-heading--learning">
         <div>
-          <p className="eyebrow">Aprender inglés</p>
-          <h1>Mi vocabulario</h1>
-          <p>Palabras que guardaste mientras leías en modo aprendizaje.</p>
+          <p className="eyebrow">Tu espacio de aprendizaje</p>
+          <h1>Mi vocabulario de inglés</h1>
+          <p>Explora, practica y marca el avance de las palabras que encuentras en los cuentos.</p>
         </div>
-        <a className="secondary-action" href="/settings">
-          Activar modo aprendizaje
+        <a className="primary-action" href="/library">
+          Continuar aprendiendo
         </a>
       </section>
+
+      <section className="learning-overview" aria-label="Resumen de aprendizaje">
+        <article className="learning-goal">
+          <div>
+            <span>Meta de exploración</span>
+            <strong>
+              {progress.explored} de {progress.goal} palabras
+            </strong>
+          </div>
+          <div
+            className="learning-goal__ring"
+            style={
+              { "--learning-progress": `${String(progress.goalPercentage)}%` } as CSSProperties
+            }
+            aria-label={`${String(progress.goalPercentage)} por ciento de la meta`}
+          >
+            {progress.goalPercentage}%
+          </div>
+        </article>
+        <LearningStat value={progress.saved} label="Guardadas" accent="mint" />
+        <LearningStat value={progress.learning} label="Aprendiendo" accent="gold" />
+        <LearningStat value={progress.mastered} label="Dominadas" accent="green" />
+        <LearningStat value={progress.favorites} label="Favoritas" accent="rose" />
+      </section>
+
       {entries.length === 0 ? (
         <EmptyState
           icon="Aa"
           title="Aún no guardaste palabras"
-          text="En el lector, toca una palabra inglesa para ver su traducción y guardarla."
+          text="Activa el modo aprender inglés y toca una palabra para descubrir su significado, ejemplo y pronunciación."
           action={
-            <a className="primary-action" href="/library">
-              Abrir una lectura
+            <a className="primary-action" href="/settings">
+              Activar modo aprendizaje
             </a>
           }
         />
       ) : (
-        <section className="vocabulary-grid" aria-label="Palabras guardadas">
-          {entries.map((entry) => (
-            <article className="vocabulary-card" key={entry.id}>
-              <span>{entry.language === "en" ? "English" : "Español"}</span>
-              <h2 lang={entry.language}>{entry.word}</h2>
-              <p>{entry.translation}</p>
-              <button
-                className="quiet-button"
-                type="button"
-                onClick={() => {
-                  toggleVocabulary(window.localStorage, entry);
-                  setEntries(readVocabulary(window.localStorage));
+        <>
+          <section className="vocabulary-tools" aria-label="Filtros de vocabulario">
+            <label className="vocabulary-search">
+              <span className="visually-hidden">Buscar una palabra</span>
+              <span aria-hidden="true">⌕</span>
+              <input
+                type="search"
+                placeholder="Buscar palabra o traducción"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
                 }}
-              >
-                Quitar
-              </button>
-            </article>
-          ))}
-        </section>
+              />
+            </label>
+            <div className="vocabulary-filters" role="group" aria-label="Estado de estudio">
+              {(
+                [
+                  ["all", "Todas"],
+                  ["new", "Nuevas"],
+                  ["learning", "Aprendiendo"],
+                  ["mastered", "Dominadas"],
+                  ["favorites", "Favoritas"],
+                ] as const
+              ).map(([value, label]) => (
+                <button
+                  className={filter === value ? "active" : ""}
+                  type="button"
+                  aria-pressed={filter === value}
+                  onClick={() => {
+                    setFilter(value);
+                  }}
+                  key={value}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {visibleEntries.length === 0 ? (
+            <div className="vocabulary-no-results" role="status">
+              No hay palabras que coincidan con este filtro.
+            </div>
+          ) : (
+            <section className="vocabulary-grid" aria-label="Palabras guardadas">
+              {visibleEntries.map((entry) => (
+                <VocabularyCard entry={entry} onChanged={refresh} key={entry.id} />
+              ))}
+            </section>
+          )}
+        </>
       )}
+
+      {history.length > 0 ? (
+        <section className="learning-history" aria-labelledby="learning-history-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Actividad reciente</p>
+              <h2 id="learning-history-title">Palabras que exploraste</h2>
+            </div>
+            <button
+              className="quiet-button"
+              type="button"
+              onClick={() => {
+                clearLearningHistory(window.localStorage);
+                setHistory([]);
+              }}
+            >
+              Limpiar historial
+            </button>
+          </div>
+          <div className="learning-history__list">
+            {history.slice(0, 8).map((entry) => (
+              <div key={entry.id}>
+                <span lang={entry.language}>{entry.word}</span>
+                <strong>{entry.translation}</strong>
+                <small>
+                  {entry.visits === 1 ? "1 consulta" : `${String(entry.visits)} consultas`}
+                </small>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </ReaderShell>
   );
 };
+
+const LearningStat = ({
+  value,
+  label,
+  accent,
+}: {
+  value: number;
+  label: string;
+  accent: string;
+}) => (
+  <article className={`learning-stat learning-stat--${accent}`}>
+    <strong>{value}</strong>
+    <span>{label}</span>
+  </article>
+);
+
+const VocabularyCard = ({
+  entry,
+  onChanged,
+}: {
+  entry: VocabularyEntry;
+  onChanged: () => void;
+}) => (
+  <article className="vocabulary-card">
+    <div className="vocabulary-card__top">
+      <span className={`word-status word-status--${entry.status}`}>
+        {statusLabel(entry.status)}
+      </span>
+      <button
+        className={entry.favorite ? "word-favorite active" : "word-favorite"}
+        type="button"
+        aria-label={
+          entry.favorite
+            ? `Quitar ${entry.word} de palabras favoritas`
+            : `Marcar ${entry.word} como favorita`
+        }
+        aria-pressed={entry.favorite}
+        onClick={() => {
+          updateVocabulary(window.localStorage, entry.id, { favorite: !entry.favorite });
+          onChanged();
+        }}
+      >
+        {entry.favorite ? "★" : "☆"}
+      </button>
+    </div>
+    <span>{entry.language === "en" ? "English" : "Español"}</span>
+    <h2 lang={entry.language}>{entry.word}</h2>
+    <p className="vocabulary-card__translation">{entry.translation}</p>
+    {entry.sourceExample !== "" ? (
+      <blockquote>
+        <span>En contexto</span>
+        <q lang={entry.language}>{entry.sourceExample}</q>
+        <small>{entry.translatedExample}</small>
+      </blockquote>
+    ) : null}
+    <div className="vocabulary-card__actions">
+      <label>
+        <span className="visually-hidden">Avance de {entry.word}</span>
+        <select
+          value={entry.status}
+          onChange={(event) => {
+            updateVocabulary(window.localStorage, entry.id, {
+              status: event.target.value as VocabularyEntry["status"],
+              reviewCount: entry.reviewCount + 1,
+              lastReviewedAt: new Date().toISOString(),
+            });
+            onChanged();
+          }}
+        >
+          <option value="new">Nueva</option>
+          <option value="learning">Aprendiendo</option>
+          <option value="mastered">Dominada</option>
+        </select>
+      </label>
+      <button
+        className="quiet-button"
+        type="button"
+        onClick={() => {
+          speakVocabularyWord(entry);
+        }}
+      >
+        ▶ Escuchar
+      </button>
+      <button
+        className="quiet-button quiet-button--danger"
+        type="button"
+        aria-label={`Quitar ${entry.word}`}
+        onClick={() => {
+          toggleVocabulary(window.localStorage, entry);
+          onChanged();
+        }}
+      >
+        Quitar
+      </button>
+    </div>
+    <small className="vocabulary-card__reviews">
+      {entry.reviewCount === 0
+        ? "Aún sin repasos"
+        : `${String(entry.reviewCount)} ${entry.reviewCount === 1 ? "repaso" : "repasos"}`}
+    </small>
+  </article>
+);
 
 export const SettingsPage = () => {
   const [preferences, setPreferences] = useState(() => readPreferences(window.localStorage));
@@ -1135,6 +1347,14 @@ export const SettingsPage = () => {
               checked={preferences.narrationEnabled}
               onChange={(checked) => {
                 update({ ...preferences, narrationEnabled: checked });
+              }}
+            />
+            <SwitchSetting
+              label="Mostrar traducción al abrir"
+              description="Presenta el párrafo editorial en español dentro del modo aprendizaje."
+              checked={preferences.showTranslation}
+              onChange={(checked) => {
+                update({ ...preferences, showTranslation: checked });
               }}
             />
           </fieldset>
@@ -1389,6 +1609,30 @@ const normalize = (value: string) =>
 
 const progressPercent = (positionMs: number, durationMs: number) =>
   durationMs <= 0 ? 0 : Math.min(100, Math.round((positionMs / durationMs) * 100));
+
+const statusLabel = (status: VocabularyEntry["status"]) => {
+  if (status === "mastered") {
+    return "Dominada";
+  }
+  if (status === "learning") {
+    return "Aprendiendo";
+  }
+  return "Nueva";
+};
+
+const speakVocabularyWord = (entry: VocabularyEntry) => {
+  if (
+    typeof window.speechSynthesis === "undefined" ||
+    typeof SpeechSynthesisUtterance === "undefined"
+  ) {
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(entry.word);
+  utterance.lang = entry.language === "en" ? "en-US" : "es-ES";
+  utterance.rate = 0.8;
+  window.speechSynthesis.speak(utterance);
+};
 
 const languageLabel = (language: "es" | "en") => (language === "es" ? "Español" : "English");
 

@@ -22,6 +22,7 @@ export type ReaderPreferences = {
   narrationEnabled: boolean;
   defaultLanguage: ReaderLanguage;
   playbackRate: number;
+  showTranslation: boolean;
 };
 
 export type ReadingHistoryEntry = {
@@ -42,6 +43,25 @@ export type VocabularyEntry = {
   translation: string;
   language: ReaderLanguage;
   savedAt: string;
+  meaning: string;
+  sourceExample: string;
+  translatedExample: string;
+  favorite: boolean;
+  status: VocabularyStatus;
+  reviewCount: number;
+  lastReviewedAt: string | null;
+};
+
+export type VocabularyStatus = "new" | "learning" | "mastered";
+
+export type LearningHistoryEntry = {
+  id: string;
+  slug: string;
+  word: string;
+  translation: string;
+  language: ReaderLanguage;
+  visits: number;
+  viewedAt: string;
 };
 
 type StorageReader = Pick<Storage, "getItem">;
@@ -50,6 +70,7 @@ type StorageWriter = Pick<Storage, "getItem" | "setItem">;
 const FAVORITES_KEY = "followread-reader-favorites-v1";
 const HISTORY_KEY = "followread-reader-history-v1";
 const VOCABULARY_KEY = "followread-reader-vocabulary-v1";
+const LEARNING_HISTORY_KEY = "followread-reader-learning-history-v1";
 const PREFERENCES_KEY = "followread-reader-preferences-v1";
 
 export const DEFAULT_READER_PREFERENCES: ReaderPreferences = {
@@ -62,6 +83,7 @@ export const DEFAULT_READER_PREFERENCES: ReaderPreferences = {
   narrationEnabled: true,
   defaultLanguage: "es",
   playbackRate: 1,
+  showTranslation: false,
 };
 
 /**
@@ -92,6 +114,10 @@ export const readPreferences = (storage: StorageReader): ReaderPreferences => {
       2,
       DEFAULT_READER_PREFERENCES.playbackRate,
     ),
+    showTranslation: readBoolean(
+      value["showTranslation"],
+      DEFAULT_READER_PREFERENCES.showTranslation,
+    ),
   };
 };
 
@@ -114,6 +140,7 @@ export const preferencesForMode = (
       showPointer: true,
       defaultLanguage: "es",
       playbackRate: 1,
+      showTranslation: false,
     };
   }
   if (mode === "learning") {
@@ -124,6 +151,7 @@ export const preferencesForMode = (
       showPointer: true,
       defaultLanguage: "en",
       playbackRate: 0.75,
+      showTranslation: false,
     };
   }
   return {
@@ -133,6 +161,7 @@ export const preferencesForMode = (
     showPointer: false,
     defaultLanguage: "es",
     playbackRate: 1,
+    showTranslation: false,
   };
 };
 
@@ -178,6 +207,7 @@ export const readVocabulary = (storage: StorageReader): VocabularyEntry[] => {
   return Array.isArray(value)
     ? value
         .filter(isVocabularyEntry)
+        .map(normalizeVocabularyEntry)
         .sort((left, right) => right.savedAt.localeCompare(left.savedAt))
     : [];
 };
@@ -188,6 +218,67 @@ export const toggleVocabulary = (storage: StorageWriter, entry: VocabularyEntry)
   const next = exists ? vocabulary.filter((item) => item.id !== entry.id) : [entry, ...vocabulary];
   storage.setItem(VOCABULARY_KEY, JSON.stringify(next));
   return !exists;
+};
+
+export const updateVocabulary = (
+  storage: StorageWriter,
+  id: string,
+  updates: Partial<Pick<VocabularyEntry, "favorite" | "status" | "reviewCount" | "lastReviewedAt">>,
+): VocabularyEntry | null => {
+  const vocabulary = readVocabulary(storage);
+  const current = vocabulary.find((entry) => entry.id === id);
+  if (current === undefined) {
+    return null;
+  }
+  const updated = { ...current, ...updates };
+  storage.setItem(
+    VOCABULARY_KEY,
+    JSON.stringify(vocabulary.map((entry) => (entry.id === id ? updated : entry))),
+  );
+  return updated;
+};
+
+export const reviewVocabulary = (storage: StorageWriter, id: string): VocabularyEntry | null => {
+  const current = readVocabulary(storage).find((entry) => entry.id === id);
+  if (current === undefined) {
+    return null;
+  }
+  return updateVocabulary(storage, id, {
+    status: current.status === "new" ? "learning" : current.status,
+    reviewCount: current.reviewCount + 1,
+    lastReviewedAt: new Date().toISOString(),
+  });
+};
+
+export const readLearningHistory = (storage: StorageReader): LearningHistoryEntry[] => {
+  const value = readUnknown(storage, LEARNING_HISTORY_KEY);
+  return Array.isArray(value)
+    ? value
+        .filter(isLearningHistoryEntry)
+        .sort((left, right) => right.viewedAt.localeCompare(left.viewedAt))
+    : [];
+};
+
+export const recordLearningHistory = (
+  storage: StorageWriter,
+  entry: Omit<LearningHistoryEntry, "visits" | "viewedAt">,
+): LearningHistoryEntry => {
+  const history = readLearningHistory(storage);
+  const existing = history.find((item) => item.id === entry.id);
+  const updated = {
+    ...entry,
+    visits: (existing?.visits ?? 0) + 1,
+    viewedAt: new Date().toISOString(),
+  };
+  storage.setItem(
+    LEARNING_HISTORY_KEY,
+    JSON.stringify([updated, ...history.filter((item) => item.id !== entry.id)].slice(0, 100)),
+  );
+  return updated;
+};
+
+export const clearLearningHistory = (storage: StorageWriter): void => {
+  storage.setItem(LEARNING_HISTORY_KEY, "[]");
 };
 
 export const vocabularyId = (slug: string, language: ReaderLanguage, word: string): string =>
@@ -201,11 +292,17 @@ export const createVocabularyEntry = ({
   word,
   translation,
   language,
+  meaning = "",
+  sourceExample = "",
+  translatedExample = "",
 }: {
   slug: string;
   word: string;
   translation: string;
   language: ReaderLanguage;
+  meaning?: string;
+  sourceExample?: string;
+  translatedExample?: string;
 }): VocabularyEntry => ({
   id: vocabularyId(slug, language, word),
   slug,
@@ -213,6 +310,13 @@ export const createVocabularyEntry = ({
   translation,
   language,
   savedAt: new Date().toISOString(),
+  meaning,
+  sourceExample,
+  translatedExample,
+  favorite: false,
+  status: "new",
+  reviewCount: 0,
+  lastReviewedAt: null,
 });
 
 const readUnknown = (storage: StorageReader, key: string): unknown => {
@@ -266,3 +370,30 @@ const isVocabularyEntry = (value: unknown): value is VocabularyEntry =>
   typeof value["translation"] === "string" &&
   isReaderLanguage(value["language"]) &&
   typeof value["savedAt"] === "string";
+
+const normalizeVocabularyEntry = (entry: VocabularyEntry): VocabularyEntry => ({
+  ...entry,
+  meaning: typeof entry.meaning === "string" ? entry.meaning : "",
+  sourceExample: typeof entry.sourceExample === "string" ? entry.sourceExample : "",
+  translatedExample: typeof entry.translatedExample === "string" ? entry.translatedExample : "",
+  favorite: typeof entry.favorite === "boolean" ? entry.favorite : false,
+  status: isVocabularyStatus(entry.status) ? entry.status : "new",
+  reviewCount:
+    typeof entry.reviewCount === "number" && Number.isFinite(entry.reviewCount)
+      ? Math.max(0, entry.reviewCount)
+      : 0,
+  lastReviewedAt: typeof entry.lastReviewedAt === "string" ? entry.lastReviewedAt : null,
+});
+
+const isVocabularyStatus = (value: unknown): value is VocabularyStatus =>
+  value === "new" || value === "learning" || value === "mastered";
+
+const isLearningHistoryEntry = (value: unknown): value is LearningHistoryEntry =>
+  isRecord(value) &&
+  typeof value["id"] === "string" &&
+  typeof value["slug"] === "string" &&
+  typeof value["word"] === "string" &&
+  typeof value["translation"] === "string" &&
+  isReaderLanguage(value["language"]) &&
+  typeof value["visits"] === "number" &&
+  typeof value["viewedAt"] === "string";

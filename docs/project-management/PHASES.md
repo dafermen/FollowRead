@@ -274,3 +274,27 @@ preservando web/PWA, offline, accesibilidad y la separación total de Admin.
 Fase 10 cerrada el 2026-07-26. Evidencia: `PHASE_10_REVIEW.md` y
 `../testing/PHASE_10_MOBILE.md`. La prueba iOS física no puede ejecutarse en Windows y permanece
 obligatoria antes de TestFlight, sin bloquear el desarrollo de la Fase 11.
+
+## Fase 11 - Cerrada
+
+### Objetivo
+
+Implementar funciones educativas dentro del Reader sin sacar al estudiante del cuento ni depender
+de inteligencia artificial para capacidades esenciales.
+
+### Criterios de salida
+
+1. Traducción editorial visible/oculta conserva la posición de lectura.
+2. Palabra y oración pueden repetirse respetando marcas y velocidad.
+3. Seleccionar palabra muestra significado y ejemplos bilingües contextuales.
+4. Vocabulario, favoritas e historial persisten localmente sin PII.
+5. Estados nueva/aprendiendo/dominada, repasos y métricas muestran progreso privado.
+6. La pantalla Mi vocabulario permite buscar, filtrar, escuchar y eliminar.
+7. Teclado, foco, idiomas, Escape, reflow y offline conservan accesibilidad.
+8. Dominio, storage, React, Chrome real, móvil y puerta integral quedan en verde.
+
+### Resultado
+
+Fase 11 cerrada el 2026-07-26. Evidencia: `PHASE_11_REVIEW.md`,
+`../architecture/LEARNING_MODE.md` y `../testing/PHASE_11_LEARNING.md`. La siguiente fase es
+**Fase 12 - Calidad, seguridad y rendimiento**.

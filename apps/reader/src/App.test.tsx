@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { App } from "./App.js";
@@ -409,7 +409,7 @@ describe("FollowRead Reader", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: "moon" })).toBeVisible();
-    fireEvent.click(screen.getByRole("button", { name: "Quitar" }));
+    fireEvent.click(screen.getByRole("button", { name: "Quitar moon" }));
     expect(screen.getByRole("heading", { name: "Aún no guardaste palabras" })).toBeVisible();
   });
 
@@ -433,12 +433,22 @@ describe("FollowRead Reader", () => {
     render(<App />);
 
     await screen.findByRole("heading", { name: "A Light in the Forest" });
+    expect(screen.getByText("Modo aprender inglés")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Mostrar traducción" }));
+    expect(screen.getByText("Milo mira la luna.")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "watches" }));
     expect(screen.getByRole("heading", { name: "watches" })).toBeVisible();
     expect(screen.getByText("mira")).toBeVisible();
+    expect(screen.getByText(/En este cuento/)).toBeVisible();
+    expect(screen.getByText("Milo watches the moon.")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: /Guardar palabra/ }));
     expect(screen.getByRole("button", { name: /Guardada/ })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Marcar como palabra favorita" }));
+    expect(screen.getByRole("button", { name: "Quitar de palabras favoritas" })).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Cerrar ayuda de palabra" }));
     expect(screen.queryByRole("heading", { name: "watches" })).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "watches" })).toHaveFocus();
+    });
   });
 });

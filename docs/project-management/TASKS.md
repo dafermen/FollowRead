@@ -2474,3 +2474,214 @@ completa quedan en verde; validación iOS física permanece como gate externo de
 **Fecha de inicio:** 2026-07-26
 **Fecha de finalización:** 2026-07-26
 **Siguiente acción:** Descomponer la Fase 11.
+
+---
+
+## Resumen de Fase 11
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH11-TASK-001 | Descomponer y activar la Fase 11 | COMPLETED | Critical |
+| FR-PH11-TASK-002 | Definir el dominio educativo editorial | COMPLETED | Critical |
+| FR-PH11-TASK-003 | Crear la experiencia visual de aprendizaje | COMPLETED | Critical |
+| FR-PH11-TASK-004 | Mostrar u ocultar traducción contextual | COMPLETED | Critical |
+| FR-PH11-TASK-005 | Implementar significado y ejemplos | COMPLETED | Critical |
+| FR-PH11-TASK-006 | Completar repetición y velocidad | COMPLETED | Critical |
+| FR-PH11-TASK-007 | Ampliar vocabulario y palabras favoritas | COMPLETED | High |
+| FR-PH11-TASK-008 | Registrar historial y progreso educativo | COMPLETED | High |
+| FR-PH11-TASK-009 | Rediseñar la pantalla Mi vocabulario | COMPLETED | High |
+| FR-PH11-TASK-010 | Verificar accesibilidad, offline y móvil | COMPLETED | Critical |
+| FR-PH11-TASK-011 | Automatizar pruebas de aprendizaje | COMPLETED | Critical |
+| FR-PH11-TASK-012 | Documentar, auditar y cerrar la Fase 11 | COMPLETED | Critical |
+
+---
+
+## FR-PH11-TASK-001
+
+**Título:** Descomponer y activar la Fase 11
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** Fase 10.
+**Criterios de aceptación:** Las once actividades de la página 24 del prompt y la prohibición de
+dependencia esencial de IA quedan convertidas en tareas verificables.
+**Pruebas requeridas:** Extracción textual y revisión visual del prompt maestro.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-002
+
+**Título:** Definir el dominio educativo editorial
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-001.
+**Criterios de aceptación:** Párrafos bilingües y Speech Marks producen fichas deterministas,
+ejemplos y progreso sin diccionario externo ni IA.
+**Pruebas requeridas:** `learningDomain.test.ts`.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-003
+
+**Título:** Crear la experiencia visual de aprendizaje
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-002.
+**Criterios de aceptación:** Toolbar, métricas, palabras interactivas y panel contextual son
+visibles sin ocultar reproducción ni progreso.
+**Pruebas requeridas:** React, Chrome y revisión de capturas.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-004
+
+**Título:** Mostrar u ocultar traducción contextual
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-002 y 003.
+**Criterios de aceptación:** Cada párrafo muestra su traducción editorial pareada bajo demanda y la
+preferencia se conserva localmente.
+**Pruebas requeridas:** Integración React y Chrome real.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-005
+
+**Título:** Implementar significado y ejemplos
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-002.
+**Criterios de aceptación:** La palabra seleccionada expone equivalente, explicación contextual,
+ejemplo original y ejemplo traducido, con fallback explícito.
+**Pruebas requeridas:** Dominio, React y E2E.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-006
+
+**Título:** Completar repetición y velocidad
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** Reader Engine de Fase 7.
+**Criterios de aceptación:** Palabra y oración se reinician desde marcas canónicas; velocidad
+0.5x-2x sigue disponible y no duplica lógica temporal.
+**Pruebas requeridas:** Reader Engine, React y regresión de narración.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-007
+
+**Título:** Ampliar vocabulario y palabras favoritas
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** High
+**Dependencias:** FR-PH11-TASK-005.
+**Criterios de aceptación:** Guardar, quitar, marcar favorita, buscar y filtrar funciona con
+migración segura de registros locales anteriores.
+**Pruebas requeridas:** Storage, React y E2E.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-008
+
+**Título:** Registrar historial y progreso educativo
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** High
+**Dependencias:** FR-PH11-TASK-007.
+**Criterios de aceptación:** Se conservan hasta 100 consultas, contador, estado nueva/aprendiendo/
+dominada, repasos y resumen local sin PII.
+**Pruebas requeridas:** Storage y dominio.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-009
+
+**Título:** Rediseñar la pantalla Mi vocabulario
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** High
+**Dependencias:** FR-PH11-TASK-007 y 008.
+**Criterios de aceptación:** Dashboard, meta, tarjetas contextuales, búsqueda, filtros, audio,
+estados e historial forman un recorrido visual completo.
+**Pruebas requeridas:** React y capturas desktop/móvil.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-010
+
+**Título:** Verificar accesibilidad, offline y móvil
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-003 a 009.
+**Criterios de aceptación:** Idiomas, teclado, foco restaurado, Escape, estados textuales, reflow a
+390 px y datos del paquete descargado funcionan sin servicio externo.
+**Pruebas requeridas:** React, Chrome, E2E móvil y revisión manual.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-011
+
+**Título:** Automatizar pruebas de aprendizaje
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-002 a 010.
+**Criterios de aceptación:** Vitest y Chrome real comprueban traducción, contexto, ejemplo,
+persistencia, favorito, historial, filtro y ausencia de overflow.
+**Pruebas requeridas:** `pnpm reader:learning-e2e` y cobertura Reader.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH11-TASK-012
+
+**Título:** Documentar, auditar y cerrar la Fase 11
+**Fase:** 11
+**Estado:** COMPLETED
+**Prioridad:** Critical
+**Dependencias:** FR-PH11-TASK-001 a 011.
+**Criterios de aceptación:** Arquitectura, pruebas, operación, tareas y revisión cubren todas las
+actividades del prompt; la puerta completa queda verde.
+**Pruebas requeridas:** `pnpm check`, E2E y revisión de fase.
+**Fecha de inicio:** 2026-07-26
+**Fecha de finalización:** 2026-07-26
+**Siguiente acción:** Descomponer la Fase 12.

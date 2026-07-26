@@ -1,16 +1,17 @@
 # Estado del proyecto FollowRead
 
 **Última actualización:** 2026-07-26  
-**Fase activa:** Fase 11 - Modo aprender inglés
+**Fase activa:** Fase 12 - Calidad, seguridad y rendimiento
 **Estado de la fase:** NOT_STARTED  
-**Tarea activa:** Descomponer y activar la Fase 11
+**Tarea activa:** Descomponer y activar la Fase 12
 **Estado de la tarea:** NEXT
 
 ## Resumen ejecutivo
 
-Fases 0 a 10 están completadas y auditadas. Reader ya es una aplicación web/PWA/Android/iOS con
+Fases 0 a 11 están completadas y auditadas. Reader ya es una aplicación web/PWA/Android/iOS con
 descubrimiento, preferencias, voz local, descargas verificadas, lectura sin conexión,
-sincronización y proyectos Capacitor. La siguiente fase completa el modo aprender inglés.
+sincronización, proyectos Capacitor y un modo aprender inglés completo. La siguiente fase estabiliza
+calidad, seguridad y rendimiento.
 FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
 audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
@@ -32,9 +33,10 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | Tareas de Fase 8 completadas | 12 de 12 |
 | Tareas de Fase 9 completadas | 11 de 11 |
 | Tareas de Fase 10 completadas | 12 de 12 |
+| Tareas de Fase 11 completadas | 12 de 12 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
-| Decisiones aceptadas | 14 |
+| Decisiones aceptadas | 15 |
 | Decisiones abiertas | 1 |
 | Riesgos abiertos | 8 |
 | Problemas conocidos abiertos | 0 |
@@ -44,7 +46,7 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | Área | Estado | Observación |
 |---|---|---|
 | FollowRead Admin | PHASE_5_COMPLETED | Recorrido editorial y publicación completos |
-| FollowRead Reader | PHASE_9_COMPLETED | Web/PWA con descargas y lectura offline |
+| FollowRead Reader | PHASE_11_COMPLETED | Web/PWA/móvil con aprendizaje y offline |
 | FollowRead API | PHASE_9_COMPLETED | Paquete canónico y sincronización idempotente |
 | Reader Engine | PHASE_7_COMPLETED | Motor determinista sin React ni DOM |
 | AWS / Polly / S3 | POLLY_BOUNDARY_READY | Fake local por defecto; AWS opcional y desacoplado |
@@ -91,4 +93,4 @@ sigue abierta, pero no se necesita hasta Fase 14.
 
 ## Regla de continuación
 
-Descomponer la Fase 11 antes de ampliar funciones educativas.
+Descomponer la Fase 12 antes de iniciar optimización o cambios de seguridad.

@@ -633,3 +633,21 @@ descomponer la Fase 10.
 
 FR-PH10-TASK-001 a 012 quedaron `COMPLETED`. La Fase 10 quedó cerrada en PASS; el siguiente paso es
 descomponer la Fase 11.
+
+---
+
+## Continuación 2026-07-26 - Modo aprender inglés
+
+- Se revisó textual y visualmente la página 24 del prompt maestro.
+- `learningDomain.ts` construye significado y ejemplos desde el paquete bilingüe editorial.
+- El lector muestra una toolbar educativa y traducción por párrafo visible u oculta.
+- El panel contextual permite repetir palabra/oración, guardar, marcar favorita y cambiar estado.
+- Vocabulario conserva contexto, favorito, nueva/aprendiendo/dominada, repasos e historial.
+- Mi vocabulario se rediseñó con meta, métricas, búsqueda, filtros, tarjetas y actividad reciente.
+- No se incorporó IA, diccionario externo, PII ni dependencia de red para funciones esenciales.
+- Se añadieron pruebas de dominio/storage/React y `reader:learning-e2e` con capturas desktop/móvil.
+- El recorrido Chrome confirmó persistencia, filtro Favoritas y ausencia de overflow a 390 × 844.
+- La puerta final pasó con la cobertura y builds completos del monorepo.
+
+FR-PH11-TASK-001 a 012 quedaron `COMPLETED`. La Fase 11 quedó cerrada en PASS; el siguiente paso es
+descomponer la Fase 12.

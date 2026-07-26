@@ -165,6 +165,18 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
   audio, interrupciones, batería y pruebas de tienda. Cualquier secreto requerirá almacenamiento
   cifrado nativo; los datos no sensibles actuales no.
 
+### FR-DEC-016 - Apoyos educativos deterministas desde el paquete bilingüe
+
+- **Fecha:** 2026-07-26
+- **Estado:** ACCEPTED
+- **Decisión:** El modo aprendizaje obtiene traducción, significado y ejemplos esenciales desde
+  párrafos bilingües pareados por `stable_key` y Speech Marks del paquete publicado. La alineación
+  relativa de palabra es un fallback explícito del MVP.
+- **Razón:** Permite aprendizaje offline, conserva revisión editorial y cumple la prohibición de
+  depender inicialmente de IA.
+- **Consecuencias:** Acepciones complejas requerirán un glosario o alineación editorial versionada.
+  Una integración futura con IA sólo puede ser opcional, identificada y degradable.
+
 ## Decisiones abiertas
 
 ### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio
