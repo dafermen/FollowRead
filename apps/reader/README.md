@@ -20,9 +20,9 @@ Abre `http://localhost:5174/`. El cuento **El zorro y la luna** permite:
 - escuchar una voz instalada en el dispositivo, sin API key;
 - usar modos infantil, adulto y aprendizaje;
 - guardar favoritos, historial y vocabulario local no sensible;
+- gestionar descargas verificadas desde `/downloads`;
+- leer el cuento incluido sin API y sincronizar el progreso al reconectar;
 - instalar el shell como PWA en navegadores compatibles.
-
-Las descargas completas de cuentos para uso offline pertenecen a la Fase 9.
 
 ## Comandos
 
@@ -30,6 +30,8 @@ Las descargas completas de cuentos para uso offline pertenecen a la Fase 9.
 - `pnpm --filter @followread/reader test`
 - `pnpm --filter @followread/reader build`
 - `pnpm reader:e2e` con API y Reader activos
+- `pnpm offline:bootstrap` con la API activa
+- `pnpm reader:offline-e2e` para bloquear/restaurar red en Chrome
 
 La narración audible depende de las voces y permisos disponibles en el navegador. Si no existe una
 voz compatible, el seguimiento visual sigue funcionando y muestra un aviso recuperable.

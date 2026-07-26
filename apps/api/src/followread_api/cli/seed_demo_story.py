@@ -27,6 +27,8 @@ from followread_api.models import (
     ResourceStatus,
 )
 from followread_api.services import FakePollyAdapter, LocalAudioStorage, PollyProcessingService
+from followread_api.services.package_integrity import reader_package_checksum
+from followread_api.services.reader_package import ReaderPackageService
 
 STORY_SLUG = "el-zorro-y-la-luna"
 STORY_COVER_URI = "/stories/el-zorro-y-la-luna-cover.png"
@@ -134,6 +136,10 @@ def seed_demo_story(
 ) -> tuple[ReadingContent, bool]:
     existing = session.scalar(select(ReadingContent).where(ReadingContent.slug == STORY_SLUG))
     if existing is not None:
+        if existing.publication is not None:
+            package = ReaderPackageService(session).get_package(existing.slug)
+            existing.publication.version.checksum = reader_package_checksum(package)
+            session.commit()
         return existing, False
 
     level = session.scalar(
@@ -232,6 +238,10 @@ def seed_demo_story(
             is_active=True,
             published_at=datetime.now(UTC),
         ),
+    )
+    session.commit()
+    version.checksum = reader_package_checksum(
+        ReaderPackageService(session).get_package(content.slug)
     )
     session.commit()
     return content, True

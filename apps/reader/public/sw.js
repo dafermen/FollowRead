@@ -1,5 +1,11 @@
-const SHELL_CACHE = "followread-shell-v1";
-const SHELL_ASSETS = ["/", "/manifest.webmanifest", "/icons/followread.svg"];
+const SHELL_CACHE = "followread-shell-v2";
+const CONTENT_CACHE = "followread-content-v1";
+const SHELL_ASSETS = [
+  "/",
+  "/offline/bootstrap.json",
+  "/manifest.webmanifest",
+  "/icons/followread.svg",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(SHELL_CACHE).then((cache) => cache.addAll(SHELL_ASSETS)));
@@ -11,7 +17,11 @@ self.addEventListener("activate", (event) => {
     caches
       .keys()
       .then((keys) =>
-        Promise.all(keys.filter((key) => key !== SHELL_CACHE).map((key) => caches.delete(key))),
+        Promise.all(
+          keys
+            .filter((key) => key !== SHELL_CACHE && key !== CONTENT_CACHE)
+            .map((key) => caches.delete(key)),
+        ),
       ),
   );
   self.clients.claim();
@@ -33,7 +43,13 @@ self.addEventListener("fetch", (event) => {
       })
       .catch(async () => {
         const cached = await caches.match(request);
-        return cached ?? (await caches.match("/"));
+        if (cached !== undefined) {
+          return cached;
+        }
+        if (request.mode === "navigate") {
+          return (await caches.match("/")) ?? Response.error();
+        }
+        return Response.error();
       }),
   );
 });

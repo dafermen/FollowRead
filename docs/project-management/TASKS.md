@@ -148,6 +148,22 @@ aceptación correspondientes están satisfechos.
 | FR-PH08-TASK-011 | Añadir pruebas de integración y E2E | COMPLETED | Critical |
 | FR-PH08-TASK-012 | Documentar, auditar y cerrar la Fase 8 | COMPLETED | Critical |
 
+## Resumen de Fase 9
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH09-TASK-001 | Descomponer y activar la Fase 9 | COMPLETED | Critical |
+| FR-PH09-TASK-002 | Alinear paquete publicado y checksum | COMPLETED | Critical |
+| FR-PH09-TASK-003 | Crear catálogo y repositorio local | COMPLETED | Critical |
+| FR-PH09-TASK-004 | Combinar catálogos y comparar versiones | COMPLETED | Critical |
+| FR-PH09-TASK-005 | Descargar, validar y activar atómicamente | COMPLETED | Critical |
+| FR-PH09-TASK-006 | Gestionar espacio, descargas y eliminación | COMPLETED | High |
+| FR-PH09-TASK-007 | Abrir contenido y apoyos sin conexión | COMPLETED | Critical |
+| FR-PH09-TASK-008 | Encolar y sincronizar progreso idempotente | COMPLETED | Critical |
+| FR-PH09-TASK-009 | Actualizar y recuperar ante fallos | COMPLETED | Critical |
+| FR-PH09-TASK-010 | Verificar accesibilidad, fallos y E2E offline | COMPLETED | Critical |
+| FR-PH09-TASK-011 | Documentar, auditar y cerrar la Fase 9 | COMPLETED | Critical |
+
 ---
 
 ## FR-PH00-TASK-001
@@ -2089,3 +2105,179 @@ completa, evidencia visual y documentación quedan actualizadas.
 **Fecha de inicio:** 2026-07-26  
 **Fecha de finalización:** 2026-07-26  
 **Siguiente acción:** Descomponer la Fase 9.
+
+---
+
+## FR-PH09-TASK-001
+
+**Título:** Descomponer y activar la Fase 9  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** Fase 8 COMPLETED.  
+**Criterios de aceptación:** Las catorce actividades del prompt se relacionan con FR-OFFLINE-001 a
+008, reglas, flujos, almacenamiento, sincronización y pruebas.  
+**Pruebas requeridas:** Revisión del prompt, requisitos, arquitectura y wireframes.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Ejecutar FR-PH09-TASK-002.
+
+---
+
+## FR-PH09-TASK-002
+
+**Título:** Alinear paquete publicado y checksum  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-001.  
+**Criterios de aceptación:** API y navegador calculan SHA-256 sobre los mismos bytes canónicos y
+publicación/siembra persisten el valor verificable.  
+**Pruebas requeridas:** Respuesta canónica, checksum válido/alterado y publicación.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-003
+
+**Título:** Crear catálogo y repositorio local  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-002.  
+**Criterios de aceptación:** IndexedDB conserva paquetes, metadatos activos y operaciones; un
+contenido inicial verificable forma parte del build.  
+**Pruebas requeridas:** CRUD, apertura, migración, dato corrupto y bootstrap sin red.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-004
+
+**Título:** Combinar catálogos y comparar versiones  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-003.  
+**Criterios de aceptación:** Catálogo local/remoto se combina sin duplicados y comunica disponible,
+descargado, actualización, sólo local e incompatible.  
+**Pruebas requeridas:** Nuevo, igual, superior, retirado, incompatible y sin red.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-005
+
+**Título:** Descargar, validar y activar atómicamente  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-002 a 004.  
+**Criterios de aceptación:** Sólo un paquete completo, compatible y con checksum válido reemplaza
+el puntero activo; el temporal nunca queda visible.  
+**Pruebas requeridas:** Éxito, corrupción, interrupción, duplicado y rollback.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-006
+
+**Título:** Gestionar espacio, descargas y eliminación  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** High  
+**Dependencias:** FR-PH09-TASK-005.  
+**Criterios de aceptación:** Límite por paquete, estimación de uso, advertencia, rechazo, reintento
+y eliminación local preservan progreso.  
+**Pruebas requeridas:** 100 MB, 250 MB, cuota insuficiente, eliminar y reintentar.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-007
+
+**Título:** Abrir contenido y apoyos sin conexión  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-003 a 006.  
+**Criterios de aceptación:** Biblioteca, detalle, texto, marcas, ilustración, voz local, aprendizaje
+y progreso funcionan sin API para un paquete activo.  
+**Pruebas requeridas:** Primer inicio, offline posterior, lectura y vocabulario.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-008
+
+**Título:** Encolar y sincronizar progreso idempotente  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-003 y API de progreso.  
+**Criterios de aceptación:** Operaciones con UUID se conservan hasta confirmación, reenvío no
+duplica y la posición remota no retrocede silenciosamente.  
+**Pruebas requeridas:** Offline, reconexión, triple reenvío, conflicto y error.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-009
+
+**Título:** Actualizar y recuperar ante fallos  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-004 a 008.  
+**Criterios de aceptación:** Refresco detecta versiones, actualiza sólo cambios, migra anclaje y
+conserva la versión anterior ante fallo.  
+**Pruebas requeridas:** Actualización válida, corrupta, retirada e incompatible.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-010
+
+**Título:** Verificar accesibilidad, fallos y E2E offline  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-003 a 009.  
+**Criterios de aceptación:** Estados usan texto/semántica, teclado y 320 px; Chrome demuestra
+descarga, desconexión, lectura, progreso, reconexión y corrupción.  
+**Pruebas requeridas:** Vitest, API y Chrome real offline.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Completada.
+
+---
+
+## FR-PH09-TASK-011
+
+**Título:** Documentar, auditar y cerrar la Fase 9  
+**Fase:** 9  
+**Estado:** COMPLETED  
+**Prioridad:** Critical  
+**Dependencias:** FR-PH09-TASK-001 a 010.  
+**Criterios de aceptación:** Actividades, requisitos, criterios de salida, evidencia y operación
+quedan documentados; la puerta completa pasa.  
+**Pruebas requeridas:** `pnpm check` desde SQLite sembrada y auditoría final.  
+**Fecha de inicio:** 2026-07-26  
+**Fecha de finalización:** 2026-07-26  
+**Siguiente acción:** Descomponer la Fase 10.

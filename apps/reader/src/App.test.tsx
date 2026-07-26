@@ -2,6 +2,8 @@ import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { App } from "./App.js";
+import { sha256Checksum } from "./offlineDomain.js";
+import { resetOfflineStateForTests } from "./offlineService.js";
 import type { ReaderPackage } from "./readerClient.js";
 
 const storyPackage: ReaderPackage = {
@@ -117,6 +119,8 @@ const storyPackage: ReaderPackage = {
     },
   ],
 };
+const storyPayload = JSON.stringify(storyPackage);
+const storyChecksum = await sha256Checksum(storyPayload);
 
 const catalogPage = {
   items: [
@@ -132,7 +136,7 @@ const catalogPage = {
       ],
       languages: ["es", "en"],
       version: 1,
-      checksum: "demo-checksum",
+      checksum: storyChecksum,
       package_url: "/catalog/el-zorro-y-la-luna/reader-package",
       minimum_app_version: "0.0.0",
       published_at: "2026-07-24T00:00:00Z",
@@ -148,7 +152,13 @@ const respondWithStory = () => {
     "fetch",
     vi.fn((input: string | URL | Request) => {
       const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
-      const body = url.includes("/reader-package") ? storyPackage : catalogPage;
+      const body = url.endsWith("/offline/bootstrap.json")
+        ? { schema_version: 1, catalog: [], package_payloads: {} }
+        : url.includes("/reader/sync")
+          ? { confirmed: [], rejected: [] }
+          : url.includes("/reader-package")
+            ? storyPackage
+            : catalogPage;
       return Promise.resolve(new Response(JSON.stringify(body), { status: 200 }));
     }),
   );
@@ -166,6 +176,7 @@ describe("FollowRead Reader", () => {
 
   afterEach(() => {
     cleanup();
+    resetOfflineStateForTests();
     vi.useRealTimers();
     vi.unstubAllGlobals();
   });
@@ -284,6 +295,7 @@ describe("FollowRead Reader", () => {
     expect(
       await screen.findByRole("heading", { name: "Encuentra tu próxima lectura" }),
     ).toBeVisible();
+    expect(await screen.findByRole("link", { name: /El zorro y la luna/ })).toBeVisible();
     fireEvent.change(screen.getByRole("searchbox", { name: "Buscar" }), {
       target: { value: "inexistente" },
     });
@@ -319,6 +331,25 @@ describe("FollowRead Reader", () => {
     expect(await screen.findByRole("heading", { name: "El zorro y la luna" })).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: /Quitar El zorro/ }));
     expect(screen.getByRole("heading", { name: "Todavía no guardaste favoritos" })).toBeVisible();
+  });
+
+  it("downloads a verified story and lists it in downloads", async () => {
+    respondWithStory();
+    window.history.pushState({}, "", "/details/el-zorro-y-la-luna");
+    const view = render(<App />);
+
+    expect(await screen.findByRole("heading", { name: "El zorro y la luna" })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Descargar" }));
+    expect(await screen.findByText(/ya está disponible sin conexión/)).toBeVisible();
+
+    view.unmount();
+    window.history.pushState({}, "", "/downloads");
+    render(<App />);
+    expect(await screen.findByRole("heading", { name: "Descargas" })).toBeVisible();
+    expect(await screen.findByRole("heading", { name: "El zorro y la luna" })).toBeVisible();
+    expect(screen.getByText("Descargado")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Eliminar descarga" }));
+    expect(await screen.findByRole("heading", { name: "Todavía no hay descargas" })).toBeVisible();
   });
 
   it("renders and clears reading history", () => {

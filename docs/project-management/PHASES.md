@@ -20,8 +20,8 @@
 | 5 | FollowRead Admin | Crear la administración de contenido | COMPLETED |
 | 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | COMPLETED |
 | 7 | Motor de lectura | Implementar sincronización audio-texto reusable | COMPLETED |
-| 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | IN_PROGRESS |
-| 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | NOT_STARTED |
+| 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | COMPLETED |
+| 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | COMPLETED |
 | 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | NOT_STARTED |
 | 11 | Modo aprender inglés | Agregar funciones educativas | NOT_STARTED |
 | 12 | Calidad, seguridad y rendimiento | Endurecer el sistema para uso estable | NOT_STARTED |
@@ -228,3 +228,25 @@ biblioteca, detalle, lector audible, áreas personales, configuración y modos d
 
 Fase 8 cerrada el 2026-07-26. Evidencia: `PHASE_8_REVIEW.md`. Las descargas verificadas de contenido
 y la operación offline permanecen explícitamente en la Fase 9.
+
+## Fase 9 - Cerrada
+
+### Objetivo
+
+Permitir descargar, validar, actualizar y utilizar contenido sin conexión, conservando el progreso
+local y sincronizándolo de forma idempotente cuando vuelve la red.
+
+### Criterios de salida
+
+1. Catálogo remoto y paquetes locales se combinan y comparan por versión y checksum.
+2. Sólo paquetes compatibles, completos y con SHA-256 válido se activan.
+3. IndexedDB conserva contenido, metadatos y operaciones sin almacenar PII.
+4. El build incluye al menos un cuento verificable para el primer inicio sin conexión.
+5. Descargas, actualizaciones, eliminación, cuota y recuperación tienen estados visibles.
+6. Biblioteca, detalle, lectura, voz local y progreso funcionan sin API.
+7. La reconexión sincroniza operaciones idempotentes sin retroceder progreso.
+8. Pruebas unitarias, API y Chrome real demuestran corrupción, offline y reconexión.
+
+### Resultado
+
+Fase 9 cerrada el 2026-07-26. Evidencia: `PHASE_9_REVIEW.md`.

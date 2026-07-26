@@ -1,10 +1,25 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 import {
+  getCatalog,
   getReaderLibrary,
+  getReaderPackagePayload,
   type ReaderLibraryItem,
   type ReaderTranslation,
 } from "./readerClient.js";
+import {
+  formatStorageSize,
+  type OfflineAvailabilityState,
+  type StoredReaderPackage,
+} from "./offlineDomain.js";
+import {
+  getOfflineSummary,
+  installOfflinePackage,
+  listOfflinePackages,
+  OFFLINE_STATE_EVENT,
+  removeOfflinePackage,
+  synchronizePendingProgress,
+} from "./offlineService.js";
 import {
   DEFAULT_READER_PREFERENCES,
   preferencesForMode,
@@ -26,7 +41,14 @@ type LibraryState =
   | { status: "error"; items: ReaderLibraryItem[] };
 
 type NavigationKey =
-  "home" | "library" | "favorites" | "history" | "vocabulary" | "settings" | "documentation";
+  | "home"
+  | "library"
+  | "downloads"
+  | "favorites"
+  | "history"
+  | "vocabulary"
+  | "settings"
+  | "documentation";
 
 const NAVIGATION: ReadonlyArray<{
   key: NavigationKey;
@@ -36,6 +58,7 @@ const NAVIGATION: ReadonlyArray<{
 }> = [
   { key: "home", href: "/", label: "Inicio", icon: "⌂" },
   { key: "library", href: "/library", label: "Biblioteca", icon: "▤" },
+  { key: "downloads", href: "/downloads", label: "Descargas", icon: "↓" },
   { key: "favorites", href: "/favorites", label: "Favoritos", icon: "♡" },
   { key: "history", href: "/history", label: "Historial", icon: "↺" },
   { key: "vocabulary", href: "/vocabulary", label: "Vocabulario", icon: "Aa" },
@@ -81,6 +104,11 @@ export const ReaderShell = ({
 }) => {
   const [online, setOnline] = useState(navigator.onLine);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [offlineSummary, setOfflineSummary] = useState({
+    packageCount: 0,
+    sizeBytes: 0,
+    pendingCount: 0,
+  });
   const preferences = readPreferences(window.localStorage);
 
   useEffect(() => {
@@ -94,8 +122,12 @@ export const ReaderShell = ({
   }, [preferences.fontScale, preferences.mode, preferences.reduceMotion, preferences.theme]);
 
   useEffect(() => {
+    const refreshOfflineSummary = () => {
+      void getOfflineSummary().then(setOfflineSummary);
+    };
     const handleOnline = () => {
       setOnline(true);
+      void synchronizePendingProgress().finally(refreshOfflineSummary);
     };
     const handleOffline = () => {
       setOnline(false);
@@ -109,11 +141,14 @@ export const ReaderShell = ({
     };
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
+    window.addEventListener(OFFLINE_STATE_EVENT, refreshOfflineSummary);
     window.addEventListener("beforeinstallprompt", handleInstall);
     window.addEventListener("appinstalled", handleInstalled);
+    refreshOfflineSummary();
     return () => {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
+      window.removeEventListener(OFFLINE_STATE_EVENT, refreshOfflineSummary);
       window.removeEventListener("beforeinstallprompt", handleInstall);
       window.removeEventListener("appinstalled", handleInstalled);
     };
@@ -171,7 +206,13 @@ export const ReaderShell = ({
               className={online ? "connection-chip" : "connection-chip connection-chip--offline"}
             >
               <span aria-hidden="true">{online ? "●" : "○"}</span>
-              {online ? "En línea" : "Sin conexión"}
+              {online
+                ? offlineSummary.pendingCount > 0
+                  ? `${String(offlineSummary.pendingCount)} por sincronizar`
+                  : "Sincronizado"
+                : offlineSummary.pendingCount > 0
+                  ? `Sin conexión · ${String(offlineSummary.pendingCount)} pendiente`
+                  : "Sin conexión"}
             </span>
             {installPrompt !== null && !isStandaloneReader() ? (
               <button className="quiet-button" type="button" onClick={() => void install()}>
@@ -456,6 +497,10 @@ export const DetailPage = ({ slug }: { slug: string }) => {
   const library = useLibrary();
   const item = library.items.find((value) => value.package.slug === slug);
   const [favorite, setFavorite] = useState(() => readFavorites(window.localStorage).includes(slug));
+  const [downloadState, setDownloadState] = useState<"idle" | "downloading" | "ready" | "error">(
+    "idle",
+  );
+  const [downloadMessage, setDownloadMessage] = useState<string | null>(null);
   const history = readHistory(window.localStorage).find((entry) => entry.slug === slug);
 
   if (library.status === "loading") {
@@ -486,6 +531,29 @@ export const DetailPage = ({ slug }: { slug: string }) => {
   if (translation === undefined) {
     return null;
   }
+
+  const download = async () => {
+    setDownloadState("downloading");
+    setDownloadMessage("Descargando y verificando la lectura…");
+    try {
+      const installed = await installOfflinePackage(item.catalog, () =>
+        getReaderPackagePayload(item.catalog.slug),
+      );
+      setDownloadState("ready");
+      setDownloadMessage(
+        `${translation.title} ya está disponible sin conexión (${formatStorageSize(
+          installed.sizeBytes,
+        )}).`,
+      );
+    } catch (error) {
+      setDownloadState("error");
+      setDownloadMessage(
+        error instanceof Error ? error.message : "No se pudo completar la descarga.",
+      );
+    }
+  };
+  const downloadable =
+    item.availability.state === "remote" || item.availability.state === "update_available";
 
   return (
     <ReaderShell active="library">
@@ -518,7 +586,7 @@ export const DetailPage = ({ slug }: { slug: string }) => {
             </div>
             <div>
               <dt>Disponible</dt>
-              <dd>En línea</dd>
+              <dd>{availabilityLabel(item.availability.state)}</dd>
             </div>
           </dl>
           <div className="story-tags">
@@ -555,9 +623,199 @@ export const DetailPage = ({ slug }: { slug: string }) => {
             >
               {favorite ? "♥ En favoritos" : "♡ Guardar"}
             </button>
+            <button
+              className="secondary-action"
+              type="button"
+              disabled={!downloadable || downloadState === "downloading"}
+              onClick={() => void download()}
+            >
+              {downloadState === "downloading"
+                ? "Descargando…"
+                : item.availability.state === "update_available"
+                  ? "Actualizar descarga"
+                  : item.availability.state === "remote"
+                    ? "Descargar"
+                    : "Disponible sin conexión"}
+            </button>
           </div>
+          {downloadMessage !== null ? (
+            <p
+              className={
+                downloadState === "error"
+                  ? "download-status download-status--error"
+                  : "download-status"
+              }
+              role={downloadState === "error" ? "alert" : "status"}
+            >
+              {downloadMessage}
+            </p>
+          ) : null}
         </div>
       </article>
+    </ReaderShell>
+  );
+};
+
+export const DownloadsPage = () => {
+  const [packages, setPackages] = useState<StoredReaderPackage[]>([]);
+  const [remoteItems, setRemoteItems] = useState<Awaited<ReturnType<typeof getCatalog>>["items"]>(
+    [],
+  );
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [message, setMessage] = useState<string | null>(null);
+
+  const refresh = async () => {
+    const installed = await listOfflinePackages();
+    setPackages(installed);
+    try {
+      setRemoteItems((await getCatalog()).items);
+    } catch {
+      setRemoteItems([]);
+    }
+    setStatus("ready");
+  };
+
+  useEffect(() => {
+    let active = true;
+    void Promise.all([
+      listOfflinePackages(),
+      getCatalog()
+        .then((catalog) => catalog.items)
+        .catch(() => []),
+    ])
+      .then(([installed, catalog]) => {
+        if (active) {
+          setPackages(installed);
+          setRemoteItems(catalog);
+          setStatus("ready");
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setStatus("error");
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const totalSize = packages.reduce((total, item) => total + item.sizeBytes, 0);
+
+  return (
+    <ReaderShell active="downloads">
+      <section className="page-heading page-heading--downloads">
+        <div>
+          <p className="eyebrow">Lectura sin conexión</p>
+          <h1>Descargas</h1>
+          <p>Estas lecturas están guardadas y listas, incluso si pierdes la conexión.</p>
+        </div>
+        <div className="storage-summary" aria-label="Resumen de almacenamiento">
+          <strong>{packages.length}</strong>
+          <span>
+            {packages.length === 1 ? "lectura" : "lecturas"} · {formatStorageSize(totalSize)}
+          </span>
+        </div>
+      </section>
+      {status === "loading" ? <LoadingState label="Revisando tus descargas…" /> : null}
+      {status === "error" ? (
+        <div className="state-panel state-panel--error" role="alert">
+          <h2>No pudimos abrir las descargas</h2>
+          <button className="secondary-action" type="button" onClick={() => void refresh()}>
+            Reintentar
+          </button>
+        </div>
+      ) : null}
+      {message !== null ? (
+        <p className="download-status" role="status">
+          {message}
+        </p>
+      ) : null}
+      {status === "ready" && packages.length === 0 ? (
+        <EmptyState
+          icon="↓"
+          title="Todavía no hay descargas"
+          text="Abre una lectura de la biblioteca y elige Descargar."
+          action={
+            <a className="primary-action" href="/library">
+              Explorar biblioteca
+            </a>
+          }
+        />
+      ) : null}
+      {packages.length > 0 ? (
+        <section className="downloads-grid" aria-label="Lecturas descargadas">
+          {packages.map((stored) => {
+            const translation =
+              stored.package.translations.find((value) => value.language === "es") ??
+              stored.package.translations[0];
+            const remote = remoteItems.find((value) => value.slug === stored.slug);
+            const update =
+              remote !== undefined &&
+              (remote.version > stored.version || remote.checksum !== stored.checksum)
+                ? remote
+                : undefined;
+            return (
+              <article className="download-card" key={stored.slug}>
+                <img
+                  src={stored.package.cover_uri ?? fallbackCover(stored.slug)}
+                  alt={stored.package.cover_alt_text ?? ""}
+                />
+                <div>
+                  <span className="download-card__state">
+                    {stored.source === "bootstrap" ? "Incluido con la app" : "Descargado"}
+                  </span>
+                  <h2>{translation?.title ?? stored.slug}</h2>
+                  <p>
+                    Versión {stored.version} · {formatStorageSize(stored.sizeBytes)}
+                  </p>
+                  <div className="download-card__actions">
+                    <a className="primary-action" href={`/read/${stored.slug}`}>
+                      Leer ahora
+                    </a>
+                    {update !== undefined ? (
+                      <button
+                        className="secondary-action"
+                        type="button"
+                        onClick={() => {
+                          setMessage("Actualizando y verificando la lectura…");
+                          void installOfflinePackage(update, () =>
+                            getReaderPackagePayload(update.slug),
+                          )
+                            .then(refresh)
+                            .then(() => {
+                              setMessage("La lectura quedó actualizada.");
+                            })
+                            .catch((error: unknown) => {
+                              setMessage(
+                                error instanceof Error
+                                  ? error.message
+                                  : "No se pudo actualizar la lectura.",
+                              );
+                            });
+                        }}
+                      >
+                        Actualizar
+                      </button>
+                    ) : null}
+                    {stored.source === "download" ? (
+                      <button
+                        className="quiet-button"
+                        type="button"
+                        onClick={() => {
+                          void removeOfflinePackage(stored.slug).then(refresh);
+                        }}
+                      >
+                        Eliminar descarga
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      ) : null}
     </ReaderShell>
   );
 };
@@ -926,6 +1184,12 @@ export const DocumentationPage = () => (
         Ejecuta <code>pnpm demo:seed</code> una vez y luego <code>pnpm dev</code>. Reader usa SQLite
         y puede narrar con una voz del dispositivo, sin credenciales externas.
       </p>
+      <h2>Lectura sin conexión</h2>
+      <p>
+        La sección <a href="/downloads">Descargas</a> muestra el cuento incluido y tus descargas. Si
+        publicas cambios, ejecuta <code>pnpm offline:bootstrap</code> con la API activa para
+        regenerar el paquete verificable.
+      </p>
       <h2>Rutas principales</h2>
       <ul>
         <li>
@@ -936,6 +1200,9 @@ export const DocumentationPage = () => (
         </li>
         <li>
           <a href="/vocabulary">Vocabulario</a>
+        </li>
+        <li>
+          <a href="/downloads">Descargas y contenido sin conexión</a>
         </li>
       </ul>
       <a className="text-link" href="http://localhost:8000/docs">
@@ -973,6 +1240,9 @@ const StoryCard = ({
         <div className="story-meta">
           <span>{item.catalog.categories[0]?.name ?? "Lectura"}</span>
           <span>{item.catalog.reading_level.label}</span>
+          <span className={`availability-badge availability-badge--${item.availability.state}`}>
+            {availabilityLabel(item.availability.state)}
+          </span>
         </div>
         <h3>
           <a href={`/details/${item.package.slug}`}>{translation.title}</a>
@@ -1108,6 +1378,22 @@ const progressPercent = (positionMs: number, durationMs: number) =>
   durationMs <= 0 ? 0 : Math.min(100, Math.round((positionMs / durationMs) * 100));
 
 const languageLabel = (language: "es" | "en") => (language === "es" ? "Español" : "English");
+
+const availabilityLabel = (state: OfflineAvailabilityState) => {
+  if (state === "downloaded" || state === "local_only") {
+    return "Sin conexión";
+  }
+  if (state === "update_available") {
+    return "Actualizar";
+  }
+  if (state === "incompatible") {
+    return "App no compatible";
+  }
+  if (state === "failed") {
+    return "Descarga incompleta";
+  }
+  return "En línea";
+};
 
 const modeLabel = (mode: ReaderPreferences["mode"]) => {
   if (mode === "children") {

@@ -1,6 +1,7 @@
 import {
   DetailPage,
   DocumentationPage,
+  DownloadsPage,
   FavoritesPage,
   HistoryPage,
   HomePage,
@@ -23,6 +24,9 @@ export const App = () => {
   }
   if (path === "/favorites") {
     return <FavoritesPage />;
+  }
+  if (path === "/downloads") {
+    return <DownloadsPage />;
   }
   if (path === "/history") {
     return <HistoryPage />;

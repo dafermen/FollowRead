@@ -18,6 +18,8 @@ from followread_api.models import (
     ResourceStatus,
 )
 from followread_api.services.errors import ContentNotFoundError, InvalidCatalogQueryError
+from followread_api.services.package_integrity import reader_package_checksum
+from followread_api.services.reader_package import ReaderPackageService
 
 ReviewAction = Literal["submit", "approve", "reject", "publish", "unpublish", "archive"]
 
@@ -138,6 +140,11 @@ class EditorialReviewService:
                 publication.is_active = True
                 publication.published_at = now
                 publication.unpublished_at = None
+            version.package_url = f"/catalog/{content.slug}/reader-package"
+            version.checksum = version.checksum or f"sha256:{'0' * 64}"
+            self._session.flush()
+            package = ReaderPackageService(self._session).get_package(content.slug)
+            version.checksum = reader_package_checksum(package)
         elif action == "unpublish" and content.publication is not None:
             content.publication.is_active = False
             content.publication.unpublished_at = now

@@ -12,6 +12,7 @@ import {
   type ReaderPackage,
   type ReaderTranslation,
 } from "./readerClient.js";
+import { queueProgressForSync, synchronizePendingProgress } from "./offlineService.js";
 import {
   createVocabularyEntry,
   readPreferences,
@@ -33,6 +34,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   const engine = useMemo(() => new ReaderEngine(), []);
   const narrator = useMemo(() => createBrowserNarrator(), []);
   const [story, setStory] = useState<ReaderPackage | null>(null);
+  const [online, setOnline] = useState(navigator.onLine);
   const [language, setLanguage] = useState<ReaderLanguage>(preferences.defaultLanguage);
   const [loadState, setLoadState] = useState<"loading" | "ready" | "error">("loading");
   const [engineState, setEngineState] = useState<ReaderEngineState>(engine.getState());
@@ -44,6 +46,21 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   } | null>(null);
 
   useEffect(() => engine.subscribe(setEngineState), [engine]);
+  useEffect(() => {
+    const handleOnline = () => {
+      setOnline(true);
+      void synchronizePendingProgress();
+    };
+    const handleOffline = () => {
+      setOnline(false);
+    };
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
   useEffect(() => {
     let active = true;
     void getReaderPackage(slug)
@@ -112,8 +129,22 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       chapterTitle: chapter?.title ?? null,
       updatedAt: new Date().toISOString(),
     });
+    const stableAnchor =
+      translation.audio.marks[engineState.activeMarkIndex]?.paragraph_key ??
+      chapter?.paragraphs[0]?.stable_key;
+    if (stableAnchor !== undefined) {
+      void queueProgressForSync({
+        slug: story.slug,
+        version: story.version,
+        stableAnchor,
+        positionMs: historyPositionMs,
+      }).catch(() => {
+        // Local reading remains available even if the sync queue cannot be opened.
+      });
+    }
   }, [
     engineState.activeChapterIndex,
+    engineState.activeMarkIndex,
     engineState.durationMs,
     historyPositionMs,
     language,
@@ -284,6 +315,14 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
           </span>
         </div>
         <div className="reading-header__actions">
+          <span
+            className={
+              online ? "reading-connection" : "reading-connection reading-connection--offline"
+            }
+            role="status"
+          >
+            {online ? "Sincronizado" : "Sin conexión"}
+          </span>
           <div className="language-toggle" aria-label="Idioma de lectura">
             <button
               className={language === "es" ? "active" : ""}

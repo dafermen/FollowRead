@@ -47,7 +47,9 @@
     "migrate:down": "node scripts/run-python.mjs -m alembic -c apps/api/alembic.ini downgrade -1",
     "admin:bootstrap": "node scripts/run-python.mjs -m followread_api.cli.bootstrap_superadmin",
     "demo:seed": "node scripts/run-python.mjs -m followread_api.cli.seed_demo_story",
+    "offline:bootstrap": "node scripts/export-offline-bootstrap.mjs",
     "reader:e2e": "node scripts/verify-reader-e2e.mjs",
+    "reader:offline-e2e": "node scripts/verify-reader-offline-e2e.mjs",
     "validate:ci": "node scripts/run-python.mjs scripts/validate_workflow.py"
   }
 }

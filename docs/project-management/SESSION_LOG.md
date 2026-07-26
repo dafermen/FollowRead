@@ -594,3 +594,20 @@ descomponer la Fase 8.
 
 FR-PH08-TASK-001 a 012 quedaron `COMPLETED`. La Fase 8 quedó cerrada en PASS; el siguiente paso es
 descomponer la Fase 9.
+
+---
+
+## Continuación 2026-07-26 - Descargas, offline y sincronización
+
+- La API entrega JSON canónico y persiste su SHA-256 exacto al publicar o sembrar.
+- Reader combina catálogo remoto e IndexedDB con estados de descarga y actualización.
+- **El zorro y la luna** forma parte del build como paquete offline inicial verificable.
+- Descarga y actualización validan compatibilidad, integridad, 100 MB, 250 MB y cuota.
+- La pantalla Descargas permite leer, actualizar y eliminar sin borrar progreso.
+- Biblioteca, detalle, lector, voz local y marcas operan cuando la API no está disponible.
+- El progreso se agrupa por contenido y `POST /reader/sync` confirma operaciones idempotentes.
+- Chrome verificó contenido incluido, red bloqueada, cola local y sincronización al reconectar.
+- La puerta final pasó con 98 pruebas API y 31 pruebas Reader.
+
+FR-PH09-TASK-001 a 011 quedaron `COMPLETED`. La Fase 9 quedó cerrada en PASS; el siguiente paso es
+descomponer la Fase 10.

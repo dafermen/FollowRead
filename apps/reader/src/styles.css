@@ -292,6 +292,29 @@ img {
   color: var(--danger);
 }
 
+.availability-badge {
+  border-color: color-mix(in srgb, #2b8a5b 35%, var(--border)) !important;
+  color: #1f6f49 !important;
+  background: color-mix(in srgb, #d8f3e5 72%, var(--surface)) !important;
+}
+
+.availability-badge--remote {
+  border-color: var(--border) !important;
+  color: var(--muted) !important;
+  background: var(--surface) !important;
+}
+
+.availability-badge--update_available {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border)) !important;
+  color: var(--accent-strong) !important;
+  background: color-mix(in srgb, var(--accent-soft) 70%, var(--surface)) !important;
+}
+
+.availability-badge--incompatible,
+.availability-badge--failed {
+  color: var(--danger) !important;
+}
+
 .app-main {
   width: min(100% - 2rem, 1180px);
   min-height: calc(100vh - 66px);
@@ -796,6 +819,97 @@ img {
   font-size: 0.76rem;
 }
 
+.download-status {
+  max-width: 720px;
+  margin: 1rem 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid color-mix(in srgb, #2b8a5b 35%, var(--border));
+  border-radius: 14px;
+  color: #1f6f49;
+  background: color-mix(in srgb, #d8f3e5 65%, var(--surface));
+  font-weight: 700;
+}
+
+.download-status--error {
+  border-color: color-mix(in srgb, var(--danger) 35%, var(--border));
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
+.page-heading--downloads {
+  align-items: center;
+}
+
+.storage-summary {
+  display: grid;
+  min-width: 150px;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.storage-summary strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+}
+
+.storage-summary span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.downloads-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.download-card {
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  align-items: center;
+  gap: 1.2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.download-card img {
+  width: 116px;
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.download-card h2 {
+  margin: 0.3rem 0;
+  font-family: var(--font-display);
+}
+
+.download-card p {
+  margin: 0 0 0.8rem;
+  color: var(--muted);
+}
+
+.download-card__state {
+  color: #1f6f49;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.download-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
 .history-list {
   display: grid;
   gap: 0.75rem;
@@ -1082,6 +1196,22 @@ img {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+.reading-connection {
+  padding: 0.38rem 0.55rem;
+  border: 1px solid color-mix(in srgb, #2b8a5b 35%, var(--border));
+  border-radius: 99px;
+  color: #1f6f49 !important;
+  background: color-mix(in srgb, #d8f3e5 65%, var(--surface));
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.reading-connection--offline {
+  border-color: color-mix(in srgb, var(--danger) 30%, var(--border));
+  color: var(--danger) !important;
+  background: color-mix(in srgb, var(--danger) 7%, var(--surface));
 }
 
 .language-toggle {
@@ -1550,7 +1680,8 @@ button.story-word:hover {
     font-size: 0.58rem;
   }
 
-  .reader-bottom-nav .nav-item:nth-child(5) {
+  .reader-bottom-nav .nav-item:nth-child(6),
+  .reader-bottom-nav .nav-item:nth-child(7) {
     display: none;
   }
 
@@ -1601,6 +1732,19 @@ button.story-word:hover {
     flex-direction: row;
   }
 
+  .download-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .download-card img {
+    width: 82px;
+  }
+
+  .download-card__actions {
+    grid-column: 1 / -1;
+  }
+
   .reading-room {
     padding-bottom: calc(196px + env(safe-area-inset-bottom));
   }
@@ -1639,6 +1783,10 @@ button.story-word:hover {
   }
 
   .connection-chip {
+    display: none;
+  }
+
+  .reading-connection:not(.reading-connection--offline) {
     display: none;
   }
 

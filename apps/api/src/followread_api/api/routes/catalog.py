@@ -1,6 +1,6 @@
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Response
 
 from followread_api.api.dependencies import CatalogServiceDependency, DatabaseSession
 from followread_api.api.errors import ErrorResponse
@@ -10,11 +10,11 @@ from followread_api.api.schemas import (
     ReaderPackageResponse,
     catalog_page_response,
     content_detail_response,
-    reader_package_response,
 )
 from followread_api.models import Audience, ContentType, Language, ReadingLevelCode
 from followread_api.repositories import CatalogFilters
 from followread_api.services import ReaderPackageService
+from followread_api.services.package_integrity import canonical_reader_package_bytes
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
 
@@ -58,8 +58,13 @@ def list_catalog(
     response_model=ReaderPackageResponse,
     responses=ERROR_RESPONSES,
 )
-def get_reader_package(slug: str, session: DatabaseSession) -> ReaderPackageResponse:
-    return reader_package_response(ReaderPackageService(session).get_package(slug))
+def get_reader_package(slug: str, session: DatabaseSession) -> Response:
+    package = ReaderPackageService(session).get_package(slug)
+    return Response(
+        content=canonical_reader_package_bytes(package),
+        media_type="application/json",
+        headers={"ETag": f'"{package.version}"'},
+    )
 
 
 @router.get(

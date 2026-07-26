@@ -12,7 +12,10 @@ web accesible, responsive e instalable. Reader sigue siendo independiente de Adm
 3. `StoryReaderPage.tsx` conecta React con el Reader Engine y la narración del navegador.
 4. `readerStorage.ts` valida preferencias locales no sensibles.
 5. `browserNarrator.ts` adapta Web Speech sin enviar texto a servicios externos.
-6. `pwa.ts`, el manifest y `sw.js` instalan y cachean solamente el shell.
+6. `offlineDomain.ts` valida compatibilidad, tamaño y SHA-256.
+7. `offlineRepository.ts` persiste paquetes y operaciones en IndexedDB.
+8. `offlineService.ts` combina catálogos, activa descargas y sincroniza progreso.
+9. `pwa.ts`, el manifest y `sw.js` instalan y cachean el shell y recursos locales.
 
 El Reader Engine sigue siendo la única fuente del estado temporal. Los eventos de palabra de la voz
 del dispositivo corrigen la posición, pero nunca reemplazan la línea de tiempo editorial.
@@ -23,15 +26,29 @@ Reader guarda únicamente preferencias, slugs favoritos, progreso, historial y v
 guarda nombres, correos, perfiles infantiles, tokens ni contraseñas. Todos los valores se validan al
 leer y vuelven a defaults seguros si están corruptos.
 
-## PWA y frontera de Fase 9
+## PWA y modo offline
 
-El service worker cachea el shell compilado y deja catálogo, paquetes, portadas y audio en red. La
-descarga explícita, checksum, activación de versiones, cuotas y sincronización pertenecen a la Fase
-9 y no se simulan en esta fase.
+El service worker cachea el shell, el documento bootstrap y las portadas solicitadas. IndexedDB es
+la autoridad del contenido descargado: un registro sólo reemplaza a otro después de validar versión,
+compatibilidad, límite y SHA-256. El build incluye **El zorro y la luna** para que el primer inicio
+offline tenga contenido real.
+
+El catálogo muestra estados remoto, descargado, actualización, sólo local e incompatible. Una
+descarga de 100 MB o más solicita confirmación y un paquete superior a 250 MB se rechaza. La
+eliminación local no toca historial, favoritos ni progreso.
+
+## Sincronización
+
+Cada lectura conserva como máximo una operación pendiente por slug con UUID, versión, anclaje
+estable y posición. La API confirma operaciones idempotentes, evita regresiones y representa el
+dispositivo con un UUID aleatorio sin nombre ni correo. Sólo una confirmación elimina la operación
+local.
 
 ## Degradación segura
 
 - Sin voz del dispositivo: continúa el seguimiento visual.
-- Sin API: la biblioteca muestra un estado recuperable y conserva datos locales.
+- Sin API: la biblioteca usa el catálogo local y permite leer paquetes activos.
+- Descarga corrupta o interrumpida: se conserva la versión válida anterior.
+- Sin cuota: el paquete no se activa y el usuario puede eliminar otra descarga.
 - Sin soporte PWA: Reader funciona como web normal.
 - Sin progreso válido: el cuento comienza desde el inicio.

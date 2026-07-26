@@ -68,6 +68,7 @@ export type CatalogPage = {
 export type ReaderLibraryItem = {
   catalog: CatalogItem;
   package: ReaderPackage;
+  availability: OfflineAvailability;
 };
 
 type ReaderLanguageCode = "es" | "en";
@@ -78,14 +79,14 @@ const API_BASE_URL =
     ? configuredApiBase
     : "http://localhost:8000";
 
-export const getReaderPackage = async (slug = "el-zorro-y-la-luna"): Promise<ReaderPackage> => {
+export const getReaderPackagePayload = async (slug = "el-zorro-y-la-luna"): Promise<string> => {
   const response = await fetch(`${API_BASE_URL}/catalog/${slug}/reader-package`, {
     headers: { Accept: "application/json" },
   });
   if (!response.ok) {
     throw new Error(`Reader package failed with status ${String(response.status)}.`);
   }
-  return (await response.json()) as ReaderPackage;
+  return response.text();
 };
 
 export const getCatalog = async (): Promise<CatalogPage> => {
@@ -98,18 +99,21 @@ export const getCatalog = async (): Promise<CatalogPage> => {
   return (await response.json()) as CatalogPage;
 };
 
+const remoteReaders = {
+  catalog: getCatalog,
+  packagePayload: getReaderPackagePayload,
+};
+
+export const getReaderPackage = async (slug = "el-zorro-y-la-luna"): Promise<ReaderPackage> =>
+  getOfflineAwarePackage(slug, remoteReaders);
+
 /**
  * Joins catalog metadata with the versioned package consumed by the Reader.
  *
  * The catalog intentionally stays lightweight. Fetching packages here keeps all screens on the
  * same public contracts and automatically supports more published stories without hardcoded cards.
  */
-export const getReaderLibrary = async (): Promise<ReaderLibraryItem[]> => {
-  const catalog = await getCatalog();
-  return Promise.all(
-    catalog.items.map(async (item) => ({
-      catalog: item,
-      package: await getReaderPackage(item.slug),
-    })),
-  );
-};
+export const getReaderLibrary = async (): Promise<ReaderLibraryItem[]> =>
+  getOfflineAwareLibrary(remoteReaders);
+import { getOfflineAwareLibrary, getOfflineAwarePackage } from "./offlineService.js";
+import type { OfflineAvailability } from "./offlineDomain.js";

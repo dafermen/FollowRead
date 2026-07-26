@@ -2,29 +2,23 @@
 
 ## Siguiente tarea exacta
 
-**Descomponer y activar la Fase 9 - Descargas y modo offline**
+**FR-PH10-TASK-001 - Descomponer y activar la Fase 10**
 
-### Objetivo de la próxima sesión
+### Objetivo
 
-Definir tareas, contratos y pruebas para descargar versiones publicadas, validar checksum, activar
-contenido offline y reconciliarlo cuando vuelva la conexión.
+Convertir las actividades móviles del prompt maestro en tareas verificables, preservando la
+separación entre Reader, Admin y API.
 
 ### Orden de trabajo
 
-1. Relacionar actividades de Fase 9 con requisitos y criterios de salida.
-2. Diseñar catálogo local, cuotas, checksum y activación atómica.
-3. Implementar estados de descarga y administración del espacio.
-4. Probar pérdida/recuperación de red y versiones obsoletas.
+1. Revisar actividades, requisitos y criterios móviles.
+2. Definir la frontera web/Capacitor y plugins estrictamente necesarios.
+3. Preparar tareas de Android, iOS, permisos, iconos y builds.
+4. Activar únicamente la primera tarea implementable.
 
 ## No hacer todavía
 
-- No almacenar tokens o contraseñas en logs ni almacenamiento web.
-- No crear `LICENSE` sin decisión del propietario.
-- No usar credenciales ni llamadas AWS reales en pruebas.
-- No iniciar Capacitor antes de cerrar el modo offline web.
-
-## Comando recomendado
-
-```powershell
-pnpm check
-```
+- No incluir FollowRead Admin dentro de Capacitor.
+- No solicitar permisos nativos sin una función concreta.
+- No introducir credenciales o secretos en el bundle móvil.
+- No alterar la experiencia web offline ya cerrada.
