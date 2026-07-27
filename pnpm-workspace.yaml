@@ -42,3 +42,7 @@ allowBuilds:
 # The current compatible release preserves the API used by the asset generator.
 overrides:
   sharp: 0.35.3
+  tar: 7.5.22
+  minimatch@3.0.5: 3.1.4
+  brace-expansion: 5.0.8
+  uuid: 11.1.1

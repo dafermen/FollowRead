@@ -15,6 +15,7 @@ export const DocumentationPage = () => (
           Inicio rápido
         </a>
         <a href="#levantar">Levantar el proyecto</a>
+        <a href="#calidad">Calidad y seguridad</a>
         <a href="http://localhost:8000/docs">API interactiva</a>
       </nav>
       <a className="docs-back" href="/">
@@ -64,6 +65,28 @@ export const DocumentationPage = () => (
           </div>
           <p>
             Presiona <kbd>Ctrl</kbd> + <kbd>C</kbd> para detener todos los servicios.
+          </p>
+        </div>
+      </section>
+
+      <section className="docs-section" id="calidad">
+        <span className="step-number">03</span>
+        <div>
+          <h2>Comprobar calidad y seguridad</h2>
+          <p>
+            Con los servicios activos, estos comandos revisan pruebas, accesibilidad, rendimiento,
+            carga, cabeceras, métricas y dependencias.
+          </p>
+          <div className="command-box">
+            <code>pnpm quality:regression</code>
+            <span>Regresión integral</span>
+          </div>
+          <div className="command-box">
+            <code>pnpm security:audit</code>
+            <span>Dependencias JavaScript y Python</span>
+          </div>
+          <p>
+            Las métricas locales están disponibles en <code>http://localhost:8000/metrics</code>.
           </p>
         </div>
       </section>

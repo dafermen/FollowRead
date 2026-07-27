@@ -43,5 +43,10 @@ if (!existsSync(virtualPython)) {
   }
 }
 
+const pipUpgrade = run(virtualPython, ["-m", "pip", "install", "--upgrade", "pip>=26.1.2,<27"]);
+if (pipUpgrade.status !== 0) {
+  process.exit(pipUpgrade.status ?? 1);
+}
+
 const installation = run(virtualPython, ["-m", "pip", "install", "-e", `${apiRoot}[dev]`]);
 process.exit(installation.status ?? 1);

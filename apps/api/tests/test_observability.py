@@ -6,7 +6,12 @@ from unittest.mock import patch
 from httpx import ASGITransport, AsyncClient
 
 from followread_api.main import create_app
-from followread_api.observability import JsonFormatter, logger
+from followread_api.observability import (
+    JsonFormatter,
+    RequestMetrics,
+    logger,
+    render_prometheus_metrics,
+)
 
 
 def test_request_id_is_preserved_and_log_is_structured() -> None:
@@ -94,3 +99,20 @@ def test_json_formatter_omits_request_fields_when_they_are_not_present() -> None
 
     assert payload["request_id"] == "request-1"
     assert payload["duration_ms"] == 1.25
+
+
+def test_request_metrics_are_aggregate_and_prometheus_compatible() -> None:
+    metrics = RequestMetrics()
+    metrics.record("/catalog/{slug}", 200, 12.5)
+    metrics.record("/catalog/{slug}", 503, 25.0)
+
+    snapshot = metrics.snapshot()
+    rendered = render_prometheus_metrics(snapshot)
+
+    assert snapshot.requests_total == 2
+    assert snapshot.errors_total == 1
+    assert snapshot.average_duration_ms == 18.75
+    assert snapshot.maximum_duration_ms == 25.0
+    assert snapshot.routes == {"/catalog/{slug}": 2}
+    assert 'followread_http_responses_total{status="503"} 1' in rendered
+    assert 'followread_http_route_requests_total{route="/catalog/{slug}"} 2' in rendered

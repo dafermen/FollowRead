@@ -228,7 +228,7 @@ describe("FollowRead Reader", () => {
     window.history.pushState({}, "", "/read/el-zorro-y-la-luna");
     render(<App />);
 
-    expect(screen.getByText("Preparando la lectura…")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("Preparando esta pantalla");
     expect(
       await screen.findByRole("heading", { name: "Una luz en el bosque" }),
     ).toBeInTheDocument();

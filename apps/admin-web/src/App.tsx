@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
-import { AdminExperience } from "./components/AdminExperience.js";
 import { DocumentationPage } from "./pages/DocumentationPage.js";
 import { LoginPage } from "./pages/LoginPage.js";
+
+const AdminExperience = lazy(async () => ({
+  default: (await import("./components/AdminExperience.js")).AdminExperience,
+}));
 
 export const App = () => {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -39,11 +42,19 @@ export const App = () => {
   }
 
   return (
-    <AdminExperience
-      pathname={pathname}
-      onAuthenticationRequired={() => {
-        navigate("/login");
-      }}
-    />
+    <Suspense
+      fallback={
+        <main className="route-loading">
+          <p role="status">Preparando el panel…</p>
+        </main>
+      }
+    >
+      <AdminExperience
+        pathname={pathname}
+        onAuthenticationRequired={() => {
+          navigate("/login");
+        }}
+      />
+    </Suspense>
   );
 };

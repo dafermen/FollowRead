@@ -1,6 +1,6 @@
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Query, Response
+from fastapi import APIRouter, Query, Request, Response
 
 from followread_api.api.dependencies import CatalogServiceDependency, DatabaseSession
 from followread_api.api.errors import ErrorResponse
@@ -58,12 +58,15 @@ def list_catalog(
     response_model=ReaderPackageResponse,
     responses=ERROR_RESPONSES,
 )
-def get_reader_package(slug: str, session: DatabaseSession) -> Response:
+def get_reader_package(slug: str, request: Request, session: DatabaseSession) -> Response:
     package = ReaderPackageService(session).get_package(slug)
+    etag = f'"{package.version}"'
+    if request.headers.get("If-None-Match") == etag:
+        return Response(status_code=304, headers={"ETag": etag})
     return Response(
         content=canonical_reader_package_bytes(package),
         media_type="application/json",
-        headers={"ETag": f'"{package.version}"'},
+        headers={"ETag": etag},
     )
 
 

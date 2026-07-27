@@ -1,17 +1,17 @@
 # Estado del proyecto FollowRead
 
 **Última actualización:** 2026-07-26  
-**Fase activa:** Fase 12 - Calidad, seguridad y rendimiento
+**Fase activa:** Fase 13 - CI/CD y despliegue
 **Estado de la fase:** NOT_STARTED  
-**Tarea activa:** Descomponer y activar la Fase 12
+**Tarea activa:** Descomponer y activar la Fase 13
 **Estado de la tarea:** NEXT
 
 ## Resumen ejecutivo
 
-Fases 0 a 11 están completadas y auditadas. Reader ya es una aplicación web/PWA/Android/iOS con
+Fases 0 a 12 están completadas y auditadas. Reader ya es una aplicación web/PWA/Android/iOS con
 descubrimiento, preferencias, voz local, descargas verificadas, lectura sin conexión,
-sincronización, proyectos Capacitor y un modo aprender inglés completo. La siguiente fase estabiliza
-calidad, seguridad y rendimiento.
+sincronización, proyectos Capacitor y un modo aprender inglés completo. Calidad, seguridad y
+rendimiento ya tienen presupuestos reproducibles; la siguiente fase automatiza entrega y despliegue.
 FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
 audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
@@ -34,9 +34,10 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | Tareas de Fase 9 completadas | 11 de 11 |
 | Tareas de Fase 10 completadas | 12 de 12 |
 | Tareas de Fase 11 completadas | 12 de 12 |
+| Tareas de Fase 12 completadas | 10 de 10 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 0 |
-| Decisiones aceptadas | 15 |
+| Decisiones aceptadas | 17 |
 | Decisiones abiertas | 1 |
 | Riesgos abiertos | 8 |
 | Problemas conocidos abiertos | 0 |
@@ -52,6 +53,7 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | AWS / Polly / S3 | POLLY_BOUNDARY_READY | Fake local por defecto; AWS opcional y desacoplado |
 | Modo offline | PHASE_9_COMPLETED | Descarga, actualización, recuperación y sync verificadas |
 | Móvil / Capacitor | PHASE_10_COMPLETED | Android compilado/probado; iOS listo para Xcode |
+| Calidad transversal | PHASE_12_COMPLETED | Seguridad, a11y, carga, métricas y regresión en verde |
 
 ## Entregables cerrados de Fases 5 a 10
 
@@ -82,8 +84,10 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 - safe areas y progreso verificados en vertical/horizontal;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 13 pruebas Admin, 33 Reader, 6 Reader Engine, 3 de configuración y 98 pruebas API;
+- 14 pruebas Admin, 38 Reader, 6 Reader Engine, 3 de configuración y 101 pruebas API;
 - cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
+- cero vulnerabilidades conocidas moderadas o superiores en JavaScript y cero en Python;
+- bundles con carga diferida, p95 local final de 107.9 ms y ocho rutas auditadas a 390 px.
 
 ## Bloqueadores
 
@@ -93,4 +97,4 @@ sigue abierta, pero no se necesita hasta Fase 14.
 
 ## Regla de continuación
 
-Descomponer la Fase 12 antes de iniciar optimización o cambios de seguridad.
+Descomponer la Fase 13 antes de modificar pipelines o destinos de despliegue.

@@ -1,3 +1,5 @@
+import { lazy, Suspense } from "react";
+
 import {
   DetailPage,
   DocumentationPage,
@@ -9,7 +11,10 @@ import {
   SettingsPage,
   VocabularyPage,
 } from "./ReaderApp.js";
-import { StoryReaderPage } from "./StoryReaderPage.js";
+
+const StoryReaderPage = lazy(async () => ({
+  default: (await import("./StoryReaderPage.js")).StoryReaderPage,
+}));
 
 /**
  * Lightweight route boundary for the dependency-free Reader.
@@ -19,32 +24,37 @@ import { StoryReaderPage } from "./StoryReaderPage.js";
  */
 export const App = () => {
   const path = window.location.pathname;
+  let page;
   if (path === "/library") {
-    return <LibraryPage />;
+    page = <LibraryPage />;
+  } else if (path === "/favorites") {
+    page = <FavoritesPage />;
+  } else if (path === "/downloads") {
+    page = <DownloadsPage />;
+  } else if (path === "/history") {
+    page = <HistoryPage />;
+  } else if (path === "/vocabulary") {
+    page = <VocabularyPage />;
+  } else if (path === "/settings") {
+    page = <SettingsPage />;
+  } else if (path === "/documentation") {
+    page = <DocumentationPage />;
+  } else if (path.startsWith("/details/")) {
+    page = <DetailPage slug={path.slice("/details/".length)} />;
+  } else if (path.startsWith("/read/")) {
+    page = <StoryReaderPage slug={path.slice("/read/".length)} />;
+  } else {
+    page = <HomePage />;
   }
-  if (path === "/favorites") {
-    return <FavoritesPage />;
-  }
-  if (path === "/downloads") {
-    return <DownloadsPage />;
-  }
-  if (path === "/history") {
-    return <HistoryPage />;
-  }
-  if (path === "/vocabulary") {
-    return <VocabularyPage />;
-  }
-  if (path === "/settings") {
-    return <SettingsPage />;
-  }
-  if (path === "/documentation") {
-    return <DocumentationPage />;
-  }
-  if (path.startsWith("/details/")) {
-    return <DetailPage slug={path.slice("/details/".length)} />;
-  }
-  if (path.startsWith("/read/")) {
-    return <StoryReaderPage slug={path.slice("/read/".length)} />;
-  }
-  return <HomePage />;
+  return (
+    <Suspense
+      fallback={
+        <main className="route-loading">
+          <p role="status">Preparando esta pantalla…</p>
+        </main>
+      }
+    >
+      {page}
+    </Suspense>
+  );
 };

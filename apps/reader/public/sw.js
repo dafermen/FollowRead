@@ -1,5 +1,5 @@
-const SHELL_CACHE = "followread-shell-v2";
-const CONTENT_CACHE = "followread-content-v1";
+const SHELL_CACHE = "followread-shell-v3";
+const CONTENT_CACHE = "followread-content-v2";
 const SHELL_ASSETS = [
   "/",
   "/offline/bootstrap.json",
@@ -32,24 +32,60 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) {
     return;
   }
-  event.respondWith(
-    fetch(request)
-      .then((response) => {
-        if (response.ok && request.destination !== "document") {
-          const copy = response.clone();
-          void caches.open(SHELL_CACHE).then((cache) => cache.put(request, copy));
-        }
-        return response;
-      })
-      .catch(async () => {
-        const cached = await caches.match(request);
-        if (cached !== undefined) {
-          return cached;
-        }
-        if (request.mode === "navigate") {
-          return (await caches.match("/")) ?? Response.error();
-        }
-        return Response.error();
-      }),
-  );
+  const url = new URL(request.url);
+  if (request.mode === "navigate") {
+    event.respondWith(networkFirstNavigation(request));
+    return;
+  }
+  if (
+    url.pathname.startsWith("/assets/") ||
+    url.pathname.startsWith("/icons/") ||
+    url.pathname === "/manifest.webmanifest"
+  ) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+  event.respondWith(staleWhileRevalidate(request, event));
 });
+
+async function networkFirstNavigation(request) {
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(SHELL_CACHE);
+      await cache.put("/", response.clone());
+    }
+    return response;
+  } catch {
+    return (await caches.match(request)) ?? (await caches.match("/")) ?? Response.error();
+  }
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached !== undefined) {
+    return cached;
+  }
+  const response = await fetch(request);
+  if (response.ok) {
+    const cache = await caches.open(SHELL_CACHE);
+    await cache.put(request, response.clone());
+  }
+  return response;
+}
+
+async function staleWhileRevalidate(request, event) {
+  const cache = await caches.open(CONTENT_CACHE);
+  const cached = await cache.match(request);
+  const update = fetch(request).then(async (response) => {
+    if (response.ok) {
+      await cache.put(request, response.clone());
+    }
+    return response;
+  });
+  if (cached !== undefined) {
+    event.waitUntil(update);
+    return cached;
+  }
+  return update;
+}

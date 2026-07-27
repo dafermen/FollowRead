@@ -2685,3 +2685,26 @@ actividades del prompt; la puerta completa queda verde.
 **Fecha de inicio:** 2026-07-26
 **Fecha de finalización:** 2026-07-26
 **Siguiente acción:** Descomponer la Fase 12.
+
+---
+
+# Fase 12 - Calidad, seguridad y rendimiento
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH12-TASK-001 | Descomponer y medir línea base | COMPLETED | Critical |
+| FR-PH12-TASK-002 | Añadir manejo global de errores | COMPLETED | Critical |
+| FR-PH12-TASK-003 | Completar logging, timing y métricas | COMPLETED | Critical |
+| FR-PH12-TASK-004 | Aplicar compresión y caching | COMPLETED | High |
+| FR-PH12-TASK-005 | Implementar lazy loading y presupuestos | COMPLETED | High |
+| FR-PH12-TASK-006 | Automatizar auditoría de accesibilidad | COMPLETED | Critical |
+| FR-PH12-TASK-007 | Crear pruebas de carga | COMPLETED | High |
+| FR-PH12-TASK-008 | Auditar y corregir dependencias | COMPLETED | Critical |
+| FR-PH12-TASK-009 | Consolidar regresión integral | COMPLETED | Critical |
+| FR-PH12-TASK-010 | Documentar, auditar y cerrar la fase | COMPLETED | Critical |
+
+Las diez tareas comenzaron y terminaron el 2026-07-26. Sus criterios verificables, comandos,
+resultados medidos e incidencias resueltas están en `PHASE_12_REVIEW.md`,
+`../testing/PHASE_12_QUALITY.md` y `../architecture/PHASE_12_SECURITY_AUDIT.md`.
+
+**Siguiente acción:** Descomponer la Fase 13.

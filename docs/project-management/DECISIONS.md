@@ -177,6 +177,28 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
 - **Consecuencias:** Acepciones complejas requerirán un glosario o alineación editorial versionada.
   Una integración futura con IA sólo puede ser opcional, identificada y degradable.
 
+### FR-DEC-017 - Observabilidad local, agregada y sin contenido personal
+
+- **Fecha:** 2026-07-26
+- **Estado:** ACCEPTED
+- **Decisión:** API, Admin y Reader producen señales operativas mínimas sin enviar datos a terceros.
+  Logs, métricas y errores excluyen cuerpos, query strings, cookies, tokens, texto, vocabulario y
+  datos del menor. Las rutas se normalizan para evitar cardinalidad no controlada.
+- **Razón:** Permite diagnosticar estabilidad sin crear una nueva superficie de privacidad.
+- **Consecuencias:** La Fase 13 podrá conectar un colector, pero deberá mantener redacción,
+  retención, acceso restringido a `/metrics` y separación por ambiente.
+
+### FR-DEC-018 - Caché explícita según sensibilidad y mutabilidad
+
+- **Fecha:** 2026-07-26
+- **Estado:** ACCEPTED
+- **Decisión:** Autenticación, administración, sincronización y operaciones usan `no-store`;
+  catálogo público usa caché corta y paquetes se revalidan con ETag. Reader aplica network-first a
+  navegación, cache-first a assets versionados y stale-while-revalidate a recursos secundarios.
+- **Razón:** Mejora tiempo de respuesta y offline sin almacenar respuestas sensibles o servir
+  contenido editorial indefinidamente obsoleto.
+- **Consecuencias:** Un CDN futuro deberá conservar estas reglas y probar invalidación al publicar.
+
 ## Decisiones abiertas
 
 ### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio

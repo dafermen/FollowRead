@@ -225,6 +225,29 @@ def test_reader_package_endpoint_returns_timeline_and_resources() -> None:
     }
 
 
+def test_reader_package_supports_cache_revalidation() -> None:
+    async def send() -> tuple[Response, Response]:
+        client, engine = build_test_client()
+        try:
+            async with client:
+                initial = await client.get("/catalog/moon-story/reader-package")
+                revalidated = await client.get(
+                    "/catalog/moon-story/reader-package",
+                    headers={"If-None-Match": initial.headers["ETag"]},
+                )
+                return initial, revalidated
+        finally:
+            engine.dispose()
+
+    initial, revalidated = asyncio.run(send())
+
+    assert initial.headers["Cache-Control"] == "public, max-age=60, stale-while-revalidate=300"
+    assert initial.headers["ETag"] == '"1"'
+    assert revalidated.status_code == 304
+    assert revalidated.content == b""
+    assert revalidated.headers["ETag"] == initial.headers["ETag"]
+
+
 def test_catalog_api_returns_stable_errors_and_excludes_drafts() -> None:
     draft_response = request("GET", "/catalog/draft-story")
     invalid_response = request("GET", "/catalog?limit=0")

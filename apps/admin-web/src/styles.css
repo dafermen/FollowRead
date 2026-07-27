@@ -3189,3 +3189,52 @@ kbd {
     transition-duration: 1ms !important;
   }
 }
+/* Phase 12 resilience states */
+.route-loading,
+.fatal-error {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: var(--canvas, #f5f7fa);
+}
+
+.route-loading p,
+.fatal-error__card {
+  border: 1px solid rgb(20 38 56 / 12%);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1.25rem 3rem rgb(20 38 56 / 10%);
+}
+
+.route-loading p {
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+}
+
+.fatal-error__card {
+  width: min(36rem, 100%);
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.fatal-error__eyebrow {
+  color: #245f51;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.fatal-error__card h1 {
+  margin-block: 0.5rem 1rem;
+}
+
+.fatal-error__card button {
+  margin-top: 1rem;
+  border: 0;
+  border-radius: 0.7rem;
+  padding: 0.85rem 1.25rem;
+  background: #153f50;
+  color: #fff;
+  font-weight: 800;
+}

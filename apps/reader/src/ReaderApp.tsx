@@ -1423,6 +1423,13 @@ export const DocumentationPage = () => (
         <code>pnpm mobile:build:android</code> genera un APK de prueba. El build iOS requiere macOS
         con Xcode.
       </p>
+      <h2>Calidad, seguridad y rendimiento</h2>
+      <p>
+        Con los servicios activos, <code>pnpm quality:regression</code> ejecuta la puerta completa,
+        recorridos E2E, accesibilidad, presupuestos y carga. <code>pnpm security:audit</code> revisa
+        dependencias JavaScript y Python. Las métricas locales están en{" "}
+        <code>http://localhost:8000/metrics</code>.
+      </p>
       <h2>Rutas principales</h2>
       <ul>
         <li>

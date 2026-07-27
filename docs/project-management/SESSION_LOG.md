@@ -651,3 +651,21 @@ descomponer la Fase 11.
 
 FR-PH11-TASK-001 a 012 quedaron `COMPLETED`. La Fase 11 quedó cerrada en PASS; el siguiente paso es
 descomponer la Fase 12.
+
+---
+
+## Continuación 2026-07-26 - Calidad, seguridad y rendimiento
+
+- API añadió GZip, ETag/revalidación, políticas de caché y cabeceras defensivas.
+- Request IDs, logs JSON y errores seguros ahora alimentan métricas Prometheus agregadas.
+- Admin y Reader contienen errores React/globales sin registrar mensajes privados.
+- AdminExperience y StoryReaderPage se cargan de forma diferida con presupuestos gzip.
+- El service worker separa navegación, assets y contenido mediante tres estrategias de caché.
+- La auditoría móvil comprobó ocho rutas críticas a 390 × 844.
+- La carga SQLite pasó 120 solicitudes, concurrencia 12 y p95 final 107.9 ms sin fallos.
+- La auditoría corrigió avisos transitivos de Capacitor y actualizó el `pip` vulnerable.
+- JavaScript quedó con cero vulnerabilidades conocidas moderadas o superiores; Python con cero.
+- La regresión quedó automatizada con calidad, seguridad, cuatro E2E y la puerta completa.
+
+FR-PH12-TASK-001 a 010 quedaron `COMPLETED`. La Fase 12 quedó cerrada en PASS; el siguiente paso es
+descomponer la Fase 13.

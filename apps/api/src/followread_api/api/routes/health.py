@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import BaseModel
 from sqlalchemy import Engine
 from sqlalchemy.exc import SQLAlchemyError
@@ -9,6 +9,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from followread_api import __version__
 from followread_api.config import Settings, get_settings
 from followread_api.database import check_database, get_database_engine
+from followread_api.observability import render_prometheus_metrics, request_metrics
 
 router = APIRouter(tags=["system"])
 
@@ -69,4 +70,16 @@ def readiness(
         service=settings.app_name,
         status="ready",
         checks={"database": "ok"},
+    )
+
+
+@router.get(
+    "/metrics",
+    response_class=PlainTextResponse,
+    include_in_schema=False,
+)
+def metrics() -> PlainTextResponse:
+    return PlainTextResponse(
+        render_prometheus_metrics(request_metrics.snapshot()),
+        media_type="text/plain; version=0.0.4",
     )

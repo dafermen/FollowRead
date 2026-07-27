@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 from followread_api import __version__
 from followread_api.api.errors import domain_error_handler
@@ -14,7 +15,11 @@ from followread_api.api.routes.catalog import router as catalog_router
 from followread_api.api.routes.health import router as health_router
 from followread_api.api.routes.reader_sync import router as reader_sync_router
 from followread_api.config import get_settings
-from followread_api.observability import configure_logging, request_observability
+from followread_api.observability import (
+    configure_logging,
+    request_observability,
+    response_security_policy,
+)
 from followread_api.services import DomainError
 
 
@@ -35,7 +40,9 @@ def create_app() -> FastAPI:
         allow_headers=["Content-Type", "X-CSRF-Token", "X-Request-ID"],
         expose_headers=["X-Request-ID"],
     )
+    application.add_middleware(GZipMiddleware, minimum_size=500, compresslevel=6)
     application.middleware("http")(request_observability)
+    application.middleware("http")(response_security_policy)
     application.middleware("http")(authentication_cache_control)
     application.add_exception_handler(DomainError, domain_error_handler)
     application.include_router(health_router, prefix=settings.api_prefix)

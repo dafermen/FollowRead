@@ -2,30 +2,30 @@
 
 ## Siguiente tarea exacta
 
-**FR-PH12-TASK-001 - Descomponer y activar la Fase 12**
+**FR-PH13-TASK-001 - Descomponer y activar la Fase 13**
 
 ### Objetivo
 
-Convertir calidad, seguridad y rendimiento de la página 24 del prompt maestro en una secuencia
-medible que estabilice el producto completo sin introducir optimizaciones especulativas.
+Convertir CI/CD y despliegue del prompt maestro en una secuencia segura para validar, empaquetar y
+entregar API, Admin, Reader web/PWA y aplicaciones móviles.
 
 ### Orden de trabajo
 
-1. Auditar seguridad, accesibilidad y dependencias con evidencia reproducible.
-2. Medir bundles, rutas, API y operaciones SQLite antes de optimizar.
-3. Descomponer lazy loading, compresión, caching y manejo global de errores.
-4. Definir carga, regresión, logging estructurado, métricas y observabilidad.
+1. Revisar el workflow base y definir ambientes, artefactos y gates.
+2. Diseñar despliegue reproducible de API SQLite, Admin y Reader sin inventar proveedor.
+3. Separar entrega web de publicación Android/iOS y conservar el gate físico iOS.
+4. Definir secretos, migraciones, backups, rollback, observabilidad y aprobaciones.
 5. Activar únicamente la primera tarea implementable.
 
 ## No hacer todavía
 
-- No optimizar sin una medida base y un criterio de aceptación.
-- No registrar contenido personal, tokens, vocabulario ni texto completo en logs.
-- No añadir servicios externos de observabilidad antes de definir su frontera de privacidad.
-- No cambiar SQLite ni la arquitectura de despliegue como efecto lateral.
-- No desactivar controles de seguridad para mejorar resultados de carga.
+- No seleccionar ni crear cuentas en un proveedor cloud sin decisión del propietario.
+- No incluir SQLite, secretos, `.env`, certificados ni credenciales en artefactos.
+- No desplegar producción ni publicar en tiendas sin aprobación explícita.
+- No omitir auditorías o regresiones para acelerar un pipeline.
+- No ejecutar migraciones de producción sin backup, readiness y rollback.
 
 ## Gate externo conservado
 
 La validación física de iOS en macOS/Xcode sigue siendo obligatoria antes de TestFlight, pero no
-bloquea la Fase 12.
+bloquea la publicación iOS de Fase 13.

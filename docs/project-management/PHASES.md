@@ -23,8 +23,8 @@
 | 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | COMPLETED |
 | 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | COMPLETED |
 | 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | COMPLETED |
-| 11 | Modo aprender inglés | Agregar funciones educativas | NOT_STARTED |
-| 12 | Calidad, seguridad y rendimiento | Endurecer el sistema para uso estable | NOT_STARTED |
+| 11 | Modo aprender inglés | Agregar funciones educativas | COMPLETED |
+| 12 | Calidad, seguridad y rendimiento | Endurecer el sistema para uso estable | COMPLETED |
 | 13 | CI/CD y despliegue | Automatizar validaciones y entregas | NOT_STARTED |
 | 14 | Documentación final y GitHub | Preparar evaluación, contribución y portafolio | NOT_STARTED |
 
@@ -298,3 +298,27 @@ de inteligencia artificial para capacidades esenciales.
 Fase 11 cerrada el 2026-07-26. Evidencia: `PHASE_11_REVIEW.md`,
 `../architecture/LEARNING_MODE.md` y `../testing/PHASE_11_LEARNING.md`. La siguiente fase es
 **Fase 12 - Calidad, seguridad y rendimiento**.
+
+## Fase 12 - Cerrada
+
+### Objetivo
+
+Endurecer el producto completo para uso estable mediante recuperación, observabilidad privada,
+seguridad HTTP, optimización, caching y auditorías reproducibles.
+
+### Criterios de salida
+
+1. API y aplicaciones contienen fallos inesperados sin exponer detalles ni perder contexto.
+2. Logging JSON, request IDs, timing y métricas agregadas permiten diagnóstico local.
+3. Lazy loading, chunks y presupuestos gzip evitan regresiones de bundle.
+4. Compresión, ETag, cache-control y service worker tienen políticas explícitas.
+5. Ocho rutas críticas pasan auditoría móvil de semántica, etiquetas y reflow.
+6. Carga concurrente cumple p95 menor a 750 ms sin errores.
+7. Dependencias JavaScript/Python no tienen vulnerabilidades conocidas moderadas o superiores.
+8. Pruebas, E2E, builds, auditorías y documentación quedan en verde.
+
+### Resultado
+
+Fase 12 cerrada el 2026-07-26. Evidencia: `PHASE_12_REVIEW.md`,
+`../architecture/PHASE_12_SECURITY_AUDIT.md`, `../architecture/OBSERVABILITY.md` y
+`../testing/PHASE_12_QUALITY.md`. La siguiente fase es **Fase 13 - CI/CD y despliegue**.
