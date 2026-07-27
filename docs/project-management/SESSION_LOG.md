@@ -669,3 +669,28 @@ descomponer la Fase 12.
 
 FR-PH12-TASK-001 a 010 quedaron `COMPLETED`. La Fase 12 quedó cerrada en PASS; el siguiente paso es
 descomponer la Fase 13.
+
+---
+
+## Continuación 2026-07-26 - Automatización y continuidad de Fase 13
+
+- Se verificó visualmente la página 25 del prompt maestro.
+- API, Admin y Reader obtuvieron imágenes separadas con versiones base explícitas.
+- Compose coordina Alembic, salud, volumen SQLite, filesystem read-only y capacidades mínimas.
+- CI añade auditoría, artefactos web y builds de las tres imágenes.
+- Tags SemVer preparan GHCR, paquetes web, release notes y GitHub Release.
+- GitHub Environments protegen el smoke test de development/staging/production.
+- Backup/restore SQLite valida integridad y checksum; rollback conserva datos y no hace downgrade.
+- Se documentaron entornos, secretos, releases, migraciones, backup y rollback.
+- `AGENTS.md` y `CURRENT_STATUS.md` quedaron como entrada obligatoria para futuras sesiones.
+- Docker no está instalado, Git no tiene remote y no existe proveedor; la validación externa queda
+  explícita y no se simula.
+
+La puerta local pasó con `pnpm check` y `pnpm quality:regression`: 103 pruebas API, pruebas web,
+builds, auditorías de seguridad, accesibilidad, recorridos offline/móvil/aprendizaje, presupuestos y
+carga quedaron en verde. El smoke local confirmó API, Admin y Reader. Las pruebas de backup/restore
+también verificaron integridad y corrigieron la liberación explícita de conexiones SQLite en
+Windows.
+
+FR-PH13-TASK-001 a 011 quedaron `COMPLETED`; TASK-012 permanece `BLOCKED` hasta disponer de Docker,
+remote GitHub y staging autorizado.

@@ -1,0 +1,82 @@
+name: followread
+
+services:
+  migrate:
+    image: ${FOLLOWREAD_IMAGE_NAMESPACE:-followread}/api:${FOLLOWREAD_IMAGE_VERSION:-local}
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/api.Dockerfile
+    command: ["python", "-m", "alembic", "-c", "/app/alembic.ini", "upgrade", "head"]
+    environment: &api-environment
+      FOLLOWREAD_ENVIRONMENT: ${FOLLOWREAD_ENVIRONMENT:-development}
+      FOLLOWREAD_DATABASE_URL: sqlite:////data/followread.db
+      FOLLOWREAD_ALLOWED_ORIGINS: ${FOLLOWREAD_ALLOWED_ORIGINS:-["http://localhost:5173","http://localhost:5174"]}
+      FOLLOWREAD_POLLY_PROVIDER: fake
+      FOLLOWREAD_AUDIO_OUTPUT_DIR: /data/audio
+      FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR: /data/illustrations
+    volumes:
+      - followread-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    restart: "no"
+
+  api:
+    image: ${FOLLOWREAD_IMAGE_NAMESPACE:-followread}/api:${FOLLOWREAD_IMAGE_VERSION:-local}
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/api.Dockerfile
+    environment: *api-environment
+    volumes:
+      - followread-data:/data
+    ports:
+      - "${FOLLOWREAD_API_PORT:-8000}:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  admin:
+    image: ${FOLLOWREAD_IMAGE_NAMESPACE:-followread}/admin:${FOLLOWREAD_IMAGE_VERSION:-local}
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/admin.Dockerfile
+      args:
+        VITE_APP_ENV: ${VITE_APP_ENV:-development}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+    ports:
+      - "${FOLLOWREAD_ADMIN_PORT:-5173}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+
+  reader:
+    image: ${FOLLOWREAD_IMAGE_NAMESPACE:-followread}/reader:${FOLLOWREAD_IMAGE_VERSION:-local}
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/reader.Dockerfile
+      args:
+        VITE_APP_ENV: ${VITE_APP_ENV:-development}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+    ports:
+      - "${FOLLOWREAD_READER_PORT:-5174}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+
+volumes:
+  followread-data:
+    name: ${FOLLOWREAD_DATA_VOLUME:-followread-data}

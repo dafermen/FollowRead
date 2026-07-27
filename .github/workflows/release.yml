@@ -1,0 +1,135 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SemVer tag to validate without publishing
+        required: true
+        default: v0.1.0
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: release
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+          python -m venv apps/api/.venv
+          pnpm setup:python
+
+      - name: Validate release
+        run: |
+          pnpm ci
+          pnpm security:audit
+          pnpm deploy:validate
+
+      - name: Resolve release version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            VERSION="$GITHUB_REF_NAME"
+          else
+            VERSION="$INPUT_VERSION"
+          fi
+          node scripts/release-notes.mjs --version "$VERSION" --output release-notes.md
+          echo "value=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Require production API URL for tagged releases
+        if: github.ref_type == 'tag'
+        env:
+          API_BASE_URL: ${{ vars.FOLLOWREAD_API_BASE_URL }}
+        run: |
+          if [[ -z "$API_BASE_URL" || "$API_BASE_URL" != https://* ]]; then
+            echo "Repository variable FOLLOWREAD_API_BASE_URL must be an HTTPS URL."
+            exit 1
+          fi
+
+      - name: Build release containers
+        env:
+          API_BASE_URL: ${{ vars.FOLLOWREAD_API_BASE_URL }}
+          VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          API_BASE_URL="${API_BASE_URL:-https://api.example.invalid}"
+          OWNER="$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')"
+          NAMESPACE="ghcr.io/$OWNER/followread"
+          docker build --file infrastructure/docker/api.Dockerfile --tag "$NAMESPACE/api:$VERSION" .
+          docker build --file infrastructure/docker/admin.Dockerfile --build-arg VITE_API_BASE_URL="$API_BASE_URL" --tag "$NAMESPACE/admin:$VERSION" .
+          docker build --file infrastructure/docker/reader.Dockerfile --build-arg VITE_API_BASE_URL="$API_BASE_URL" --tag "$NAMESPACE/reader:$VERSION" .
+
+      - name: Publish release containers
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          OWNER="$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')"
+          NAMESPACE="ghcr.io/$OWNER/followread"
+          echo "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$NAMESPACE/api:$VERSION"
+          docker push "$NAMESPACE/admin:$VERSION"
+          docker push "$NAMESPACE/reader:$VERSION"
+
+      - name: Package web builds
+        run: |
+          tar -czf followread-admin.tar.gz -C apps/admin-web/dist .
+          tar -czf followread-reader.tar.gz -C apps/reader/dist .
+
+      - name: Upload release candidate
+        uses: actions/upload-artifact@v7
+        with:
+          name: followread-${{ steps.version.outputs.value }}
+          path: |
+            followread-admin.tar.gz
+            followread-reader.tar.gz
+            release-notes.md
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Create GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.value }}
+        run: >-
+          gh release create "$VERSION"
+          followread-admin.tar.gz
+          followread-reader.tar.gz
+          --verify-tag
+          --notes-file release-notes.md
+          --title "FollowRead $VERSION"

@@ -2708,3 +2708,27 @@ resultados medidos e incidencias resueltas están en `PHASE_12_REVIEW.md`,
 `../testing/PHASE_12_QUALITY.md` y `../architecture/PHASE_12_SECURITY_AUDIT.md`.
 
 **Siguiente acción:** Descomponer la Fase 13.
+
+---
+
+# Fase 13 - CI/CD y despliegue
+
+| ID | Título | Estado | Prioridad |
+|---|---|---|---|
+| FR-PH13-TASK-001 | Descomponer y activar la Fase 13 | COMPLETED | Critical |
+| FR-PH13-TASK-002 | Empaquetar API en contenedor | COMPLETED | Critical |
+| FR-PH13-TASK-003 | Empaquetar Admin y Reader | COMPLETED | Critical |
+| FR-PH13-TASK-004 | Orquestar migración, salud y volumen SQLite | COMPLETED | Critical |
+| FR-PH13-TASK-005 | Ampliar CI con seguridad, artefactos e imágenes | COMPLETED | Critical |
+| FR-PH13-TASK-006 | Automatizar SemVer, notas y releases | COMPLETED | High |
+| FR-PH13-TASK-007 | Implementar backup y restore verificables | COMPLETED | Critical |
+| FR-PH13-TASK-008 | Implementar rollback no destructivo | COMPLETED | Critical |
+| FR-PH13-TASK-009 | Definir secretos, entornos y aprobaciones | COMPLETED | Critical |
+| FR-PH13-TASK-010 | Actualizar documentación y continuidad | COMPLETED | Critical |
+| FR-PH13-TASK-011 | Validar estáticamente y ejecutar puerta local | COMPLETED | Critical |
+| FR-PH13-TASK-012 | Validar Docker, GitHub y staging reales | BLOCKED | Critical |
+
+**Bloqueo de TASK-012:** Docker no está instalado, Git no tiene remote y no existe proveedor
+elegido. No se requieren credenciales para el desarrollo local normal.
+
+**Siguiente acción:** ejecutar TASK-012 en infraestructura autorizada.

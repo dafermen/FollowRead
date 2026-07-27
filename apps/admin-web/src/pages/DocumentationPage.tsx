@@ -16,6 +16,7 @@ export const DocumentationPage = () => (
         </a>
         <a href="#levantar">Levantar el proyecto</a>
         <a href="#calidad">Calidad y seguridad</a>
+        <a href="#despliegue">Despliegue</a>
         <a href="http://localhost:8000/docs">API interactiva</a>
       </nav>
       <a className="docs-back" href="/">
@@ -87,6 +88,25 @@ export const DocumentationPage = () => (
           </div>
           <p>
             Las métricas locales están disponibles en <code>http://localhost:8000/metrics</code>.
+          </p>
+        </div>
+      </section>
+
+      <section className="docs-section" id="despliegue">
+        <span className="step-number">04</span>
+        <div>
+          <h2>Preparar un despliegue</h2>
+          <p>
+            La definición se puede revisar sin instalar Docker. El comando habitual de desarrollo
+            local no cambia.
+          </p>
+          <div className="command-box">
+            <code>pnpm deploy:validate</code>
+            <span>Contenedores · CI · release</span>
+          </div>
+          <p>
+            Si Docker está instalado, <code>pnpm deploy:local</code> levanta las tres imágenes y{" "}
+            <code>pnpm deploy:smoke</code> comprueba API, Admin y Reader.
           </p>
         </div>
       </section>

@@ -5,10 +5,12 @@ por palabra y modos adaptados para niñas y niños, personas adultas y estudiant
 
 ## Estado
 
-Las fases 0 a 9 están cerradas. Admin permite gestionar y publicar contenido; Reader ofrece
+Las fases 0 a 12 están cerradas. Admin permite gestionar y publicar contenido; Reader ofrece
 biblioteca, búsqueda, detalle, favoritos, historial, vocabulario, modos de lectura, PWA y un cuento
 bilingüe con sincronización por palabra. El cuento puede leerse sin red y el progreso se sincroniza
-al reconectar. La voz del dispositivo no requiere credenciales ni servicios externos.
+al reconectar. La voz del dispositivo no requiere credenciales ni servicios externos. La Fase 13
+tiene CI, releases y contenedores preparados; su validación externa espera Docker y un remote
+GitHub.
 
 ## Estructura
 
@@ -71,6 +73,19 @@ el build y verifica su checksum contra la API activa.
 Si PowerShell bloquea `pnpm.ps1`, usa `pnpm.cmd` en los comandos. Reader y Admin incluyen una
 página de ayuda en `/documentation`; la API ofrece su contrato interactivo en
 `http://localhost:8000/docs`.
+
+## Continuidad y despliegue
+
+Toda sesión de Codex debe comenzar leyendo `AGENTS.md` y `CURRENT_STATUS.md`. Para revisar los
+artefactos de despliegue sin Docker:
+
+```powershell
+pnpm deploy:validate
+```
+
+Docker es opcional. Cuando esté instalado, `pnpm deploy:local` levanta las tres imágenes y
+`pnpm deploy:smoke` comprueba el resultado. Release, backup y rollback están documentados en
+`docs/deployment/`.
 
 ## Seguridad y licencia
 

@@ -1430,6 +1430,13 @@ export const DocumentationPage = () => (
         dependencias JavaScript y Python. Las métricas locales están en{" "}
         <code>http://localhost:8000/metrics</code>.
       </p>
+      <h2>Continuidad y despliegue</h2>
+      <p>
+        Cada nueva sesión debe comenzar por <code>AGENTS.md</code> y <code>CURRENT_STATUS.md</code>.
+        Ejecuta <code>pnpm deploy:validate</code> para revisar contenedores, CI y releases sin
+        necesitar Docker. Con Docker instalado, <code>pnpm deploy:local</code> levanta el stack
+        opcional.
+      </p>
       <h2>Rutas principales</h2>
       <ul>
         <li>

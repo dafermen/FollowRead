@@ -14,5 +14,9 @@
 - `verify-quality-budget.mjs`: aplica presupuestos de bundle, gzip, caché, cabeceras y métricas.
 - `load-test.mjs`: mide concurrencia, fallos y p95 de la API local sobre SQLite.
 - `run-regression.mjs`: encadena la puerta completa, los E2E y las auditorías de Fase 12.
+- `validate-deployment.mjs`: revisa Dockerfiles, Compose, CI, release y ejemplos sin secretos.
+- `deploy-compose.mjs`: despliega o revierte imágenes por entorno con aprobación explícita.
+- `deployment-smoke-test.mjs`: comprueba readiness, catálogo y shells desplegados.
+- `release-notes.mjs`: genera notas reproducibles desde commits y un tag SemVer.
 
 Los mismos scripts se usan desde Windows y GitHub Actions; no duplican la puerta de calidad.

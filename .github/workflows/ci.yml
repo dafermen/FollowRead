@@ -48,3 +48,45 @@ jobs:
 
       - name: Run the project quality gate
         run: pnpm ci
+
+      - name: Audit dependencies
+        run: pnpm security:audit
+
+      - name: Validate deployment definitions
+        run: pnpm deploy:validate
+
+      - name: Upload web builds
+        uses: actions/upload-artifact@v7
+        with:
+          name: followread-web-${{ github.sha }}
+          path: |
+            apps/admin-web/dist
+            apps/reader/dist
+          if-no-files-found: error
+          retention-days: 14
+
+  containers:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: api
+            dockerfile: infrastructure/docker/api.Dockerfile
+          - name: admin
+            dockerfile: infrastructure/docker/admin.Dockerfile
+          - name: reader
+            dockerfile: infrastructure/docker/reader.Dockerfile
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Build ${{ matrix.name }} container
+        run: >-
+          docker build
+          --file ${{ matrix.dockerfile }}
+          --tag followread-${{ matrix.name }}:${{ github.sha }}
+          .

@@ -1,7 +1,8 @@
 # Estrategia inicial de despliegue
 
-**Estado:** Validada para Fase 0 - FR-PH00-TASK-011 COMPLETED.
-Los proveedores y comandos concretos se decidirán en fases de infraestructura.
+**Estado:** Implementación local/CI preparada en Fase 13; validación externa pendiente.
+Los artefactos son independientes del proveedor. Dominios, hosting y credenciales se decidirán con
+el propietario antes de staging/production.
 
 ## Entornos
 
@@ -32,12 +33,12 @@ Los proveedores y comandos concretos se decidirán en fases de infraestructura.
 - contenido versionado independiente del build;
 - rollback de aplicación no elimina datos ni contenido.
 
-## Flujo futuro de entrega
+## Flujo de entrega implementado
 
 1. lint, type-check y pruebas;
 2. build reproducible;
 3. análisis de seguridad;
-4. publicación de artefactos;
+4. publicación de builds web e imágenes OCI con tag SemVer;
 5. despliegue a development;
 6. migración y pruebas en staging;
 7. aprobación;
@@ -54,16 +55,26 @@ Fase 10 dejó Android/iOS bajo `apps/reader`, recursos reproducibles, build Andr
 firma/publicación en `MOBILE_RELEASES.md`. La ejecución iOS final se realiza en macOS/Xcode antes de
 TestFlight; firmas, cuentas y credenciales de tiendas siguen fuera del repositorio.
 
-## Pendientes
+## Automatización disponible
+
+- `pnpm deploy:validate`: definición estática, imágenes, Compose, CI y release.
+- `pnpm deploy:local`: build/migración/arranque opcional mediante Docker Compose.
+- `pnpm deploy:smoke`: salud de API y shell de Admin/Reader.
+- `pnpm deploy:backup` y `deploy:restore`: SQLite con integridad y checksum.
+- CI construye todas las imágenes; tags SemVer publican en GHCR y crean GitHub Release.
+
+## Pendientes externos
 
 - proveedor y regiones;
 - alta disponibilidad, RTO y RPO;
 - dominio, TLS y CDN;
-- backup/restore de SQLite y futura migración a PostgreSQL;
+- ejecución real de backup/restore sobre el host elegido;
 - ciclo de vida S3;
 - estrategia de migraciones sin interrupción;
 - firma y cuentas de tiendas;
-- observabilidad y alertas.
+- conexión de métricas/alertas al proveedor elegido;
+- validación `docker build/compose` en una máquina con Docker;
+- remote GitHub y primera ejecución de workflows.
 
 ## Migraciones
 
@@ -85,7 +96,7 @@ TestFlight; firmas, cuentas y credenciales de tiendas siguen fuera del repositor
 ## Validación de entornos
 
 - `local`: adaptadores falsos y datos sintéticos: PASS.
-- `development`: integración compartida aislada: PASS.
-- `staging`: migración, rollback y pruebas semejantes a producción: PASS.
-- `production`: secretos, backups, observabilidad y aprobación: PASS.
+- `development`: configuración y gates definidos; ejecución externa pendiente.
+- `staging`: configuración, migración, rollback y aprobación definidos; ejecución pendiente.
+- `production`: secretos, backups, observabilidad y aprobación definidos; ejecución pendiente.
 - Despliegue de contenido independiente del build: PASS.

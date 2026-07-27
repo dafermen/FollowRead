@@ -22,6 +22,8 @@ htmlcov/
 .env
 .env.*
 !.env.example
+infrastructure/deployment/*.env
+!infrastructure/deployment/*.example.env
 
 # Editors and operating systems
 .idea/

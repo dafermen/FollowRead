@@ -26,6 +26,10 @@
 | `FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR` | API | No | `./var/illustrations` | directorio local fuera de Git |
 | `FOLLOWREAD_MAXIMUM_PROCESSING_COST` | API | No | `1.00` | decimal mayor o igual a cero |
 | `FOLLOWREAD_POLLY_CHUNK_CHARACTERS` | API | No | `1500` | entero entre 100 y 3000 |
+| `FOLLOWREAD_IMAGE_NAMESPACE` | Compose | No | `followread` | namespace OCI sin credenciales |
+| `FOLLOWREAD_IMAGE_VERSION` | Compose | No | `local` | tag SemVer en entornos compartidos |
+| `FOLLOWREAD_DATA_VOLUME` | Compose | No | `followread-data` | nombre de volumen explícito |
+| `FOLLOWREAD_DEPLOY_APPROVED` | Script local | staging/production | ausente | debe ser `YES` |
 
 En móvil, `VITE_API_BASE_URL` se fija al compilar y debe ser HTTPS/alcanzable desde el dispositivo.
 Para el emulador Android local puede usarse temporalmente `http://10.0.2.2:8000`. Los orígenes
@@ -40,3 +44,10 @@ estándar de AWS. Las credenciales nunca se agregan al archivo `.env.example`, a
 
 SQLite no requiere credenciales. La base y el audio local quedan fuera de Git. Producción usará un
 gestor de secretos para cualquier valor sensible, no archivos `.env` versionados.
+
+## GitHub Actions
+
+`FOLLOWREAD_API_BASE_URL` es una **Repository Variable**, no un secreto, porque su valor termina en
+el JavaScript público. Producción debe usar HTTPS. `GITHUB_TOKEN` es efímero y se limita por job a
+contenido/paquetes. Credenciales de proveedor, SSH, tiendas o firma no están definidas hasta elegir
+plataforma; deberán almacenarse como secretos de un GitHub Environment protegido.

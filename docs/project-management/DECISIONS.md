@@ -199,6 +199,18 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
   contenido editorial indefinidamente obsoleto.
 - **Consecuencias:** Un CDN futuro deberá conservar estas reglas y probar invalidación al publicar.
 
+### FR-DEC-019 - Contenedores opcionales y artefactos neutrales al proveedor
+
+- **Fecha:** 2026-07-26
+- **Estado:** ACCEPTED
+- **Decisión:** Docker empaqueta API, Admin y Reader para CI/despliegue, pero `pnpm dev` y SQLite
+  local siguen siendo la ruta principal sin Docker. Las imágenes OCI, Compose y scripts no eligen
+  proveedor; los tags SemVer pueden publicarse en GHCR cuando exista remote GitHub.
+- **Razón:** Cumple el alcance de Fase 13 sin reintroducir PostgreSQL, bloquear Windows ni crear
+  infraestructura o costos no autorizados.
+- **Consecuencias:** La fase conserva un gate externo hasta ejecutar Docker, GitHub y staging. Un
+  proveedor futuro deberá agregar TLS, backups externos, alertas y secretos por entorno.
+
 ## Decisiones abiertas
 
 ### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio

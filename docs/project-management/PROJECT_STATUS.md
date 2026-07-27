@@ -2,16 +2,17 @@
 
 **Última actualización:** 2026-07-26  
 **Fase activa:** Fase 13 - CI/CD y despliegue
-**Estado de la fase:** NOT_STARTED  
-**Tarea activa:** Descomponer y activar la Fase 13
-**Estado de la tarea:** NEXT
+**Estado de la fase:** IN_PROGRESS - READY_FOR_EXTERNAL_VALIDATION
+**Tarea activa:** FR-PH13-TASK-012 - Validación Docker, GitHub y staging
+**Estado de la tarea:** BLOCKED
 
 ## Resumen ejecutivo
 
 Fases 0 a 12 están completadas y auditadas. Reader ya es una aplicación web/PWA/Android/iOS con
 descubrimiento, preferencias, voz local, descargas verificadas, lectura sin conexión,
 sincronización, proyectos Capacitor y un modo aprender inglés completo. Calidad, seguridad y
-rendimiento ya tienen presupuestos reproducibles; la siguiente fase automatiza entrega y despliegue.
+rendimiento ya tienen presupuestos reproducibles. La Fase 13 ya implementó contenedores, CI,
+releases, backup y rollback; espera validación real con Docker/GitHub/staging.
 FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
 audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
@@ -35,8 +36,9 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | Tareas de Fase 10 completadas | 12 de 12 |
 | Tareas de Fase 11 completadas | 12 de 12 |
 | Tareas de Fase 12 completadas | 10 de 10 |
+| Tareas de Fase 13 completadas | 11 de 12 |
 | Tareas en progreso | 0 |
-| Tareas bloqueadas | 0 |
+| Tareas bloqueadas | 1 |
 | Decisiones aceptadas | 17 |
 | Decisiones abiertas | 1 |
 | Riesgos abiertos | 8 |
@@ -54,6 +56,7 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | Modo offline | PHASE_9_COMPLETED | Descarga, actualización, recuperación y sync verificadas |
 | Móvil / Capacitor | PHASE_10_COMPLETED | Android compilado/probado; iOS listo para Xcode |
 | Calidad transversal | PHASE_12_COMPLETED | Seguridad, a11y, carga, métricas y regresión en verde |
+| CI/CD y despliegue | PHASE_13_IN_PROGRESS | Implementado; Docker/GitHub/staging pendientes |
 
 ## Entregables cerrados de Fases 5 a 10
 
@@ -84,17 +87,19 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 - safe areas y progreso verificados en vertical/horizontal;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 14 pruebas Admin, 38 Reader, 6 Reader Engine, 3 de configuración y 101 pruebas API;
+- 14 pruebas Admin, 38 Reader, 6 Reader Engine, 3 de configuración y 103 pruebas API;
 - cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
 - cero vulnerabilidades conocidas moderadas o superiores en JavaScript y cero en Python;
 - bundles con carga diferida, p95 local final de 107.9 ms y ocho rutas auditadas a 390 px.
 
 ## Bloqueadores
 
-No hay bloqueadores activos. SQLite y los adaptadores locales permiten continuar sin PostgreSQL,
-Docker ni AWS. iOS requiere macOS/Xcode sólo antes de compilar/publicar en TestFlight. La licencia
-sigue abierta, pero no se necesita hasta Fase 14.
+El producto local no tiene bloqueadores: SQLite y los adaptadores locales permiten continuar sin
+PostgreSQL, Docker ni AWS. El cierre de Fase 13 sí requiere Docker, remote GitHub y un entorno
+staging autorizado. iOS requiere macOS/Xcode antes de TestFlight. La licencia sigue abierta y debe
+resolverse en Fase 14.
 
 ## Regla de continuación
 
-Descomponer la Fase 13 antes de modificar pipelines o destinos de despliegue.
+Completar la validación externa de Fase 13 con Docker, GitHub y staging. No iniciar Fase 14 ni
+marcar la fase cerrada sin registrar primero los gates de `PHASE_13_REVIEW.md`.

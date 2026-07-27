@@ -25,7 +25,7 @@
 | 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | COMPLETED |
 | 11 | Modo aprender inglés | Agregar funciones educativas | COMPLETED |
 | 12 | Calidad, seguridad y rendimiento | Endurecer el sistema para uso estable | COMPLETED |
-| 13 | CI/CD y despliegue | Automatizar validaciones y entregas | NOT_STARTED |
+| 13 | CI/CD y despliegue | Automatizar validaciones y entregas | IN_PROGRESS |
 | 14 | Documentación final y GitHub | Preparar evaluación, contribución y portafolio | NOT_STARTED |
 
 ## Fase 0 - Cerrada
@@ -322,3 +322,26 @@ seguridad HTTP, optimización, caching y auditorías reproducibles.
 Fase 12 cerrada el 2026-07-26. Evidencia: `PHASE_12_REVIEW.md`,
 `../architecture/PHASE_12_SECURITY_AUDIT.md`, `../architecture/OBSERVABILITY.md` y
 `../testing/PHASE_12_QUALITY.md`. La siguiente fase es **Fase 13 - CI/CD y despliegue**.
+
+## Fase 13 - En validación externa
+
+### Objetivo
+
+Automatizar validaciones, artefactos, contenedores, releases y operación segura a través de local,
+development, staging y production.
+
+### Criterios de salida
+
+1. GitHub Actions ejecuta calidad, seguridad y construcción de imágenes.
+2. API, Admin y Reader se empaquetan de forma independiente con salud y mínimos privilegios.
+3. Migración, backup, restore y rollback tienen comandos seguros y documentación.
+4. Versionado SemVer produce release notes, builds web e imágenes OCI inmutables.
+5. Secretos y aprobaciones quedan limitados por entorno y nunca entran al repositorio.
+6. Compose levanta el stack, migra SQLite y pasa smoke tests.
+7. Un runner GitHub real valida CI/release sin depender de estado local.
+8. Staging demuestra backup, migración, smoke y rollback antes de production.
+
+### Estado
+
+Los puntos 1 a 5 están implementados y pasan validación local/estática. Los puntos 6 a 8 esperan
+Docker, remote GitHub y proveedor. Evidencia: `PHASE_13_REVIEW.md` y `../deployment/`.
