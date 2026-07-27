@@ -4,6 +4,7 @@
 **Fase:** 13 - CI/CD y despliegue  
 **Estado:** IN_PROGRESS - implementación terminada, validaciones externas pendientes  
 **Base anterior:** `9ce61e5` - cierre de Fase 12
+**Implementación de Fase 13:** `f18762b`
 
 ## Qué está terminado
 
@@ -17,6 +18,14 @@
   carga, dependencia y regresión.
 - Fase 13 implementada localmente: Dockerfiles, Compose, backup/restore, smoke test, CI ampliado,
   releases SemVer/GHCR, release notes y rollback de artefactos.
+
+## Última validación local
+
+- `pnpm check`: PASS.
+- `pnpm quality:regression`: PASS.
+- `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
+- 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
+  presupuestos y carga: PASS.
 
 ## Validaciones pendientes
 
