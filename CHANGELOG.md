@@ -29,7 +29,9 @@ El proyecto aún no tiene una versión pública estable.
 
 - el Reader ya no intenta reproducir rutas locales generadas por el adaptador simulado como si
   fueran MP3 publicados;
-- una versión offline incluida obsoleta ya no oculta el audio real disponible en la API.
+- una versión offline incluida obsoleta ya no oculta el audio real disponible en la API;
+- el botón EN ya no queda sin efecto cuando el alineador externo entrega dos marcas con una pequeña
+  superposición temporal.
 
 ## 0.0.0 - MVP en desarrollo
 

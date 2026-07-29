@@ -19,7 +19,8 @@ disponga del SDK y credenciales.
 7. El texto se divide sin cortar palabras, con un máximo configurable por fragmento.
 8. El adaptador genera audio y marcas de palabra. Las llamadas transitorias se intentan hasta tres
    veces.
-9. Los tiempos y posiciones se acumulan y cada marca se vincula al párrafo que contiene su carácter.
+9. Los timestamps externos se ajustan a una secuencia monótona antes de acumular tiempos y vincular
+   cada marca al párrafo que contiene su carácter.
 10. El audio y su huella de origen se guardan en SQLite/almacenamiento local; el trabajo termina
     como completado o fallido.
 11. Si la versión tiene una publicación activa, la API recalcula su checksum con el paquete final
@@ -48,6 +49,8 @@ disponga del SDK y credenciales.
   regenera cuando cambia el texto, idioma, voz, proveedor/modelos o cuando falta el MP3.
 - Un paquete incluido puede actualizarse al cambiar el checksum editorial; una descarga iniciada
   por el usuario nunca se reemplaza silenciosamente.
+- Una caché válida con marcas antiguas superpuestas se repara localmente y conserva el MP3, por lo
+  que la corrección no realiza una nueva llamada de pago.
 - El límite de costo se evalúa antes de cualquier llamada al proveedor.
 - Los errores guardados se limitan a 500 caracteres.
 - Ninguna prueba automatizada usa una cuenta, secreto o llamada real de AWS.

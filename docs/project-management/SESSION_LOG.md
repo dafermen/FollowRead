@@ -779,3 +779,21 @@ estado de caché con el servicio activo.
 
 Sólo queda la confirmación auditiva del usuario después de una recarga completa del Reader. Los
 gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
+
+---
+
+## Continuación 2026-07-29 - Cambio ES/EN con timestamps OpenAI
+
+- Se reprodujo que el botón EN recibía el clic pero no cambiaba la interfaz.
+- La marca inglesa `trees.` comenzaba 220 ms antes de terminar la anterior; Reader rechazaba toda
+  la línea de tiempo y el manejador terminaba antes de actualizar el idioma.
+- Reader normaliza defensivamente las marcas de cualquier paquete antes de cargarlas en el motor.
+- OpenAI TTS normaliza también los timestamps externos antes de persistirlos.
+- La reutilización de caché repara marcas antiguas y actualiza el checksum publicado sin llamar al
+  proveedor.
+- La única superposición existente se corrigió en SQLite y se exportó nuevamente al bootstrap
+  offline; el proceso registró cero llamadas al proveedor.
+- La regresión del Reader incluye ahora una línea de tiempo inglesa superpuesta y comprueba que EN
+  muestra `A Light in the Forest`.
+
+La API publicada quedó con 74 marcas inglesas y 73 españolas, ambas con cero secuencias inválidas.

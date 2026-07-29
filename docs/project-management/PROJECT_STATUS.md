@@ -89,7 +89,7 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 - safe areas y progreso verificados en vertical/horizontal;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 14 pruebas Admin, 41 Reader, 6 Reader Engine, 3 de configuración y 108 pruebas API;
+- 14 pruebas Admin, 41 Reader, 6 Reader Engine, 3 de configuración y 110 pruebas API;
 - cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
 - cero vulnerabilidades conocidas moderadas o superiores en JavaScript y cero en Python;
 - bundles con carga diferida, p95 local final de 107.9 ms y ocho rutas auditadas a 390 px.

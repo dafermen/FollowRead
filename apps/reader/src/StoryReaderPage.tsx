@@ -886,23 +886,32 @@ const ReadingHand = () => (
   </span>
 );
 
-const toTimeline = (translation: ReaderTranslation): ReaderTimeline => ({
-  durationMs: translation.audio.duration_ms,
-  chapters: translation.chapters.map((chapter) => ({
-    stableKey: chapter.stable_key,
-    title: chapter.title,
-    paragraphKeys: chapter.paragraphs.map((paragraph) => paragraph.stable_key),
-  })),
-  marks: translation.audio.marks.map((mark) => ({
-    value: mark.value,
-    startMs: mark.start_ms,
-    endMs: mark.end_ms,
-    charStart: mark.char_start,
-    charEnd: mark.char_end,
-    paragraphKey: mark.paragraph_key,
-    chapterKey: mark.chapter_key,
-  })),
-});
+const toTimeline = (translation: ReaderTranslation): ReaderTimeline => {
+  let previousEndMs = 0;
+  const durationMs = translation.audio.duration_ms;
+  return {
+    durationMs,
+    chapters: translation.chapters.map((chapter) => ({
+      stableKey: chapter.stable_key,
+      title: chapter.title,
+      paragraphKeys: chapter.paragraphs.map((paragraph) => paragraph.stable_key),
+    })),
+    marks: translation.audio.marks.map((mark) => {
+      const startMs = Math.min(durationMs, Math.max(previousEndMs, mark.start_ms));
+      const endMs = Math.min(durationMs, Math.max(startMs, mark.end_ms));
+      previousEndMs = endMs;
+      return {
+        value: mark.value,
+        startMs,
+        endMs,
+        charStart: mark.char_start,
+        charEnd: mark.char_end,
+        paragraphKey: mark.paragraph_key,
+        chapterKey: mark.chapter_key,
+      };
+    }),
+  };
+};
 
 const progressKey = (slug: string, language: string) => `followread-progress-${slug}-${language}`;
 

@@ -9,6 +9,7 @@
 **Voz OpenAI y seguimiento estable:** `f0777da`
 **Caché persistente de audio:** `ecc5c1f`
 **Reparación de audio publicado:** `232b6a0`
+**Cambio bilingüe con marcas OpenAI:** pendiente de commit
 
 ## Qué está terminado
 
@@ -17,7 +18,7 @@
   publicación.
 - Reader web/PWA/Android/iOS: biblioteca, cuento bilingüe, audio local, sincronización por palabra,
   descargas, offline, progreso, vocabulario y modo aprender inglés.
-- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 108 pruebas.
+- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 110 pruebas.
 - Calidad transversal: errores globales, GZip, caching, lazy loading, auditoría de accesibilidad,
   carga, dependencia y regresión.
 - Fase 13 implementada localmente: Dockerfiles, Compose, backup/restore, smoke test, CI ampliado,
@@ -42,12 +43,14 @@
   incluido obsoleto sin alterar paquetes descargados por el usuario.
 - El service worker obtiene el manifiesto offline con prioridad de red y una versión nueva de sus
   cachés para no conservar paquetes editoriales antiguos.
+- El cambio ES/EN tolera pequeñas superposiciones de timestamps externos y la API normaliza esas
+  marcas antes de publicarlas o reutilizarlas desde caché.
 
 ## Última validación local
 
 - `pnpm docs:validate`: PASS el 2026-07-29.
 - `pnpm migrate`: PASS; SQLite quedó en la revisión `20260729_0003`.
-- `pnpm check`: PASS el 2026-07-29 con 108 pruebas API, 41 Reader y 14 Admin.
+- `pnpm check`: pendiente de repetir con 110 pruebas API, 41 Reader y 14 Admin.
 - `pnpm quality:regression`: PASS el 2026-07-28 con servicios activos.
 - `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
 - 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
@@ -70,8 +73,8 @@
 
 ## Próxima acción exacta
 
-Hacer una recarga completa del Reader (`Ctrl+Shift+R`), reproducir ambos idiomas y confirmar
-voz/sincronización. La segunda solicitud de cada idioma ya devolvió `cached` y costo cero.
+Hacer una recarga completa del Reader (`Ctrl+Shift+R`), cambiar ES/EN, reproducir ambos idiomas y
+confirmar voz/sincronización. La segunda solicitud de cada idioma ya devolvió `cached` y costo cero.
 Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates
 Docker/GitHub/staging.
 No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar

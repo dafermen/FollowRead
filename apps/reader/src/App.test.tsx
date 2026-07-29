@@ -98,7 +98,7 @@ const storyPackage: ReaderPackage = {
           },
           {
             value: "watches",
-            start_ms: 800,
+            start_ms: 700,
             end_ms: 1600,
             char_start: 5,
             char_end: 12,

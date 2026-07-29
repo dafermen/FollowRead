@@ -281,16 +281,26 @@ class OpenAITtsAdapter:
             if isinstance(word, dict) and "start" in word and "end" in word
         )
         if len(source_words) == len(timings):
-            return tuple(
-                GeneratedMark(
-                    value=source.group(),
-                    start_ms=max(0, start_ms),
-                    end_ms=max(start_ms, end_ms),
-                    char_start=source.start(),
-                    char_end=source.end(),
+            aligned: list[GeneratedMark] = []
+            previous_end_ms = 0
+            for source, (raw_start_ms, raw_end_ms) in zip(
+                source_words,
+                timings,
+                strict=True,
+            ):
+                start_ms = min(duration_ms, max(previous_end_ms, raw_start_ms, 0))
+                end_ms = min(duration_ms, max(start_ms, raw_end_ms))
+                aligned.append(
+                    GeneratedMark(
+                        value=source.group(),
+                        start_ms=start_ms,
+                        end_ms=end_ms,
+                        char_start=source.start(),
+                        char_end=source.end(),
+                    )
                 )
-                for source, (start_ms, end_ms) in zip(source_words, timings, strict=True)
-            )
+                previous_end_ms = end_ms
+            return tuple(aligned)
 
         # TTS reads the exact editorial text, but a transcription can occasionally split a
         # contraction or hyphenated word. Fall back to monotonic, character-weighted marks rather
@@ -458,6 +468,10 @@ class PollyProcessingService:
             .options(selectinload(AudioAsset.speech_marks)),
         )
         if self._cache_is_ready(asset, source_checksum):
+            assert asset is not None
+            self._repair_cached_mark_order(asset)
+            self._session.flush()
+            self._refresh_published_checksum(version)
             job = ProcessingJob(
                 content_version_id=version.id,
                 language=language,
@@ -574,6 +588,14 @@ class PollyProcessingService:
             return False
         exists = getattr(self._storage, "exists", None)
         return not callable(exists) or bool(exists(asset.uri))
+
+    @staticmethod
+    def _repair_cached_mark_order(asset: AudioAsset) -> None:
+        previous_end_ms = 0
+        for mark in sorted(asset.speech_marks, key=lambda item: item.position):
+            mark.start_ms = min(asset.duration_ms, max(previous_end_ms, mark.start_ms))
+            mark.end_ms = min(asset.duration_ms, max(mark.start_ms, mark.end_ms))
+            previous_end_ms = mark.end_ms
 
     def _source_checksum(self, text: str, voice_id: str, language: Language) -> str:
         adapter_identity = str(

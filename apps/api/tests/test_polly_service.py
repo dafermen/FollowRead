@@ -47,7 +47,7 @@ from followread_api.services import (
     TextChunker,
 )
 from followread_api.services.package_integrity import reader_package_checksum
-from followread_api.services.polly import PollyAdapter, SynthesizedChunk
+from followread_api.services.polly import GeneratedMark, PollyAdapter, SynthesizedChunk
 
 
 class MemoryStorage:
@@ -71,6 +71,25 @@ class CountingAdapter:
     def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
         self.calls += 1
         return FakePollyAdapter().synthesize(text, voice_id, language)
+
+
+class OverlappingAdapter:
+    cache_identity = "overlapping:v1"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
+        del text, voice_id, language
+        self.calls += 1
+        return SynthesizedChunk(
+            audio=b"overlapping-audio",
+            duration_ms=1000,
+            marks=(
+                GeneratedMark("silver", 0, 700, 0, 6),
+                GeneratedMark("path", 500, 1000, 7, 11),
+            ),
+        )
 
 
 class FailingAdapter:
@@ -183,6 +202,19 @@ def test_openai_alignment_falls_back_to_monotonic_editorial_words() -> None:
     assert marks[0].start_ms == 0
     assert marks[0].end_ms <= marks[1].start_ms
     assert marks[-1].end_ms == 1000
+
+
+def test_openai_alignment_clamps_overlapping_provider_timestamps() -> None:
+    marks = OpenAITtsAdapter._aligned_marks(
+        "silver path",
+        [
+            {"word": "silver", "start": 0.0, "end": 0.7},
+            {"word": "path", "start": 0.5, "end": 1.0},
+        ],
+        1000,
+    )
+
+    assert [(mark.start_ms, mark.end_ms) for mark in marks] == [(0, 700), (700, 1000)]
 
 
 def test_processing_dependency_can_select_the_aws_boundary(
@@ -306,6 +338,36 @@ def test_audio_cache_invalidates_when_text_changes_or_file_is_missing() -> None:
         assert changed.stage == "completed"
         assert missing.stage == "completed"
         assert adapter.calls == 3
+
+    engine.dispose()
+
+
+def test_cached_audio_repairs_legacy_overlapping_marks_without_provider_call() -> None:
+    engine = create_database_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    storage = MemoryStorage()
+    adapter = OverlappingAdapter()
+    with Session(engine) as session:
+        version_id = _seed_version(session, Language.ENGLISH, "silver path")
+        service = _service(session, storage=storage, adapter=adapter)
+        service.process(
+            content_version_id=version_id,
+            language=Language.ENGLISH,
+            voice_id="Joanna",
+            idempotency_key="legacy-overlap-v1",
+        )
+        cached = service.process(
+            content_version_id=version_id,
+            language=Language.ENGLISH,
+            voice_id="Joanna",
+            idempotency_key="legacy-overlap-v2",
+        )
+        marks = session.scalars(select(SpeechMark).order_by(SpeechMark.position)).all()
+
+        assert cached.stage == "cached"
+        assert cached.estimated_cost == 0
+        assert adapter.calls == 1
+        assert [(mark.start_ms, mark.end_ms) for mark in marks] == [(0, 700), (700, 1000)]
 
     engine.dispose()
 
