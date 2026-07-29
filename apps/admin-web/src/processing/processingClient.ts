@@ -58,7 +58,7 @@ export const startProcessing = async (
       content_version_id: contentVersionId,
       language,
       voice_id: voiceId,
-      idempotency_key: `${contentVersionId}-${language}-${voiceId}`,
+      idempotency_key: crypto.randomUUID(),
     }),
   });
 

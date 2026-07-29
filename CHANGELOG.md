@@ -12,6 +12,8 @@ El proyecto aún no tiene una versión pública estable.
 - continuidad obligatoria mediante `AGENTS.md` y `CURRENT_STATUS.md`;
 - CI, contenedores, backup/restore, release notes, smoke y rollback preparados;
 - narración OpenAI opcional con alineación por palabra y MP3 servido sólo desde la API.
+- caché persistente de narración basada en la huella del texto, voz y modelos para evitar llamadas
+  repetidas al proveedor de pago.
 
 ### Changed
 

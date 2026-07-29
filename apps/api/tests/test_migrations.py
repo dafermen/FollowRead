@@ -56,7 +56,7 @@ def test_functional_migration_upgrades_downgrades_and_upgrades(tmp_path: Path) -
     assert progress_foreign_keys == {"users", "reading_contents", "content_versions"}
     with engine.connect() as connection:
         assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == (
-            "20260725_0002"
+            "20260729_0003"
         )
 
     command.downgrade(config, "base")
@@ -64,5 +64,5 @@ def test_functional_migration_upgrades_downgrades_and_upgrades(tmp_path: Path) -
         assert connection.execute(text("SELECT COUNT(*) FROM alembic_version")).scalar_one() == 0
 
     command.upgrade(config, "head")
-    assert ScriptDirectory.from_config(config).get_heads() == ["20260725_0002"]
+    assert ScriptDirectory.from_config(config).get_heads() == ["20260729_0003"]
     engine.dispose()

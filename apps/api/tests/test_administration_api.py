@@ -2,11 +2,15 @@ import asyncio
 from base64 import b64encode
 from collections.abc import Generator
 from datetime import UTC, datetime
+from decimal import Decimal
+from typing import Annotated
 
+from fastapi import Depends
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy import Engine, select
 from sqlalchemy.orm import Session
 
+from followread_api.api.dependencies import get_processing_service
 from followread_api.database import (
     create_database_engine,
     create_session_factory,
@@ -24,10 +28,16 @@ from followread_api.models import (
     UserSession,
 )
 from followread_api.security import PasswordService
-from followread_api.services import bootstrap_superadmin
+from followread_api.services import FakePollyAdapter, PollyProcessingService, bootstrap_superadmin
 
 PASSWORD = "a sufficiently long password"
 TRUSTED_ORIGIN = "http://localhost:5173"
+
+
+class TestAudioStorage:
+    def store(self, filename: str, payload: bytes) -> str:
+        del payload
+        return f"memory://{filename}"
 
 
 def build_admin_client() -> tuple[AsyncClient, Engine]:
@@ -47,8 +57,20 @@ def build_admin_client() -> tuple[AsyncClient, Engine]:
         with session_factory() as session:
             yield session
 
+    def override_processing_service(
+        session: Annotated[Session, Depends(get_database_session)],
+    ) -> PollyProcessingService:
+        return PollyProcessingService(
+            session,
+            adapter=FakePollyAdapter(),
+            storage=TestAudioStorage(),
+            chunk_characters=1500,
+            maximum_cost=Decimal("1"),
+        )
+
     application = create_app()
     application.dependency_overrides[get_database_session] = override_session
+    application.dependency_overrides[get_processing_service] = override_processing_service
     return (
         AsyncClient(
             transport=ASGITransport(app=application),

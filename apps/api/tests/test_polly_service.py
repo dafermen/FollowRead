@@ -43,7 +43,7 @@ from followread_api.services import (
     RetryingPollyAdapter,
     TextChunker,
 )
-from followread_api.services.polly import SynthesizedChunk
+from followread_api.services.polly import PollyAdapter, SynthesizedChunk
 
 
 class MemoryStorage:
@@ -53,6 +53,20 @@ class MemoryStorage:
     def store(self, filename: str, payload: bytes) -> str:
         self.payloads[filename] = payload
         return f"memory://{filename}"
+
+    def exists(self, uri: str) -> bool:
+        return uri.removeprefix("memory://") in self.payloads
+
+
+class CountingAdapter:
+    cache_identity = "counting:v1"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
+        self.calls += 1
+        return FakePollyAdapter().synthesize(text, voice_id, language)
 
 
 class FailingAdapter:
@@ -203,9 +217,10 @@ def test_fake_polly_processing_generates_audio_marks_cost_and_idempotency() -> N
     engine = create_database_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)
     storage = MemoryStorage()
+    adapter = CountingAdapter()
     with Session(engine) as session:
         version_id = _seed_version(session, Language.ENGLISH, "Hello world. Follow Read.")
-        service = _service(session, storage=storage, chunk_characters=12)
+        service = _service(session, storage=storage, adapter=adapter)
 
         job = service.process(
             content_version_id=version_id,
@@ -229,6 +244,9 @@ def test_fake_polly_processing_generates_audio_marks_cost_and_idempotency() -> N
         assert repeated.id == job.id
         assert job.status == JobStatus.SUCCEEDED
         assert regenerated.status == JobStatus.SUCCEEDED
+        assert regenerated.stage == "cached"
+        assert regenerated.estimated_cost == 0
+        assert adapter.calls == 1
         assert job.progress_percent == 100
         assert job.estimated_cost > 0
         assert len(storage.payloads) == 1
@@ -236,12 +254,54 @@ def test_fake_polly_processing_generates_audio_marks_cost_and_idempotency() -> N
         asset = session.scalar(select(AudioAsset))
         assert asset is not None
         assert asset.status == ResourceStatus.READY
+        assert asset.source_checksum is not None
         assert service._voice_from_failed_job(job) == "Joanna"
         marks = session.scalars(select(SpeechMark).order_by(SpeechMark.position)).all()
         assert [mark.value for mark in marks] == ["Hello", "world.", "Follow", "Read."]
         assert all(mark.paragraph_id is not None for mark in marks)
         assert service.list_jobs()[0].id == regenerated.id
         assert service.cancel(job.id).status == JobStatus.SUCCEEDED
+
+    engine.dispose()
+
+
+def test_audio_cache_invalidates_when_text_changes_or_file_is_missing() -> None:
+    engine = create_database_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    storage = MemoryStorage()
+    adapter = CountingAdapter()
+    with Session(engine) as session:
+        version_id = _seed_version(session, Language.SPANISH, "Hola luna.")
+        service = _service(session, storage=storage, adapter=adapter)
+
+        first = service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="Lucia",
+            idempotency_key="cache-invalidation-v1",
+        )
+        paragraph = session.scalar(select(Paragraph))
+        assert paragraph is not None
+        paragraph.text = "Hola luna brillante."
+        session.commit()
+        changed = service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="Lucia",
+            idempotency_key="cache-invalidation-v2",
+        )
+        storage.payloads.clear()
+        missing = service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="Lucia",
+            idempotency_key="cache-invalidation-v3",
+        )
+
+        assert first.stage == "completed"
+        assert changed.stage == "completed"
+        assert missing.stage == "completed"
+        assert adapter.calls == 3
 
     engine.dispose()
 
@@ -357,12 +417,13 @@ def _service(
     session: Session,
     *,
     storage: MemoryStorage | None = None,
+    adapter: PollyAdapter | None = None,
     chunk_characters: int = 100,
     maximum_cost: Decimal = Decimal("1"),
 ) -> PollyProcessingService:
     return PollyProcessingService(
         session,
-        adapter=FakePollyAdapter(),
+        adapter=adapter or FakePollyAdapter(),
         storage=storage or MemoryStorage(),
         chunk_characters=chunk_characters,
         maximum_cost=maximum_cost,

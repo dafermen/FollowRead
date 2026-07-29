@@ -736,3 +736,23 @@ externos pendientes.
 
 Queda pendiente la prueba auditiva real porque el repositorio no contiene una clave. El siguiente
 paso es crear `apps/api/.env`, generar ambos idiomas desde Admin y validar voz/sincronización.
+
+---
+
+## Continuación 2026-07-29 - Caché persistente para audio de pago
+
+- La API guarda `source_checksum`, una huella SHA-256 del texto, idioma, voz, proveedor y modelos.
+- Una nueva solicitud con la misma huella reutiliza el MP3 y sus Speech Marks, termina como
+  `cached` y registra costo cero sin llamar al proveedor.
+- La caché se invalida cuando cambia el contenido o configuración, o cuando falta el archivo.
+- Admin crea una clave de solicitud por acción y muestra
+  `Audio reutilizado · sin costo API` cuando corresponde.
+- La migración SQLite `20260729_0003` quedó aplicada a la base local.
+- La suite administrativa quedó aislada explícitamente con `FakePollyAdapter`, por lo que un
+  `.env` real nunca puede convertir una prueba automatizada en una llamada de pago.
+- El archivo local y la configuración OpenAI se verificaron sin exponer el secreto.
+- `pnpm check` pasó completo con 107 pruebas API, 40 Reader y 14 Admin, además de lint, tipos,
+  documentación y builds.
+
+Falta generar el cuento real desde Admin, escucharlo y repetir la acción para validar visualmente el
+estado de caché con el servicio activo.

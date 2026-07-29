@@ -78,6 +78,8 @@ class AwsPollyClient(Protocol):
 
 
 class FakePollyAdapter:
+    cache_identity = "fake-polly:v1"
+
     def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
         del language
         marks: list[GeneratedMark] = []
@@ -106,6 +108,8 @@ class FakePollyAdapter:
 
 class AwsPollyAdapter:
     """Thin Polly boundary; automated tests never contact AWS."""
+
+    cache_identity = "aws-polly:mp3:v1"
 
     def __init__(self, client: AwsPollyClient) -> None:
         self._client = client
@@ -180,11 +184,27 @@ class OpenAITtsAdapter:
         self._api_key = api_key
         self._tts_model = tts_model
         self._alignment_model = alignment_model
-        self._client = client or httpx.Client(timeout=90)
+        self._client = client
+
+    @property
+    def cache_identity(self) -> str:
+        return f"openai:{self._tts_model}:{self._alignment_model}:mp3:v1"
 
     def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
+        if self._client is not None:
+            return self._synthesize(self._client, text, voice_id, language)
+        with httpx.Client(timeout=90) as client:
+            return self._synthesize(client, text, voice_id, language)
+
+    def _synthesize(
+        self,
+        client: httpx.Client,
+        text: str,
+        voice_id: str,
+        language: Language,
+    ) -> SynthesizedChunk:
         voice = self._legacy_voice_aliases.get(voice_id, voice_id)
-        speech_response = self._client.post(
+        speech_response = client.post(
             self._speech_url,
             headers={"Authorization": f"Bearer {self._api_key}"},
             json={
@@ -200,7 +220,7 @@ class OpenAITtsAdapter:
         if not audio:
             raise RuntimeError("OpenAI returned an empty speech file.")
 
-        alignment_response = self._client.post(
+        alignment_response = client.post(
             self._transcription_url,
             headers={"Authorization": f"Bearer {self._api_key}"},
             files={"file": ("followread.mp3", audio, "audio/mpeg")},
@@ -302,6 +322,12 @@ class RetryingPollyAdapter:
         self._adapter = adapter
         self._maximum_attempts = maximum_attempts
 
+    @property
+    def cache_identity(self) -> str:
+        return str(
+            getattr(self._adapter, "cache_identity", type(self._adapter).__qualname__),
+        )
+
     def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
         return self._attempt(text, voice_id, language, attempt=1)
 
@@ -333,6 +359,10 @@ class LocalAudioStorage:
         if self._public_prefix is not None:
             return f"{self._public_prefix.rstrip('/')}/{filename}"
         return target.as_posix()
+
+    def exists(self, uri: str) -> bool:
+        filename = uri.rsplit("/", 1)[-1] if self._public_prefix is not None else Path(uri).name
+        return (self._root / filename).is_file()
 
 
 class TextChunker:
@@ -379,11 +409,6 @@ class PollyProcessingService:
         voice_id: str,
         idempotency_key: str,
     ) -> ProcessingJob:
-        existing = self._session.scalar(
-            select(ProcessingJob).where(ProcessingJob.idempotency_key == idempotency_key),
-        )
-        if existing is not None:
-            return existing
         if VOICE_LANGUAGES.get(voice_id) != language:
             raise InvalidCatalogQueryError(
                 "voice_id", "The voice is incompatible with the language."
@@ -414,6 +439,35 @@ class PollyProcessingService:
         text, ranges = self._join_paragraphs(paragraphs)
         if not text:
             raise InvalidCatalogQueryError("content", "The translation has no readable text.")
+        existing = self._session.scalar(
+            select(ProcessingJob).where(ProcessingJob.idempotency_key == idempotency_key),
+        )
+        if existing is not None:
+            return existing
+        source_checksum = self._source_checksum(text, voice_id, language)
+        asset = self._session.scalar(
+            select(AudioAsset)
+            .where(
+                AudioAsset.content_version_id == version.id,
+                AudioAsset.language == language,
+                AudioAsset.voice_id == voice_id,
+            )
+            .options(selectinload(AudioAsset.speech_marks)),
+        )
+        if self._cache_is_ready(asset, source_checksum):
+            job = ProcessingJob(
+                content_version_id=version.id,
+                language=language,
+                job_type="polly_audio",
+                idempotency_key=idempotency_key,
+                status=JobStatus.SUCCEEDED,
+                stage="cached",
+                progress_percent=100,
+                estimated_cost=Decimal("0"),
+            )
+            self._session.add(job)
+            self._session.commit()
+            return job
         estimated_cost = Decimal(len(text)) * COST_PER_CHARACTER
         if estimated_cost > self._maximum_cost:
             raise InvalidCatalogQueryError(
@@ -456,13 +510,6 @@ class PollyProcessingService:
             payload = b"".join(audio_parts)
             checksum = f"sha256:{sha256(payload).hexdigest()}"
             uri = self._storage.store(f"{version.id}-{language.value}-{voice_id}.mp3", payload)
-            asset = self._session.scalar(
-                select(AudioAsset).where(
-                    AudioAsset.content_version_id == version.id,
-                    AudioAsset.language == language,
-                    AudioAsset.voice_id == voice_id,
-                ),
-            )
             if asset is None:
                 asset = AudioAsset(
                     content_version_id=version.id,
@@ -470,6 +517,7 @@ class PollyProcessingService:
                     voice_id=voice_id,
                     uri=uri,
                     checksum=checksum,
+                    source_checksum=source_checksum,
                     duration_ms=time_offset,
                     status=ResourceStatus.READY,
                 )
@@ -479,6 +527,7 @@ class PollyProcessingService:
                 self._session.flush()
                 asset.uri = uri
                 asset.checksum = checksum
+                asset.source_checksum = source_checksum
                 asset.duration_ms = time_offset
                 asset.status = ResourceStatus.READY
             self._session.flush()
@@ -505,6 +554,28 @@ class PollyProcessingService:
             job.error_detail = str(error)[:500]
         self._session.commit()
         return job
+
+    def _cache_is_ready(
+        self,
+        asset: AudioAsset | None,
+        source_checksum: str,
+    ) -> bool:
+        if (
+            asset is None
+            or asset.status != ResourceStatus.READY
+            or asset.source_checksum != source_checksum
+            or not asset.speech_marks
+        ):
+            return False
+        exists = getattr(self._storage, "exists", None)
+        return not callable(exists) or bool(exists(asset.uri))
+
+    def _source_checksum(self, text: str, voice_id: str, language: Language) -> str:
+        adapter_identity = str(
+            getattr(self._adapter, "cache_identity", type(self._adapter).__qualname__),
+        )
+        source = "\0".join((adapter_identity, language.value, voice_id, text))
+        return f"sha256:{sha256(source.encode()).hexdigest()}"
 
     def list_jobs(self, limit: int = 20) -> tuple[ProcessingJob, ...]:
         return tuple(

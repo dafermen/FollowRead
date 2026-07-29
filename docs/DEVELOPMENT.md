@@ -42,6 +42,11 @@ Reinicia `pnpm dev` y genera el audio desde Admin > Procesamiento. Usa `marin` p
 `cedar` para inglés. `apps/api/.env` está ignorado por Git; nunca uses una variable `VITE_*` para
 esta clave.
 
+El MP3 se genera una sola vez. La API guarda una huella del texto, idioma, voz y modelos en SQLite,
+y reutiliza el archivo en todas las reproducciones y solicitudes posteriores sin llamar de nuevo a
+OpenAI. La regeneración ocurre automáticamente sólo cuando cambia uno de esos datos o falta el
+archivo guardado.
+
 ## Flujo de contribución
 
 1. Leer `AGENTS.md`, `CURRENT_STATUS.md` y `docs/project-management/NEXT_STEPS.md`.

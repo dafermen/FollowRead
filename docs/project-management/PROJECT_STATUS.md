@@ -54,7 +54,7 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 | FollowRead Reader | PHASE_11_COMPLETED | Web/PWA/móvil con aprendizaje y offline |
 | FollowRead API | PHASE_9_COMPLETED | Paquete canónico y sincronización idempotente |
 | Reader Engine | PHASE_7_COMPLETED | Motor determinista sin React ni DOM |
-| Audio / TTS | OPENAI_BOUNDARY_READY | Fake local por defecto; OpenAI y AWS opcionales |
+| Audio / TTS | OPENAI_CACHE_READY | OpenAI configurado; MP3 persistente con invalidación por huella |
 | Modo offline | PHASE_9_COMPLETED | Descarga, actualización, recuperación y sync verificadas |
 | Móvil / Capacitor | PHASE_10_COMPLETED | Android compilado/probado; iOS listo para Xcode |
 | Calidad transversal | PHASE_12_COMPLETED | Seguridad, a11y, carga, métricas y regresión en verde |
@@ -89,7 +89,7 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 - safe areas y progreso verificados en vertical/horizontal;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 14 pruebas Admin, 38 Reader, 6 Reader Engine, 3 de configuración y 103 pruebas API;
+- 14 pruebas Admin, 40 Reader, 6 Reader Engine, 3 de configuración y 107 pruebas API;
 - cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
 - cero vulnerabilidades conocidas moderadas o superiores en JavaScript y cero en Python;
 - bundles con carga diferida, p95 local final de 107.9 ms y ocho rutas auditadas a 390 px.

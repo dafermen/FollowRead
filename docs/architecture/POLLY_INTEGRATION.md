@@ -12,12 +12,16 @@ disponga del SDK y credenciales.
 1. Admin envía versión, idioma, voz y clave de idempotencia.
 2. La API valida sesión, CSRF, permiso, traducción e idioma de la voz.
 3. El servicio une los párrafos conservando sus rangos de caracteres.
-4. Antes de procesar calcula `caracteres × 0.000004 USD` y aplica el límite configurado.
-5. El texto se divide sin cortar palabras, con un máximo configurable por fragmento.
-6. El adaptador genera audio y marcas de palabra. Las llamadas transitorias se intentan hasta tres
+4. Calcula una huella SHA-256 del texto, idioma, voz, proveedor y modelos configurados.
+5. Si existe un MP3 listo con la misma huella, devuelve un trabajo `cached` con costo cero y no
+   llama al proveedor.
+6. Si la huella cambió o el archivo falta, calcula `caracteres × 0.000004 USD` y aplica el límite.
+7. El texto se divide sin cortar palabras, con un máximo configurable por fragmento.
+8. El adaptador genera audio y marcas de palabra. Las llamadas transitorias se intentan hasta tres
    veces.
-7. Los tiempos y posiciones se acumulan y cada marca se vincula al párrafo que contiene su carácter.
-8. El audio se guarda con checksum SHA-256 y el trabajo termina como completado o fallido.
+9. Los tiempos y posiciones se acumulan y cada marca se vincula al párrafo que contiene su carácter.
+10. El audio y su huella de origen se guardan en SQLite/almacenamiento local; el trabajo termina
+    como completado o fallido.
 
 ## Adaptadores
 
@@ -37,7 +41,9 @@ disponga del SDK y credenciales.
 - El navegador nunca recibe credenciales AWS ni invoca Polly directamente.
 - El navegador tampoco recibe `OPENAI_API_KEY`: reproduce únicamente el MP3 publicado.
 - Todas las mutaciones exigen cookie de sesión, permiso `content.process`, origen permitido y CSRF.
-- La clave de idempotencia evita costos y archivos duplicados ante reenvíos.
+- La clave de idempotencia evita duplicados ante reenvíos de una misma solicitud.
+- La caché persistente evita nuevas llamadas de pago aunque Admin envíe otra solicitud: sólo se
+  regenera cuando cambia el texto, idioma, voz, proveedor/modelos o cuando falta el MP3.
 - El límite de costo se evalúa antes de cualquier llamada al proveedor.
 - Los errores guardados se limitan a 500 caracteres.
 - Ninguna prueba automatizada usa una cuenta, secreto o llamada real de AWS.

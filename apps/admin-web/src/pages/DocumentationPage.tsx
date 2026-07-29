@@ -97,8 +97,10 @@ export const DocumentationPage = () => (
           <div className="docs-note">
             <strong>Importante</strong>
             <p>
-              La generación consume la API de OpenAI. El modo <code>fake</code> sigue disponible
-              para trabajar sin costo ni conexión.
+              La primera generación consume la API de OpenAI. Después FollowRead guarda y reutiliza
+              el MP3 sin costo adicional. Sólo lo regenera si cambia el texto, idioma, voz, modelo o
+              si el archivo ya no existe. El modo <code>fake</code> sigue disponible para trabajar
+              sin costo ni conexión.
             </p>
           </div>
         </div>

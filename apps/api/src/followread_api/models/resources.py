@@ -61,6 +61,7 @@ class AudioAsset(UuidPrimaryKeyMixin, TimestampMixin, Base):
     voice_id: Mapped[str] = mapped_column(String(120), nullable=False)
     uri: Mapped[str] = mapped_column(String(500), nullable=False)
     checksum: Mapped[str] = mapped_column(String(71), nullable=False)
+    source_checksum: Mapped[str | None] = mapped_column(String(71))
     duration_ms: Mapped[int] = mapped_column(Integer, nullable=False)
     status: Mapped[ResourceStatus] = mapped_column(
         RESOURCE_STATUS_ENUM,

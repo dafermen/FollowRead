@@ -121,7 +121,7 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
             <p className="eyebrow">Audio y sincronización</p>
             <h1>Procesamiento</h1>
             <p className="page-subtitle">
-              Genera narración y marcas sincronizadas con el proveedor configurado en la API.
+              Genera narración una sola vez y reutiliza el MP3 guardado en futuras reproducciones.
             </p>
           </div>
           <span className="provider-badge">
@@ -134,7 +134,10 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
             <div>
               <p className="eyebrow">Nueva generación</p>
               <h2 id="launcher-title">Preparar audio sincronizado</h2>
-              <p>El texto se divide automáticamente y cada palabra queda vinculada a su párrafo.</p>
+              <p>
+                El texto se divide automáticamente. Si no cambió el texto, la voz ni el modelo, se
+                usa el audio guardado sin volver a llamar a la API de pago.
+              </p>
             </div>
             <div className="voice-controls">
               <label>
@@ -248,7 +251,7 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
                     <span style={{ width: `${String(job.progress_percent)}%` }} />
                   </div>
                   <div className="job-meta">
-                    <span>{job.stage ?? "Preparando"}</span>
+                    <span>{jobStageLabel(job.stage)}</span>
                     <span>{String(job.progress_percent)}%</span>
                     <span>US$ {job.estimated_cost}</span>
                   </div>
@@ -314,7 +317,7 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
                 ["Fragmentos seguros", "Divide textos largos sin cortar palabras."],
                 ["Voz natural", "Puede usar OpenAI sin exponer la clave al navegador."],
                 ["Speech Marks", "Asocia tiempo, carácter y párrafo a cada palabra."],
-                ["Integridad", "Registra checksum, costo y resultado del trabajo."],
+                ["Caché persistente", "Reutiliza el MP3 si el contenido y la voz no cambiaron."],
               ].map(([title, description], index) => (
                 <li key={title}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
@@ -349,3 +352,6 @@ const jobStatusClass = (status: ProcessingJob["status"]) =>
     failed: "failed",
     cancelled: "draft",
   })[status];
+
+const jobStageLabel = (stage: string | null) =>
+  stage === "cached" ? "Audio reutilizado · sin costo API" : (stage ?? "Preparando");
