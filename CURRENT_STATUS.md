@@ -1,6 +1,6 @@
 # Estado actual de FollowRead
 
-**Actualizado:** 2026-07-28
+**Actualizado:** 2026-07-29
 **Fase:** 13 - CI/CD y despliegue  
 **Estado:** IN_PROGRESS - implementación terminada, validaciones externas pendientes  
 **Base anterior:** `9ce61e5` - cierre de Fase 12
@@ -23,11 +23,17 @@
   operaciones, seguridad, troubleshooting, ADR, contribución, changelog y plantillas GitHub.
 - Matriz obligatoria de trece categorías de pruebas previas al despliegue documentada y validable.
 - Reader evita reproducir antes de que la línea de tiempo del cuento/idioma activo esté cargada.
+- La API dispone de un adaptador OpenAI TTS opcional, alineación de palabra con `whisper-1`,
+  publicación segura de MP3 y regeneración idempotente sobre SQLite.
+- Reader reproduce el audio editorial cuando existe, mantiene el resaltado siempre hacia delante y
+  muestra una mano `☝️` debajo de la palabra activa.
+- Admin y Reader documentan online el archivo `apps/api/.env`, `OPENAI_API_KEY`, las voces
+  recomendadas y la prohibición de exponer el secreto en variables `VITE_*`.
 
 ## Última validación local
 
-- `pnpm docs:validate`: PASS el 2026-07-28.
-- `pnpm check`: PASS el 2026-07-28.
+- `pnpm docs:validate`: PASS el 2026-07-29.
+- `pnpm check`: PASS el 2026-07-29 con 106 pruebas API y 40 pruebas Reader.
 - `pnpm quality:regression`: PASS el 2026-07-28 con servicios activos.
 - `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
 - 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
@@ -44,13 +50,16 @@
 5. Validar iOS físico con macOS/Xcode antes de TestFlight.
 6. Completar propiedades/invariantes, mutation testing, fuzzing, contratos formales y pruebas de
    resiliencia; registrar aceptación del artefacto candidato.
+7. Proporcionar una clave OpenAI local, generar español/inglés desde Admin y realizar la validación
+   auditiva real. La integración está terminada, pero ninguna prueba automatizada consume una clave.
 
 ## Próxima acción exacta
 
-Implementar primero las brechas automatizables de
-`docs/testing/PRE_DEPLOYMENT_TESTS.md` —propiedades, mutation testing, fuzzing, contratos y
-resiliencia—. Después validar Docker, GitHub y staging. No iniciar Fase 14 ni marcar Fase 13
-`COMPLETED` antes de cerrar toda la matriz o aprobar excepciones explícitas.
+Crear `apps/api/.env` con `FOLLOWREAD_POLLY_PROVIDER=openai` y `OPENAI_API_KEY`, reiniciar
+`pnpm dev`, generar el cuento con `marin`/`cedar` desde Admin y validar voz/sincronización. Después
+continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates Docker/GitHub/staging.
+No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar
+excepciones explícitas.
 
 ## Comandos útiles
 

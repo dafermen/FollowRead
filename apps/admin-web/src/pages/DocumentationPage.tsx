@@ -15,6 +15,7 @@ export const DocumentationPage = () => (
           Inicio rápido
         </a>
         <a href="#levantar">Levantar el proyecto</a>
+        <a href="#voz-openai">Activar voz OpenAI</a>
         <a href="#calidad">Calidad y seguridad</a>
         <a href="#pruebas-despliegue">Pruebas predespliegue</a>
         <a href="#despliegue">Despliegue</a>
@@ -71,8 +72,40 @@ export const DocumentationPage = () => (
         </div>
       </section>
 
-      <section className="docs-section" id="calidad">
+      <section className="docs-section" id="voz-openai">
         <span className="step-number">03</span>
+        <div>
+          <h2>Activar la voz natural de OpenAI</h2>
+          <p>
+            Crea <code>C:\Projects\FollowRead\apps\api\.env</code> copiando{" "}
+            <code>apps/api/.env.example</code>. En ese archivo local coloca:
+          </p>
+          <div className="command-box">
+            <code>FOLLOWREAD_POLLY_PROVIDER=openai</code>
+            <span>Proveedor de audio</span>
+          </div>
+          <div className="command-box">
+            <code>OPENAI_API_KEY=tu_clave_aqui</code>
+            <span>Secreto exclusivo de la API</span>
+          </div>
+          <p>
+            Reinicia <code>pnpm dev</code>, abre Procesamiento y genera cada idioma con{" "}
+            <strong>Marin</strong> para español o <strong>Cedar</strong> para inglés. La clave nunca
+            debe colocarse en una variable <code>VITE_*</code>, enviarse al navegador ni subirse a
+            Git.
+          </p>
+          <div className="docs-note">
+            <strong>Importante</strong>
+            <p>
+              La generación consume la API de OpenAI. El modo <code>fake</code> sigue disponible
+              para trabajar sin costo ni conexión.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="docs-section" id="calidad">
+        <span className="step-number">04</span>
         <div>
           <h2>Comprobar calidad y seguridad</h2>
           <p>
@@ -94,7 +127,7 @@ export const DocumentationPage = () => (
       </section>
 
       <section className="docs-section" id="pruebas-despliegue">
-        <span className="step-number">04</span>
+        <span className="step-number">05</span>
         <div>
           <h2>Validar antes de desplegar</h2>
           <p>
@@ -114,7 +147,7 @@ export const DocumentationPage = () => (
       </section>
 
       <section className="docs-section" id="despliegue">
-        <span className="step-number">05</span>
+        <span className="step-number">06</span>
         <div>
           <h2>Preparar un despliegue</h2>
           <p>

@@ -64,10 +64,16 @@ export class BrowserNarrator {
     const text = narrationText(translation);
     const safeStart = Math.min(Math.max(startCharacter, 0), text.length);
     const utterance = this.createUtterance(text.slice(safeStart));
+    let lastBoundaryCharacter = safeStart - 1;
     utterance.lang = translation.language === "es" ? "es-ES" : "en-US";
     utterance.rate = rate;
     utterance.onboundary = (event) => {
-      const mark = markAtCharacter(translation.audio.marks, event.charIndex + safeStart);
+      const character = event.charIndex + safeStart;
+      if (character < lastBoundaryCharacter) {
+        return;
+      }
+      lastBoundaryCharacter = character;
+      const mark = markAtCharacter(translation.audio.marks, character);
       if (mark !== null) {
         callbacks.onBoundary(mark);
       }
@@ -109,6 +115,18 @@ export const markAtCharacter = (
   characterIndex: number,
 ): ReaderMark | null =>
   marks.find((mark) => mark.char_start <= characterIndex && characterIndex < mark.char_end) ?? null;
+
+/**
+ * Boundary events may arrive after the visual clock has already advanced. Device narration is
+ * allowed to move the highlight forward, but never back to a word the child already passed.
+ */
+export const monotonicBoundaryTime = (
+  currentTimeMs: number,
+  currentMarkIndex: number,
+  targetMarkIndex: number,
+  targetStartMs: number,
+): number | null =>
+  targetMarkIndex < currentMarkIndex ? null : Math.max(currentTimeMs, targetStartMs);
 
 /**
  * Creates the real browser adapter. Unsupported or privacy-restricted browsers receive a safe

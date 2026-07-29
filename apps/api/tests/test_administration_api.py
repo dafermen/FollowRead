@@ -374,6 +374,10 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                     "Sergio",
                     "Joanna",
                     "Matthew",
+                    "marin",
+                    "coral",
+                    "cedar",
+                    "verse",
                 }
                 empty_jobs = await client.get("/admin/processing")
                 assert empty_jobs.status_code == 200

@@ -47,10 +47,12 @@ from followread_api.services.errors import (
 from followread_api.services.illustrations import IllustrationResource, IllustrationService
 from followread_api.services.polly import (
     COST_PER_CHARACTER,
+    VOICE_LABELS,
     VOICE_LANGUAGES,
     AwsPollyAdapter,
     FakePollyAdapter,
     LocalAudioStorage,
+    OpenAITtsAdapter,
     PollyAdapter,
     PollyProcessingService,
     RetryingPollyAdapter,
@@ -76,6 +78,7 @@ __all__ = [
     "COST_PER_CHARACTER",
     "PERMISSION_DESCRIPTIONS",
     "ROLE_PERMISSION_MATRIX",
+    "VOICE_LABELS",
     "VOICE_LANGUAGES",
     "AuthenticatedUser",
     "AuthenticationRequiredError",
@@ -111,6 +114,7 @@ __all__ = [
     "InvalidOriginError",
     "IssuedSession",
     "LocalAudioStorage",
+    "OpenAITtsAdapter",
     "PermissionDeniedError",
     "PollyAdapter",
     "PollyProcessingService",

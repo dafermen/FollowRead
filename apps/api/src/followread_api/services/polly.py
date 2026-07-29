@@ -1,12 +1,14 @@
 import json
+import re
 from collections.abc import Sequence
 from dataclasses import dataclass
 from decimal import Decimal
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, ClassVar, Protocol
 from uuid import UUID
 
+import httpx
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
@@ -29,6 +31,20 @@ VOICE_LANGUAGES = {
     "Sergio": Language.SPANISH,
     "Joanna": Language.ENGLISH,
     "Matthew": Language.ENGLISH,
+    "marin": Language.SPANISH,
+    "coral": Language.SPANISH,
+    "cedar": Language.ENGLISH,
+    "verse": Language.ENGLISH,
+}
+VOICE_LABELS = {
+    "Lucia": "Lucía (local/AWS)",
+    "Sergio": "Sergio (local/AWS)",
+    "Joanna": "Joanna (local/AWS)",
+    "Matthew": "Matthew (local/AWS)",
+    "marin": "Marin · OpenAI",
+    "coral": "Coral · OpenAI",
+    "cedar": "Cedar · OpenAI",
+    "verse": "Verse · OpenAI",
 }
 COST_PER_CHARACTER = Decimal("0.000004")
 
@@ -139,6 +155,148 @@ class AwsPollyAdapter:
         return payload
 
 
+class OpenAITtsAdapter:
+    """OpenAI speech plus word-level alignment; the API key never leaves the backend."""
+
+    _speech_url = "https://api.openai.com/v1/audio/speech"
+    _transcription_url = "https://api.openai.com/v1/audio/transcriptions"
+    _legacy_voice_aliases: ClassVar[dict[str, str]] = {
+        "Lucia": "marin",
+        "Sergio": "coral",
+        "Joanna": "cedar",
+        "Matthew": "verse",
+    }
+
+    def __init__(
+        self,
+        api_key: str,
+        *,
+        tts_model: str,
+        alignment_model: str,
+        client: httpx.Client | None = None,
+    ) -> None:
+        if not api_key.strip():
+            raise RuntimeError("OPENAI_API_KEY is required when FOLLOWREAD_POLLY_PROVIDER=openai.")
+        self._api_key = api_key
+        self._tts_model = tts_model
+        self._alignment_model = alignment_model
+        self._client = client or httpx.Client(timeout=90)
+
+    def synthesize(self, text: str, voice_id: str, language: Language) -> SynthesizedChunk:
+        voice = self._legacy_voice_aliases.get(voice_id, voice_id)
+        speech_response = self._client.post(
+            self._speech_url,
+            headers={"Authorization": f"Bearer {self._api_key}"},
+            json={
+                "model": self._tts_model,
+                "input": text,
+                "voice": voice,
+                "instructions": self._instructions(language),
+                "response_format": "mp3",
+            },
+        )
+        speech_response.raise_for_status()
+        audio = speech_response.content
+        if not audio:
+            raise RuntimeError("OpenAI returned an empty speech file.")
+
+        alignment_response = self._client.post(
+            self._transcription_url,
+            headers={"Authorization": f"Bearer {self._api_key}"},
+            files={"file": ("followread.mp3", audio, "audio/mpeg")},
+            data={
+                "model": self._alignment_model,
+                "language": language.value,
+                "response_format": "verbose_json",
+                "timestamp_granularities[]": "word",
+            },
+        )
+        alignment_response.raise_for_status()
+        payload: dict[str, Any] = alignment_response.json()
+        raw_words = payload.get("words")
+        words = raw_words if isinstance(raw_words, list) else []
+        duration_ms = max(
+            400,
+            round(float(payload.get("duration", 0)) * 1000),
+            max(
+                (
+                    round(float(word.get("end", 0)) * 1000)
+                    for word in words
+                    if isinstance(word, dict)
+                ),
+                default=0,
+            ),
+        )
+        return SynthesizedChunk(
+            audio=audio,
+            duration_ms=duration_ms,
+            marks=self._aligned_marks(text, words, duration_ms),
+        )
+
+    @staticmethod
+    def _instructions(language: Language) -> str:
+        if language == Language.SPANISH:
+            return (
+                "Lee como un narrador de cuentos cálido y natural. Pronuncia con claridad, "
+                "mantén un ritmo tranquilo y deja pausas breves entre párrafos."
+            )
+        return (
+            "Read like a warm, natural storyteller. Speak clearly at a calm pace and leave "
+            "brief pauses between paragraphs."
+        )
+
+    @staticmethod
+    def _aligned_marks(
+        text: str,
+        words: list[Any],
+        duration_ms: int,
+    ) -> tuple[GeneratedMark, ...]:
+        source_words = tuple(re.finditer(r"\S+", text))
+        timings = tuple(
+            (round(float(word["start"]) * 1000), round(float(word["end"]) * 1000))
+            for word in words
+            if isinstance(word, dict) and "start" in word and "end" in word
+        )
+        if len(source_words) == len(timings):
+            return tuple(
+                GeneratedMark(
+                    value=source.group(),
+                    start_ms=max(0, start_ms),
+                    end_ms=max(start_ms, end_ms),
+                    char_start=source.start(),
+                    char_end=source.end(),
+                )
+                for source, (start_ms, end_ms) in zip(source_words, timings, strict=True)
+            )
+
+        # TTS reads the exact editorial text, but a transcription can occasionally split a
+        # contraction or hyphenated word. Fall back to monotonic, character-weighted marks rather
+        # than dropping synchronization or pairing a word with a later timestamp.
+        total_weight = sum(
+            max(len(source.group().strip(".,;:!?¡¿\"'()")), 1) for source in source_words
+        )
+        cursor_ms = 0
+        fallback: list[GeneratedMark] = []
+        for position, source in enumerate(source_words):
+            weight = max(len(source.group().strip(".,;:!?¡¿\"'()")), 1)
+            end_ms = (
+                duration_ms
+                if position + 1 == len(source_words)
+                else min(duration_ms, cursor_ms + round((duration_ms * weight) / total_weight))
+            )
+            fallback.append(
+                GeneratedMark(
+                    value=source.group(),
+                    start_ms=cursor_ms,
+                    end_ms=max(cursor_ms, end_ms),
+                    char_start=source.start(),
+                    char_end=source.end(),
+                ),
+            )
+            cursor_ms = end_ms
+        return tuple(fallback)
+
+
 class RetryingPollyAdapter:
     def __init__(self, adapter: PollyAdapter, maximum_attempts: int = 3) -> None:
         self._adapter = adapter
@@ -164,13 +322,16 @@ class RetryingPollyAdapter:
 
 
 class LocalAudioStorage:
-    def __init__(self, root: str | Path) -> None:
+    def __init__(self, root: str | Path, *, public_prefix: str | None = None) -> None:
         self._root = Path(root)
+        self._public_prefix = public_prefix
 
     def store(self, filename: str, payload: bytes) -> str:
         self._root.mkdir(parents=True, exist_ok=True)
         target = self._root / filename
         target.write_bytes(payload)
+        if self._public_prefix is not None:
+            return f"{self._public_prefix.rstrip('/')}/{filename}"
         return target.as_posix()
 
 
@@ -295,16 +456,31 @@ class PollyProcessingService:
             payload = b"".join(audio_parts)
             checksum = f"sha256:{sha256(payload).hexdigest()}"
             uri = self._storage.store(f"{version.id}-{language.value}-{voice_id}.mp3", payload)
-            asset = AudioAsset(
-                content_version_id=version.id,
-                language=language,
-                voice_id=voice_id,
-                uri=uri,
-                checksum=checksum,
-                duration_ms=time_offset,
-                status=ResourceStatus.READY,
+            asset = self._session.scalar(
+                select(AudioAsset).where(
+                    AudioAsset.content_version_id == version.id,
+                    AudioAsset.language == language,
+                    AudioAsset.voice_id == voice_id,
+                ),
             )
-            self._session.add(asset)
+            if asset is None:
+                asset = AudioAsset(
+                    content_version_id=version.id,
+                    language=language,
+                    voice_id=voice_id,
+                    uri=uri,
+                    checksum=checksum,
+                    duration_ms=time_offset,
+                    status=ResourceStatus.READY,
+                )
+                self._session.add(asset)
+            else:
+                asset.speech_marks.clear()
+                self._session.flush()
+                asset.uri = uri
+                asset.checksum = checksum
+                asset.duration_ms = time_offset
+                asset.status = ResourceStatus.READY
             self._session.flush()
             asset.speech_marks = [
                 SpeechMark(

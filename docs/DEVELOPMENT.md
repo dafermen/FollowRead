@@ -23,6 +23,25 @@ pnpm dev
 Admin queda en `http://localhost:5173`, Reader en `http://localhost:5174` y API en
 `http://localhost:8000`.
 
+## Voz OpenAI opcional
+
+La narración natural se configura sólo en el backend:
+
+```powershell
+Copy-Item apps/api/.env.example apps/api/.env
+```
+
+Después edita `C:\Projects\FollowRead\apps\api\.env`:
+
+```dotenv
+FOLLOWREAD_POLLY_PROVIDER=openai
+OPENAI_API_KEY=tu_clave_aqui
+```
+
+Reinicia `pnpm dev` y genera el audio desde Admin > Procesamiento. Usa `marin` para español y
+`cedar` para inglés. `apps/api/.env` está ignorado por Git; nunca uses una variable `VITE_*` para
+esta clave.
+
 ## Flujo de contribución
 
 1. Leer `AGENTS.md`, `CURRENT_STATUS.md` y `docs/project-management/NEXT_STEPS.md`.

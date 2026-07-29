@@ -1378,7 +1378,7 @@ export const SettingsPage = () => {
           </p>
           <div>
             <span className="preview-highlight">palabra</span>
-            {preferences.showPointer ? <span aria-hidden="true"> ← mano visible</span> : null}
+            {preferences.showPointer ? <span aria-hidden="true"> ☝️ mano visible</span> : null}
           </div>
           <small>
             Tema {preferences.theme} · {preferences.defaultLanguage.toUpperCase()} ·{" "}
@@ -1409,6 +1409,14 @@ export const DocumentationPage = () => (
       <p>
         Ejecuta <code>pnpm demo:seed</code> una vez y luego <code>pnpm dev</code>. Reader usa SQLite
         y puede narrar con una voz del dispositivo, sin credenciales externas.
+      </p>
+      <h2>Activar la voz natural de OpenAI</h2>
+      <p>
+        Copia <code>apps/api/.env.example</code> como <code>apps/api/.env</code>. En ese archivo
+        local configura <code>FOLLOWREAD_POLLY_PROVIDER=openai</code> y{" "}
+        <code>OPENAI_API_KEY=tu_clave_aqui</code>. Reinicia <code>pnpm dev</code> y genera el audio
+        desde Admin &gt; Procesamiento con <code>marin</code> en español o <code>cedar</code> en
+        inglés. Nunca coloques la clave en una variable <code>VITE_*</code> ni en Git.
       </p>
       <h2>Lectura sin conexión</h2>
       <p>

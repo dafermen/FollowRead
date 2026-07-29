@@ -17,6 +17,7 @@ from followread_api.services import (
     CatalogService,
     FakePollyAdapter,
     LocalAudioStorage,
+    OpenAITtsAdapter,
     PollyAdapter,
     PollyProcessingService,
     RetryingPollyAdapter,
@@ -39,12 +40,25 @@ def get_processing_service(session: DatabaseSession) -> PollyProcessingService:
     if settings.polly_provider == "aws":
         boto3 = cast(Any, import_module("boto3"))
         adapter = AwsPollyAdapter(boto3.client("polly"))
+    elif settings.polly_provider == "openai":
+        if settings.openai_api_key is None:
+            raise RuntimeError("OPENAI_API_KEY is required when FOLLOWREAD_POLLY_PROVIDER=openai.")
+        adapter = OpenAITtsAdapter(
+            settings.openai_api_key.get_secret_value(),
+            tts_model=settings.openai_tts_model,
+            alignment_model=settings.openai_alignment_model,
+        )
     else:
         adapter = FakePollyAdapter()
     return PollyProcessingService(
         session,
         adapter=RetryingPollyAdapter(adapter),
-        storage=LocalAudioStorage(settings.audio_output_dir),
+        storage=LocalAudioStorage(
+            settings.audio_output_dir,
+            public_prefix=(
+                f"{settings.api_prefix}/audio" if settings.polly_provider != "fake" else None
+            ),
+        ),
         chunk_characters=settings.polly_chunk_characters,
         maximum_cost=settings.maximum_processing_cost,
     )

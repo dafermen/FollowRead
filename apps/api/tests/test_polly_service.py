@@ -6,6 +6,7 @@ from typing import Any
 from uuid import UUID, uuid4
 
 import pytest
+from httpx import Client, MockTransport, Request, Response
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -37,6 +38,7 @@ from followread_api.services import (
     FakePollyAdapter,
     InvalidCatalogQueryError,
     LocalAudioStorage,
+    OpenAITtsAdapter,
     PollyProcessingService,
     RetryingPollyAdapter,
     TextChunker,
@@ -114,6 +116,57 @@ def test_aws_adapter_parses_speech_marks_and_retry_policy() -> None:
         AwsPollyAdapter._read_stream({})
 
 
+def test_openai_adapter_generates_natural_audio_and_word_alignment() -> None:
+    requests: list[Request] = []
+
+    def respond(request: Request) -> Response:
+        requests.append(request)
+        if request.url.path.endswith("/speech"):
+            return Response(200, content=b"ID3-openai-audio")
+        return Response(
+            200,
+            json={
+                "duration": 1.2,
+                "words": [
+                    {"word": "Hola", "start": 0.0, "end": 0.5},
+                    {"word": "luna", "start": 0.55, "end": 1.2},
+                ],
+            },
+        )
+
+    adapter = OpenAITtsAdapter(
+        "test-secret",
+        tts_model="gpt-4o-mini-tts-2025-12-15",
+        alignment_model="whisper-1",
+        client=Client(transport=MockTransport(respond)),
+    )
+    generated = adapter.synthesize("Hola luna", "marin", Language.SPANISH)
+
+    assert generated.audio == b"ID3-openai-audio"
+    assert generated.duration_ms == 1200
+    assert [(mark.value, mark.start_ms, mark.end_ms) for mark in generated.marks] == [
+        ("Hola", 0, 500),
+        ("luna", 550, 1200),
+    ]
+    assert len(requests) == 2
+    assert all(request.headers["authorization"] == "Bearer test-secret" for request in requests)
+    assert b'"voice":"marin"' in requests[0].content
+    assert b'name="timestamp_granularities[]"' in requests[1].content
+
+
+def test_openai_alignment_falls_back_to_monotonic_editorial_words() -> None:
+    marks = OpenAITtsAdapter._aligned_marks(
+        "bien-estar siempre",
+        [{"word": "bien"}, {"word": "estar"}, {"word": "siempre"}],
+        1000,
+    )
+
+    assert [mark.value for mark in marks] == ["bien-estar", "siempre"]
+    assert marks[0].start_ms == 0
+    assert marks[0].end_ms <= marks[1].start_ms
+    assert marks[-1].end_ms == 1000
+
+
 def test_processing_dependency_can_select_the_aws_boundary(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -129,6 +182,21 @@ def test_processing_dependency_can_select_the_aws_boundary(
     with Session(engine) as session:
         service = dependencies.get_processing_service(session)
         assert isinstance(service._adapter, RetryingPollyAdapter)
+
+
+def test_processing_dependency_requires_an_openai_key(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    engine = create_database_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    monkeypatch.setattr(
+        dependencies,
+        "get_settings",
+        lambda: Settings(polly_provider="openai", openai_api_key=None),
+    )
+    with Session(engine) as session, pytest.raises(RuntimeError, match="OPENAI_API_KEY"):
+        dependencies.get_processing_service(session)
+    engine.dispose()
 
 
 def test_fake_polly_processing_generates_audio_marks_cost_and_idempotency() -> None:
@@ -151,12 +219,20 @@ def test_fake_polly_processing_generates_audio_marks_cost_and_idempotency() -> N
             voice_id="Joanna",
             idempotency_key="english-audio-v1",
         )
+        regenerated = service.process(
+            content_version_id=version_id,
+            language=Language.ENGLISH,
+            voice_id="Joanna",
+            idempotency_key="english-audio-v2",
+        )
 
         assert repeated.id == job.id
         assert job.status == JobStatus.SUCCEEDED
+        assert regenerated.status == JobStatus.SUCCEEDED
         assert job.progress_percent == 100
         assert job.estimated_cost > 0
         assert len(storage.payloads) == 1
+        assert len(session.scalars(select(AudioAsset)).all()) == 1
         asset = session.scalar(select(AudioAsset))
         assert asset is not None
         assert asset.status == ResourceStatus.READY
@@ -164,7 +240,7 @@ def test_fake_polly_processing_generates_audio_marks_cost_and_idempotency() -> N
         marks = session.scalars(select(SpeechMark).order_by(SpeechMark.position)).all()
         assert [mark.value for mark in marks] == ["Hello", "world.", "Follow", "Read."]
         assert all(mark.paragraph_id is not None for mark in marks)
-        assert service.list_jobs()[0].id == job.id
+        assert service.list_jobs()[0].id == regenerated.id
         assert service.cancel(job.id).status == JobStatus.SUCCEEDED
 
     engine.dispose()
@@ -256,6 +332,9 @@ def test_chunking_local_storage_and_empty_content(tmp_path: Path) -> None:
     storage = LocalAudioStorage(tmp_path / "audio")
     uri = storage.store("sample.mp3", b"audio")
     assert Path(uri).read_bytes() == b"audio"
+    public_storage = LocalAudioStorage(tmp_path / "public-audio", public_prefix="/audio")
+    assert public_storage.store("published.mp3", b"audio") == "/audio/published.mp3"
+    assert (tmp_path / "public-audio" / "published.mp3").read_bytes() == b"audio"
 
     engine = create_database_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)

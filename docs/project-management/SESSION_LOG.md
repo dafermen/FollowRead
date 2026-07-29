@@ -717,3 +717,22 @@ remote GitHub y staging autorizado.
 
 TASK-012 continúa `BLOCKED`; la estructura documental no sustituye las pruebas ni los gates
 externos pendientes.
+
+---
+
+## Continuación 2026-07-29 - Voz OpenAI y seguimiento visual
+
+- Se añadió un adaptador TTS OpenAI en la API con voces `marin`, `coral`, `cedar` y `verse`.
+- La clave se lee únicamente desde `OPENAI_API_KEY` en `apps/api/.env`; nunca llega al navegador.
+- El MP3 se alinea por palabra con `whisper-1`, se publica en `/audio` y puede regenerarse sin
+  duplicar assets ni Speech Marks en SQLite.
+- Reader reproduce audio editorial real cuando está publicado y conserva Web Speech como fallback.
+- Los eventos tardíos o desordenados ya no pueden hacer retroceder el resaltado.
+- La flecha se reemplazó por una mano `☝️` situada debajo de la palabra activa.
+- Admin, Reader y la documentación canónica explican cómo activar OpenAI y recomiendan
+  `marin`/`cedar`.
+- `pnpm check` pasó completo: 106 pruebas API, 40 pruebas Reader, 14 pruebas Admin, lint, tipos,
+  documentación, seguridad estática y builds en verde.
+
+Queda pendiente la prueba auditiva real porque el repositorio no contiene una clave. El siguiente
+paso es crear `apps/api/.env`, generar ambos idiomas desde Admin y validar voz/sincronización.

@@ -1,6 +1,6 @@
 # Estado del proyecto FollowRead
 
-**Última actualización:** 2026-07-26  
+**Última actualización:** 2026-07-29
 **Fase activa:** Fase 13 - CI/CD y despliegue
 **Estado de la fase:** IN_PROGRESS - READY_FOR_EXTERNAL_VALIDATION
 **Tarea activa:** FR-PH13-TASK-012 - Validación Docker, GitHub y staging
@@ -18,7 +18,8 @@ FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
 audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
 un motor determinista, resaltado por palabra, mano, auto-scroll, controles y recuperación de
-progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no necesita API key.
+progreso. Todo funciona con SQLite; la voz local sigue disponible sin API key y existe una opción
+OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 
 ## Progreso
 
@@ -53,7 +54,7 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 | FollowRead Reader | PHASE_11_COMPLETED | Web/PWA/móvil con aprendizaje y offline |
 | FollowRead API | PHASE_9_COMPLETED | Paquete canónico y sincronización idempotente |
 | Reader Engine | PHASE_7_COMPLETED | Motor determinista sin React ni DOM |
-| AWS / Polly / S3 | POLLY_BOUNDARY_READY | Fake local por defecto; AWS opcional y desacoplado |
+| Audio / TTS | OPENAI_BOUNDARY_READY | Fake local por defecto; OpenAI y AWS opcionales |
 | Modo offline | PHASE_9_COMPLETED | Descarga, actualización, recuperación y sync verificadas |
 | Móvil / Capacitor | PHASE_10_COMPLETED | Android compilado/probado; iOS listo para Xcode |
 | Calidad transversal | PHASE_12_COMPLETED | Seguridad, a11y, carga, métricas y regresión en verde |

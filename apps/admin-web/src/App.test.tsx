@@ -156,7 +156,8 @@ describe("FollowRead Admin", () => {
       screen.getByRole("heading", { level: 1, name: "Documentación de FollowRead" }),
     ).toBeInTheDocument();
     expect(screen.getByText(/npm install --global pnpm@11\.9\.0/)).toBeInTheDocument();
-    expect(screen.getByText("pnpm dev")).toBeInTheDocument();
+    expect(screen.getAllByText("pnpm dev")).toHaveLength(2);
+    expect(screen.getByText("OPENAI_API_KEY=tu_clave_aqui")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Abrir documentación de la API" })).toHaveAttribute(
       "href",
       "http://localhost:8000/docs",
@@ -194,7 +195,7 @@ describe("FollowRead Admin", () => {
     expect(
       await screen.findByRole("heading", { level: 1, name: "Procesamiento" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Adaptador local seguro")).toBeInTheDocument();
+    expect(screen.getByText("Credenciales protegidas en la API")).toBeInTheDocument();
     expect(screen.getAllByRole("progressbar")).toHaveLength(3);
 
     fireEvent.click(screen.getByRole("button", { name: "Reintentar" }));
@@ -204,7 +205,7 @@ describe("FollowRead Admin", () => {
     expect(screen.queryByRole("button", { name: "Cancelar" })).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText("Idioma"), { target: { value: "en" } });
-    expect(screen.getByLabelText("Voz")).toHaveValue("Joanna");
+    expect(screen.getByLabelText("Voz")).toHaveValue("cedar");
     fireEvent.click(screen.getByRole("button", { name: "Generar audio" }));
     expect(screen.getAllByRole("progressbar")).toHaveLength(4);
   });

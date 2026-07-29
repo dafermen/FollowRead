@@ -25,6 +25,8 @@ disponga del SDK y credenciales.
   para desarrollo, demostraciones y todas las pruebas automáticas.
 - `AwsPollyAdapter`: realiza una solicitud MP3 y otra de Speech Marks a un cliente compatible con
   Amazon Polly. El cliente se crea de forma diferida sólo cuando el proveedor es `aws`.
+- `OpenAITtsAdapter`: genera un MP3 con una voz natural y alinea las palabras con timestamps. La
+  clave se lee exclusivamente desde `OPENAI_API_KEY` en la API.
 - `RetryingPollyAdapter`: conserva un máximo de tres intentos por fragmento y propaga el error final
   para que quede diagnosticado en el trabajo.
 - `LocalAudioStorage`: escribe en el directorio local configurado. El contrato permite sustituirlo
@@ -33,6 +35,7 @@ disponga del SDK y credenciales.
 ## Seguridad y operación
 
 - El navegador nunca recibe credenciales AWS ni invoca Polly directamente.
+- El navegador tampoco recibe `OPENAI_API_KEY`: reproduce únicamente el MP3 publicado.
 - Todas las mutaciones exigen cookie de sesión, permiso `content.process`, origen permitido y CSRF.
 - La clave de idempotencia evita costos y archivos duplicados ante reenvíos.
 - El límite de costo se evalúa antes de cualquier llamada al proveedor.

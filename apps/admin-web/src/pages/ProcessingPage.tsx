@@ -55,10 +55,10 @@ const previewJobs: ProcessingJob[] = [
 ];
 
 const previewVoices: Voice[] = [
-  { id: "Lucia", language: "es", label: "Lucía" },
-  { id: "Sergio", language: "es", label: "Sergio" },
-  { id: "Joanna", language: "en", label: "Joanna" },
-  { id: "Matthew", language: "en", label: "Matthew" },
+  { id: "marin", language: "es", label: "Marin · OpenAI" },
+  { id: "coral", language: "es", label: "Coral · OpenAI" },
+  { id: "cedar", language: "en", label: "Cedar · OpenAI" },
+  { id: "verse", language: "en", label: "Verse · OpenAI" },
 ];
 
 type ProcessingPageProps = {
@@ -72,7 +72,7 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
   const [jobs, setJobs] = useState<ProcessingJob[]>(isPreview ? previewJobs : []);
   const [voices, setVoices] = useState<Voice[]>(isPreview ? previewVoices : []);
   const [language, setLanguage] = useState("es");
-  const [voice, setVoice] = useState("Lucia");
+  const [voice, setVoice] = useState("marin");
   const [state, setState] = useState<"ready" | "loading" | "error">(
     isPreview ? "ready" : "loading",
   );
@@ -121,11 +121,11 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
             <p className="eyebrow">Audio y sincronización</p>
             <h1>Procesamiento</h1>
             <p className="page-subtitle">
-              Genera audio, Speech Marks y costos estimados sin usar AWS real en este MVP.
+              Genera narración y marcas sincronizadas con el proveedor configurado en la API.
             </p>
           </div>
           <span className="provider-badge">
-            <span aria-hidden="true">●</span> Adaptador local seguro
+            <span aria-hidden="true">●</span> Credenciales protegidas en la API
           </span>
         </div>
 
@@ -144,7 +144,7 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
                   onChange={(event) => {
                     const nextLanguage = event.target.value;
                     setLanguage(nextLanguage);
-                    setVoice(nextLanguage === "es" ? "Lucia" : "Joanna");
+                    setVoice(nextLanguage === "es" ? "marin" : "cedar");
                   }}
                 >
                   <option value="es">Español</option>
@@ -312,7 +312,7 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
             <ol>
               {[
                 ["Fragmentos seguros", "Divide textos largos sin cortar palabras."],
-                ["Audio local", "Usa un adaptador falso reproducible para el MVP."],
+                ["Voz natural", "Puede usar OpenAI sin exponer la clave al navegador."],
                 ["Speech Marks", "Asocia tiempo, carácter y párrafo a cada palabra."],
                 ["Integridad", "Registra checksum, costo y resultado del trabajo."],
               ].map(([title, description], index) => (

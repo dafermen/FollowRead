@@ -5,7 +5,13 @@ export default defineConfig({
   plugins: [react()],
   test: {
     coverage: {
-      include: ["src/App.tsx", "src/browserNarrator.ts", "src/pwa.ts", "src/readerStorage.ts"],
+      include: [
+        "src/App.tsx",
+        "src/browserNarrator.ts",
+        "src/publishedAudioNarrator.ts",
+        "src/pwa.ts",
+        "src/readerStorage.ts",
+      ],
       provider: "v8",
       reporter: ["text"],
       thresholds: {

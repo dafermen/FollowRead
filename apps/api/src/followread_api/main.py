@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from followread_api import __version__
 from followread_api.api.errors import domain_error_handler
@@ -50,6 +51,11 @@ def create_app() -> FastAPI:
     application.include_router(administration_router, prefix=settings.api_prefix)
     application.include_router(catalog_router, prefix=settings.api_prefix)
     application.include_router(reader_sync_router, prefix=settings.api_prefix)
+    application.mount(
+        f"{settings.api_prefix}/audio",
+        StaticFiles(directory=settings.audio_output_dir, check_dir=False),
+        name="audio",
+    )
     return application
 
 

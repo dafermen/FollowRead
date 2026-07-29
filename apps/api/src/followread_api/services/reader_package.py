@@ -78,18 +78,18 @@ class ReaderPackageService:
             raise ContentNotFoundError(slug)
         publication: Publication = content.publication
         version = publication.version
-        assets = {
-            asset.language: asset
-            for asset in self._session.scalars(
-                select(AudioAsset)
-                .where(AudioAsset.content_version_id == version.id)
-                .options(
-                    selectinload(AudioAsset.speech_marks)
-                    .selectinload(SpeechMark.paragraph)
-                    .selectinload(Paragraph.chapter),
-                ),
-            ).all()
-        }
+        assets: dict[Language, AudioAsset] = {}
+        for candidate in self._session.scalars(
+            select(AudioAsset)
+            .where(AudioAsset.content_version_id == version.id)
+            .options(
+                selectinload(AudioAsset.speech_marks)
+                .selectinload(SpeechMark.paragraph)
+                .selectinload(Paragraph.chapter),
+            )
+            .order_by(AudioAsset.created_at.desc(), AudioAsset.id.desc()),
+        ).all():
+            assets.setdefault(candidate.language, candidate)
         illustration = self._session.scalar(
             select(Illustration)
             .where(Illustration.content_version_id == version.id)
@@ -132,7 +132,9 @@ class ReaderPackageService:
                         uri=asset.uri,
                         duration_ms=asset.duration_ms,
                         voice_id=asset.voice_id,
-                        simulated=asset.uri.startswith("var/") or asset.uri.startswith("./var/"),
+                        simulated=not asset.uri.startswith(
+                            ("/audio/", "http://", "https://"),
+                        ),
                         marks=tuple(
                             self._mark(mark)
                             for mark in sorted(

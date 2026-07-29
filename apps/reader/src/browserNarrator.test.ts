@@ -1,6 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { BrowserNarrator, markAtCharacter, narrationText } from "./browserNarrator.js";
+import {
+  BrowserNarrator,
+  markAtCharacter,
+  monotonicBoundaryTime,
+  narrationText,
+} from "./browserNarrator.js";
 import type { ReaderTranslation } from "./readerClient.js";
 
 const translation: ReaderTranslation = {
@@ -51,6 +56,9 @@ describe("browser narration", () => {
     expect(markAtCharacter(translation.audio.marks, 1)?.value).toBe("Hola");
     expect(markAtCharacter(translation.audio.marks, 7)?.value).toBe("luna");
     expect(markAtCharacter(translation.audio.marks, 20)).toBeNull();
+    expect(monotonicBoundaryTime(620, 1, 0, 0)).toBeNull();
+    expect(monotonicBoundaryTime(620, 1, 1, 500)).toBe(620);
+    expect(monotonicBoundaryTime(620, 1, 2, 900)).toBe(900);
   });
 
   it("returns a safe unavailable adapter", () => {
@@ -96,9 +104,11 @@ describe("browser narration", () => {
     expect(synthesis.cancel).toHaveBeenCalled();
     expect(synthesis.speak).toHaveBeenCalledWith(utterance);
     utterance.onboundary?.({ charIndex: 1 });
+    utterance.onboundary?.({ charIndex: 0 });
     utterance.onend?.();
     utterance.onerror?.();
     expect(events.onBoundary).toHaveBeenCalledWith(translation.audio.marks[1]);
+    expect(events.onBoundary).toHaveBeenCalledTimes(1);
     expect(events.onEnd).toHaveBeenCalled();
     expect(events.onError).toHaveBeenCalled();
     narrator.pause();

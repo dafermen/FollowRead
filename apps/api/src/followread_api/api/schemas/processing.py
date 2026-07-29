@@ -5,7 +5,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field
 
 from followread_api.models import JobStatus, Language, ProcessingJob
-from followread_api.services import VOICE_LANGUAGES
+from followread_api.services import VOICE_LABELS, VOICE_LANGUAGES
 
 
 class StartProcessingRequest(BaseModel):
@@ -64,7 +64,11 @@ def processing_job_response(job: ProcessingJob) -> ProcessingJobResponse:
 def voices_response() -> VoicesResponse:
     return VoicesResponse(
         items=[
-            VoiceResponse(id=voice_id, language=language, label=voice_id)
+            VoiceResponse(
+                id=voice_id,
+                language=language,
+                label=VOICE_LABELS.get(voice_id, voice_id),
+            )
             for voice_id, language in VOICE_LANGUAGES.items()
         ],
     )

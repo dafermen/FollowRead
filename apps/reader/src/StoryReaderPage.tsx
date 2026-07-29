@@ -5,7 +5,7 @@ import {
 } from "@followread/reader-engine";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
-import { createBrowserNarrator } from "./browserNarrator.js";
+import { createBrowserNarrator, monotonicBoundaryTime } from "./browserNarrator.js";
 import {
   buildLearningInsight,
   sentenceMarksFor,
@@ -33,6 +33,7 @@ import {
   type ReaderLanguage,
   type VocabularyEntry,
 } from "./readerStorage.js";
+import { createPublishedAudioNarrator } from "./publishedAudioNarrator.js";
 
 /**
  * Distraction-free reading room backed by the reusable Reader Engine.
@@ -44,6 +45,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   const preferences = useMemo(() => readPreferences(window.localStorage), []);
   const engine = useMemo(() => new ReaderEngine(), []);
   const narrator = useMemo(() => createBrowserNarrator(), []);
+  const publishedNarrator = useMemo(() => createPublishedAudioNarrator(), []);
   const [story, setStory] = useState<ReaderPackage | null>(null);
   const [online, setOnline] = useState(getReaderConnectivity().connected);
   const [language, setLanguage] = useState<ReaderLanguage>(preferences.defaultLanguage);
@@ -67,12 +69,13 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
         return false;
       }
       narrator.stop();
+      publishedNarrator.stop();
       const recovered = readProgress(loadedStory.slug, selectedLanguage);
       engine.load(toTimeline(selectedTranslation), recovered);
       engine.setPlaybackRate(preferences.playbackRate);
       return true;
     },
-    [engine, narrator, preferences.playbackRate],
+    [engine, narrator, preferences.playbackRate, publishedNarrator],
   );
 
   useEffect(() => engine.subscribe(setEngineState), [engine]);
@@ -109,6 +112,8 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   }, [loadTimeline, preferences.defaultLanguage, slug]);
 
   const translation = story?.translations.find((item) => item.language === language);
+  const publishedAudioActive =
+    translation !== undefined && publishedNarrator.canNarrate(translation);
   const switchLanguage = (selectedLanguage: ReaderLanguage) => {
     if (story === null || !loadTimeline(story, selectedLanguage)) {
       return;
@@ -121,12 +126,19 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       return;
     }
     const timer = window.setInterval(() => {
-      engine.tick(100);
+      if (publishedAudioActive) {
+        engine.seek(
+          Math.max(engine.getState().currentTimeMs, publishedNarrator.currentTimeMs),
+          true,
+        );
+      } else {
+        engine.tick(100);
+      }
     }, 100);
     return () => {
       window.clearInterval(timer);
     };
-  }, [engine, engineState.status]);
+  }, [engine, engineState.status, publishedAudioActive, publishedNarrator]);
 
   useEffect(() => {
     if (story !== null && engineState.durationMs > 0) {
@@ -183,6 +195,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     };
     const handleInterruption = () => {
       narrator.pause();
+      publishedNarrator.pause();
       engine.handleInterruption();
     };
     const handleAppState = (event: Event) => {
@@ -203,8 +216,9 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       window.removeEventListener("blur", handleInterruption);
       window.removeEventListener(APP_STATE_EVENT, handleAppState);
       narrator.stop();
+      publishedNarrator.stop();
     };
-  }, [engine, narrator]);
+  }, [engine, narrator, publishedNarrator]);
 
   const activeMarkRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -242,7 +256,8 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     engineState.durationMs === 0
       ? 0
       : Math.round((engineState.currentTimeMs / engineState.durationMs) * 100);
-  const narrationEnabled = preferences.narrationEnabled && narrator.available;
+  const narrationEnabled =
+    preferences.narrationEnabled && (publishedAudioActive || narrator.available);
   const learningProgress = summarizeLearningProgress(
     readVocabulary(window.localStorage),
     readLearningHistory(window.localStorage),
@@ -259,13 +274,42 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       return;
     }
     setNarrationWarning(null);
+    if (
+      publishedNarrator.start(
+        translation,
+        engine.getState().currentTimeMs,
+        engine.getState().playbackRate,
+        {
+          onEnd: () => {
+            engine.seek(engine.getState().durationMs);
+          },
+          onError: () => {
+            setNarrationWarning(
+              "El audio publicado se interrumpió. El texto, los controles y tu progreso siguen disponibles.",
+            );
+          },
+        },
+      )
+    ) {
+      return;
+    }
     narrator.start(
       translation,
       translation.audio.marks[startIndex]?.char_start ?? 0,
       engine.getState().playbackRate,
       {
         onBoundary: (mark) => {
-          engine.seek(mark.start_ms, true);
+          const targetIndex = translation.audio.marks.indexOf(mark);
+          const current = engine.getState();
+          const nextTime = monotonicBoundaryTime(
+            current.currentTimeMs,
+            current.activeMarkIndex,
+            targetIndex,
+            mark.start_ms,
+          );
+          if (nextTime !== null) {
+            engine.seek(nextTime, true);
+          }
         },
         onEnd: () => {
           engine.seek(engine.getState().durationMs);
@@ -282,17 +326,20 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   const togglePlayback = () => {
     if (engineState.status === "playing") {
       narrator.pause();
+      publishedNarrator.pause();
       engine.pause();
       return;
     }
     engine.play();
-    if (!narrator.resume()) {
+    const resumed = publishedAudioActive ? publishedNarrator.resume() : narrator.resume();
+    if (!resumed) {
       beginNarration();
     }
   };
 
   const stopNarrationAndSeek = (timeMs: number) => {
     narrator.stop();
+    publishedNarrator.stop();
     engine.seek(timeMs);
   };
 
@@ -302,12 +349,14 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
       return;
     }
     narrator.stop();
+    publishedNarrator.stop();
     engine.repeatActiveWord();
     speakLearningText(mark.value);
   };
 
   const speakLearningText = (text: string) => {
     narrator.stop();
+    publishedNarrator.stop();
     engine.pause();
     if (
       !preferences.narrationEnabled ||
@@ -478,7 +527,13 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
             alt={story.cover_alt_text ?? ""}
           />
           <div>
-            <span>{narrationEnabled ? "Voz del dispositivo" : "Seguimiento visual"}</span>
+            <span>
+              {publishedAudioActive
+                ? "Voz generada por IA"
+                : narrationEnabled
+                  ? "Voz del dispositivo"
+                  : "Seguimiento visual"}
+            </span>
             <strong>{translation.audio.voice_id}</strong>
           </div>
         </aside>
@@ -607,6 +662,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
             aria-label="Capítulo anterior"
             onClick={() => {
               narrator.stop();
+              publishedNarrator.stop();
               engine.changeChapter(-1);
             }}
           >
@@ -646,6 +702,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
             aria-label="Capítulo siguiente"
             onClick={() => {
               narrator.stop();
+              publishedNarrator.stop();
               engine.changeChapter(1);
             }}
           >
@@ -675,6 +732,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
                 engine.setPlaybackRate(rate);
                 if (wasPlaying) {
                   narrator.stop();
+                  publishedNarrator.stop();
                   beginNarration();
                 }
               }}
@@ -823,14 +881,9 @@ const LearningPanel = ({
 };
 
 const ReadingHand = () => (
-  <svg className="reading-hand" viewBox="0 0 38 30" aria-hidden="true">
-    <path
-      d="M3 15h18l-5-5 3-3 12 10-12 10-3-3 5-5H3z"
-      fill="currentColor"
-      stroke="currentColor"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <span className="reading-hand" aria-hidden="true">
+    ☝️
+  </span>
 );
 
 const toTimeline = (translation: ReaderTranslation): ReaderTimeline => ({

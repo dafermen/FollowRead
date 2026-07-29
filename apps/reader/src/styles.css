@@ -1676,6 +1676,7 @@ button.story-word:hover {
 }
 
 .story-word--active {
+  display: inline-block;
   color: var(--ink);
   background: var(--highlight);
   box-shadow: 0 0 0 0.18em var(--highlight);
@@ -1683,17 +1684,25 @@ button.story-word:hover {
 
 .reading-hand {
   position: absolute;
-  top: -1.15em;
-  left: -1.35em;
-  width: 1.45em;
-  color: #d7822b;
+  z-index: 2;
+  bottom: -1.28em;
+  left: 50%;
+  width: auto;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+  font-size: 0.88em;
+  line-height: 1;
   filter: drop-shadow(0 2px 2px rgb(90 51 12 / 18%));
   animation: hand-nudge 800ms ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
 @keyframes hand-nudge {
+  from {
+    transform: translate(-50%, 0);
+  }
+
   to {
-    transform: translateX(0.18em);
+    transform: translate(-50%, 0.16em);
   }
 }
 
