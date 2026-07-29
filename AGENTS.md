@@ -30,6 +30,8 @@ Estas reglas aplican a todo el repositorio `C:\Projects\FollowRead`.
 - Añadir pruebas para cambios funcionales y ejecutar una validación proporcional.
 - La puerta completa es `pnpm check`; la regresión de producto es `pnpm quality:regression`.
 - Para despliegue usar `pnpm deploy:validate`, auditorías y smoke tests. Nunca incluir secretos.
+- Antes de un despliegue externo, completar las trece categorías de
+  `docs/testing/PRE_DEPLOYMENT_TESTS.md`; `pnpm check` no sustituye esa aprobación.
 - Actualizar `CURRENT_STATUS.md` después de todo avance material, bloqueo o cambio de fase.
 - Actualizar documentación online de Admin/Reader cuando cambien comandos que el usuario necesita.
 - Dejar el árbol Git limpio y crear un commit descriptivo sólo después de validar el alcance.
@@ -46,4 +48,3 @@ Registrar en `CURRENT_STATUS.md`:
 - commit más reciente relevante.
 
 No marcar una fase como completada si falta una validación que sí puede alterar la implementación.
-

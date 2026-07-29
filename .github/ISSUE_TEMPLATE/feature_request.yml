@@ -1,0 +1,31 @@
+name: Solicitud de mejora
+description: Proponer una mejora trazable para FollowRead
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: Describe la necesidad del usuario, no sólo la solución.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Resultado esperado
+      description: ¿Qué debería poder lograr el usuario?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      description: Incluye casos normales, errores, accesibilidad y privacidad.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impacto técnico
+      description: Contratos, datos, seguridad, rendimiento, despliegue o migraciones.

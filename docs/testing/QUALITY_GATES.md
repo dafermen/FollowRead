@@ -17,7 +17,7 @@
 | 10 | Dispositivos, orientación, safe areas y builds |
 | 11 | Flujos educativos y vocabulario |
 | 12 | Seguridad, carga, regresión y observabilidad |
-| 13 | Staging, migración, rollback y smoke tests |
+| 13 | Trece categorías predespliegue, staging, migración, rollback y smoke tests |
 | 14 | Instalación limpia, enlaces y revisión documental final |
 
 Una fase no se completa con una puerta roja. Una excepción requiere problema, riesgo, decisión y

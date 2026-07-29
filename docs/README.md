@@ -5,6 +5,23 @@ esa fuente en requisitos, decisiones y trabajo verificable.
 
 ## Mapa
 
+### Entradas canónicas
+
+| Documento | Propósito |
+|---|---|
+| `ARCHITECTURE.md` | Topología, límites y decisiones |
+| `API.md` | Contratos y acceso a OpenAPI |
+| `DEVELOPMENT.md` | Preparación y flujo de desarrollo |
+| `TESTING.md` | Estrategia y trece pruebas obligatorias antes de desplegar |
+| `DEPLOYMENT.md` | Secuencia y política de entrega |
+| `OPERATIONS.md` | Salud, backup, observabilidad e incidentes |
+| `SECURITY.md` | Privacidad, secretos, amenazas y auditoría |
+| `TROUBLESHOOTING.md` | Diagnóstico y runbooks |
+
+Estas entradas enlazan la documentación detallada; no la sustituyen.
+
+### Fuentes detalladas
+
 | Carpeta | Propósito |
 |---|---|
 | `requirements/` | Visión, alcance, requisitos, historias, casos y trazabilidad |
@@ -17,6 +34,7 @@ esa fuente en requisitos, decisiones y trabajo verificable.
 | `troubleshooting/` | Diagnóstico por dominio |
 | `api/` | Contratos y guía de API |
 | `user-guides/` | Guías para lectores y administradores |
+| `adr/` | Decisiones arquitectónicas con contexto y consecuencias |
 
 ## Inicio de cada sesión
 

@@ -42,6 +42,8 @@ workflows remotos ni staging.
 2. El repositorio no tiene remote GitHub; los workflows no se han ejecutado en runners reales.
 3. No se eligieron proveedor, dominios ni almacén de backups; staging/production no pueden
    desplegarse responsablemente.
+4. La matriz predespliegue identifica brechas en aceptación, propiedades/invariantes, mutation
+   testing, fuzzing, contratos y resiliencia.
 
 Estos gates pueden revelar defectos de runtime, por lo que la fase no se marca `COMPLETED`.
 
@@ -52,3 +54,4 @@ Estos gates pueden revelar defectos de runtime, por lo que la fase no se marca `
 - `ci.yml` pasa en GitHub;
 - un despliegue de development o staging demuestra migración, backup, smoke y rollback;
 - `CURRENT_STATUS.md` registra la evidencia y el commit.
+- las trece categorías predespliegue están en `PASS` o `WAIVED` explícitamente aprobado.

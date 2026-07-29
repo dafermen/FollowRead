@@ -694,3 +694,26 @@ Windows.
 
 FR-PH13-TASK-001 a 011 quedaron `COMPLETED`; TASK-012 permanece `BLOCKED` hasta disponer de Docker,
 remote GitHub y staging autorizado.
+
+---
+
+## Continuación 2026-07-28 - Estructura documental y gate predespliegue
+
+- Se añadieron entradas canónicas para arquitectura, API, desarrollo, pruebas, despliegue,
+  operaciones, seguridad y troubleshooting sin mover las fuentes detalladas.
+- Se añadieron ADR para SQLite y contenedores opcionales, changelog, contribución, aviso
+  `UNLICENSED`, estado de licencias de terceros y plantillas GitHub.
+- `test/` quedó como inventario transversal; las pruebas unitarias permanecen junto al código.
+- Se definieron trece categorías obligatorias antes de desplegar y un acta de evidencia.
+- La matriz conserva honestamente como parciales/no implementadas las propiedades, mutación,
+  fuzzing, contratos, resiliencia y compatibilidad externa.
+- `pnpm docs:validate` comprueba estructura, enlaces y presencia de las trece categorías.
+- La primera puerta detectó una carrera intermitente: el lector podía mostrar Reproducir antes de
+  cargar su timeline. Se bloqueó la interfaz hasta que el timeline corresponda al cuento, versión e
+  idioma activos.
+- `pnpm check` y `pnpm quality:regression` pasaron completos después de levantar los tres servicios;
+  la regresión cubrió E2E, offline, móvil, aprendizaje, accesibilidad, seguridad, presupuestos y
+  carga.
+
+TASK-012 continúa `BLOCKED`; la estructura documental no sustituye las pruebas ni los gates
+externos pendientes.

@@ -68,6 +68,10 @@ Una tarea no termina si:
 - depende de AWS real;
 - la documentación de ejecución no está actualizada.
 
+Antes de cualquier despliegue externo también aplica la matriz de trece categorías de
+`PRE_DEPLOYMENT_TESTS.md`. Una fila parcial o no implementada bloquea la entrega salvo excepción
+formal, fechada y aprobada.
+
 ## Estrategia de accesibilidad
 
 Automatización detectará semántica, nombres y algunos contrastes. La validación manual cubrirá orden de

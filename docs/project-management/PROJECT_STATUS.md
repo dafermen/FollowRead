@@ -12,7 +12,8 @@ Fases 0 a 12 están completadas y auditadas. Reader ya es una aplicación web/PW
 descubrimiento, preferencias, voz local, descargas verificadas, lectura sin conexión,
 sincronización, proyectos Capacitor y un modo aprender inglés completo. Calidad, seguridad y
 rendimiento ya tienen presupuestos reproducibles. La Fase 13 ya implementó contenedores, CI,
-releases, backup y rollback; espera validación real con Docker/GitHub/staging.
+releases, backup y rollback; espera cerrar la matriz avanzada de pruebas y validación real con
+Docker/GitHub/staging.
 FollowRead Admin ya ofrece el recorrido visual y
 funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
 audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
@@ -96,7 +97,8 @@ progreso. Todo funciona con SQLite; la voz audible usa el dispositivo y no neces
 
 El producto local no tiene bloqueadores: SQLite y los adaptadores locales permiten continuar sin
 PostgreSQL, Docker ni AWS. El cierre de Fase 13 sí requiere Docker, remote GitHub y un entorno
-staging autorizado. iOS requiere macOS/Xcode antes de TestFlight. La licencia sigue abierta y debe
+staging autorizado, además de completar o aprobar excepciones para las trece categorías
+predespliegue. iOS requiere macOS/Xcode antes de TestFlight. La licencia sigue abierta y debe
 resolverse en Fase 14.
 
 ## Regla de continuación

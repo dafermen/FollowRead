@@ -20,7 +20,12 @@ GitHub.
 - `packages`: contratos, componentes, modelos, validación y Reader Engine compartidos.
 - `infrastructure`: archivos de base de datos, contenedores, AWS y despliegue.
 - `docs`: requisitos, arquitectura, UX/UI, pruebas, despliegue y gestión.
+- `test`: inventario transversal y fixtures compartidas; las unitarias permanecen junto al código.
 - `scripts`: comandos multiplataforma de desarrollo y validación.
+
+Los documentos canónicos son `docs/ARCHITECTURE.md`, `API.md`, `DEVELOPMENT.md`, `TESTING.md`,
+`DEPLOYMENT.md`, `OPERATIONS.md`, `SECURITY.md` y `TROUBLESHOOTING.md`. Cada uno enlaza las fuentes
+detalladas existentes.
 
 ## Herramientas
 
@@ -87,8 +92,13 @@ Docker es opcional. Cuando esté instalado, `pnpm deploy:local` levanta las tres
 `pnpm deploy:smoke` comprueba el resultado. Release, backup y rollback están documentados en
 `docs/deployment/`.
 
+Antes de desplegar en un entorno compartido deben quedar en `PASS` o contar con excepción aprobada
+las trece categorías de `docs/testing/PRE_DEPLOYMENT_TESTS.md`: aceptación, unitarias, propiedades,
+mutation testing, fuzzing, integración, contrato, E2E, regresión, seguridad, concurrencia,
+rendimiento y compatibilidad/despliegue. El estado actual sigue bloqueado para despliegue externo.
+
 ## Seguridad y licencia
 
 No añadas secretos al repositorio. Las integraciones AWS sólo se realizarán desde adaptadores de la
-API. La estrategia de licencia está pendiente de decisión; por eso el repositorio no incluye todavía
-un archivo `LICENSE`.
+API. `LICENSE` deja constancia de que el proyecto continúa `UNLICENSED`; la licencia definitiva y
+el inventario legal de terceros siguen pendientes antes de una distribución externa.

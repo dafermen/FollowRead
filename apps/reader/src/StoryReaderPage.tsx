@@ -3,7 +3,7 @@ import {
   type ReaderEngineState,
   type ReaderTimeline,
 } from "@followread/reader-engine";
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import { createBrowserNarrator } from "./browserNarrator.js";
 import {
@@ -58,6 +58,23 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     insight: LearningInsight;
   } | null>(null);
 
+  const loadTimeline = useCallback(
+    (loadedStory: ReaderPackage, selectedLanguage: ReaderLanguage) => {
+      const selectedTranslation = loadedStory.translations.find(
+        (item) => item.language === selectedLanguage,
+      );
+      if (selectedTranslation === undefined) {
+        return false;
+      }
+      narrator.stop();
+      const recovered = readProgress(loadedStory.slug, selectedLanguage);
+      engine.load(toTimeline(selectedTranslation), recovered);
+      engine.setPlaybackRate(preferences.playbackRate);
+      return true;
+    },
+    [engine, narrator, preferences.playbackRate],
+  );
+
   useEffect(() => engine.subscribe(setEngineState), [engine]);
   useEffect(() => {
     const handleConnectivity = ({ connected }: { connected: boolean }) => {
@@ -73,6 +90,10 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     void getReaderPackage(slug)
       .then((loaded) => {
         if (active) {
+          if (!loadTimeline(loaded, preferences.defaultLanguage)) {
+            setLoadState("error");
+            return;
+          }
           setStory(loaded);
           setLoadState("ready");
         }
@@ -85,18 +106,15 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     return () => {
       active = false;
     };
-  }, [slug]);
+  }, [loadTimeline, preferences.defaultLanguage, slug]);
 
   const translation = story?.translations.find((item) => item.language === language);
-  useEffect(() => {
-    if (translation === undefined || story === null) {
+  const switchLanguage = (selectedLanguage: ReaderLanguage) => {
+    if (story === null || !loadTimeline(story, selectedLanguage)) {
       return;
     }
-    narrator.stop();
-    const recovered = readProgress(story.slug, language);
-    engine.load(toTimeline(translation), recovered);
-    engine.setPlaybackRate(preferences.playbackRate);
-  }, [engine, language, narrator, preferences.playbackRate, story, translation]);
+    setLanguage(selectedLanguage);
+  };
 
   useEffect(() => {
     if (engineState.status !== "playing") {
@@ -383,7 +401,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
               type="button"
               aria-pressed={language === "es"}
               onClick={() => {
-                setLanguage("es");
+                switchLanguage("es");
               }}
             >
               ES
@@ -393,7 +411,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
               type="button"
               aria-pressed={language === "en"}
               onClick={() => {
-                setLanguage("en");
+                switchLanguage("en");
               }}
             >
               EN

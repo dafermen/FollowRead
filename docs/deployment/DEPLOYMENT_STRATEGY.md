@@ -4,6 +4,12 @@
 Los artefactos son independientes del proveedor. Dominios, hosting y credenciales se decidirán con
 el propietario antes de staging/production.
 
+## Gate previo obligatorio
+
+Antes de desplegar en development compartido, staging o production, completar
+`docs/testing/PRE_DEPLOYMENT_TESTS.md`. Las trece categorías deben quedar en `PASS` o `WAIVED`
+aprobado para el mismo commit y artefactos. La puerta local `pnpm check` no sustituye ese acta.
+
 ## Entornos
 
 | Entorno | Propósito | Datos/servicios |

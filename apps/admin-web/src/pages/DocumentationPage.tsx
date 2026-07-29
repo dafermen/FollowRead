@@ -16,6 +16,7 @@ export const DocumentationPage = () => (
         </a>
         <a href="#levantar">Levantar el proyecto</a>
         <a href="#calidad">Calidad y seguridad</a>
+        <a href="#pruebas-despliegue">Pruebas predespliegue</a>
         <a href="#despliegue">Despliegue</a>
         <a href="http://localhost:8000/docs">API interactiva</a>
       </nav>
@@ -92,8 +93,28 @@ export const DocumentationPage = () => (
         </div>
       </section>
 
-      <section className="docs-section" id="despliegue">
+      <section className="docs-section" id="pruebas-despliegue">
         <span className="step-number">04</span>
+        <div>
+          <h2>Validar antes de desplegar</h2>
+          <p>
+            Todo despliegue compartido exige trece categorías: aceptación, unitarias, propiedades,
+            mutation testing, fuzzing, integración, contrato, extremo a extremo, regresión,
+            seguridad, concurrencia, rendimiento y compatibilidad.
+          </p>
+          <div className="command-box">
+            <code>pnpm docs:validate</code>
+            <span>Estructura · enlaces · matriz obligatoria</span>
+          </div>
+          <p>
+            La matriz está en <code>docs/testing/PRE_DEPLOYMENT_TESTS.md</code>. Una categoría
+            parcial, no implementada o bloqueada impide el despliegue salvo excepción aprobada.
+          </p>
+        </div>
+      </section>
+
+      <section className="docs-section" id="despliegue">
+        <span className="step-number">05</span>
         <div>
           <h2>Preparar un despliegue</h2>
           <p>

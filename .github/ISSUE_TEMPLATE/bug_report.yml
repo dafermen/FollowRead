@@ -1,0 +1,44 @@
+name: Reporte de error
+description: Registrar un defecto reproducible de FollowRead
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: No incluyas secretos, tokens, PII ni contenido privado.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Resumen
+      description: ¿Qué ocurrió y cuál era el resultado esperado?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Pasos para reproducir
+      placeholder: "1. Abrir...\n2. Seleccionar...\n3. Observar..."
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno
+      description: Commit, aplicación, navegador/dispositivo, sistema operativo y entorno.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidencia segura
+      description: Logs sanitizados, request ID o captura sin datos privados.
+  - type: dropdown
+    id: regression
+    attributes:
+      label: ¿Es una regresión?
+      options:
+        - No lo sé
+        - Sí
+        - No
+    validations:
+      required: true

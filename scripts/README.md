@@ -5,6 +5,8 @@
 - `setup-hooks.mjs`: configura `.githooks` y registra dentro de `.git` la ruta local de pnpm.
 - `verify-hooks.mjs`: comprueba que el hook esperado está activo.
 - `validate_workflow.py`: valida permisos, acciones y comandos de CI.
+- `validate-documentation.mjs`: valida documentos canónicos, plantillas, enlaces y las trece
+  categorías previas al despliegue.
 - `validate-mobile.mjs`: bloquea Admin, permisos innecesarios o recursos móviles incompletos.
 - `mobile-doctor.mjs`: detecta herramientas Android/iOS sin modificar el equipo.
 - `mobile-build.mjs`: genera el APK Android debug con el JDK de Android Studio.

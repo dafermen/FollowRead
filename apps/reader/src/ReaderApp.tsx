@@ -1437,6 +1437,12 @@ export const DocumentationPage = () => (
         necesitar Docker. Con Docker instalado, <code>pnpm deploy:local</code> levanta el stack
         opcional.
       </p>
+      <p>
+        Antes de un despliegue compartido deben quedar aprobadas las trece categorías de{" "}
+        <code>docs/testing/PRE_DEPLOYMENT_TESTS.md</code>. Incluyen aceptación, unitarias,
+        propiedades, mutation testing, fuzzing, integración, contratos, E2E, regresión, seguridad,
+        resiliencia, rendimiento y compatibilidad.
+      </p>
       <h2>Rutas principales</h2>
       <ul>
         <li>
