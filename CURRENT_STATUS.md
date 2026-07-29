@@ -8,7 +8,7 @@
 **Estructura documental y gate predespliegue:** `6346673`
 **Voz OpenAI y seguimiento estable:** `f0777da`
 **Caché persistente de audio:** `ecc5c1f`
-**Reparación de audio publicado:** pendiente de commit
+**Reparación de audio publicado:** `232b6a0`
 
 ## Qué está terminado
 
