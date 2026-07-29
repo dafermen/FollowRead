@@ -6,6 +6,7 @@
 **Base anterior:** `9ce61e5` - cierre de Fase 12
 **Implementación de Fase 13:** `f18762b`
 **Estructura documental y gate predespliegue:** `6346673`
+**Voz OpenAI y seguimiento estable:** `f0777da`
 
 ## Qué está terminado
 
