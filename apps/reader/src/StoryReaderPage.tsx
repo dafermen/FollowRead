@@ -225,7 +225,16 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
     if (!preferences.autoScroll) {
       return;
     }
-    activeMarkRef.current?.scrollIntoView({
+    const activeMark = activeMarkRef.current;
+    if (activeMark === null) {
+      return;
+    }
+    const bounds = activeMark.getBoundingClientRect();
+    const isFullyVisible = bounds.top >= 0 && bounds.bottom <= window.innerHeight;
+    if (isFullyVisible) {
+      return;
+    }
+    activeMark.scrollIntoView({
       behavior: preferences.reduceMotion ? "auto" : "smooth",
       block: "center",
     });

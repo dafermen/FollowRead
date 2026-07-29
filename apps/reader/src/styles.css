@@ -1676,7 +1676,6 @@ button.story-word:hover {
 }
 
 .story-word--active {
-  display: inline-block;
   color: var(--ink);
   background: var(--highlight);
   box-shadow: 0 0 0 0.18em var(--highlight);

@@ -232,6 +232,22 @@ describe("FollowRead Reader", () => {
 
   it("reads, pauses, navigates, changes speed and switches language", async () => {
     respondWithStory();
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(Element.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue({
+      top: 200,
+      bottom: 240,
+      left: 100,
+      right: 180,
+      width: 80,
+      height: 40,
+      x: 100,
+      y: 200,
+      toJSON: () => ({}),
+    });
     window.localStorage.setItem("followread-progress-el-zorro-y-la-luna-es", "{invalid");
     window.history.pushState({}, "", "/read/el-zorro-y-la-luna");
     render(<App />);
@@ -258,6 +274,7 @@ describe("FollowRead Reader", () => {
       vi.advanceTimersByTime(900);
     });
     expect(screen.getByText("mira")).toHaveClass("story-word--active");
+    expect(scrollIntoView).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole("button", { name: "Pausar" }));
 
     fireEvent.change(screen.getByRole("combobox", { name: "Velocidad" }), {
