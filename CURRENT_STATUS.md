@@ -7,7 +7,7 @@
 **Implementación de Fase 13:** `f18762b`
 **Estructura documental y gate predespliegue:** `6346673`
 **Voz OpenAI y seguimiento estable:** `f0777da`
-**Caché persistente de audio:** pendiente de commit
+**Caché persistente de audio:** `ecc5c1f`
 
 ## Qué está terminado
 
