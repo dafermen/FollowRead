@@ -704,12 +704,30 @@ def main() -> int:
     adapter, voices, public_audio = _runtime_adapter(settings)
     session_factory = create_session_factory(get_database_engine())
     with session_factory() as session:
-        seed_demo_story(
+        fox_story, _ = seed_demo_story(
             session,
             cover_path=stories_dir / "el-zorro-y-la-luna-cover.png",
             chapter_two_path=stories_dir / "el-zorro-y-la-luna-chapter-2.png",
-            audio_output_dir=repository_root / "var" / "audio",
+            audio_output_dir=Path(settings.audio_output_dir),
         )
+        if public_audio:
+            if fox_story.publication is None:
+                raise RuntimeError("The main demo story was not published.")
+            _process_audio(
+                version=fox_story.publication.version,
+                processor=PollyProcessingService(
+                    session,
+                    adapter=adapter,
+                    storage=LocalAudioStorage(
+                        settings.audio_output_dir,
+                        public_prefix="/audio",
+                    ),
+                    chunk_characters=settings.polly_chunk_characters,
+                    maximum_cost=settings.maximum_processing_cost,
+                ),
+                voices=voices,
+                slug=fox_story.slug,
+            )
         contents, created_count = seed_additional_catalog(
             session,
             stories_dir=stories_dir,
