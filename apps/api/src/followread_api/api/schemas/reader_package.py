@@ -30,6 +30,8 @@ class ReaderParagraphResponse(BaseModel):
 class ReaderChapterResponse(BaseModel):
     stable_key: str
     title: str | None
+    image_uri: str | None
+    image_alt_text: str | None
     paragraphs: list[ReaderParagraphResponse]
 
 
@@ -66,6 +68,8 @@ def reader_package_response(package: ReaderPackage) -> ReaderPackageResponse:
                     ReaderChapterResponse(
                         stable_key=chapter.stable_key,
                         title=chapter.title,
+                        image_uri=chapter.image_uri,
+                        image_alt_text=chapter.image_alt_text,
                         paragraphs=[
                             ReaderParagraphResponse(
                                 stable_key=paragraph.stable_key,

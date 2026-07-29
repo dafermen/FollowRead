@@ -21,11 +21,15 @@ const storyPackage: ReaderPackage = {
         {
           stable_key: "chapter-1",
           title: "Una luz en el bosque",
+          image_uri: null,
+          image_alt_text: null,
           paragraphs: [{ stable_key: "paragraph-1", text: "Milo mira la luna." }],
         },
         {
           stable_key: "chapter-2",
           title: "El sendero brillante",
+          image_uri: "/stories/el-zorro-y-la-luna-chapter-2.png",
+          image_alt_text: "Milo y Luma avanzan por el sendero brillante.",
           paragraphs: [{ stable_key: "paragraph-2", text: "Luma vuela con Milo." }],
         },
       ],
@@ -73,11 +77,15 @@ const storyPackage: ReaderPackage = {
         {
           stable_key: "chapter-1",
           title: "A Light in the Forest",
+          image_uri: null,
+          image_alt_text: null,
           paragraphs: [{ stable_key: "paragraph-1", text: "Milo watches the moon." }],
         },
         {
           stable_key: "chapter-2",
           title: "The Shining Path",
+          image_uri: "/stories/el-zorro-y-la-luna-chapter-2.png",
+          image_alt_text: "Milo and Luma follow the shining path.",
           paragraphs: [{ stable_key: "paragraph-2", text: "Luma flies with Milo." }],
         },
       ],
@@ -232,6 +240,10 @@ describe("FollowRead Reader", () => {
     expect(
       await screen.findByRole("heading", { name: "Una luz en el bosque" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Milo y Luma bajo la luna." })).toHaveAttribute(
+      "src",
+      "/stories/el-zorro-y-la-luna-cover.png",
+    );
 
     vi.useFakeTimers();
     fireEvent.click(screen.getByRole("button", { name: "Reproducir" }));
@@ -253,6 +265,9 @@ describe("FollowRead Reader", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Capítulo siguiente" }));
     expect(screen.getByRole("heading", { name: "El sendero brillante" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "Milo y Luma avanzan por el sendero brillante." }),
+    ).toHaveAttribute("src", "/stories/el-zorro-y-la-luna-chapter-2.png");
     fireEvent.click(screen.getByRole("button", { name: "Repetir palabra" }));
     fireEvent.click(screen.getByRole("button", { name: "Retroceder cinco segundos" }));
     fireEvent.click(screen.getByRole("button", { name: "Avanzar cinco segundos" }));

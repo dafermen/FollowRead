@@ -90,6 +90,25 @@ try {
     for (const route of routes) {
       await client.send("Page.navigate", { url: `${readerBase}${route.path}` });
       await waitForText(client, route.expected);
+      if (route.path === "/read/el-zorro-y-la-luna") {
+        await client.send("Runtime.evaluate", {
+          expression: `
+            document.querySelector('button[aria-label="Capítulo siguiente"]')?.click()
+          `,
+        });
+        await waitForText(client, ["El sendero brillante"]);
+        await waitFor(async () => {
+          const result = await client.send("Runtime.evaluate", {
+            expression: `
+              document.querySelector(".story-visual img")
+                ?.getAttribute("src") ?? ""
+            `,
+            returnByValue: true,
+          });
+          return String(result.result.value).endsWith("/stories/el-zorro-y-la-luna-chapter-2.png");
+        }, "chapter 2 illustration");
+        console.log("PASS chapter illustration fallback and switch");
+      }
       console.log(`PASS ${route.path}`);
     }
   } finally {

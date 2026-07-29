@@ -98,11 +98,19 @@ def seed_content(session: Session, slug: str, status: EditorialStatus) -> None:
         alt_text="The moon over a quiet forest.",
         status=ResourceStatus.READY,
     )
+    chapter_illustration = Illustration(
+        version=version,
+        position=1,
+        uri="/stories/moon-story-chapter-1.png",
+        checksum="sha256:" + ("e" * 64),
+        alt_text="Moonlight illuminates the first chapter.",
+        status=ResourceStatus.READY,
+    )
     content.publication = Publication(
         version=version,
         published_at=datetime.now(UTC),
     )
-    session.add_all([content, version_audio, illustration])
+    session.add_all([content, version_audio, illustration, chapter_illustration])
     session.commit()
 
 
@@ -206,6 +214,12 @@ def test_reader_package_endpoint_returns_timeline_and_resources() -> None:
     payload = response.json()
     assert payload["slug"] == "moon-story"
     assert payload["cover_uri"] == "/stories/moon-story.png"
+    assert payload["translations"][0]["chapters"][0]["image_uri"] == (
+        "/stories/moon-story-chapter-1.png"
+    )
+    assert payload["translations"][0]["chapters"][0]["image_alt_text"] == (
+        "Moonlight illuminates the first chapter."
+    )
     assert payload["translations"][0]["audio"] == {
         "uri": "var/audio/moon-story.mp3",
         "duration_ms": 1000,

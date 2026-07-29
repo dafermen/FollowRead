@@ -313,12 +313,20 @@ const loadBootstrap = async (repository: OfflineRepository): Promise<void> => {
 };
 
 const cachePackageResources = async (readerPackage: ReaderPackage): Promise<void> => {
-  if (!("caches" in window) || readerPackage.cover_uri === null) {
+  if (!("caches" in window)) {
     return;
   }
+  const resourceUris = new Set(
+    [
+      readerPackage.cover_uri,
+      ...readerPackage.translations.flatMap((translation) =>
+        translation.chapters.map((chapter) => chapter.image_uri),
+      ),
+    ].filter((uri): uri is string => typeof uri === "string" && uri !== ""),
+  );
   try {
     const cache = await caches.open("followread-content-v1");
-    await cache.add(readerPackage.cover_uri);
+    await Promise.all([...resourceUris].map((uri) => cache.add(uri)));
   } catch {
     // The package is still complete for text, marks and device narration.
   }

@@ -797,3 +797,21 @@ gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
   muestra `A Light in the Forest`.
 
 La API publicada quedó con 74 marcas inglesas y 73 españolas, ambas con cero secuencias inválidas.
+
+---
+
+## Continuación 2026-07-29 - Ilustraciones por capítulo
+
+- El contrato público de Reader añadió `image_uri` e `image_alt_text` opcionales por capítulo.
+- La imagen principal sigue siendo el fallback: un cuento con una sola ilustración la repite en
+  todos los capítulos sin configuración adicional.
+- Las ilustraciones editoriales usan posición 0 para portada y posiciones 1..N para capítulos.
+- Reader cambia la imagen junto con el capítulo y conserva texto alternativo accesible.
+- Las descargas offline guardan la portada y todas las imágenes específicas disponibles.
+- Se generó una ilustración original para **The Shining Path / El sendero brillante**, manteniendo
+  los personajes, paleta y estilo de la portada.
+- La siembra idempotente añade o actualiza el recurso del capítulo 2 sin tocar el audio OpenAI.
+- El paquete real y el bootstrap exponen la imagen del capítulo 2 en español e inglés; el capítulo
+  1 conserva `null` y demuestra el fallback.
+- `pnpm check` pasó con 110 pruebas API, 42 Reader y 14 Admin.
+- `pnpm reader:e2e` avanzó al capítulo 2 en Chrome y confirmó la URI de la imagen visible.

@@ -76,7 +76,8 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 - generación local de audio y Speech Marks vinculados a cada párrafo;
 - límite Amazon Polly implementado y probado exclusivamente con cliente simulado;
 - paquete de lectura publicado con texto, recursos y Speech Marks;
-- cuento bilingüe original, ilustración propia y siembra idempotente en SQLite;
+- cuento bilingüe original, portada e ilustración propia para el capítulo 2 con siembra idempotente
+  en SQLite;
 - Reader Engine reusable con búsqueda temporal, reproducción y progreso;
 - biblioteca y lector visual con palabra activa, mano, auto-scroll, capítulos e idiomas;
 - biblioteca filtrable, detalle, favoritos, historial, vocabulario y preferencias locales;
@@ -89,7 +90,7 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 - safe areas y progreso verificados en vertical/horizontal;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 14 pruebas Admin, 41 Reader, 6 Reader Engine, 3 de configuración y 110 pruebas API;
+- 14 pruebas Admin, 42 Reader, 6 Reader Engine, 3 de configuración y 110 pruebas API;
 - cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
 - cero vulnerabilidades conocidas moderadas o superiores en JavaScript y cero en Python;
 - bundles con carga diferida, p95 local final de 107.9 ms y ocho rutas auditadas a 390 px.

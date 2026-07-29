@@ -15,6 +15,9 @@ El proyecto aún no tiene una versión pública estable.
 - caché persistente de narración basada en la huella del texto, voz y modelos para evitar llamadas
   repetidas al proveedor de pago.
 - narración publicada del cuento de demostración con OpenAI `marin` en español y `cedar` en inglés.
+- ilustraciones opcionales por capítulo con fallback automático a la portada;
+- nueva ilustración original para **The Shining Path / El sendero brillante**, capítulo 2 de
+  **The Fox and the Moon / El zorro y la luna**.
 
 ### Changed
 

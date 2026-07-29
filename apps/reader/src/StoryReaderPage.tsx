@@ -252,6 +252,9 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
   }
 
   const chapter = translation.chapters[engineState.activeChapterIndex] ?? translation.chapters[0];
+  const chapterImageUri =
+    chapter?.image_uri ?? story.cover_uri ?? `/stories/${story.slug}-cover.png`;
+  const chapterImageAlt = chapter?.image_alt_text ?? story.cover_alt_text ?? "";
   const percentage =
     engineState.durationMs === 0
       ? 0
@@ -522,10 +525,7 @@ export const StoryReaderPage = ({ slug }: { slug: string }) => {
 
       <div className="reading-layout">
         <aside className="story-visual">
-          <img
-            src={story.cover_uri ?? `/stories/${story.slug}-cover.png`}
-            alt={story.cover_alt_text ?? ""}
-          />
+          <img src={chapterImageUri} alt={chapterImageAlt} />
           <div>
             <span>
               {publishedAudioActive

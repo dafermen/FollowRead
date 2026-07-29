@@ -19,15 +19,19 @@ def test_demo_story_seed_is_publishable_bilingual_and_idempotent(tmp_path: Path)
     Base.metadata.create_all(engine)
     cover = tmp_path / "cover.png"
     cover.write_bytes(b"original-cover")
+    chapter_two = tmp_path / "chapter-2.png"
+    chapter_two.write_bytes(b"chapter-two")
     with Session(engine) as session:
         content, created = seed_demo_story(
             session,
             cover_path=cover,
+            chapter_two_path=chapter_two,
             audio_output_dir=tmp_path / "audio",
         )
         repeated, repeated_created = seed_demo_story(
             session,
             cover_path=cover,
+            chapter_two_path=chapter_two,
             audio_output_dir=tmp_path / "audio",
         )
         package = ReaderPackageService(session).get_package(STORY_SLUG)
@@ -42,6 +46,10 @@ def test_demo_story_seed_is_publishable_bilingual_and_idempotent(tmp_path: Path)
             "chapter-1",
             "chapter-2",
         }
+        assert package.translations[0].chapters[0].image_uri is None
+        assert package.translations[0].chapters[1].image_uri == (
+            "/stories/el-zorro-y-la-luna-chapter-2.png"
+        )
     engine.dispose()
 
 

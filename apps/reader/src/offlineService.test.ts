@@ -16,8 +16,8 @@ const readerPackage: ReaderPackage = {
   content_id: "content-1",
   slug: "cuento",
   version: 1,
-  cover_uri: null,
-  cover_alt_text: null,
+  cover_uri: "/stories/cuento-cover.png",
+  cover_alt_text: "Portada del cuento.",
   translations: [
     {
       language: "es",
@@ -27,6 +27,8 @@ const readerPackage: ReaderPackage = {
         {
           stable_key: "chapter-1",
           title: null,
+          image_uri: "/stories/cuento-chapter-1.png",
+          image_alt_text: "Ilustración del primer capítulo.",
           paragraphs: [{ stable_key: "paragraph-1", text: "Hola." }],
         },
       ],
@@ -153,6 +155,19 @@ describe("offline reader service", () => {
       installOfflinePackage(update, () => Promise.resolve(payload)),
     ).rejects.toMatchObject({ code: "checksum_mismatch" });
     expect((await (await getOfflineRepository()).getPackage("cuento"))?.version).toBe(1);
+  });
+
+  it("caches the cover and every available chapter illustration", async () => {
+    const { payload, catalog } = await fixture();
+    const add = vi.fn(() => Promise.resolve());
+    vi.stubGlobal("caches", {
+      open: vi.fn(() => Promise.resolve({ add })),
+    });
+
+    await installOfflinePackage(catalog, () => Promise.resolve(payload));
+
+    expect(add).toHaveBeenCalledWith("/stories/cuento-cover.png");
+    expect(add).toHaveBeenCalledWith("/stories/cuento-chapter-1.png");
   });
 
   it("keeps progress queued offline and removes it after confirmation", async () => {

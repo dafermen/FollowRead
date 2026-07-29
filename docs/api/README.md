@@ -24,6 +24,13 @@ La lista sólo expone publicaciones activas con versión `published` y paquete c
 Devuelve el resumen más traducciones, capítulos y párrafos ordenados. Un slug inexistente, borrador,
 inactivo o incompleto responde como `content.not_found`.
 
+### `GET /catalog/{slug}/reader-package`
+
+Devuelve el paquete verificable usado por Reader. Cada capítulo puede incluir `image_uri` e
+`image_alt_text`; ambos son `null` cuando no existe una ilustración específica y la aplicación usa
+entonces `cover_uri`/`cover_alt_text`. La posición editorial 0 identifica la portada y las
+posiciones 1..N las imágenes de capítulos.
+
 Los errores estables están documentados en `docs/api/ERRORS.md`. Autenticación y endpoints
 administrativos permanecen fuera de esta fase.
 

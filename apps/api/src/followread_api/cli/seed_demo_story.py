@@ -32,8 +32,12 @@ from followread_api.services.reader_package import ReaderPackageService
 
 STORY_SLUG = "el-zorro-y-la-luna"
 STORY_COVER_URI = "/stories/el-zorro-y-la-luna-cover.png"
+STORY_CHAPTER_2_URI = "/stories/el-zorro-y-la-luna-chapter-2.png"
 STORY_COVER_ALT = (
     "Milo, un pequeño zorro rojo, mira la luna creciente junto a una luciérnaga dorada."
+)
+STORY_CHAPTER_2_ALT = (
+    "Milo y Luma avanzan juntos por un sendero dorado hasta un claro iluminado por la luna."
 )
 STORY = {
     Language.SPANISH: {
@@ -132,11 +136,30 @@ def seed_demo_story(
     session: Session,
     *,
     cover_path: Path,
+    chapter_two_path: Path | None = None,
     audio_output_dir: Path,
 ) -> tuple[ReadingContent, bool]:
     existing = session.scalar(select(ReadingContent).where(ReadingContent.slug == STORY_SLUG))
     if existing is not None:
         if existing.publication is not None:
+            _upsert_story_illustration(
+                session,
+                version=existing.publication.version,
+                position=0,
+                source_path=cover_path,
+                public_uri=STORY_COVER_URI,
+                alt_text=STORY_COVER_ALT,
+            )
+            if chapter_two_path is not None:
+                _upsert_story_illustration(
+                    session,
+                    version=existing.publication.version,
+                    position=2,
+                    source_path=chapter_two_path,
+                    public_uri=STORY_CHAPTER_2_URI,
+                    alt_text=STORY_CHAPTER_2_ALT,
+                )
+            session.flush()
             package = ReaderPackageService(session).get_package(existing.slug)
             existing.publication.version.checksum = reader_package_checksum(package)
             session.commit()
@@ -219,17 +242,23 @@ def seed_demo_story(
         if job.status != JobStatus.SUCCEEDED:
             raise RuntimeError(f"Demo audio failed for {language.value}: {job.error_detail}")
 
-    cover_checksum = f"sha256:{sha256(cover_path.read_bytes()).hexdigest()}"
-    session.add(
-        Illustration(
-            content_version_id=version.id,
-            position=0,
-            uri=STORY_COVER_URI,
-            checksum=cover_checksum,
-            alt_text=STORY_COVER_ALT,
-            status=ResourceStatus.READY,
-        ),
+    _upsert_story_illustration(
+        session,
+        version=version,
+        position=0,
+        source_path=cover_path,
+        public_uri=STORY_COVER_URI,
+        alt_text=STORY_COVER_ALT,
     )
+    if chapter_two_path is not None:
+        _upsert_story_illustration(
+            session,
+            version=version,
+            position=2,
+            source_path=chapter_two_path,
+            public_uri=STORY_CHAPTER_2_URI,
+            alt_text=STORY_CHAPTER_2_ALT,
+        )
     version.status = EditorialStatus.PUBLISHED
     session.add(
         Publication(
@@ -247,6 +276,31 @@ def seed_demo_story(
     return content, True
 
 
+def _upsert_story_illustration(
+    session: Session,
+    *,
+    version: ContentVersion,
+    position: int,
+    source_path: Path,
+    public_uri: str,
+    alt_text: str,
+) -> None:
+    checksum = f"sha256:{sha256(source_path.read_bytes()).hexdigest()}"
+    illustration = session.scalar(
+        select(Illustration).where(
+            Illustration.content_version_id == version.id,
+            Illustration.position == position,
+        ),
+    )
+    if illustration is None:
+        illustration = Illustration(content_version_id=version.id, position=position)
+        session.add(illustration)
+    illustration.uri = public_uri
+    illustration.checksum = checksum
+    illustration.alt_text = alt_text
+    illustration.status = ResourceStatus.READY
+
+
 def _story_checksum() -> str:
     payload = json.dumps(
         {language.value: data for language, data in STORY.items()},
@@ -261,11 +315,20 @@ def main() -> int:
     cover_path = (
         repository_root / "apps" / "reader" / "public" / "stories" / "el-zorro-y-la-luna-cover.png"
     )
+    chapter_two_path = (
+        repository_root
+        / "apps"
+        / "reader"
+        / "public"
+        / "stories"
+        / "el-zorro-y-la-luna-chapter-2.png"
+    )
     session_factory = create_session_factory(get_database_engine())
     with session_factory() as session:
         content, created = seed_demo_story(
             session,
             cover_path=cover_path,
+            chapter_two_path=chapter_two_path,
             audio_output_dir=repository_root / "var" / "audio",
         )
     state = "created and published" if created else "already exists"

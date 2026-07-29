@@ -21,6 +21,8 @@ export type ReaderParagraph = { stable_key: string; text: string };
 export type ReaderChapter = {
   stable_key: string;
   title: string | null;
+  image_uri?: string | null;
+  image_alt_text?: string | null;
   paragraphs: ReaderParagraph[];
 };
 

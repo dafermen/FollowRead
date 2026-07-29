@@ -13,6 +13,7 @@ La API expone `GET /catalog/{slug}/reader-package` con:
 - publicación activa y versión;
 - traducciones, capítulos y párrafos ordenados;
 - ilustración principal y descripción alternativa;
+- ilustración y texto alternativo opcionales por capítulo, con fallback a la principal;
 - URI, duración, voz y tipo de audio;
 - Speech Marks ordenados con tiempo, caracteres, párrafo y capítulo.
 
@@ -40,6 +41,8 @@ estado a `ended`; volver a reproducir reinicia desde cero.
 El Reader crea una instancia por pantalla, se suscribe a sus cambios y usa un reloj de 100 ms para
 el demostrador local. La palabra activa recibe resaltado, una mano indicadora y auto-scroll. El
 progreso se guarda por `slug` e idioma en `localStorage`; no contiene identidad ni datos sensibles.
+La imagen visible se resuelve desde el capítulo activo y reutiliza la portada cuando el campo
+específico es nulo. Las descargas offline incluyen todos los recursos visuales referenciados.
 
 Un cambio de tamaño u orientación incrementa la revisión de layout y vuelve a centrar la palabra.
 Perder el foco pausa la lectura. La pérdida de una fuente de audio se representa como error y no
