@@ -15,7 +15,10 @@ describe("Reader PWA helpers", () => {
       value: { register },
     });
     expect(await registerReaderServiceWorker()).toBe(registration);
-    expect(register).toHaveBeenCalledWith("/sw.js", { scope: "/" });
+    expect(register).toHaveBeenCalledWith("/sw.js", {
+      scope: "/",
+      updateViaCache: "none",
+    });
   });
 
   it("absorbs registration failures", async () => {

@@ -1,5 +1,5 @@
-const SHELL_CACHE = "followread-shell-v3";
-const CONTENT_CACHE = "followread-content-v2";
+const SHELL_CACHE = "followread-shell-v4";
+const CONTENT_CACHE = "followread-content-v3";
 const SHELL_ASSETS = [
   "/",
   "/offline/bootstrap.json",
@@ -33,6 +33,10 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   const url = new URL(request.url);
+  if (url.pathname === "/offline/bootstrap.json") {
+    event.respondWith(networkFirstBootstrap(request));
+    return;
+  }
   if (request.mode === "navigate") {
     event.respondWith(networkFirstNavigation(request));
     return;
@@ -72,6 +76,19 @@ async function cacheFirst(request) {
     await cache.put(request, response.clone());
   }
   return response;
+}
+
+async function networkFirstBootstrap(request) {
+  try {
+    const response = await fetch(request, { cache: "no-store" });
+    if (response.ok) {
+      const cache = await caches.open(CONTENT_CACHE);
+      await cache.put(request, response.clone());
+    }
+    return response;
+  } catch {
+    return (await caches.match(request)) ?? Response.error();
+  }
 }
 
 async function staleWhileRevalidate(request, event) {

@@ -8,6 +8,7 @@
 **Estructura documental y gate predespliegue:** `6346673`
 **Voz OpenAI y seguimiento estable:** `f0777da`
 **Caché persistente de audio:** `ecc5c1f`
+**Reparación de audio publicado:** pendiente de commit
 
 ## Qué está terminado
 
@@ -16,7 +17,7 @@
   publicación.
 - Reader web/PWA/Android/iOS: biblioteca, cuento bilingüe, audio local, sincronización por palabra,
   descargas, offline, progreso, vocabulario y modo aprender inglés.
-- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 107 pruebas.
+- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 108 pruebas.
 - Calidad transversal: errores globales, GZip, caching, lazy loading, auditoría de accesibilidad,
   carga, dependencia y regresión.
 - Fase 13 implementada localmente: Dockerfiles, Compose, backup/restore, smoke test, CI ampliado,
@@ -35,12 +36,18 @@
   llamar al proveedor. Cambios de contenido/configuración o un archivo ausente invalidan la caché.
 - Las pruebas administrativas fuerzan el adaptador local simulado y no pueden heredar una clave
   OpenAI desde `.env`.
+- El cuento publicado dispone de narración OpenAI real en español (`marin`) e inglés (`cedar`), con
+  MP3 servidos por la API y 73/74 marcas temporales respectivamente.
+- La publicación recalcula su checksum después de generar audio y el Reader reemplaza un bootstrap
+  incluido obsoleto sin alterar paquetes descargados por el usuario.
+- El service worker obtiene el manifiesto offline con prioridad de red y una versión nueva de sus
+  cachés para no conservar paquetes editoriales antiguos.
 
 ## Última validación local
 
 - `pnpm docs:validate`: PASS el 2026-07-29.
 - `pnpm migrate`: PASS; SQLite quedó en la revisión `20260729_0003`.
-- `pnpm check`: PASS el 2026-07-29 con 107 pruebas API, 40 Reader y 14 Admin.
+- `pnpm check`: PASS el 2026-07-29 con 108 pruebas API, 41 Reader y 14 Admin.
 - `pnpm quality:regression`: PASS el 2026-07-28 con servicios activos.
 - `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
 - 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
@@ -57,15 +64,16 @@
 5. Validar iOS físico con macOS/Xcode antes de TestFlight.
 6. Completar propiedades/invariantes, mutation testing, fuzzing, contratos formales y pruebas de
    resiliencia; registrar aceptación del artefacto candidato.
-7. Generar español/inglés desde Admin y realizar la validación auditiva real. La clave local y el
-   proveedor OpenAI ya están configurados; las pruebas automatizadas permanecen aisladas.
+7. Confirmar auditivamente en el navegador la calidad y sincronización del MP3 real ya generado.
+   La validación técnica HTTP, las marcas temporales y la reutilización con costo cero están
+   completadas.
 
 ## Próxima acción exacta
 
-Reiniciar `pnpm dev`, generar el cuento con `marin`/`cedar` desde Admin y validar
-voz/sincronización. Repetir la acción y comprobar en Procesamiento el estado
-`Audio reutilizado · sin costo API`. Después continuar las brechas de
-`docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates Docker/GitHub/staging.
+Hacer una recarga completa del Reader (`Ctrl+Shift+R`), reproducir ambos idiomas y confirmar
+voz/sincronización. La segunda solicitud de cada idioma ya devolvió `cached` y costo cero.
+Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates
+Docker/GitHub/staging.
 No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar
 excepciones explícitas.
 

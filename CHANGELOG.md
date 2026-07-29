@@ -14,12 +14,22 @@ El proyecto aún no tiene una versión pública estable.
 - narración OpenAI opcional con alineación por palabra y MP3 servido sólo desde la API.
 - caché persistente de narración basada en la huella del texto, voz y modelos para evitar llamadas
   repetidas al proveedor de pago.
+- narración publicada del cuento de demostración con OpenAI `marin` en español y `cedar` en inglés.
 
 ### Changed
 
 - SQLite es la persistencia autoritativa del MVP;
 - el indicador de lectura ahora es una mano debajo de la palabra y las correcciones de voz nunca
-  hacen retroceder el resaltado.
+  hacen retroceder el resaltado;
+- el checksum del paquete publicado se actualiza al cambiar audio o marcas temporales;
+- el Reader refresca el bootstrap incluido cuando cambia su checksum y evita servirlo desde una
+  caché obsoleta.
+
+### Fixed
+
+- el Reader ya no intenta reproducir rutas locales generadas por el adaptador simulado como si
+  fueran MP3 publicados;
+- una versión offline incluida obsoleta ya no oculta el audio real disponible en la API.
 
 ## 0.0.0 - MVP en desarrollo
 

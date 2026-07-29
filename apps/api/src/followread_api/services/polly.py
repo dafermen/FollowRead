@@ -21,10 +21,13 @@ from followread_api.models import (
     Language,
     Paragraph,
     ProcessingJob,
+    Publication,
     ResourceStatus,
     SpeechMark,
 )
 from followread_api.services.errors import ContentNotFoundError, InvalidCatalogQueryError
+from followread_api.services.package_integrity import reader_package_checksum
+from followread_api.services.reader_package import ReaderPackageService
 
 VOICE_LANGUAGES = {
     "Lucia": Language.SPANISH,
@@ -544,6 +547,8 @@ class PollyProcessingService:
                 )
                 for position, mark in enumerate(all_marks)
             ]
+            self._session.flush()
+            self._refresh_published_checksum(version)
             job.status = JobStatus.SUCCEEDED
             job.stage = "completed"
             job.progress_percent = 100
@@ -576,6 +581,18 @@ class PollyProcessingService:
         )
         source = "\0".join((adapter_identity, language.value, voice_id, text))
         return f"sha256:{sha256(source.encode()).hexdigest()}"
+
+    def _refresh_published_checksum(self, version: ContentVersion) -> None:
+        publication = self._session.scalar(
+            select(Publication).where(
+                Publication.content_version_id == version.id,
+                Publication.is_active.is_(True),
+            ),
+        )
+        if publication is None:
+            return
+        package = ReaderPackageService(self._session).get_package(version.content.slug)
+        version.checksum = reader_package_checksum(package)
 
     def list_jobs(self, limit: int = 20) -> tuple[ProcessingJob, ...]:
         return tuple(

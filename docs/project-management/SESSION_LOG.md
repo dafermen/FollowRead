@@ -756,3 +756,26 @@ paso es crear `apps/api/.env`, generar ambos idiomas desde Admin y validar voz/s
 
 Falta generar el cuento real desde Admin, escucharlo y repetir la acción para validar visualmente el
 estado de caché con el servicio activo.
+
+---
+
+## Continuación 2026-07-29 - Reparación del audio publicado
+
+- Se diagnosticó que el Reader prefería un bootstrap offline antiguo que contenía rutas locales del
+  adaptador simulado y las marcaba incorrectamente como audio publicado.
+- Se generaron los MP3 reales del cuento con OpenAI: español con `marin` e inglés con `cedar`.
+- La API sirve ambos archivos como `audio/mpeg`; el paquete contiene 73 marcas en español y 74 en
+  inglés.
+- Una segunda solicitud por idioma terminó como `cached`, con costo estimado cero y sin otra
+  generación de pago.
+- El servicio de procesamiento actualiza ahora el checksum de cualquier publicación activa después
+  de guardar audio y Speech Marks.
+- Reader reemplaza un bootstrap incluido si su checksum cambió, pero conserva cualquier descarga
+  explícita del usuario.
+- El service worker usa versiones nuevas de caché y obtiene el manifiesto offline con prioridad de
+  red.
+- `pnpm check` pasó completo con 108 pruebas API, 41 Reader y 14 Admin, además de lint, tipos,
+  documentación, seguridad estática y builds.
+
+Sólo queda la confirmación auditiva del usuario después de una recarga completa del Reader. Los
+gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.

@@ -1,10 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { sha256Checksum } from "./offlineDomain.js";
-import { getOfflineRepository } from "./offlineRepository.js";
+import { getOfflineRepository, MemoryOfflineRepository } from "./offlineRepository.js";
 import type { CatalogItem, ReaderPackage } from "./readerClient.js";
 import {
   getOfflineAwareLibrary,
+  ensureBootstrap,
   installOfflinePackage,
   queueProgressForSync,
   resetOfflineStateForTests,
@@ -89,6 +90,50 @@ describe("offline reader service", () => {
 
     expect(library[0]?.availability.state).toBe("local_only");
     expect(library[0]?.package).toEqual(readerPackage);
+  });
+
+  it("refreshes an outdated bundled package without replacing user downloads", async () => {
+    const { payload, catalog } = await fixture();
+    const repository = new MemoryOfflineRepository();
+    const updatedPackage: ReaderPackage = {
+      ...readerPackage,
+      translations: readerPackage.translations.map((translation) => ({
+        ...translation,
+        audio: {
+          ...translation.audio,
+          uri: "/audio/cuento-es-marin.mp3",
+          voice_id: "marin",
+          simulated: false,
+        },
+      })),
+    };
+    const updatedPayload = JSON.stringify(updatedPackage);
+    const updatedCatalog = {
+      ...catalog,
+      checksum: await sha256Checksum(updatedPayload),
+    };
+    let bootstrap = {
+      schema_version: 1,
+      catalog: [catalog],
+      package_payloads: { cuento: payload },
+    };
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(() => Promise.resolve(new Response(JSON.stringify(bootstrap)))),
+    );
+
+    await ensureBootstrap(repository);
+    expect((await repository.getPackage("cuento"))?.package).toEqual(readerPackage);
+
+    resetOfflineStateForTests();
+    bootstrap = {
+      schema_version: 1,
+      catalog: [updatedCatalog],
+      package_payloads: { cuento: updatedPayload },
+    };
+    await ensureBootstrap(repository);
+
+    expect((await repository.getPackage("cuento"))?.package).toEqual(updatedPackage);
   });
 
   it("does not replace a valid package after a corrupt update", async () => {

@@ -287,7 +287,11 @@ const loadBootstrap = async (repository: OfflineRepository): Promise<void> => {
     return;
   }
   for (const catalog of document.catalog) {
-    if ((await repository.getPackage(catalog.slug)) !== undefined) {
+    const existing = await repository.getPackage(catalog.slug);
+    if (
+      existing !== undefined &&
+      (existing.source !== "bootstrap" || existing.checksum === catalog.checksum)
+    ) {
       continue;
     }
     const payload = document.package_payloads[catalog.slug];

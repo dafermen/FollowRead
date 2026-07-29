@@ -22,6 +22,8 @@ disponga del SDK y credenciales.
 9. Los tiempos y posiciones se acumulan y cada marca se vincula al párrafo que contiene su carácter.
 10. El audio y su huella de origen se guardan en SQLite/almacenamiento local; el trabajo termina
     como completado o fallido.
+11. Si la versión tiene una publicación activa, la API recalcula su checksum con el paquete final
+    para que Reader y el bootstrap offline detecten el audio nuevo.
 
 ## Adaptadores
 
@@ -44,6 +46,8 @@ disponga del SDK y credenciales.
 - La clave de idempotencia evita duplicados ante reenvíos de una misma solicitud.
 - La caché persistente evita nuevas llamadas de pago aunque Admin envíe otra solicitud: sólo se
   regenera cuando cambia el texto, idioma, voz, proveedor/modelos o cuando falta el MP3.
+- Un paquete incluido puede actualizarse al cambiar el checksum editorial; una descarga iniciada
+  por el usuario nunca se reemplaza silenciosamente.
 - El límite de costo se evalúa antes de cualquier llamada al proveedor.
 - Los errores guardados se limitan a 500 caracteres.
 - Ninguna prueba automatizada usa una cuenta, secreto o llamada real de AWS.

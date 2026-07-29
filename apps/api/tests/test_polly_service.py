@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from decimal import Decimal
 from io import BytesIO
 from pathlib import Path
@@ -26,6 +27,7 @@ from followread_api.models import (
     Language,
     Paragraph,
     ProcessingJob,
+    Publication,
     ReadingContent,
     ReadingLevel,
     ReadingLevelCode,
@@ -40,9 +42,11 @@ from followread_api.services import (
     LocalAudioStorage,
     OpenAITtsAdapter,
     PollyProcessingService,
+    ReaderPackageService,
     RetryingPollyAdapter,
     TextChunker,
 )
+from followread_api.services.package_integrity import reader_package_checksum
 from followread_api.services.polly import PollyAdapter, SynthesizedChunk
 
 
@@ -302,6 +306,52 @@ def test_audio_cache_invalidates_when_text_changes_or_file_is_missing() -> None:
         assert changed.stage == "completed"
         assert missing.stage == "completed"
         assert adapter.calls == 3
+
+    engine.dispose()
+
+
+def test_processing_refreshes_the_checksum_of_an_active_publication() -> None:
+    engine = create_database_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        version_id = _seed_version(session, Language.SPANISH, "Hola luna.")
+        service = _service(session)
+        service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="Lucia",
+            idempotency_key="published-checksum-v1",
+        )
+        version = session.get(ContentVersion, version_id)
+        assert version is not None
+        version.status = EditorialStatus.PUBLISHED
+        version.package_url = f"/catalog/{version.content.slug}/reader-package"
+        version.checksum = f"sha256:{'0' * 64}"
+        session.add(
+            Publication(
+                content=version.content,
+                version=version,
+                is_active=True,
+                published_at=datetime.now(UTC),
+            ),
+        )
+        session.commit()
+        paragraph = session.scalar(select(Paragraph))
+        assert paragraph is not None
+        paragraph.text = "Hola luna brillante."
+        session.commit()
+
+        processed = service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="Lucia",
+            idempotency_key="published-checksum-v2",
+        )
+        package = ReaderPackageService(session).get_package(version.content.slug)
+
+        assert processed.status == JobStatus.SUCCEEDED
+        assert version.checksum == reader_package_checksum(package)
+        assert version.checksum != f"sha256:{'0' * 64}"
 
     engine.dispose()
 
