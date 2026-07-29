@@ -5,6 +5,7 @@
 **Estado:** IN_PROGRESS - implementación terminada, validaciones externas pendientes  
 **Base anterior:** `9ce61e5` - cierre de Fase 12
 **Implementación de Fase 13:** `f18762b`
+**Estructura documental y gate predespliegue:** `6346673`
 
 ## Qué está terminado
 
