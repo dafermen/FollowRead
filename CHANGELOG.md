@@ -35,6 +35,9 @@ El proyecto aún no tiene una versión pública estable.
 - una versión offline incluida obsoleta ya no oculta el audio real disponible en la API;
 - el botón EN ya no queda sin efecto cuando el alineador externo entrega dos marcas con una pequeña
   superposición temporal.
+- el resaltado sincronizado ya no cambia la palabra de `inline` a `inline-block`, por lo que el
+  párrafo mantiene su composición durante la narración;
+- el desplazamiento automático ya no recentra cada palabra que continúa dentro del área visible.
 
 ## 0.0.0 - MVP en desarrollo
 

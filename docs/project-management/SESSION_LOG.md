@@ -815,3 +815,20 @@ La API publicada quedó con 74 marcas inglesas y 73 españolas, ambas con cero s
   1 conserva `null` y demuestra el fallback.
 - `pnpm check` pasó con 110 pruebas API, 42 Reader y 14 Admin.
 - `pnpm reader:e2e` avanzó al capítulo 2 en Chrome y confirmó la URI de la imagen visible.
+
+---
+
+## Continuación 2026-07-29 - Resaltado sin saltos visuales
+
+- Se reprodujo conceptualmente el cansancio visual causado por recomponer el renglón al activar
+  cada palabra.
+- La palabra activa conserva ahora el mismo comportamiento `inline` que las demás; el color, fondo,
+  sombra y la mano no ocupan espacio adicional en el flujo del párrafo.
+- El Reader comprueba la posición de la palabra antes de desplazar la página y sólo la centra si
+  quedó fuera de la ventana visible.
+- La regresión automatizada confirma que una palabra visible no invoca desplazamiento.
+- `pnpm check` pasó con 110 pruebas API, 42 Reader y 14 Admin, además de lint, tipos,
+  documentación y builds.
+
+Queda pendiente únicamente la confirmación visual del usuario durante una reproducción real. Los
+gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.

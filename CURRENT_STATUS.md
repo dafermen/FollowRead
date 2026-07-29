@@ -11,6 +11,7 @@
 **Reparación de audio publicado:** `232b6a0`
 **Cambio bilingüe con marcas OpenAI:** `5d68a06`
 **Ilustraciones por capítulo:** `010bcae`
+**Resaltado estable del Reader:** `6266a14`
 
 ## Qué está terminado
 
@@ -50,6 +51,10 @@
   reutiliza la portada del cuento.
 - **El zorro y la luna** incluye una ilustración original adicional para el capítulo 2, disponible
   también en ambos idiomas y en el paquete offline.
+- La palabra activa conserva el mismo flujo tipográfico durante la narración y la mano permanece
+  superpuesta sin alterar el ancho o alto del renglón.
+- El desplazamiento automático sólo centra la lectura cuando la palabra activa queda fuera de la
+  ventana visible, evitando movimientos continuos mientras el usuario lee el mismo bloque.
 
 ## Última validación local
 
@@ -79,8 +84,9 @@
 
 ## Próxima acción exacta
 
-Hacer una recarga completa del Reader (`Ctrl+Shift+R`), avanzar al capítulo 2 y confirmar el cambio
-de ilustración. Cambiar ES/EN, reproducir ambos idiomas y confirmar voz/sincronización.
+Hacer una recarga completa del Reader (`Ctrl+Shift+R`), reproducir un capítulo y confirmar que los
+párrafos permanecen inmóviles mientras cambia la palabra resaltada. Avanzar al capítulo 2,
+confirmar su ilustración y validar voz/sincronización en ES/EN.
 Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates
 Docker/GitHub/staging.
 No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar
