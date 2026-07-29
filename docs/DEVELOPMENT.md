@@ -23,6 +23,11 @@ pnpm dev
 Admin queda en `http://localhost:5173`, Reader en `http://localhost:5174` y API en
 `http://localhost:8000`.
 
+`pnpm demo:seed` es idempotente y deja publicadas cuatro lecturas bilingües: **El zorro y la luna**,
+**The River Between Us**, **El jardín secreto** y **La casa de los sonidos**. Cada una contiene dos
+capítulos. Sin configuración externa usa audio simulado; con OpenAI activo genera y guarda el audio
+natural de ambos idiomas para reutilizarlo en reproducciones futuras.
+
 ## Voz OpenAI opcional
 
 La narración natural se configura sólo en el backend:
@@ -38,9 +43,9 @@ FOLLOWREAD_POLLY_PROVIDER=openai
 OPENAI_API_KEY=tu_clave_aqui
 ```
 
-Reinicia `pnpm dev` y genera el audio desde Admin > Procesamiento. Usa `marin` para español y
-`cedar` para inglés. `apps/api/.env` está ignorado por Git; nunca uses una variable `VITE_*` para
-esta clave.
+Reinicia `pnpm dev` y ejecuta de nuevo `pnpm demo:seed`, o genera el audio desde Admin >
+Procesamiento. Usa `marin` para español y `cedar` para inglés. `apps/api/.env` está ignorado por
+Git; nunca uses una variable `VITE_*` para esta clave.
 
 El MP3 se genera una sola vez. La API guarda una huella del texto, idioma, voz y modelos en SQLite,
 y reutiliza el archivo en todas las reproducciones y solicitudes posteriores sin llamar de nuevo a

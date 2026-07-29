@@ -1406,10 +1406,11 @@ export const DocumentationPage = () => (
           En <code>C:\Projects\FollowRead</code>, ejecuta <code>pnpm setup</code>.
         </li>
       </ol>
-      <h2>Levantar el cuento demo</h2>
+      <h2>Levantar el catálogo demo</h2>
       <p>
         Ejecuta <code>pnpm demo:seed</code> una vez y luego <code>pnpm dev</code>. Reader usa SQLite
-        y puede narrar con una voz del dispositivo, sin credenciales externas.
+        y deja disponibles cuatro lecturas bilingües. Sin credenciales externas usa el adaptador
+        local; con OpenAI configurado genera narración natural y reutiliza los audios guardados.
       </p>
       <h2>Activar la voz natural de OpenAI</h2>
       <p>
@@ -1421,9 +1422,9 @@ export const DocumentationPage = () => (
       </p>
       <h2>Lectura sin conexión</h2>
       <p>
-        La sección <a href="/downloads">Descargas</a> muestra el cuento incluido y tus descargas. Si
-        publicas cambios, ejecuta <code>pnpm offline:bootstrap</code> con la API activa para
-        regenerar el paquete verificable.
+        La sección <a href="/downloads">Descargas</a> muestra las lecturas incluidas y tus
+        descargas. Si publicas cambios, ejecuta <code>pnpm offline:bootstrap</code> con la API
+        activa para regenerar el catálogo verificable.
       </p>
       <h2>Aplicación Android e iOS</h2>
       <p>

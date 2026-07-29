@@ -30,8 +30,8 @@ leer y vuelven a defaults seguros si están corruptos.
 
 El service worker cachea el shell, el documento bootstrap y las portadas solicitadas. IndexedDB es
 la autoridad del contenido descargado: un registro sólo reemplaza a otro después de validar versión,
-compatibilidad, límite y SHA-256. El build incluye **El zorro y la luna** para que el primer inicio
-offline tenga contenido real.
+compatibilidad, límite y SHA-256. El build incluye las cuatro lecturas del catálogo demo para que el
+primer inicio offline tenga contenido real y variado.
 
 El catálogo muestra estados remoto, descargado, actualización, sólo local e incompatible. Una
 descarga de 100 MB o más solicita confirmación y un paquete superior a 250 MB se rechaza. La

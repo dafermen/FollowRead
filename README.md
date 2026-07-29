@@ -6,9 +6,9 @@ por palabra y modos adaptados para niñas y niños, personas adultas y estudiant
 ## Estado
 
 Las fases 0 a 12 están cerradas. Admin permite gestionar y publicar contenido; Reader ofrece
-biblioteca, búsqueda, detalle, favoritos, historial, vocabulario, modos de lectura, PWA y un cuento
-bilingüe con sincronización por palabra. El cuento puede leerse sin red y el progreso se sincroniza
-al reconectar. La voz del dispositivo no requiere credenciales ni servicios externos. La Fase 13
+biblioteca, búsqueda, detalle, favoritos, historial, vocabulario, modos de lectura, PWA y cuatro
+lecturas bilingües con sincronización por palabra. El catálogo puede leerse sin red y el progreso se
+sincroniza al reconectar. La voz del dispositivo no requiere credenciales ni servicios externos. La Fase 13
 tiene CI, releases y contenedores preparados; su validación externa espera Docker y un remote
 GitHub.
 
@@ -57,6 +57,10 @@ pnpm check
 `pnpm setup` instala dependencias JavaScript, crea `apps/api/.venv`, instala la API y configura los
 hooks Git. SQLite se crea en `var/followread.db` al conectarse o migrar.
 
+`pnpm demo:seed` crea o actualiza idempotentemente las cuatro lecturas bilingües incluidas. Con el
+adaptador local genera tiempos simulados sin credenciales; si `apps/api/.env` configura OpenAI,
+genera audio natural una sola vez y lo reutiliza desde la caché persistente.
+
 Para iniciar API, Admin y Reader al mismo tiempo:
 
 ```powershell
@@ -72,8 +76,8 @@ pnpm reader:e2e
 pnpm reader:offline-e2e
 ```
 
-Después de modificar o publicar contenido, `pnpm offline:bootstrap` regenera el cuento incluido en
-el build y verifica su checksum contra la API activa.
+Después de modificar o publicar contenido, `pnpm offline:bootstrap` regenera el catálogo incluido en
+el build y verifica sus checksums contra la API activa.
 
 Si PowerShell bloquea `pnpm.ps1`, usa `pnpm.cmd` en los comandos. Reader y Admin incluyen una
 página de ayuda en `/documentation`; la API ofrece su contrato interactivo en

@@ -13,6 +13,8 @@
 **Ilustraciones por capítulo:** `010bcae`
 **Resaltado estable del Reader:** `6266a14`
 **Indicador de lectura claro:** `a9e3f62`
+**Catálogo demo completo:** `5fdd785`
+**Audio natural del catálogo completo:** `d838334`
 
 ## Qué está terminado
 
@@ -21,7 +23,7 @@
   publicación.
 - Reader web/PWA/Android/iOS: biblioteca, cuento bilingüe, audio local, sincronización por palabra,
   descargas, offline, progreso, vocabulario y modo aprender inglés.
-- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 110 pruebas.
+- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 111 pruebas.
 - Calidad transversal: errores globales, GZip, caching, lazy loading, auditoría de accesibilidad,
   carga, dependencia y regresión.
 - Fase 13 implementada localmente: Dockerfiles, Compose, backup/restore, smoke test, CI ampliado,
@@ -56,13 +58,23 @@
   superpuesta sin alterar el ancho o alto del renglón.
 - El desplazamiento automático sólo centra la lectura cuando la palabra activa queda fuera de la
   ventana visible, evitando movimientos continuos mientras el usuario lee el mismo bloque.
+- El catálogo demo contiene cuatro lecturas bilingües publicadas con dos capítulos cada una:
+  **El zorro y la luna**, **The River Between Us**, **El jardín secreto** y
+  **La casa de los sonidos**.
+- Las tres lecturas nuevas tienen portadas originales y el bootstrap offline incluye los cuatro
+  paquetes completos.
+- `pnpm demo:seed` prepara todo el catálogo idempotentemente. Con OpenAI configurado asegura la
+  narración real en español (`marin`) e inglés (`cedar`) y reutiliza los MP3 ya generados.
+- Admin muestra las cuatro lecturas como publicadas y permite abrir cada una directamente en
+  Reader.
 
 ## Última validación local
 
 - `pnpm docs:validate`: PASS el 2026-07-29.
 - `pnpm migrate`: PASS; SQLite quedó en la revisión `20260729_0003`.
-- `pnpm check`: PASS el 2026-07-29 con 110 pruebas API, 42 Reader y 14 Admin.
-- `pnpm reader:e2e`: PASS; Chrome avanzó al capítulo 2 y confirmó la ilustración específica.
+- `pnpm check`: PASS el 2026-07-29 con 111 pruebas API, 42 Reader y 14 Admin.
+- `pnpm reader:e2e`: PASS; Chrome abrió las cuatro lecturas en ES/EN y confirmó la ilustración
+  específica del capítulo 2.
 - `pnpm quality:regression`: PASS el 2026-07-28 con servicios activos.
 - `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
 - 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
@@ -85,9 +97,9 @@
 
 ## Próxima acción exacta
 
-Hacer una recarga completa del Reader (`Ctrl+Shift+R`), reproducir un capítulo y confirmar que los
-párrafos permanecen inmóviles mientras cambia la palabra resaltada. Avanzar al capítulo 2,
-confirmar su ilustración y validar voz/sincronización en ES/EN.
+Hacer una recarga completa del Reader (`Ctrl+Shift+R`), abrir `/library` y revisar las cuatro
+lecturas terminadas. Reproducir al menos una lectura nueva en ES/EN para confirmar auditivamente la
+voz y sincronización ya verificadas por pruebas automatizadas.
 Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates
 Docker/GitHub/staging.
 No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar

@@ -50,10 +50,12 @@ como silencio indefinido.
 
 ## Audio del MVP
 
-`pnpm demo:seed` usa `FakePollyAdapter`. Produce duraciones y Speech Marks deterministas, y por eso
-permite demostrar la sincronización sin API key, AWS, red ni costo. El archivo generado no es una
-narración audible real. La reproducción audible mediante `HTMLAudioElement`, la PWA completa y
-descargas pertenecen a las fases 8 y 9; el motor conserva el mismo contrato.
+`pnpm demo:seed` respeta el proveedor configurado. Con `FOLLOWREAD_POLLY_PROVIDER=fake` produce
+duraciones y Speech Marks deterministas, por lo que permite demostrar la sincronización sin API
+key, AWS, red ni costo; ese archivo no es narración audible real. Con
+`FOLLOWREAD_POLLY_PROVIDER=openai` genera MP3 audibles y marcas alineadas, guarda su huella en
+SQLite y reutiliza los archivos mientras el texto y la configuración no cambien. El motor conserva
+el mismo contrato en ambos modos.
 
 ## Verificación
 

@@ -843,3 +843,28 @@ gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
   palabra desde abajo.
 - La prueba del Reader verifica el nuevo indicador; formato, lint, tipos y las suites completas
   pasaron con 110 pruebas API, 42 Reader y 14 Admin.
+
+---
+
+## Continuación 2026-07-29 - Catálogo demo completo
+
+- Se convirtieron las tres composiciones restantes de Admin en contenidos reales, bilingües y
+  publicados: **The River Between Us** (lección), **El jardín secreto** (artículo) y
+  **La casa de los sonidos** (cuento).
+- Cada lectura contiene dos capítulos y seis párrafos por idioma; **El zorro y la luna** permanece
+  como el cuarto contenido publicado.
+- Se crearon tres portadas originales y se incorporaron al Reader y al catálogo offline.
+- `pnpm demo:seed` ahora prepara el catálogo completo de forma idempotente y reanuda contenido
+  parcialmente creado sin duplicarlo.
+- Con OpenAI configurado, la siembra genera audio real con `marin` en español y `cedar` en inglés;
+  la caché persistente evita repetir llamadas de pago. Una segunda ejecución creó cero contenidos y
+  no regeneró audio.
+- Admin muestra las cuatro lecturas como publicadas y sus accesos abren Reader directamente.
+- La portada de inicio de Reader prioriza un cuento cuando existen otros tipos de contenido.
+- El bootstrap offline fue regenerado con los cuatro paquetes.
+- `pnpm reader:e2e` abrió los cuatro contenidos en español e inglés y verificó todas las rutas.
+- `pnpm check` pasó con 111 pruebas API, 42 Reader y 14 Admin, además de documentación, formato,
+  lint, tipos y builds.
+
+Los cuatro contenidos quedan listos para demostración local. Continúan pendientes únicamente los
+gates externos de Fase 13: Docker, GitHub, staging, iOS físico y la matriz predespliegue avanzada.

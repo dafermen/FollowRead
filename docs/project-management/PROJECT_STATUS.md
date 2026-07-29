@@ -14,12 +14,13 @@ sincronización, proyectos Capacitor y un modo aprender inglés completo. Calida
 rendimiento ya tienen presupuestos reproducibles. La Fase 13 ya implementó contenedores, CI,
 releases, backup y rollback; espera cerrar la matriz avanzada de pruebas y validación real con
 Docker/GitHub/staging.
-FollowRead Admin ya ofrece el recorrido visual y
-funcional de acceso, Dashboard, catálogo, creación, editor bilingüe, ilustraciones, generación de
-audio, revisión y publicación. Reader dispone del cuento original bilingüe **El zorro y la luna**,
-un motor determinista, resaltado por palabra, mano, auto-scroll, controles y recuperación de
-progreso. Todo funciona con SQLite; la voz local sigue disponible sin API key y existe una opción
-OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
+FollowRead Admin ya ofrece el recorrido visual y funcional de acceso, Dashboard, catálogo,
+creación, editor bilingüe, ilustraciones, generación de audio, revisión y publicación. Reader
+dispone de cuatro lecturas bilingües terminadas: **El zorro y la luna**, **The River Between Us**,
+**El jardín secreto** y **La casa de los sonidos**. Todas tienen dos capítulos, portada, audio,
+resaltado por palabra, mano, auto-scroll, controles y recuperación de progreso. Todo funciona con
+SQLite; la voz local sigue disponible sin API key y existe una opción OpenAI que genera MP3 y
+alineación de palabra exclusivamente desde la API.
 
 ## Progreso
 
@@ -76,8 +77,8 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 - generación local de audio y Speech Marks vinculados a cada párrafo;
 - límite Amazon Polly implementado y probado exclusivamente con cliente simulado;
 - paquete de lectura publicado con texto, recursos y Speech Marks;
-- cuento bilingüe original, portada e ilustración propia para el capítulo 2 con siembra idempotente
-  en SQLite;
+- catálogo de cuatro lecturas bilingües publicadas, portadas originales, ilustración propia para el
+  capítulo 2 de **El zorro y la luna** y siembra idempotente en SQLite;
 - Reader Engine reusable con búsqueda temporal, reproducción y progreso;
 - biblioteca y lector visual con palabra activa, mano, auto-scroll, capítulos e idiomas;
 - biblioteca filtrable, detalle, favoritos, historial, vocabulario y preferencias locales;
@@ -90,7 +91,7 @@ OpenAI que genera MP3 y alineación de palabra exclusivamente desde la API.
 - safe areas y progreso verificados en vertical/horizontal;
 - checklist de revisión y transiciones auditadas hasta publicación, despublicación y archivo;
 - documentación integrada conservada y rediseñada;
-- 14 pruebas Admin, 42 Reader, 6 Reader Engine, 3 de configuración y 110 pruebas API;
+- 14 pruebas Admin, 42 Reader, 6 Reader Engine, 3 de configuración y 111 pruebas API;
 - cobertura superior al 90% en Reader y 99% en Reader Engine/backend, con builds en verde.
 - cero vulnerabilidades conocidas moderadas o superiores en JavaScript y cero en Python;
 - bundles con carga diferida, p95 local final de 107.9 ms y ocho rutas auditadas a 390 px.

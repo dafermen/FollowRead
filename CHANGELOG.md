@@ -18,6 +18,10 @@ El proyecto aún no tiene una versión pública estable.
 - ilustraciones opcionales por capítulo con fallback automático a la portada;
 - nueva ilustración original para **The Shining Path / El sendero brillante**, capítulo 2 de
   **The Fox and the Moon / El zorro y la luna**.
+- catálogo demo completo con cuatro lecturas bilingües publicadas y dos capítulos por lectura;
+- tres portadas originales para **The River Between Us**, **El jardín secreto** y
+  **La casa de los sonidos**;
+- siembra idempotente del catálogo completo con audio local o narración OpenAI reutilizable.
 
 ### Changed
 
@@ -28,6 +32,10 @@ El proyecto aún no tiene una versión pública estable.
 - el checksum del paquete publicado se actualiza al cambiar audio o marcas temporales;
 - el Reader refresca el bootstrap incluido cuando cambia su checksum y evita servirlo desde una
   caché obsoleta.
+- las filas de demostración de Admin abren directamente su lectura publicada en Reader;
+- la portada de inicio prioriza un cuento cuando el catálogo también contiene artículos o lecciones;
+- `pnpm demo:seed` prepara el catálogo completo y asegura audio natural para todas las lecturas
+  cuando OpenAI está configurado.
 
 ### Fixed
 
