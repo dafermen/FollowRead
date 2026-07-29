@@ -9,7 +9,7 @@
 **Voz OpenAI y seguimiento estable:** `f0777da`
 **Caché persistente de audio:** `ecc5c1f`
 **Reparación de audio publicado:** `232b6a0`
-**Cambio bilingüe con marcas OpenAI:** pendiente de commit
+**Cambio bilingüe con marcas OpenAI:** `5d68a06`
 
 ## Qué está terminado
 
@@ -50,7 +50,7 @@
 
 - `pnpm docs:validate`: PASS el 2026-07-29.
 - `pnpm migrate`: PASS; SQLite quedó en la revisión `20260729_0003`.
-- `pnpm check`: pendiente de repetir con 110 pruebas API, 41 Reader y 14 Admin.
+- `pnpm check`: PASS el 2026-07-29 con 110 pruebas API, 41 Reader y 14 Admin.
 - `pnpm quality:regression`: PASS el 2026-07-28 con servicios activos.
 - `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
 - 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
