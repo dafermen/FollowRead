@@ -38,7 +38,13 @@ const routes = [
   { path: "/", expected: ["Hola, ¿qué quieres leer hoy?", "El zorro y la luna"] },
   {
     path: "/library",
-    expected: ["Encuentra tu próxima lectura", "Amistad", "Inicial"],
+    expected: [
+      "Encuentra tu próxima lectura",
+      "El zorro y la luna",
+      "El río entre nosotros",
+      "El jardín secreto",
+      "La casa de los sonidos",
+    ],
   },
   {
     path: "/details/el-zorro-y-la-luna",
@@ -47,6 +53,22 @@ const routes = [
   {
     path: "/read/el-zorro-y-la-luna",
     expected: ["Una luz en el bosque", "Lectura pausada"],
+    englishExpected: "A Light in the Forest",
+  },
+  {
+    path: "/read/the-river-between-us",
+    expected: ["Dos orillas", "Lectura pausada"],
+    englishExpected: "Two Riverbanks",
+  },
+  {
+    path: "/read/el-jardin-secreto",
+    expected: ["Un refugio entre edificios", "Lectura pausada"],
+    englishExpected: "A Refuge Between Buildings",
+  },
+  {
+    path: "/read/la-casa-de-los-sonidos",
+    expected: ["La casa despierta", "Lectura pausada"],
+    englishExpected: "The House Awakens",
   },
   {
     path: "/settings",
@@ -108,6 +130,17 @@ try {
           return String(result.result.value).endsWith("/stories/el-zorro-y-la-luna-chapter-2.png");
         }, "chapter 2 illustration");
         console.log("PASS chapter illustration fallback and switch");
+      }
+      if (route.englishExpected !== undefined) {
+        await client.send("Runtime.evaluate", {
+          expression: `
+            [...document.querySelectorAll("button")]
+              .find((button) => button.textContent?.trim() === "EN")
+              ?.click()
+          `,
+        });
+        await waitForText(client, [route.englishExpected]);
+        console.log(`PASS bilingual ${route.path}`);
       }
       console.log(`PASS ${route.path}`);
     }
@@ -178,14 +211,27 @@ async function createCdpClient(webSocketUrl) {
 }
 
 async function waitForText(client, expected) {
-  await waitFor(async () => {
+  try {
+    await waitFor(async () => {
+      const result = await client.send("Runtime.evaluate", {
+        expression: "document.body?.innerText ?? ''",
+        returnByValue: true,
+      });
+      const text = String(result.result.value).toLocaleLowerCase();
+      return expected.every((value) => text.includes(value.toLocaleLowerCase()));
+    }, expected.join(", "));
+  } catch (error) {
     const result = await client.send("Runtime.evaluate", {
       expression: "document.body?.innerText ?? ''",
       returnByValue: true,
     });
-    const text = String(result.result.value).toLocaleLowerCase();
-    return expected.every((value) => text.includes(value.toLocaleLowerCase()));
-  }, expected.join(", "));
+    throw new Error(
+      `${error instanceof Error ? error.message : String(error)} Visible text: ${String(
+        result.result.value,
+      ).slice(0, 800)}`,
+      { cause: error },
+    );
+  }
 }
 
 async function waitFor(check, label) {

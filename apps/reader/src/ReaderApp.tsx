@@ -248,7 +248,8 @@ export const HomePage = () => {
   const library = useLibrary();
   const history = readHistory(window.localStorage);
   const lastRead = history[0];
-  const featured = library.items[0];
+  const featured =
+    library.items.find((item) => item.catalog.content_type === "story") ?? library.items[0];
   const continueItem =
     lastRead === undefined
       ? undefined

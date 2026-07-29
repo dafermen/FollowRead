@@ -18,10 +18,10 @@ const previewItems: EditorialCatalogItem[] = [
     content_type: "story",
     audience: "children",
     languages: ["es", "en"],
-    version: 3,
-    status: "draft",
-    updated_at: new Date(Date.now() - 18 * 60 * 1000).toISOString(),
-    actions: ["view", "edit"],
+    version: 1,
+    status: "published",
+    updated_at: new Date().toISOString(),
+    actions: ["view"],
   },
   {
     id: "preview-2",
@@ -30,10 +30,10 @@ const previewItems: EditorialCatalogItem[] = [
     content_type: "lesson",
     audience: "all",
     languages: ["en", "es"],
-    version: 2,
-    status: "ready_for_review",
-    updated_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-    actions: ["view", "review"],
+    version: 1,
+    status: "published",
+    updated_at: new Date().toISOString(),
+    actions: ["view"],
   },
   {
     id: "preview-3",
@@ -41,10 +41,10 @@ const previewItems: EditorialCatalogItem[] = [
     title: "El jardín secreto",
     content_type: "article",
     audience: "adult",
-    languages: ["es"],
+    languages: ["es", "en"],
     version: 1,
-    status: "processing",
-    updated_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    status: "published",
+    updated_at: new Date().toISOString(),
     actions: ["view"],
   },
   {
@@ -53,8 +53,8 @@ const previewItems: EditorialCatalogItem[] = [
     title: "La casa de los sonidos",
     content_type: "story",
     audience: "children",
-    languages: ["es"],
-    version: 4,
+    languages: ["es", "en"],
+    version: 1,
     status: "published",
     updated_at: new Date().toISOString(),
     actions: ["view"],
@@ -316,9 +316,11 @@ export const ContentPage = ({ user, onLogout }: ContentPageProps) => {
               <a
                 className="catalog-row"
                 href={
-                  item.actions.includes("edit")
-                    ? `/content/${item.id}/edit`
-                    : `/content?selected=${item.id}`
+                  isPreview
+                    ? `http://localhost:5174/read/${item.slug}`
+                    : item.actions.includes("edit")
+                      ? `/content/${item.id}/edit`
+                      : `/content?selected=${item.id}`
                 }
                 role="row"
                 key={item.id}

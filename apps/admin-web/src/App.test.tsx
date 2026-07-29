@@ -61,6 +61,10 @@ describe("FollowRead Admin", () => {
     expect(screen.getByRole("table", { name: "Contenidos" })).toBeInTheDocument();
     expect(screen.getByRole("searchbox", { name: "Buscar contenido" })).toBeInTheDocument();
     expect(screen.getByText("La casa de los sonidos")).toBeInTheDocument();
+    expect(screen.getByRole("row", { name: /La casa de los sonidos/ })).toHaveAttribute(
+      "href",
+      "http://localhost:5174/read/la-casa-de-los-sonidos",
+    );
   });
 
   it("updates the active page when browser navigation changes", async () => {
