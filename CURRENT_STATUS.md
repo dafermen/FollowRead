@@ -10,7 +10,7 @@
 **Caché persistente de audio:** `ecc5c1f`
 **Reparación de audio publicado:** `232b6a0`
 **Cambio bilingüe con marcas OpenAI:** `5d68a06`
-**Ilustraciones por capítulo:** pendiente de commit
+**Ilustraciones por capítulo:** `010bcae`
 
 ## Qué está terminado
 
