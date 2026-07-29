@@ -1378,7 +1378,7 @@ export const SettingsPage = () => {
           </p>
           <div>
             <span className="preview-highlight">palabra</span>
-            {preferences.showPointer ? <span aria-hidden="true"> ☝️ mano visible</span> : null}
+            {preferences.showPointer ? <span aria-hidden="true"> 👆 mano visible</span> : null}
           </div>
           <small>
             Tema {preferences.theme} · {preferences.defaultLanguage.toUpperCase()} ·{" "}

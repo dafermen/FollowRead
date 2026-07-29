@@ -274,6 +274,7 @@ describe("FollowRead Reader", () => {
       vi.advanceTimersByTime(900);
     });
     expect(screen.getByText("mira")).toHaveClass("story-word--active");
+    expect(screen.getByText("👆")).toHaveClass("reading-hand");
     expect(scrollIntoView).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole("button", { name: "Pausar" }));
 

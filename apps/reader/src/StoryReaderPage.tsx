@@ -891,7 +891,7 @@ const LearningPanel = ({
 
 const ReadingHand = () => (
   <span className="reading-hand" aria-hidden="true">
-    ☝️
+    👆
   </span>
 );
 
