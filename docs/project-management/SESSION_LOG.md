@@ -832,3 +832,14 @@ La API publicada quedó con 74 marcas inglesas y 73 españolas, ambas con cero s
 
 Queda pendiente únicamente la confirmación visual del usuario durante una reproducción real. Los
 gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
+
+---
+
+## Continuación 2026-07-29 - Mano de lectura más clara
+
+- El usuario confirmó que el resaltado estable eliminó el cansancio visual.
+- El gesto `☝️`, que podía parecer una mano levantada, se reemplazó por `👆`.
+- Tanto la lectura como la preferencia visual muestran ahora el mismo dedo señalando hacia la
+  palabra desde abajo.
+- La prueba del Reader verifica el nuevo indicador; formato, lint, tipos y las suites completas
+  pasaron con 110 pruebas API, 42 Reader y 14 Admin.

@@ -12,6 +12,7 @@
 **Cambio bilingüe con marcas OpenAI:** `5d68a06`
 **Ilustraciones por capítulo:** `010bcae`
 **Resaltado estable del Reader:** `6266a14`
+**Indicador de lectura claro:** `a9e3f62`
 
 ## Qué está terminado
 
@@ -32,7 +33,7 @@
 - La API dispone de un adaptador OpenAI TTS opcional, alineación de palabra con `whisper-1`,
   publicación segura de MP3 y regeneración idempotente sobre SQLite.
 - Reader reproduce el audio editorial cuando existe, mantiene el resaltado siempre hacia delante y
-  muestra una mano `☝️` debajo de la palabra activa.
+  muestra una mano `👆` debajo de la palabra activa.
 - Admin y Reader documentan online el archivo `apps/api/.env`, `OPENAI_API_KEY`, las voces
   recomendadas y la prohibición de exponer el secreto en variables `VITE_*`.
 - SQLite guarda una huella del texto, idioma, voz y modelos para reutilizar el MP3 sin volver a
