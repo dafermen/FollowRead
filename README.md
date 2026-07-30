@@ -104,5 +104,6 @@ rendimiento y compatibilidad/despliegue. El estado actual sigue bloqueado para d
 ## Seguridad y licencia
 
 No añadas secretos al repositorio. Las integraciones AWS sólo se realizarán desde adaptadores de la
-API. `LICENSE` deja constancia de que el proyecto continúa `UNLICENSED`; la licencia definitiva y
-el inventario legal de terceros siguen pendientes antes de una distribución externa.
+API. El código original de FollowRead se publica bajo la licencia MIT; consulta `LICENSE`. Las
+dependencias y herramientas de terceros conservan sus propias licencias, resumidas en
+`THIRD_PARTY_LICENSES.md`.

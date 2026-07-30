@@ -868,3 +868,22 @@ gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
 
 Los cuatro contenidos quedan listos para demostración local. Continúan pendientes únicamente los
 gates externos de Fase 13: Docker, GitHub, staging, iOS físico y la matriz predespliegue avanzada.
+
+---
+
+## Continuación 2026-07-30 - Publicación inicial en GitHub y licencia MIT
+
+- El propietario creó y autorizó la publicación pública en `dafermen/FollowRead`.
+- Se eligió MIT para el código y los recursos originales, con copyright de `dafermen`.
+- `LICENSE`, `package.json`, README, decisiones y estado del proyecto quedaron alineados.
+- Las dependencias de terceros conservan sus propias licencias; la distribución de binarios exige
+  un inventario específico del artefacto.
+- La revisión previa al push confirmó que `.env`, SQLite, logs, caches y builds están ignorados.
+- No se detectaron claves potenciales ni archivos versionados superiores a 50 MB.
+- El repositorio remoto estaba vacío, por lo que la publicación inicial se realiza directamente
+  sobre `main`; no existe una rama base para abrir un pull request.
+- La validación local completa más reciente continúa en verde con 111 pruebas API, 42 Reader y
+  14 Admin.
+
+Después de la publicación se debe confirmar el primer workflow `ci.yml` en GitHub. Docker, staging,
+iOS físico y las brechas avanzadas de la matriz predespliegue continúan pendientes.

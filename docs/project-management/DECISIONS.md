@@ -211,13 +211,17 @@ Este archivo registra decisiones aceptadas y preguntas que todavía necesitan re
 - **Consecuencias:** La fase conserva un gate externo hasta ejecutar Docker, GitHub y staging. Un
   proveedor futuro deberá agregar TLS, backups externos, alertas y secretos por entorno.
 
+### FR-DEC-020 - Repositorio público bajo licencia MIT
+
+- **Fecha:** 2026-07-30
+- **Estado:** ACCEPTED
+- **Decisión:** El código y los recursos originales de FollowRead se publican en GitHub bajo la
+  licencia MIT, con copyright de `dafermen`.
+- **Razón:** El propietario desea mostrar el proyecto en su portafolio y permitir que otras personas
+  estudien, reutilicen y modifiquen el código con atribución y sin garantía.
+- **Consecuencias:** `LICENSE` y `package.json` declaran MIT. Las dependencias conservan sus propias
+  licencias y toda distribución binaria requiere un inventario de avisos del artefacto concreto.
+
 ## Decisiones abiertas
 
-### FR-DEC-OPEN-004 - Estrategia de licenciamiento del repositorio
-
-- **Estado:** OPEN
-- **Dueño:** Product Owner
-- **Fecha objetivo:** Antes de iniciar Fase 14
-- **Pregunta:** ¿El proyecto será público y qué licencia se usará?
-- **Recomendación inicial:** No crear `LICENSE` hasta que el propietario elija explícitamente.
-- **Resolver antes de:** Fase 14.
+No hay decisiones abiertas registradas.

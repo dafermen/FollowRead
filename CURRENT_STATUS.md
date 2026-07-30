@@ -1,6 +1,6 @@
 # Estado actual de FollowRead
 
-**Actualizado:** 2026-07-29
+**Actualizado:** 2026-07-30
 **Fase:** 13 - CI/CD y despliegue  
 **Estado:** IN_PROGRESS - implementación terminada, validaciones externas pendientes  
 **Base anterior:** `9ce61e5` - cierre de Fase 12
@@ -31,6 +31,8 @@
 - Documentación canónica completada con arquitectura, API, desarrollo, pruebas, despliegue,
   operaciones, seguridad, troubleshooting, ADR, contribución, changelog y plantillas GitHub.
 - Matriz obligatoria de trece categorías de pruebas previas al despliegue documentada y validable.
+- El repositorio público `dafermen/FollowRead` fue autorizado y el código original se publica bajo
+  licencia MIT. `.env`, SQLite, logs, caches y artefactos locales permanecen excluidos.
 - Reader evita reproducir antes de que la línea de tiempo del cuento/idioma activo esté cargada.
 - La API dispone de un adaptador OpenAI TTS opcional, alineación de palabra con `whisper-1`,
   publicación segura de MP3 y regeneración idempotente sobre SQLite.
@@ -85,7 +87,8 @@
 
 1. Ejecutar `docker build` y `pnpm deploy:local` en una máquina con Docker. Docker no está instalado
    en este equipo.
-2. Conectar el repositorio a GitHub y ejecutar `ci.yml`/`release.yml`; actualmente no existe remote.
+2. Confirmar la primera ejecución real de `ci.yml` en GitHub y corregir cualquier diferencia del
+   runner remoto. `release.yml` se validará al crear el primer tag SemVer autorizado.
 3. Elegir proveedor, dominios y almacenamiento de backups antes de development/staging/production.
 4. Ejecutar smoke, migración y rollback en staging.
 5. Validar iOS físico con macOS/Xcode antes de TestFlight.
@@ -100,8 +103,8 @@
 Hacer una recarga completa del Reader (`Ctrl+Shift+R`), abrir `/library` y revisar las cuatro
 lecturas terminadas. Reproducir al menos una lectura nueva en ES/EN para confirmar auditivamente la
 voz y sincronización ya verificadas por pruebas automatizadas.
-Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates
-Docker/GitHub/staging.
+Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates de
+Docker/CI/staging.
 No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar
 excepciones explícitas.
 

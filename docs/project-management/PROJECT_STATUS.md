@@ -1,6 +1,6 @@
 # Estado del proyecto FollowRead
 
-**Última actualización:** 2026-07-29
+**Última actualización:** 2026-07-30
 **Fase activa:** Fase 13 - CI/CD y despliegue
 **Estado de la fase:** IN_PROGRESS - READY_FOR_EXTERNAL_VALIDATION
 **Tarea activa:** FR-PH13-TASK-012 - Validación Docker, GitHub y staging
@@ -42,8 +42,8 @@ alineación de palabra exclusivamente desde la API.
 | Tareas de Fase 13 completadas | 11 de 12 |
 | Tareas en progreso | 0 |
 | Tareas bloqueadas | 1 |
-| Decisiones aceptadas | 17 |
-| Decisiones abiertas | 1 |
+| Decisiones aceptadas | 20 |
+| Decisiones abiertas | 0 |
 | Riesgos abiertos | 8 |
 | Problemas conocidos abiertos | 0 |
 
@@ -60,6 +60,7 @@ alineación de palabra exclusivamente desde la API.
 | Móvil / Capacitor | PHASE_10_COMPLETED | Android compilado/probado; iOS listo para Xcode |
 | Calidad transversal | PHASE_12_COMPLETED | Seguridad, a11y, carga, métricas y regresión en verde |
 | CI/CD y despliegue | PHASE_13_IN_PROGRESS | Implementado; Docker/GitHub/staging pendientes |
+| Licencia | MIT | Repositorio público autorizado por el propietario |
 
 ## Entregables cerrados de Fases 5 a 10
 
@@ -99,12 +100,12 @@ alineación de palabra exclusivamente desde la API.
 ## Bloqueadores
 
 El producto local no tiene bloqueadores: SQLite y los adaptadores locales permiten continuar sin
-PostgreSQL, Docker ni AWS. El cierre de Fase 13 sí requiere Docker, remote GitHub y un entorno
-staging autorizado, además de completar o aprobar excepciones para las trece categorías
-predespliegue. iOS requiere macOS/Xcode antes de TestFlight. La licencia sigue abierta y debe
-resolverse en Fase 14.
+PostgreSQL, Docker ni AWS. El repositorio público y la licencia MIT ya están resueltos. El cierre
+de Fase 13 todavía requiere Docker, confirmar CI en GitHub y un entorno staging autorizado, además
+de completar o aprobar excepciones para las trece categorías predespliegue. iOS requiere
+macOS/Xcode antes de TestFlight.
 
 ## Regla de continuación
 
-Completar la validación externa de Fase 13 con Docker, GitHub y staging. No iniciar Fase 14 ni
+Completar la validación externa de Fase 13 con Docker, CI de GitHub y staging. No iniciar Fase 14 ni
 marcar la fase cerrada sin registrar primero los gates de `PHASE_13_REVIEW.md`.

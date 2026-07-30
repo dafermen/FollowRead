@@ -2728,7 +2728,7 @@ resultados medidos e incidencias resueltas están en `PHASE_12_REVIEW.md`,
 | FR-PH13-TASK-011 | Validar estáticamente y ejecutar puerta local | COMPLETED | Critical |
 | FR-PH13-TASK-012 | Validar Docker, GitHub y staging reales | BLOCKED | Critical |
 
-**Bloqueo de TASK-012:** Docker no está instalado, Git no tiene remote y no existe proveedor
+**Bloqueo de TASK-012:** Docker no está instalado, falta confirmar CI en GitHub y no existe proveedor
 elegido. No se requieren credenciales para el desarrollo local normal.
 
 **Siguiente acción:** ejecutar TASK-012 en infraestructura autorizada.

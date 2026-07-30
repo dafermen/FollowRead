@@ -1,15 +1,19 @@
 # Licencias de terceros
 
-**Estado:** PENDING_BEFORE_EXTERNAL_DISTRIBUTION
+FollowRead se publica como código fuente bajo la licencia MIT. Esa licencia sólo cubre el código y
+los recursos originales de este repositorio; no sustituye las licencias de dependencias,
+herramientas, SDK ni componentes de terceros.
 
-Las dependencias exactas están fijadas por `pnpm-lock.yaml` y `apps/api/pyproject.toml`. Antes de una
-distribución externa se debe:
+Las versiones exactas se fijan en:
 
-1. generar el inventario completo de dependencias JavaScript y Python del artefacto candidato;
-2. registrar nombre, versión, licencia, copyright y texto exigido;
-3. revisar compatibilidad con la licencia definitiva de FollowRead;
-4. incluir avisos y textos completos requeridos en el artefacto distribuido;
-5. aprobar el inventario como parte de compatibilidad y despliegue.
+- `pnpm-lock.yaml` para el workspace JavaScript/TypeScript;
+- `apps/api/pyproject.toml` para la API Python;
+- los proyectos nativos de `apps/reader/android` y `apps/reader/ios` para Capacitor.
 
-Este archivo no afirma que la revisión legal esté terminada. `package.json` permanece
-`UNLICENSED` y FR-DEC-OPEN-004 continúa abierta.
+Las dependencias no se versionan dentro del repositorio: `node_modules`, entornos virtuales,
+artefactos compilados y caches están excluidos. Cada distribución conserva los avisos y textos de
+licencia incluidos por sus respectivos paquetes.
+
+Antes de distribuir binarios, imágenes OCI, APK, IPA o instaladores se debe generar y aprobar el
+inventario del artefacto concreto con nombre, versión, licencia, copyright y avisos exigidos. La
+publicación del código fuente no equivale a esa aprobación de binarios.

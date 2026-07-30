@@ -39,7 +39,8 @@ workflows remotos ni staging.
 ## Gates que impiden el cierre
 
 1. Docker no está instalado en la estación actual; falta construir y arrancar las tres imágenes.
-2. El repositorio no tiene remote GitHub; los workflows no se han ejecutado en runners reales.
+2. El repositorio público `dafermen/FollowRead` ya existe; falta confirmar los workflows en sus
+   runners reales.
 3. No se eligieron proveedor, dominios ni almacén de backups; staging/production no pueden
    desplegarse responsablemente.
 4. La matriz predespliegue identifica brechas en aceptación, propiedades/invariantes, mutation

@@ -7,6 +7,7 @@ El proyecto aún no tiene una versión pública estable.
 
 ### Added
 
+- licencia MIT para el código y los recursos originales del repositorio;
 - estructura documental canónica y ADR;
 - política de trece categorías de pruebas antes del despliegue;
 - continuidad obligatoria mediante `AGENTS.md` y `CURRENT_STATUS.md`;
@@ -25,6 +26,7 @@ El proyecto aún no tiene una versión pública estable.
 
 ### Changed
 
+- repositorio preparado para su publicación pública inicial en GitHub;
 - SQLite es la persistencia autoritativa del MVP;
 - el indicador de lectura ahora es una mano debajo de la palabra y las correcciones de voz nunca
   hacen retroceder el resaltado;
