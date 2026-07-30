@@ -792,3 +792,22 @@ After publication, the first workflow `ci.yml` must be confirmed on GitHub. Dock
 
 The next external action is to approve and apply the CI packaging-tool upgrade, confirm a green
 GitHub rerun, and continue the Docker/staging gates for Phase 13.
+
+---
+
+## Continuation 2026-07-30 - Green GitHub CI
+
+- Reproduced the Python audit failure from GitHub Actions run `30551099625`: the manually created
+  virtual environment retained vulnerable `pip 25.0.1`.
+- Replaced the duplicated CI setup with `pnpm setup:python`, which upgrades the packaging tool and
+  installs the API through the same cross-platform path used locally.
+- Found that bare `pnpm ci` invoked pnpm's install alias instead of the repository script; changed
+  CI and Release to the explicit `pnpm run ci`.
+- The now-real quality gate exposed a missing Reader artifact and then a workspace dependency issue
+  in its container. The Reader Dockerfile now builds `@followread/reader-engine` before Reader, and
+  deployment validation requires both commands.
+- GitHub Actions run `30558522375` passed on commit `faf194d`: complete quality gate, JavaScript and
+  Python audits, deployment validation, web artifact upload, and API/Admin/Reader container builds.
+
+The remaining Phase 13 gates are a running Compose deployment, staging migration/smoke/backup/
+rollback, physical iOS validation and the advanced pre-deployment test categories.

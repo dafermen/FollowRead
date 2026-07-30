@@ -15,6 +15,7 @@
 **Clear reading indicator:** `a9e3f62`
 **Complete demo catalog:** `5fdd785`
 **Natural audio for complete catalog:** `d838334`
+**Green GitHub CI and containers:** `faf194d`
 
 ## What is finished
 
@@ -37,6 +38,8 @@
   prompt are available in American English.
 - The public README includes a reproducible product tour with four verified screenshots of Reader
   and Admin. `pnpm screenshots:readme` refreshes them while the services are active.
+- GitHub Actions run `30558522375` passed the complete quality gate, JavaScript/Python dependency
+  audits, deployment validation, web artifact upload and container builds for API, Admin and Reader.
 - Reader avoids playing before the timeline for the active story/language is loaded.
 - The API has an optional OpenAI TTS adapter, word alignment with `whisper-1`,
   safe MP3 publication and idempotent regeneration on SQLite.
@@ -75,6 +78,8 @@
 
 ## Last local validation
 
+- GitHub CI: PASS on 2026-07-30 for commit `faf194d`; all quality steps and all three container
+  builds completed successfully.
 - `pnpm check`: PASS on 2026-07-30 after the English documentation migration, with
   documentation/workflow/deployment/mobile validation, formatting, lint, types, 111 API tests,
   42 Reader tests, 14 Admin tests, shared-package tests and production builds.
@@ -91,12 +96,9 @@
 
 ## Pending validations
 
-1. Run `docker build` and `pnpm deploy:local` on a machine with Docker. Docker is not installed
-   on this machine.
-2. Correct the Python dependency-audit setup in `ci.yml` after explicit owner approval. The first
-   real GitHub run completed every preceding job and failed only because the workflow-created
-   environment retained vulnerable `pip 25.0.1`. `release.yml` will be validated when the first
-   authorized SemVer tag is created.
+1. Run `pnpm deploy:local` and `pnpm deploy:smoke` on a machine with Docker. Docker is not installed
+   on this machine; the three image builds already pass on GitHub.
+2. Validate `release.yml` when the first authorized SemVer tag is created.
 3. Choose provider, domains and backup storage before development/staging/production.
 4. Run smoke, migration and rollback in staging.
 5. Validate physical iOS with macOS/Xcode before TestFlight.
@@ -107,10 +109,9 @@
 
 ## Exact next action
 
-Approve and apply the narrow CI correction that upgrades the workflow's packaging tools before
-the Python dependency audit, then confirm the rerun on GitHub.
-After that, continue closing the gaps in `docs/testing/PRE_DEPLOYMENT_TESTS.md` and the
-Docker/staging gates.
+Obtain a Docker-capable development or staging environment, run Compose, migration, smoke, backup
+and rollback, then record the evidence. Continue closing the advanced gaps in
+`docs/testing/PRE_DEPLOYMENT_TESTS.md`.
 Do not start Phase 14 or mark Phase 13 `COMPLETED` before closing the entire matrix or approving
 explicit exceptions.
 

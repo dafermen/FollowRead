@@ -15,18 +15,18 @@ An exception `WAIVED` requires recorded risk, scope, owner, explicit approval, a
 | # | Category | Current evidence or command | Current status | Gap to deploy |
 |---:|---|---|---|---|
 | 1 | Acceptance | criteria, Admin/Reader walkthroughs and owner review | PARTIAL | record acceptance on the candidate artifact |
-| 2 | Unit | `pnpm test` | PASS_LOCAL | repeat in CI for the candidate commit |
+| 2 | Unit | `pnpm test` and GitHub run `30558522375` | PASS_CI | repeat for the final candidate commit |
 | 3 | Properties and invariants | deterministic Reader Engine cases, checksums and idempotence | PARTIAL | add case generation with Hypothesis or fast-check |
 | 4 | Mutation testing | no runner configured | NOT_IMPLEMENTED | define threshold and run mutation on critical domain |
 | 5 | Fuzzing | validations and malicious cases written manually | NOT_IMPLEMENTED | fuzz parsers, schemas, packages and API inputs |
-| 6 | Integration | pytest with SQLite/Alembic and services/repositories | PASS_LOCAL | repeat in CI and candidate container |
+| 6 | Integration | pytest with SQLite/Alembic and GitHub run `30558522375` | PASS_CI | repeat against the candidate environment |
 | 7 | Contract | OpenAPI, schemas and Reader package validation | PARTIAL | freeze/differentiate OpenAPI and add consumer-provider contracts |
 | 8 | End-to-end | `reader:e2e`, offline, mobile, learning and Admin walkthroughs | PASS_LOCAL | run against the candidate environment |
 | 9 | Regression | `pnpm quality:regression` | PASS_LOCAL | run against the same commit before deployment |
-| 10 | Security | `pnpm security:audit`, auth, permissions, headers and auditing | PASS_LOCAL | repeat audit and review environment secrets |
+| 10 | Security | `pnpm security:audit`, auth, permissions, headers and GitHub audit | PASS_CI | review candidate environment secrets |
 | 11 | Concurrency and resilience | local load, idempotent sync, offline/reconnect and errors | PARTIAL | test SQLite locking, restarts, timeouts, retries and degradation |
 | 12 | Performance and resources | `quality:budget` and `quality:load` | PASS_LOCAL | measure candidate artifact with recorded budgets |
-| 13 | Compatibility and deployment | web/mobile builds and `deploy:validate` | BLOCKED | real Docker, GitHub runner, staging, rollback and physical iOS |
+| 13 | Compatibility and deployment | GitHub CI plus API/Admin/Reader image builds | BLOCKED | Compose, staging, rollback and physical iOS |
 
 The overall status remains `BLOCKED` because not all categories are in `PASS` or `WAIVED`.  
 This conclusion must not be changed to accelerate a delivery.

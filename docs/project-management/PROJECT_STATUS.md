@@ -13,9 +13,9 @@ discovery, preferences, local voice, verified downloads, offline reading,
 synchronization, Capacitor projects and a complete learn-English mode. Quality, security and
 performance already have reproducible budgets. Phase 13 has already implemented containers, CI,
 releases, backup and rollback; it awaits closing the advanced test matrix and real validation with
-Docker/GitHub/staging. The public repository is active and its first real CI run reached the Python
-dependency audit. That audit alone failed because the workflow-created virtual environment retained
-vulnerable `pip 25.0.1`; the narrow workflow correction remains pending explicit owner approval.
+Docker/GitHub/staging. The public repository is active and GitHub Actions run `30558522375` passed
+the complete quality gate, both dependency audits, web artifact upload, and container builds for
+API, Admin, and Reader on commit `faf194d`.
 Repository documentation and the original master prompt are now in English, and the portfolio
 README includes four reproducible product screenshots.
 FollowRead Admin already provides the visual and functional flow for access, Dashboard, catalog,
@@ -63,7 +63,7 @@ word alignment exclusively from the API.
 | Offline mode | PHASE_9_COMPLETED | Download, update, recovery and sync verified |
 | Mobile / Capacitor | PHASE_10_COMPLETED | Android built/tested; iOS ready for Xcode |
 | Cross-cutting quality | PHASE_12_COMPLETED | Security, a11y, load, metrics and regression green |
-| CI/CD and deployment | PHASE_13_IN_PROGRESS | GitHub runner exercised; Python audit correction, Docker and staging pending |
+| CI/CD and deployment | PHASE_13_IN_PROGRESS | GitHub CI and three image builds green; Compose and staging pending |
 | License | MIT | Public repository authorized by the owner |
 
 ## Closed deliverables for Phases 5 to 10
@@ -103,13 +103,13 @@ word alignment exclusively from the API.
 ## Blockers
 
 The local product has no blockers: SQLite and the local adapters allow continuing without
-PostgreSQL, Docker or AWS. The public repository and the MIT license are already resolved. Closing
-Phase 13 still requires the approved CI audit correction, Docker, an authorized staging environment,
-and completion or explicit exceptions for the thirteen pre-deployment categories. iOS requires
-macOS/Xcode before TestFlight.
+PostgreSQL, Docker or AWS. The public repository, MIT license, GitHub CI and individual container
+builds are resolved. Closing Phase 13 still requires running Compose in a Docker-capable environment,
+an authorized staging environment, and completion or explicit exceptions for the thirteen
+pre-deployment categories. iOS requires macOS/Xcode before TestFlight.
 
 ## Continuation rule
 
-Correct and rerun the GitHub Python dependency audit after owner approval, then complete external
-validation of Phase 13 with Docker and staging. Do not start Phase 14 nor mark the phase closed
-without first recording the gates of `PHASE_13_REVIEW.md`.
+Complete external validation of Phase 13 with Compose, smoke, backup, rollback and staging. Do not
+start Phase 14 nor mark the phase closed without first recording the remaining gates of
+`PHASE_13_REVIEW.md`.
