@@ -47,7 +47,7 @@ runs = {
 }
 for command in (
     "pnpm install --frozen-lockfile",
-    "python -m venv apps/api/.venv",
+    "pnpm setup:python",
     "pnpm ci",
 ):
     if command not in runs:

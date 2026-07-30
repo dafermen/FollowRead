@@ -40,11 +40,8 @@ jobs:
       - name: Install JavaScript dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Create Python environment
-        run: python -m venv apps/api/.venv
-
       - name: Install Python dependencies
-        run: apps/api/.venv/bin/python -m pip install -e './apps/api[dev]'
+        run: pnpm setup:python
 
       - name: Run the project quality gate
         run: pnpm ci
