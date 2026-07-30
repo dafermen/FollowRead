@@ -1,11 +1,10 @@
 # FollowRead Reader
 
-Aplicación web/PWA/móvil independiente para descubrir y leer contenido sincronizado. Es la única
-aplicación frontend empaquetada con Capacitor; FollowRead Admin permanece sólo web.
+Standalone web/PWA/mobile app for discovering and reading synchronized content. It is the only frontend app packaged with Capacitor; FollowRead Admin remains web-only.
 
-## Demostración local
+## Local demo
 
-Desde la raíz:
+From the repository root:
 
 ```powershell
 pnpm migrate
@@ -13,35 +12,33 @@ pnpm demo:seed
 pnpm dev
 ```
 
-Abre `http://localhost:5174/`. El cuento **El zorro y la luna** permite:
+Open `http://localhost:5174/`. The story **El zorro y la luna** allows you to:
 
-- explorar inicio, biblioteca, categorías, búsqueda y detalle;
-- leer en español o inglés con palabra activa, progreso, capítulos y velocidad;
-- escuchar una voz instalada en el dispositivo, sin API key;
-- usar modos infantil, adulto y aprendizaje;
-- guardar favoritos, historial y vocabulario local no sensible;
-- gestionar descargas verificadas desde `/downloads`;
-- leer el cuento incluido sin API y sincronizar el progreso al reconectar;
-- instalar el shell como PWA en navegadores compatibles.
+- explore home, library, categories, search, and detail;
+- read in Spanish or English with active word highlighting, progress, chapters, and speed controls;
+- listen with a voice installed on the device, no API key required;
+- use kid, adult, and learning modes;
+- save favorites, local non-sensitive history, and vocabulary;
+- manage verified downloads from `/downloads`;
+- read the included story without an API and sync progress when reconnecting;
+- install the shell as a PWA in supported browsers.
 
-## Comandos
+## Commands
 
 - `pnpm --filter @followread/reader dev`
 - `pnpm --filter @followread/reader test`
 - `pnpm --filter @followread/reader build`
-- `pnpm reader:e2e` con API y Reader activos
-- `pnpm offline:bootstrap` con la API activa
-- `pnpm reader:offline-e2e` para bloquear/restaurar red en Chrome
-- `pnpm mobile:doctor` para diagnosticar Android/iOS
-- `pnpm mobile:sync` para construir y sincronizar ambos proyectos
-- `pnpm mobile:build:android` para generar un APK debug instalable
-- `pnpm reader:mobile-e2e` para safe areas, reflow y rotación
-- `pnpm reader:learning-e2e` para traducción, vocabulario, favoritos, progreso y vista móvil
+- `pnpm reader:e2e` with API and Reader running
+- `pnpm offline:bootstrap` with the API running
+- `pnpm reader:offline-e2e` to block/restore network in Chrome
+- `pnpm mobile:doctor` to diagnose Android/iOS
+- `pnpm mobile:sync` to build and sync both projects
+- `pnpm mobile:build:android` to produce an installable debug APK
+- `pnpm reader:mobile-e2e` for safe areas, reflow, and rotation
+- `pnpm reader:learning-e2e` for translation, vocabulary, favorites, progress, and mobile view
 
-La narración audible depende de las voces y permisos disponibles en el navegador. Si no existe una
-voz compatible, el seguimiento visual sigue funcionando y muestra un aviso recuperable.
+Audible narration depends on voices and permissions available in the browser. If no compatible voice exists, the visual tracking still works and displays a recoverable notice.
 
-Consulta `docs/architecture/MOBILE_READER.md`, `docs/deployment/MOBILE_RELEASES.md` y las guías
-`docs/troubleshooting/CAPACITOR_ANDROID.md` / `CAPACITOR_IOS.md`.
+See `docs/architecture/MOBILE_READER.md`, `docs/deployment/MOBILE_RELEASES.md`, and the troubleshooting guides `docs/troubleshooting/CAPACITOR_ANDROID.md` / `CAPACITOR_IOS.md`.
 
-El diseño del modo educativo está documentado en `docs/architecture/LEARNING_MODE.md`.
+The design of learning mode is documented in `docs/architecture/LEARNING_MODE.md`.

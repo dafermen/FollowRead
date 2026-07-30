@@ -1,167 +1,159 @@
-# Historias de usuario
+# User Stories
 
-**Estado:** Validado para Fase 0 - FR-PH00-TASK-007 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-007 COMPLETED.
 
 ## Reader
 
-### FR-US-CHILD-001 - Iniciar una lectura segura
+### FR-US-CHILD-001 - Start a safe reading
 
-Como lector infantil, quiero iniciar una historia con pocos controles y sin acceso a administración
-para poder concentrarme y evitar acciones accidentales.
+As a child reader, I want to start a story with minimal controls and no access to administration so I can focus and avoid accidental actions.
 
-- **Prioridad:** Must
-- **Perfil:** FR-PERSONA-001
-- **Requisitos:** FR-READER-011, FR-READER-015, NFR-PRIVACY-002
+- **Priority:** Must
+- **Persona:** FR-PERSONA-001
+- **Requirements:** FR-READER-011, FR-READER-015, NFR-PRIVACY-002
 
-### FR-US-TUTOR-001 - Preparar una sesión acompañada
+### FR-US-TUTOR-001 - Prepare a supervised session
 
-Como tutor, quiero elegir modo, idioma, tamaño y movimiento antes de entregar el dispositivo para
-ofrecer una experiencia apropiada sin crear una cuenta infantil.
+As a tutor, I want to choose mode, language, size, and motion before handing over the device to provide an appropriate experience without creating a child account.
 
-- **Prioridad:** Should
-- **Perfil:** FR-PERSONA-004
-- **Requisitos:** FR-READER-011, FR-READER-015, FR-DEC-009
+- **Priority:** Should
+- **Persona:** FR-PERSONA-004
+- **Requirements:** FR-READER-011, FR-READER-015, FR-DEC-009
 
-### FR-US-ADULT-001 - Adaptar una lectura larga
+### FR-US-ADULT-001 - Adapt for a long reading
 
-Como lector adulto, quiero usar una presentación sobria, ocultar la mano y ajustar texto/tema para
-leer durante sesiones largas.
+As an adult reader, I want to use a sober presentation, hide the hand, and adjust text/theme to read during long sessions.
 
-- **Prioridad:** Must
-- **Perfil:** FR-PERSONA-003
-- **Requisitos:** FR-READER-011, FR-READER-015
+- **Priority:** Must
+- **Persona:** FR-PERSONA-003
+- **Requirements:** FR-READER-011, FR-READER-015
 
-### FR-US-READER-001 - Seguir una narración
+### FR-US-READER-001 - Follow a narration
 
-Como lector, quiero ver qué palabra se pronuncia para mantener mi atención y relacionar sonido con
-texto.
+As a reader, I want to see which word is being spoken to keep my attention and connect sound with text.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-READER-003 a FR-READER-006
+- **Priority:** Must
+- **Requirements:** FR-READER-003 to FR-READER-006
 
-### FR-US-READER-002 - Controlar la reproducción
+### FR-US-READER-002 - Control playback
 
-Como lector, quiero pausar, continuar, retroceder, repetir y cambiar velocidad para adaptar la lectura
-a mi ritmo.
+As a reader, I want to pause, resume, go back, repeat, and change speed to adapt the reading to my pace.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-READER-007, FR-READER-008
+- **Priority:** Must
+- **Requirements:** FR-READER-007, FR-READER-008
 
-### FR-US-READER-003 - Reanudar donde quedé
+### FR-US-READER-003 - Resume where I left off
 
-Como lector, quiero recuperar mi posición para no buscar manualmente el último punto.
+As a reader, I want to recover my position so I don't have to manually search for the last spot.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-READER-009, FR-API-004
+- **Priority:** Must
+- **Requirements:** FR-READER-009, FR-API-004
 
-### FR-US-READER-004 - Leer sin conexión
+### FR-US-READER-004 - Read offline
 
-Como lector, quiero descargar contenido y abrirlo sin red para leer en cualquier lugar.
+As a reader, I want to download content and open it without a network to read anywhere.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-OFFLINE-001 a FR-OFFLINE-005
+- **Priority:** Must
+- **Requirements:** FR-OFFLINE-001 to FR-OFFLINE-005
 
-### FR-US-READER-005 - Ajustar la experiencia
+### FR-US-READER-005 - Adjust the experience
 
-Como lector, quiero ocultar la mano, reducir movimiento y ajustar texto para leer cómodamente.
+As a reader, I want to hide the hand, reduce motion, and adjust text to read comfortably.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-READER-015
+- **Priority:** Must
+- **Requirements:** FR-READER-015
 
-### FR-US-READER-006 - Explorar la biblioteca
+### FR-US-READER-006 - Explore the library
 
-Como lector, quiero buscar y filtrar contenido por categoría, idioma y nivel para encontrar algo
-apropiado.
+As a reader, I want to search and filter content by category, language, and level to find something appropriate.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-READER-001, FR-READER-002
+- **Priority:** Must
+- **Requirements:** FR-READER-001, FR-READER-002
 
-### FR-US-READER-007 - Aprender una palabra
+### FR-US-READER-007 - Learn a word
 
-Como estudiante de inglés, quiero tocar, escuchar, traducir y guardar una palabra para estudiarla
-después.
+As an English learner, I want to tap, listen to, translate, and save a word to study it later.
 
-- **Prioridad:** Should
-- **Requisitos:** FR-READER-013, FR-READER-014
+- **Priority:** Should
+- **Requirements:** FR-READER-013, FR-READER-014
 
-### FR-US-READER-008 - Repetir una oración
+### FR-US-READER-008 - Repeat a sentence
 
-Como estudiante de inglés, quiero repetir una oración lentamente para mejorar comprensión y
-pronunciación.
+As an English learner, I want to repeat a sentence slowly to improve comprehension and pronunciation.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-READER-008, FR-READER-013
+- **Priority:** Must
+- **Requirements:** FR-READER-008, FR-READER-013
 
-### FR-US-READER-009 - Conocer el estado de sincronización
+### FR-US-READER-009 - Know sync status
 
-Como lector, quiero saber si mi descarga o progreso están pendientes para confiar en la aplicación.
+As a reader, I want to know if my download or progress is pending so I can trust the app.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-OFFLINE-007, FR-OFFLINE-008
+- **Priority:** Must
+- **Requirements:** FR-OFFLINE-007, FR-OFFLINE-008
 
 ## Admin
 
-### FR-US-ADMIN-001 - Crear contenido bilingüe
+### FR-US-ADMIN-001 - Create bilingual content
 
-Como editor, quiero estructurar texto en inglés y español para publicar una experiencia relacionada.
+As an editor, I want to structure text in English and Spanish to publish a related experience.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-ADMIN-002, FR-ADMIN-003
+- **Priority:** Must
+- **Requirements:** FR-ADMIN-002, FR-ADMIN-003
 
-### FR-US-ADMIN-002 - Evitar pérdida de borradores
+### FR-US-ADMIN-002 - Avoid losing drafts
 
-Como editor, quiero autoguardado e indicadores claros para no perder trabajo.
+As an editor, I want autosave and clear indicators so I don't lose work.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-ADMIN-006
+- **Priority:** Must
+- **Requirements:** FR-ADMIN-006
 
-### FR-US-ADMIN-003 - Procesar audio
+### FR-US-ADMIN-003 - Process audio
 
-Como editor, quiero seleccionar voces y solicitar audio para preparar el contenido.
+As an editor, I want to select voices and request audio to prepare the content.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-ADMIN-004, FR-ADMIN-007, FR-AUDIO-001 a FR-AUDIO-006
+- **Priority:** Must
+- **Requirements:** FR-ADMIN-004, FR-ADMIN-007, FR-AUDIO-001 to FR-AUDIO-006
 
-### FR-US-ADMIN-004 - Revisar sincronización
+### FR-US-ADMIN-004 - Review synchronization
 
-Como revisor, quiero previsualizar texto, audio y palabras activas para detectar errores.
+As a reviewer, I want to preview text, audio, and active words to catch errors.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-ADMIN-008, FR-AUDIO-005
+- **Priority:** Must
+- **Requirements:** FR-ADMIN-008, FR-AUDIO-005
 
-### FR-US-ADMIN-005 - Publicar con seguridad
+### FR-US-ADMIN-005 - Publish securely
 
-Como publicador, quiero aprobar y publicar sólo una versión válida para proteger a los lectores.
+As a publisher, I want to approve and publish only a valid version to protect readers.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-ADMIN-009, FR-CONTENT-005 a FR-CONTENT-007
+- **Priority:** Must
+- **Requirements:** FR-ADMIN-009, FR-CONTENT-005 to FR-CONTENT-007
 
-### FR-US-ADMIN-006 - Recuperar un procesamiento fallido
+### FR-US-ADMIN-006 - Recover a failed processing
 
-Como operador, quiero conocer el error y reintentar sin duplicar contenido.
+As an operator, I want to know the error and retry without duplicating content.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-ADMIN-010, FR-AUDIO-006
+- **Priority:** Must
+- **Requirements:** FR-ADMIN-010, FR-AUDIO-006
 
-## Operación y seguridad
+## Operation and security
 
-### FR-US-SECURITY-001 - Administrar por permisos
+### FR-US-SECURITY-001 - Manage by permissions
 
-Como propietario, quiero que cada rol realice sólo acciones autorizadas.
+As an owner, I want each role to perform only authorized actions.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-API-001, FR-API-002
+- **Priority:** Must
+- **Requirements:** FR-API-001, FR-API-002
 
-### FR-US-OPS-001 - Diagnosticar un fallo
+### FR-US-OPS-001 - Diagnose a failure
 
-Como operador, quiero relacionar solicitudes, trabajos y errores sin exponer datos sensibles.
+As an operator, I want to relate requests, jobs, and errors without exposing sensitive data.
 
-- **Prioridad:** Must
-- **Requisitos:** FR-API-005, NFR-OBSERVABILITY-001
+- **Priority:** Must
+- **Requirements:** FR-API-005, NFR-OBSERVABILITY-001
 
-## Cobertura por perfil
+## Coverage by persona
 
-| Perfil | Historias principales | Cobertura |
+| Persona | Main stories | Coverage |
 |---|---|---|
 | FR-PERSONA-001 | FR-US-CHILD-001, FR-US-READER-001/002/003/004/005 | COVERED |
 | FR-PERSONA-002 | FR-US-READER-001/002/003/007/008 | COVERED |
@@ -171,8 +163,8 @@ Como operador, quiero relacionar solicitudes, trabajos y errores sin exponer dat
 | FR-PERSONA-006 | FR-US-ADMIN-004/005 | COVERED |
 | FR-PERSONA-007 | FR-US-ADMIN-006, FR-US-OPS-001, FR-US-SECURITY-001 | COVERED |
 
-## Validación
+## Validation
 
-- Cada perfil tiene al menos una historia: PASS.
-- Lectura, publicación, offline, aprendizaje, accesibilidad y permisos están cubiertos: PASS.
-- Todas las historias enlazan requisitos o decisiones: PASS.
+- Each persona has at least one story: PASS.
+- Reading, publishing, offline, learning, accessibility, and permissions are covered: PASS.
+- All stories link to requirements or decisions: PASS.

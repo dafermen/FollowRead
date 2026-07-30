@@ -1,28 +1,28 @@
-## Resumen
+## Summary
 
-Describe el problema, la solución y el alcance que queda fuera.
+Describe the problem, the solution, and the scope that remains out of scope.
 
-## Trazabilidad
+## Traceability
 
-- Tarea/fase:
-- Issue o decisión:
-- Riesgos relacionados:
+- Task/phase:
+- Issue or decision:
+- Related risks:
 
-## Evidencia
+## Evidence
 
-- [ ] Documentación actualizada
+- [ ] Documentation updated
 - [ ] `pnpm docs:validate`
 - [ ] `pnpm check`
-- [ ] Regresión ejecutada cuando aplica
-- [ ] Seguridad revisada
-- [ ] Migración/rollback documentados cuando aplica
-- [ ] Sin secretos, PII, SQLite ni `.env` reales
+- [ ] Regression executed where applicable
+- [ ] Security reviewed
+- [ ] Migration/rollback documented where applicable
+- [ ] No secrets, PII, SQLite or real `.env` files
 
-## Pruebas antes del despliegue
+## Pre-deployment tests
 
-Para un artefacto desplegable, adjuntar el acta de
-`docs/testing/PRE_DEPLOYMENT_TESTS.md` con las trece categorías en `PASS` o `WAIVED` aprobado.
+For a deployable artifact, attach the checklist from
+`docs/testing/PRE_DEPLOYMENT_TESTS.md` with the thirteen categories marked `PASS` or `WAIVED` and approved.
 
-## Capturas o logs seguros
+## Screenshots or sanitized logs
 
-Incluye sólo evidencia sanitizada.
+Include only sanitized evidence.

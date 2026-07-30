@@ -1,59 +1,59 @@
-# Revisión de cierre de Fase 2
+# Phase 2 Closure Review
 
-**Fecha:** 2026-07-24  
-**Resultado:** PASS  
-**Tarea:** FR-PH02-TASK-011  
-**Commit auditado:** `c348ca1`
+**Date:** 2026-07-24  
+**Result:** PASS  
+**Task:** FR-PH02-TASK-011  
+**Audited commit:** `c348ca1`
 
-## Criterios de salida
+## Exit criteria
 
-| # | Criterio | Evidencia | Resultado |
+| # | Criterion | Evidence | Result |
 |---:|---|---|---|
-| 1 | Admin, Reader y API separados y ejecutables | workspaces, builds y pruebas de humo | PASS |
-| 2 | Tipos, lint y formato configurados | TypeScript strict, mypy, ESLint, Ruff y Prettier | PASS |
-| 3 | Pruebas base y builds pasan | 12 pruebas y 100% de cobertura base | PASS |
-| 4 | SQLite y migraciones funcionan sin servicios | conexión real y Alembic upgrade/downgrade | PASS |
-| 5 | Variables documentadas sin secretos | ejemplos raíz/API y catálogo de variables | PASS |
-| 6 | Scripts, hooks y CI usan la misma puerta | `check`, `check:fast`, pre-commit y `ci` | PASS |
-| 7 | Instalación limpia documentada y verificada | clon Git de `c348ca1`, instalación y puerta completa | PASS |
+| 1 | Admin, Reader, and API separated and runnable | workspaces, builds, and smoke tests | PASS |
+| 2 | Types, lint, and format configured | TypeScript strict, mypy, ESLint, Ruff, and Prettier | PASS |
+| 3 | Base tests and builds pass | 12 tests and 100% base coverage | PASS |
+| 4 | SQLite and migrations work without services | real connection and Alembic upgrade/downgrade | PASS |
+| 5 | Variables documented without secrets | root/API examples and variables catalog | PASS |
+| 6 | Scripts, hooks, and CI use the same gate | `check`, `check:fast`, pre-commit and `ci` | PASS |
+| 7 | Clean install documented and verified | Git clone from `c348ca1`, installation and full gate | PASS |
 
-## Evidencia de clon limpio
+## Evidence of clean clone
 
-1. Se clonó el repositorio en un directorio sin dependencias ni entorno virtual.
-2. `pnpm install --frozen-lockfile` instaló los nueve proyectos del workspace.
-3. `pnpm setup:python` creó `apps/api/.venv` e instaló la API editable.
-4. `pnpm hooks:install` y `pnpm hooks:verify` pasaron.
-5. `pnpm migrate` creó SQLite y aplicó la cabeza `20260724_0001`.
-6. `pnpm check` pasó formato, lint, tipos, pruebas, cobertura y builds.
+1. The repository was cloned into a directory without dependencies or a virtual environment.
+2. `pnpm install --frozen-lockfile` installed the nine projects in the workspace.
+3. `pnpm setup:python` created `apps/api/.venv` and installed the editable API.
+4. `pnpm hooks:install` and `pnpm hooks:verify` passed.
+5. `pnpm migrate` created SQLite and applied the head `20260724_0001`.
+6. `pnpm check` passed format, lint, types, tests, coverage, and builds.
 
-La auditoría detectó y corrigió dos problemas reales antes del cierre:
+The audit detected and fixed two real issues before closure:
 
-- Pytest usaba una carpeta temporal global sin permisos; ahora usa `.pytest-temp/`.
-- Git convertía archivos a CRLF en clones Windows aunque Prettier exige LF; `.gitattributes`
-  fuerza LF para texto y conserva CRLF únicamente para PowerShell.
+- Pytest used a global temporary folder without permissions; it now uses `.pytest-temp/`.
+- Git converted files to CRLF on Windows clones even though Prettier requires LF; `.gitattributes`
+  forces LF for text and preserves CRLF only for PowerShell.
 
-## Evidencia cuantitativa
+## Quantitative evidence
 
-- 9 proyectos en el workspace.
-- 5 pruebas JavaScript/TypeScript aprobadas.
-- 7 pruebas Python aprobadas.
-- 100% de cobertura en los scaffolds actuales.
-- 1 cabeza Alembic con upgrade, downgrade y upgrade probados.
-- 0 servicios externos, credenciales o contenedores requeridos.
-- 0 bloqueadores críticos abiertos.
+- 9 projects in the workspace.
+- 5 JavaScript/TypeScript tests passed.
+- 7 Python tests passed.
+- 100% coverage in the current scaffolds.
+- 1 Alembic head with upgrade, downgrade, and upgrade tested.
+- 0 external services, credentials, or containers required.
+- 0 critical open blockers.
 
-## Deuda permitida
+## Allowed debt
 
-- PostgreSQL queda como evolución posterior al MVP conforme a FR-DEC-013.
-- La ejecución real de GitHub Actions ocurrirá al publicar el repositorio remoto.
-- Los modelos y tablas funcionales pertenecen a Fase 3.
+- PostgreSQL remains as an evolution after the MVP per FR-DEC-013.
+- Actual execution of GitHub Actions will occur when the remote repository is published.
+- Functional models and tables belong to Phase 3.
 
-Esta deuda no impide modelar datos ni construir la API base.
+This debt does not prevent modeling data or building the base API.
 
-## Secuencia
+## Sequence
 
-1. FR-PH02-TASK-011 pasó de `NOT_STARTED` a `READY_FOR_REVIEW`.
-2. La auditoría limpia detectó y resolvió la política de saltos de línea.
-3. El clon final pasó instalación, migración y puerta completa.
-4. FR-PH02-TASK-011 cambia a `COMPLETED`.
-5. Fase 3 se activa después de registrar sus tareas y criterios.
+1. FR-PH02-TASK-011 moved from `NOT_STARTED` to `READY_FOR_REVIEW`.
+2. The clean audit detected and resolved the line-ending policy.
+3. The final clone passed installation, migration, and full gate.
+4. FR-PH02-TASK-011 changes to `COMPLETED`.
+5. Phase 3 is activated after its tasks and criteria are recorded.

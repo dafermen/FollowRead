@@ -1,50 +1,50 @@
-# Instrucciones obligatorias para sesiones de Codex
+# Mandatory Instructions for Codex Sessions
 
-Estas reglas aplican a todo el repositorio `C:\Projects\FollowRead`.
+These rules apply to the entire repository `C:\Projects\FollowRead`.
 
-## Inicio de cada sesión
+## Start of each session
 
-1. Leer este archivo completo.
-2. Leer `CURRENT_STATUS.md`.
-3. Ejecutar `git status --short` y `git log -1 --oneline`.
-4. Revisar `docs/project-management/NEXT_STEPS.md` y la revisión de la fase activa.
-5. Si el alcance de una fase es dudoso, consultar `docs/FollowRead Project Prompt.pdf`.
-6. No repetir trabajo marcado y validado como terminado.
+1. Read this file in full.
+2. Read `CURRENT_STATUS.md`.
+3. Run `git status --short` and `git log -1 --oneline`.
+4. Review `docs/project-management/NEXT_STEPS.md` and the review for the active phase.
+5. If a phase's scope is unclear, consult `docs/FollowRead Project Prompt.pdf`.
+6. Do not repeat work marked and validated as finished.
 
-## Decisiones vigentes
+## Current decisions
 
-- El MVP usa SQLite; no introducir PostgreSQL ni Docker como requisito de desarrollo.
-- `pnpm dev` sigue siendo la ruta local principal. Docker es sólo empaquetado/despliegue opcional.
-- Amazon Polly/AWS son opcionales; el adaptador local `fake` debe seguir funcionando sin API keys.
-- No existen cuentas personales de menores ni se registran texto, vocabulario, tokens o PII.
-- Admin usa 5173, Reader 5174 y API 8000.
-- No seleccionar proveedor cloud, crear recursos externos, publicar releases o desplegar producción
-  sin autorización explícita del propietario.
-- iOS físico/TestFlight requiere macOS/Xcode y continúa como gate externo.
+- The MVP uses SQLite; do not introduce PostgreSQL or Docker as a development requirement.
+- `pnpm dev` remains the primary local path. Docker is only optional packaging/deployment.
+- Amazon Polly/AWS are optional; the local `fake` adapter must continue to work without API keys.
+- There are no minor personal accounts and no text, vocabulary, tokens, or PII are recorded.
+- Admin uses 5173, Reader 5174 and API 8000.
+- Do not choose a cloud provider, create external resources, publish releases, or deploy to production
+  without the owner's explicit authorization.
+- Physical iOS/TestFlight requires macOS/Xcode and remains an external gate.
 
-## Forma de trabajar
+## Way of working
 
-- Conversar con el propietario en español y explicar resultados en lenguaje no técnico.
-- Preservar cambios ajenos y evitar comandos destructivos.
-- Mantener las fases trazables en `docs/project-management/`.
-- Añadir pruebas para cambios funcionales y ejecutar una validación proporcional.
-- La puerta completa es `pnpm check`; la regresión de producto es `pnpm quality:regression`.
-- Para despliegue usar `pnpm deploy:validate`, auditorías y smoke tests. Nunca incluir secretos.
-- Antes de un despliegue externo, completar las trece categorías de
-  `docs/testing/PRE_DEPLOYMENT_TESTS.md`; `pnpm check` no sustituye esa aprobación.
-- Actualizar `CURRENT_STATUS.md` después de todo avance material, bloqueo o cambio de fase.
-- Actualizar documentación online de Admin/Reader cuando cambien comandos que el usuario necesita.
-- Dejar el árbol Git limpio y crear un commit descriptivo sólo después de validar el alcance.
+- Converse with the owner in Spanish and explain results in non-technical language.
+- Preserve others' changes and avoid destructive commands.
+- Keep phases traceable in `docs/project-management/`.
+- Add tests for functional changes and run a proportionate validation.
+- The full gate is `pnpm check`; product regression is `pnpm quality:regression`.
+- For deployment use `pnpm deploy:validate`, audits and smoke tests. Never include secrets.
+- Before an external deployment, complete the thirteen categories in
+  `docs/testing/PRE_DEPLOYMENT_TESTS.md`; `pnpm check` does not replace that approval.
+- Update `CURRENT_STATUS.md` after any material progress, blocker, or phase change.
+- Update online Admin/Reader documentation when commands that users need change.
+- Leave the Git tree clean and create a descriptive commit only after validating the scope.
 
-## Cierre de cada sesión
+## End of each session
 
-Registrar en `CURRENT_STATUS.md`:
+Record in `CURRENT_STATUS.md`:
 
-- fase y estado reales;
-- funcionalidades entregadas;
-- comandos ejecutados y resultado;
-- bloqueos externos;
-- siguiente acción exacta;
-- commit más reciente relevante.
+- actual phase and status;
+- delivered features;
+- commands run and results;
+- external blockers;
+- exact next action;
+- most recent relevant commit.
 
-No marcar una fase como completada si falta una validación que sí puede alterar la implementación.
+Do not mark a phase as completed if a validation is missing that could change the implementation.

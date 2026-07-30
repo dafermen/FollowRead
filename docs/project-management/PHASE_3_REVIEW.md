@@ -1,60 +1,56 @@
-# Revisión de cierre de Fase 3
+# Phase 3 Closure Review
 
-**Fecha:** 2026-07-24  
-**Estado evaluado:** READY_FOR_REVIEW  
-**Base de datos del MVP:** SQLite  
-**Cabeza Alembic:** `2bf6cf5e1177`
+**Date:** 2026-07-24  
+**Assessed status:** READY_FOR_REVIEW  
+**MVP database:** SQLite  
+**Alembic head:** `2bf6cf5e1177`
 
-## Resultado
+## Outcome
 
-Los ocho criterios de salida pasan. No se detectaron bloqueadores ni deuda que impida cerrar la
-fase. Autenticación, autorización en ejecución y credenciales permanecen correctamente aplazadas a
-la Fase 4; AWS permanece fuera del alcance de esta fase.
+All eight exit criteria pass. No blockers or debt preventing phase closure were detected. Authentication, runtime authorization, and credentials remain appropriately deferred to Phase 4; AWS remains out of scope for this phase.
 
-## Evidencia por criterio
+## Evidence by criterion
 
-| # | Criterio | Evidencia | Resultado |
+| # | Criterion | Evidence | Result |
 |---:|---|---|---|
-| 1 | 22 entidades modeladas o aplazadas | `DATA_MODEL.md`, modelos SQLAlchemy y prueba de migración | PASS |
-| 2 | Relaciones e invariantes preservadas | FKs SQLite activas, restricciones, tests de modelos y servicios | PASS |
-| 3 | Migración funcional reversible | base desechable: upgrade, downgrade a base y segundo upgrade | PASS |
-| 4 | Dominio fuera de rutas | repositorios, `SqlAlchemyUnitOfWork`, `CatalogService` y dependencias | PASS |
-| 5 | Error estándar y seguro | `DomainError`, códigos estables, 404/422 y 500 genérico | PASS |
-| 6 | Operación real verificable | `/health`, `/ready`, logs JSON, request ID y prueba OpenAPI | PASS |
-| 7 | Corte API funcional | lista filtrable/paginada, detalle editorial y exclusión de borradores | PASS |
-| 8 | Puerta completa en SQLite desechable | `pnpm check`: formato, lint, tipos, tests, cobertura y builds | PASS |
+| 1 | 22 entities modeled or deferred | `DATA_MODEL.md`, SQLAlchemy models and migration test | PASS |
+| 2 | Relationships and invariants preserved | Active SQLite FKs, constraints, model and service tests | PASS |
+| 3 | Reversible functional migration | disposable DB: upgrade, downgrade to base and second upgrade | PASS |
+| 4 | Domain kept out of routes | repositories, `SqlAlchemyUnitOfWork`, `CatalogService` and dependencies | PASS |
+| 5 | Standard, safe error handling | `DomainError`, stable codes, 404/422 and generic 500 | PASS |
+| 6 | Verifiable real operation | `/health`, `/ready`, JSON logs, request ID and OpenAPI test | PASS |
+| 7 | Functional API cut | filterable/paginated list, editorial detail and draft exclusion | PASS |
+| 8 | Full gate on disposable SQLite | `pnpm check`: format, lint, typing, tests, coverage and builds | PASS |
 
-## Ejecución de auditoría
+## Audit run
 
-1. Se eliminó cualquier base temporal anterior.
-2. `pnpm migrate` creó el esquema desde una base SQLite vacía.
-3. Alembic reportó una sola cabeza y revisión actual: `2bf6cf5e1177`.
-4. `alembic downgrade base` revirtió ambas revisiones.
-5. `alembic upgrade head` reconstruyó el esquema.
-6. `pnpm check` pasó con:
-   - 44 pruebas Python;
-   - 5 pruebas JavaScript;
-   - 100% de cobertura Python y de los paquetes/apps instrumentados;
-   - mypy strict, Ruff, ESLint y Prettier;
-   - builds de Admin, Reader y paquetes compartidos.
-7. La base temporal fue eliminada.
+1. Any previous ephemeral database was removed.
+2. `pnpm migrate` created the schema from an empty SQLite database.
+3. Alembic reported a single head and current revision: `2bf6cf5e1177`.
+4. `alembic downgrade base` rolled back both revisions.
+5. `alembic upgrade head` rebuilt the schema.
+6. `pnpm check` passed with:
+   - 44 Python tests;
+   - 5 JavaScript tests;
+   - 100% coverage for Python and for the instrumented packages/apps;
+   - mypy strict, Ruff, ESLint and Prettier;
+   - Admin, Reader and shared packages builds.
+7. The ephemeral database was removed.
 
-## Hallazgos resueltos durante la fase
+## Findings resolved during the phase
 
-- El inventario inicial omitía `AuditLog`; se añadió antes de aceptar la migración.
-- SQLite en memoria aislaba conexiones entre hilos; `StaticPool` se limita a `:memory:`.
-- La captura compartida de handlers de logging era frágil; formatter y emisión se prueban por
-  separado.
+- The initial inventory omitted `AuditLog`; it was added before accepting the migration.
+- SQLite in-memory isolated connections across threads; `StaticPool` is limited to `:memory:`.
+- The shared capture of logging handlers was fragile; formatter and emission are tested separately.
 
-## Límites confirmados
+## Confirmed limits
 
-- No hay contraseñas, tokens ni endpoints de autenticación.
-- No hay SDK, credenciales ni llamadas AWS.
-- No hay perfiles infantiles remotos ni notas libres de menores.
-- PostgreSQL queda como evolución posterior a FR-DEC-013.
-- La licencia sigue siendo la única decisión abierta y no bloquea hasta Fase 14.
+- There are no passwords, tokens, or authentication endpoints.
+- There is no SDK, credentials, or AWS calls.
+- There are no remote child profiles or minor-free notes.
+- PostgreSQL remains a later evolution after FR-DEC-013.
+- The license remains the only open decision and does not block until Phase 14.
 
-## Recomendación
+## Recommendation
 
-Cerrar FR-PH03-TASK-012 y la Fase 3. La siguiente actividad autorizable es preparar el desglose de
-Fase 4 antes de implementar autenticación y autorización.
+Close FR-PH03-TASK-012 and Phase 3. The next authorized activity is to prepare the Phase 4 breakdown before implementing authentication and authorization.

@@ -1,134 +1,134 @@
-# Estrategia inicial de seguridad y privacidad
+# Initial Security and Privacy Strategy
 
-**Estado:** Validada para Fase 0 - FR-PH00-TASK-006 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-006 COMPLETED.
 
-## Principios
+## Principles
 
-- negar por defecto;
-- validar en el servidor;
-- privilegio mínimo;
-- secretos sólo en backend/entorno;
-- datos mínimos y propósito explícito;
-- auditoría sin registrar secretos ni contenido sensible innecesario;
-- clientes y paquetes locales se consideran manipulables.
+- deny by default;
+- server-side validation;
+- least privilege;
+- secrets only in backend/environment;
+- minimal data and explicit purpose;
+- auditing without logging secrets or unnecessary sensitive content;
+- clients and local packages are considered tamperable.
 
-## Activos
+## Assets
 
-- credenciales y sesiones;
-- contenido no publicado;
-- audio, imágenes y traducciones con derechos;
-- progreso, favoritos y vocabulario;
-- datos de menores si finalmente existen;
-- claves AWS y base de datos;
-- historial de auditoría.
+- credentials and sessions;
+- unpublished content;
+- audio, images, and translations with rights;
+- progress, favorites, and vocabulary;
+- data of minors if present eventually;
+- AWS keys and database;
+- audit history.
 
-## Amenazas iniciales
+## Initial Threats
 
-| Amenaza | Control inicial |
+| Threat | Initial control |
 |---|---|
-| Acceso a Admin sin permiso | Autenticación, RBAC, autorización por acción |
-| Publicación inválida | Máquina de estados, transacción y auditoría |
-| Credenciales AWS en cliente | Adaptadores sólo backend y escaneo de secretos |
-| Paquete manipulado | HTTPS, checksum y manifiesto validado |
-| IDOR en progreso/vocabulario | Propiedad verificada en API |
-| Inyección | Pydantic, consultas parametrizadas y límites |
-| Abuso de generación de audio | Permisos, cuotas, estimación y rate limit futuro |
-| Logs con datos sensibles | Redacción y estructura definida |
-| Cuenta infantil sin consentimiento | Prohibirla hasta decisión de producto/legal |
+| Admin access without permission | Authentication, RBAC, action-level authorization |
+| Invalid publication | State machine, transaction and auditing |
+| AWS credentials in client | Backend-only adapters and secret scanning |
+| Tampered package | HTTPS, checksum and validated manifest |
+| IDOR in progress/vocabulary | Ownership verified in API |
+| Injection | Pydantic, parameterized queries and limits |
+| Abuse of audio generation | Permissions, quotas, estimation and future rate limiting |
+| Logs with sensitive data | Redaction and defined structure |
+| Child account without consent | Prohibit until product/legal decision |
 
-## Identidad y sesión
+## Identity and Session
 
-Las cuentas editoriales usan Argon2id y sesiones opacas revocables de servidor. SQLite conserva sólo
-los hashes del token de sesión y del token CSRF. El navegador recibe una cookie de sesión host-only,
-`HttpOnly`, `SameSite=Strict` y `Secure` en producción, más una cookie CSRF separada. No se usan JWT
-ni almacenamiento web para credenciales.
+Editorial accounts use Argon2id and server-revocable opaque sessions. SQLite stores only
+hashes of the session token and the CSRF token. The browser receives a host-only session cookie,
+`HttpOnly`, `SameSite=Strict` and `Secure` in production, plus a separate CSRF cookie. JWTs
+or web storage for credentials are not used.
 
-La inactividad expira a los 30 minutos y el máximo absoluto es de 8 horas. Login y logout validan un
-origen exacto; logout requiere coincidencia entre cookie, encabezado CSRF y hash persistido. Todas las
-respuestas `/auth` usan `Cache-Control: no-store`, y CORS sólo permite los orígenes configurados con
-credenciales.
+Inactivity expires after 30 minutes and the absolute maximum is 8 hours. Login and logout validate an
+exact origin; logout requires a match between cookie, CSRF header and persisted hash. All
+responses `/auth` use `Cache-Control: no-store`, and CORS only allows configured origins with
+credentials.
 
-Cinco fallos dentro de una ventana de 15 minutos bloquean la credencial durante 15 minutos. Una
-ventana vencida reinicia el contador y un login válido limpia el estado. Login exitoso, fallido,
-bloqueado y logout generan auditoría con ID de correlación; la evidencia no contiene email libre,
-contraseña ni tokens.
+Five failures within a 15-minute window lock the credential for 15 minutes. An
+expired window resets the counter and a valid login clears the state. Successful login, failed login,
+locked account and logout generate audit events with a correlation ID; the evidence does not contain plain email,
+password or tokens.
 
-## Autorización
+## Authorization
 
-La API verifica permisos explícitos y deniega por defecto; los nombres de rol no se usan como
-autorización directa.
+The API verifies explicit permissions and denies by default; role names are not used as
+direct authorization.
 
-| Rol | Permisos iniciales |
+| Role | Initial permissions |
 |---|---|
-| `super_admin` | todos los permisos del MVP |
-| `content_admin` | acceso Admin, crear, editar, procesar y publicar contenido |
-| `reviewer` | acceso Admin y revisar contenido |
-| `reader` | ninguno de administración |
+| `super_admin` | all MVP permissions |
+| `content_admin` | Admin access, create, edit, process and publish content |
+| `reviewer` | Admin access and review content |
+| `reader` | no administrative permissions |
 
-Permisos estables: `admin.access`, `users.manage`, `content.create`, `content.edit`,
-`content.process`, `content.review`, `content.publish` y `audit.read`. El bootstrap sincroniza la
-matriz de forma idempotente. Toda ruta administrativa requiere sesión activa y cada acción declara
-su permiso; `/admin/access` verifica el acceso inicial.
+Stable permissions: `admin.access`, `users.manage`, `content.create`, `content.edit`,
+`content.process`, `content.review`, `content.publish` and `audit.read`. The bootstrap syncs the
+matrix idempotently. Every administrative route requires an active session and each action declares
+its permission; `/admin/access` verifies initial access.
 
-## Datos y privacidad
+## Data and Privacy
 
-Antes de crear cuentas infantiles se definirá:
+Before creating child accounts the following will be defined:
 
-- base legal y consentimiento;
-- relación tutor-perfil;
-- edad y región;
-- retención y eliminación;
-- exportación;
-- analítica permitida;
-- soporte y recuperación.
+- legal basis and consent;
+- guardian-profile relationship;
+- age and region;
+- retention and deletion;
+- export;
+- allowed analytics;
+- support and recovery.
 
-FR-DEC-009 prohíbe cuentas personales y PII de menores en el MVP. La política completa se encuentra
-en `docs/requirements/DATA_POLICY.md`.
+FR-DEC-009 prohibits personal accounts and PII of minors in the MVP. The full policy is located
+at `docs/requirements/DATA_POLICY.md`.
 
 ## AWS
 
-- credenciales mediante roles o variables seguras del backend;
-- buckets privados y cifrado;
-- permisos separados por entorno;
-- URLs temporales de duración mínima si se usan;
-- no usar recursos reales durante pruebas automatizadas;
-- registrar IDs y resultados, no secretos.
+- credentials via roles or secure backend variables;
+- private buckets and encryption;
+- separate permissions per environment;
+- temporary URLs of minimum necessary duration if used;
+- do not use real resources during automated tests;
+- log IDs and results, not secrets.
 
-## Sesiones y protección web
+## Sessions and Web Protection
 
-- hash Argon2id actualizable;
-- sesiones opacas de corta duración, revocables y rotadas al autenticar;
-- protección CSRF y verificación de origen para métodos inseguros;
-- CSP, HSTS y encabezados apropiados en producción;
-- rate limiting para login, recuperación y procesamiento;
-- mensajes de autenticación que no revelen existencia de cuenta.
+- updatable Argon2id hash;
+- short-lived opaque sessions, revocable and rotated on authenticate;
+- CSRF protection and origin verification for unsafe methods;
+- CSP, HSTS and appropriate headers in production;
+- rate limiting for login, recovery and processing;
+- authentication messages that do not reveal account existence.
 
-## Dependencias y vulnerabilidades
+## Dependencies and Vulnerabilities
 
-- lockfiles obligatorios;
-- revisión antes de agregar dependencia;
-- escaneo en CI;
-- parche crítico priorizado y registrado;
-- artefactos reproducibles y procedencia verificable cuando la plataforma lo permita.
+- lockfiles required;
+- review before adding a dependency;
+- scanning in CI;
+- critical patch prioritized and recorded;
+- reproducible artifacts and verifiable provenance when the platform allows.
 
-## Respuesta inicial a incidentes
+## Initial Incident Response
 
-1. contener acceso o detener publicación/procesamiento;
-2. preservar evidencia segura;
-3. rotar secretos afectados;
-4. evaluar datos/contenido impactado;
-5. restaurar desde estado verificado;
-6. documentar causa, comunicación y prevención.
+1. contain access or stop publishing/processing;
+2. preserve evidence securely;
+3. rotate affected secrets;
+4. assess impacted data/content;
+5. restore from a verified state;
+6. document cause, communication and prevention.
 
-## Referencias relacionadas
+## Related References
 
 - `docs/architecture/THREAT_MODEL.md`
 - `docs/requirements/DATA_POLICY.md`
 - `docs/requirements/NON_FUNCTIONAL_REQUIREMENTS.md`
 
-## Validación
+## Validation
 
-- Límites de confianza y activos definidos: PASS.
-- Amenazas tienen control y prueba: PASS.
-- Privacidad infantil tiene decisión explícita: PASS.
-- Sesiones, secretos, auditoría y dependencias tienen estrategia: PASS.
+- Trust limits and assets defined: PASS.
+- Threats have controls and proof: PASS.
+- Child privacy has explicit decision: PASS.
+- Sessions, secrets, auditing and dependencies have strategy: PASS.

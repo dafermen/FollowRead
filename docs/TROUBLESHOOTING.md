@@ -1,8 +1,8 @@
-# Solución de problemas
+# Troubleshooting
 
-Esta es la entrada canónica para diagnosticar FollowRead.
+This is the canonical entry for diagnosing FollowRead.
 
-## Primer diagnóstico
+## First diagnosis
 
 ```powershell
 pnpm dev:check
@@ -12,21 +12,20 @@ pnpm mobile:doctor
 pnpm deploy:validate
 ```
 
-Comprobar también:
+Also check:
 
-- Node 24 y pnpm 11.9.0;
-- Python 3.12 y `apps/api/.venv`;
-- puertos 5173, 5174 y 8000 disponibles;
-- migración SQLite aplicada;
-- variables basadas en `.env.example`, sin secretos en Git.
+- Node 24 and pnpm 11.9.0;
+- Python 3.12 and `apps/api/.venv`;
+- ports 5173, 5174 and 8000 available;
+- SQLite migration applied;
+- variables based on `.env.example`, no secrets in Git.
 
-## Guías específicas
+## Specific guides
 
-- [Índice de diagnóstico](troubleshooting/README.md)
+- [Diagnosis index](troubleshooting/README.md)
 - [Android/Capacitor](troubleshooting/CAPACITOR_ANDROID.md)
 - [iOS/Capacitor](troubleshooting/CAPACITOR_IOS.md)
-- [Variables de entorno](development/ENVIRONMENT_VARIABLES.md)
-- [Problemas conocidos](project-management/KNOWN_ISSUES.md)
+- [Environment variables](development/ENVIRONMENT_VARIABLES.md)
+- [Known issues](project-management/KNOWN_ISSUES.md)
 
-Si el problema no está documentado, registrar síntomas, entorno, pasos de reproducción, resultado
-esperado/actual y solución antes de cerrar la tarea.
+If the issue is not documented, log symptoms, environment, reproduction steps, expected/actual result and fix before closing the task.

@@ -1,8 +1,8 @@
-# Documentación de desarrollo
+# Development documentation
 
-## Node.js y pnpm en Windows
+## Node.js and pnpm on Windows
 
-FollowRead requiere Node.js 24 y pnpm 11.9.0.
+FollowRead requires Node.js 24 and pnpm 11.9.0.
 
 ```powershell
 node --version
@@ -10,10 +10,10 @@ npm install --global pnpm@11.9.0
 pnpm --version
 ```
 
-Después de instalar, abre una terminal nueva. Si la política de PowerShell bloquea `pnpm.ps1`,
-ejecuta `pnpm.cmd` en su lugar.
+After installing, open a new terminal. If the PowerShell policy blocks `pnpm.ps1`,
+run `pnpm.cmd` instead.
 
-Desde la raíz:
+From the repository root:
 
 ```powershell
 pnpm setup
@@ -21,33 +21,33 @@ pnpm migrate
 pnpm check
 ```
 
-## Iniciar todo con un comando
+## Start everything with one command
 
-Después de `pnpm setup` y `pnpm migrate`:
+After `pnpm setup` and `pnpm migrate`:
 
 ```powershell
 pnpm dev
 ```
 
-Esto inicia API (`8000`), Admin (`5173`) y Reader (`5174`) en la misma terminal. `Ctrl+C` detiene
-los tres procesos. Puedes validar los prerrequisitos sin iniciar servidores con `pnpm dev:check`.
+This starts the API (`8000`), Admin (`5173`) and Reader (`5174`) in the same terminal. `Ctrl+C` stops
+all three processes. You can validate prerequisites without starting servers with `pnpm dev:check`.
 
-## Documentación visible en las aplicaciones
+## Documentation visible in the apps
 
 - Reader: `http://localhost:5174/documentation`
 - Admin: `http://localhost:5173/documentation`
 - OpenAPI: `http://localhost:8000/docs`
 
-Los enlaces “Ver documentación” de las pantallas iniciales abren la guía integrada.
+The "View documentation" links on the landing screens open the embedded guide.
 
-## Crear el primer superadministrador
+## Create the first superadmin
 
-Después de migrar SQLite, ejecuta desde la raíz:
+After migrating SQLite, run from the repository root:
 
 ```powershell
 pnpm admin:bootstrap -- --email admin@example.com --display-name "FollowRead Owner"
 ```
 
-El comando solicita y confirma la contraseña sin mostrarla ni incluirla en los argumentos. Debe
-tener entre 15 y 128 caracteres. Repetir el comando para el mismo superadministrador es seguro y no
-cambia su contraseña. También sincroniza la matriz inicial de roles y permisos.
+The command prompts for and confirms the password without displaying it or including it in the arguments. It must
+be between 15 and 128 characters. Re-running the command for the same superadmin is safe and does not
+change their password. It also syncs the initial matrix of roles and permissions.

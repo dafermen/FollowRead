@@ -1,3 +1,3 @@
 # @followread/configuration
 
-Configuración compartida que no incluye secretos ni acceso directo a variables privadas del servidor.
+Shared configuration that does not include secrets or direct access to private server variables.

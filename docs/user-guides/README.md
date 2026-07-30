@@ -1,4 +1,4 @@
-# Guías de usuario
+# User Guides
 
-Esta carpeta contendrá guías verificadas para Reader y Admin. Se escribirán junto con cada flujo para
-evitar documentar interfaces todavía inexistentes.
+This folder will contain vetted guides for Reader and Admin. They will be written alongside each flow to
+avoid documenting interfaces that do not yet exist.

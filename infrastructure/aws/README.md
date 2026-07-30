@@ -1,4 +1,4 @@
 # AWS
 
-Infraestructura y políticas futuras. No se almacenan credenciales ni se realizan llamadas reales en
-pruebas automatizadas.
+Future infrastructure and policies. No credentials are stored nor are real calls made in
+automated tests.

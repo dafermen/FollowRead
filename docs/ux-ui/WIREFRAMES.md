@@ -1,23 +1,24 @@
-# Wireframes de FollowRead
+# FollowRead Wireframes
 
-**Estado:** Reader y Admin validados  
-**Tarea Reader:** FR-PH01-TASK-003 - COMPLETED  
-**Tarea Admin:** FR-PH01-TASK-004 - COMPLETED  
-**Convención:** diagramas de baja fidelidad; no representan color, tipografía final ni dimensiones
-exactas.
+**Status:** Reader and Admin validated  
+**Reader Task:** FR-PH01-TASK-003 - COMPLETED  
+**Admin Task:** FR-PH01-TASK-004 - COMPLETED  
+**Convention:** low-fidelity diagrams; do not represent final color, typography, or exact dimensions.
+**Locale note:** Spanish labels inside the diagrams intentionally reproduce the application's
+current default UI; all explanatory documentation is in English.
 
-## Convenciones visuales
+## Visual conventions
 
-- `[ Acción ]`: botón o control.
-- `( )`: selección única.
-- `[x]`: preferencia activada.
-- `...`: contenido variable.
-- `!`: estado que necesita atención.
-- Orden en el diagrama: orden de lectura y foco, salvo anotación.
+- `[ Action ]`: button or control.
+- `( )`: single selection.
+- `[x]`: preference enabled.
+- `...`: variable content.
+- `!`: state that needs attention.
+- Order in the diagram: reading and focus order, unless otherwise noted.
 
-## Shell Reader
+## Reader Shell
 
-### Compacto
+### Compact
 
 ```text
 ┌──────────────────────────────┐
@@ -32,7 +33,7 @@ exactas.
 └──────────────────────────────┘
 ```
 
-### Amplio
+### Wide
 
 ```text
 ┌────────────┬─────────────────────────────────────┐
@@ -44,14 +45,13 @@ exactas.
 └────────────┴─────────────────────────────────────┘
 ```
 
-El shell no se muestra como navegación primaria durante lectura enfocada. El estado de conexión usa
-texto/semántica además de icono.
+The shell is not shown as primary navigation during focused reading. Connection status uses text/semantics in addition to icon.
 
 ---
 
-## FR-SCREEN-R01 - Inicio
+## FR-SCREEN-R01 - Home
 
-**Acción principal:** continuar la última lectura o elegir una recomendación.
+**Primary action:** continue the last reading or choose a recommendation.
 
 ```text
 ┌──────────────────────────────┐
@@ -68,13 +68,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> continuar -> recomendados -> biblioteca -> navegación.
-- **Estados:** nuevo (sin tarjeta continuar), offline (sólo local), progreso pendiente.
-- **Amplio:** continuar ocupa columna principal; recomendaciones forman cuadrícula.
+- **Focus:** title -> continue -> recommended -> library -> navigation.
+- **States:** new (no continue card), offline (local only), progress pending.
+- **Wide:** continue occupies the main column; recommendations form a grid.
 
-## FR-SCREEN-R02 - Biblioteca
+## FR-SCREEN-R02 - Library
 
-**Acción principal:** elegir contenido.
+**Primary action:** choose content.
 
 ```text
 ┌──────────────────────────────┐
@@ -89,13 +89,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> búsqueda -> filtros -> resultados.
-- **Estados:** vacía con limpiar filtros; error remoto conserva resultados locales; cargando incremental.
-- **Amplio:** filtros en rail; resultados en cuadrícula adaptable.
+- **Focus:** title -> search -> filters -> results.
+- **States:** empty with clear filters; remote error preserves local results; incremental loading.
+- **Wide:** filters in a rail; results in an adaptive grid.
 
-## FR-SCREEN-R03 - Categorías
+## FR-SCREEN-R03 - Categories
 
-**Acción principal:** seleccionar una categoría.
+**Primary action:** select a category.
 
 ```text
 ┌──────────────────────────────┐
@@ -108,13 +108,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> categorías -> contenido.
-- **Estados:** categoría sin resultados ofrece volver a todas; offline marca categorías sólo remotas.
-- **Amplio:** categorías como lista lateral y resultados a la derecha.
+- **Focus:** title -> categories -> content.
+- **States:** category with no results offers return to all; offline marks categories that are remote-only.
+- **Wide:** categories as a side list and results on the right.
 
-## FR-SCREEN-R04 - Búsqueda
+## FR-SCREEN-R04 - Search
 
-**Acción principal:** buscar por texto y abrir un resultado.
+**Primary action:** search by text and open a result.
 
 ```text
 ┌──────────────────────────────┐
@@ -127,13 +127,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** campo -> buscar -> filtros -> resultados.
-- **Estados:** inicial con sugerencias; sin resultados con corrección; error remoto con búsqueda local.
-- **Anuncio:** conteo de resultados después de enviar, no en cada tecla.
+- **Focus:** field -> search -> filters -> results.
+- **States:** initial with suggestions; no results with correction; remote error with local search.
+- **Announcement:** result count after submit, not on every keystroke.
 
-## FR-SCREEN-R05 - Detalle
+## FR-SCREEN-R05 - Detail
 
-**Acción principal:** leer; descargar cuando aún no está local.
+**Primary action:** read; download when not yet local.
 
 ```text
 ┌──────────────────────────────┐
@@ -148,14 +148,14 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** volver -> título/metadatos -> leer -> descargar -> descripción.
-- **Estados:** descargando, descargado, actualización, incompatible y retirado.
-- **Amplio:** portada izquierda, datos/acciones derecha; descripción debajo.
-- **Regla:** incompatible no ofrece leer/activar, pero explica versión requerida.
+- **Focus:** back -> title/metadata -> read -> download -> description.
+- **States:** downloading, downloaded, update available, incompatible, and withdrawn.
+- **Wide:** cover on the left, data/actions on the right; description below.
+- **Rule:** incompatible does not offer read/activate, but explains required version.
 
-## FR-SCREEN-R06 - Lector
+## FR-SCREEN-R06 - Reader
 
-**Acción principal:** reproducir/controlar la lectura.
+**Primary action:** play/control reading.
 
 ```text
 ┌──────────────────────────────┐
@@ -174,17 +174,16 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** salir -> modo/ajustes -> texto interactivo -> controles -> progreso.
-- **Auto-scroll:** mueve contenido, nunca foco; mantiene palabra en zona segura.
-- **Mano:** capa no interactiva debajo de palabra; se oculta por preferencia o reduced motion.
-- **Infantil:** texto/controles 44px+, menos opciones visibles, mano por defecto, salida protegida.
-- **Adulto:** mano oculta por defecto, tema/tamaño, controles sobrios.
-- **Aprender inglés:** palabra tocable, traducción opcional, repetir palabra/oración, vocabulario.
-- **Estados:** pausa, buffering, audio ausente, marcas inválidas, offline, orientación y fin de capítulo.
-- **Amplio:** texto centrado con ancho legible; controles persistentes inferiores; rail de traducción
-  sólo si hay espacio.
+- **Focus:** exit -> mode/settings -> interactive text -> controls -> progress.
+- **Auto-scroll:** moves content, never focus; keeps the word in a safe zone.
+- **Hand:** non-interactive layer under the word; hidden by preference or reduced motion.
+- **Child:** text/controls 44px+, fewer visible options, hand enabled by default, exit protected.
+- **Adult:** hand hidden by default, theme/size, subdued controls.
+- **Learn English:** tappable word, optional translation, repeat word/sentence, vocabulary.
+- **States:** paused, buffering, audio missing, invalid marks, offline, orientation, and end of chapter.
+- **Wide:** text centered with readable width; persistent bottom controls; translation rail only if space.
 
-### Error recuperable del Lector
+### Recoverable Reader Error
 
 ```text
 │ ! No pudimos reproducir audio │
@@ -193,9 +192,9 @@ texto/semántica además de icono.
 │ Código: FR-AUDIO-...          │
 ```
 
-## FR-SCREEN-R07 - Descargas
+## FR-SCREEN-R07 - Downloads
 
-**Acción principal:** gestionar una descarga.
+**Primary action:** manage a download.
 
 ```text
 ┌──────────────────────────────┐
@@ -209,14 +208,14 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> acción por elemento; progreso no recibe foco.
-- **Estados:** cola, progreso, pausada, validando, completa, sin espacio, corrupta.
-- **Regla:** eliminar local aclara que progreso/favorito no se eliminan.
-- **Amplio:** lista con columnas de tamaño, versión, estado y acciones.
+- **Focus:** title -> per-item action; progress does not receive focus.
+- **States:** queued, in progress, paused, validating, complete, out of space, corrupt.
+- **Rule:** deleting local clarifies that progress/favorite are not removed.
+- **Wide:** list with columns for size, version, state, and actions.
 
-## FR-SCREEN-R08 - Favoritos
+## FR-SCREEN-R08 - Favorites
 
-**Acción principal:** abrir un favorito.
+**Primary action:** open a favorite.
 
 ```text
 ┌──────────────────────────────┐
@@ -229,13 +228,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> filtro -> favorito -> abrir/quitar.
-- **Estados:** vacío con explorar; cambio local pendiente; error de sincronización.
-- **Confirmación:** quitar favorito es reversible mediante aviso, no diálogo bloqueante.
+- **Focus:** title -> filter -> favorite -> open/remove.
+- **States:** empty with explore; local change pending; sync error.
+- **Confirmation:** removing favorite is reversible via notice, not a blocking dialog.
 
-## FR-SCREEN-R09 - Historial
+## FR-SCREEN-R09 - History
 
-**Acción principal:** reanudar una lectura.
+**Primary action:** resume a reading.
 
 ```text
 ┌──────────────────────────────┐
@@ -249,13 +248,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> grupos cronológicos -> reanudar/leer de nuevo.
-- **Estados:** vacío, local, sincronizado, conflicto explicable.
-- **Regla:** muestra posición comprensible; el anclaje técnico no domina la UI.
+- **Focus:** title -> chronological groups -> resume/read again.
+- **States:** empty, local, synced, explainable conflict.
+- **Rule:** shows a comprehensible position; the technical anchor does not dominate the UI.
 
-## FR-SCREEN-R10 - Vocabulario
+## FR-SCREEN-R10 - Vocabulary
 
-**Acción principal:** estudiar/abrir una palabra en contexto.
+**Primary action:** study/open a word in context.
 
 ```text
 ┌──────────────────────────────┐
@@ -267,13 +266,13 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** búsqueda/filtro -> palabra -> audio -> contexto -> quitar.
-- **Estados:** vacío, offline con audio local/no local, sincronización pendiente.
-- **Regla:** significado y ejemplo son editoriales; no requiere IA.
+- **Focus:** search/filter -> word -> audio -> context -> remove.
+- **States:** empty, offline with local/non-local audio, pending sync.
+- **Rule:** meaning and example are editorial; does not require AI.
 
-## FR-SCREEN-R11 - Configuración
+## FR-SCREEN-R11 - Settings
 
-**Acción principal:** aplicar preferencias de lectura.
+**Primary action:** apply reading preferences.
 
 ```text
 ┌──────────────────────────────┐
@@ -289,14 +288,14 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** grupos en orden -> vista previa -> guardar.
-- **Estados:** valores del sistema, personalizados, error local y restablecer.
-- **Regla:** cambio visual se previsualiza; reducir movimiento prevalece sobre animación.
-- **Amplio:** formulario y vista previa lado a lado.
+- **Focus:** groups in order -> preview -> save.
+- **States:** system values, customized, local error and reset.
+- **Rule:** visual change is previewed; reduce motion prevails over animation.
+- **Wide:** form and preview side by side.
 
-## FR-SCREEN-R12 - Perfil
+## FR-SCREEN-R12 - Profile
 
-**Acción principal:** elegir o gestionar el perfil de lectura.
+**Primary action:** choose or manage the reading profile.
 
 ```text
 ┌──────────────────────────────┐
@@ -310,52 +309,52 @@ texto/semántica además de icono.
 └──────────────────────────────┘
 ```
 
-- **Foco:** perfil activo -> cambiar -> borrar.
-- **Infantil:** no pide nombre legal, email, edad ni ubicación.
-- **Estados:** invitado/local, almacenamiento no disponible, borrado confirmado.
-- **Regla:** borrar datos locales enumera progreso, descargas, preferencias y vocabulario afectados.
+- **Focus:** active profile -> switch -> delete.
+- **Child:** does not ask for legal name, email, age, or location.
+- **States:** guest/local, storage unavailable, deletion confirmed.
+- **Rule:** deleting local data lists affected progress, downloads, preferences, and vocabulary.
 
-## Adaptación responsive
+## Responsive adaptation
 
-| Rango orientativo | Shell | Contenido | Controles |
-|---|---|---|---|
-| <600px | barra superior + nav inferior | una columna | ancho completo/44px infantil |
-| 600-1023px | nav inferior o rail compacto | 1-2 columnas | agrupados por tarea |
-| >=1024px | sidebar persistente | grid + rail opcional | contexto visible |
+| Approximate range | Shell | Content | Controls |
+|---|---|---:|---|
+| <600px | top bar + bottom nav | one column | full width/44px child |
+| 600-1023px | bottom nav or compact rail | 1–2 columns | grouped by task |
+| >=1024px | persistent sidebar | grid + optional rail | visible context |
 
-Los breakpoints finales se decidirán por reflow del contenido, no por modelo de dispositivo.
+Final breakpoints will be decided by content reflow, not by device model.
 
-## Matriz de validación Reader
+## Reader validation matrix
 
-| Pantalla | Acción principal | Foco anotado | Estados | Compacto | Amplio |
+| Screen | Primary action | Focus annotated | States | Compact | Wide |
 |---|---:|---:|---:|---:|---:|
-| R01 Inicio | PASS | PASS | PASS | PASS | PASS |
-| R02 Biblioteca | PASS | PASS | PASS | PASS | PASS |
-| R03 Categorías | PASS | PASS | PASS | PASS | PASS |
-| R04 Búsqueda | PASS | PASS | PASS | PASS | PASS |
-| R05 Detalle | PASS | PASS | PASS | PASS | PASS |
-| R06 Lector | PASS | PASS | PASS | PASS | PASS |
-| R07 Descargas | PASS | PASS | PASS | PASS | PASS |
-| R08 Favoritos | PASS | PASS | PASS | PASS | PASS |
-| R09 Historial | PASS | PASS | PASS | PASS | PASS |
-| R10 Vocabulario | PASS | PASS | PASS | PASS | PASS |
-| R11 Configuración | PASS | PASS | PASS | PASS | PASS |
-| R12 Perfil | PASS | PASS | PASS | PASS | PASS |
+| R01 Home | PASS | PASS | PASS | PASS | PASS |
+| R02 Library | PASS | PASS | PASS | PASS | PASS |
+| R03 Categories | PASS | PASS | PASS | PASS | PASS |
+| R04 Search | PASS | PASS | PASS | PASS | PASS |
+| R05 Detail | PASS | PASS | PASS | PASS | PASS |
+| R06 Reader | PASS | PASS | PASS | PASS | PASS |
+| R07 Downloads | PASS | PASS | PASS | PASS | PASS |
+| R08 Favorites | PASS | PASS | PASS | PASS | PASS |
+| R09 History | PASS | PASS | PASS | PASS | PASS |
+| R10 Vocabulary | PASS | PASS | PASS | PASS | PASS |
+| R11 Settings | PASS | PASS | PASS | PASS | PASS |
+| R12 Profile | PASS | PASS | PASS | PASS | PASS |
 
-## Walkthroughs Reader
+## Reader walkthroughs
 
-- Descubrir -> detalle -> leer: PASS.
-- Descargar -> validar -> leer offline: PASS.
-- Reproducir -> repetir -> guardar progreso: PASS.
-- Aprender inglés -> vocabulario -> contexto: PASS.
-- Configurar modo/movimiento -> lector: PASS.
-- Error audio/descarga -> recuperación segura: PASS.
+- Discover -> detail -> read: PASS.
+- Download -> validate -> read offline: PASS.
+- Play -> repeat -> save progress: PASS.
+- Learn English -> vocabulary -> context: PASS.
+- Configure mode/motion -> reader: PASS.
+- Audio/download error -> safe recovery: PASS.
 
 ---
 
-# Wireframes Admin
+# Admin Wireframes
 
-## Shell Admin
+## Admin Shell
 
 ```text
 ┌──────────────┬──────────────────────────────────────────────┐
@@ -368,21 +367,19 @@ Los breakpoints finales se decidirán por reflow del contenido, no por modelo de
 └──────────────┴──────────────────────────────────────────────┘
 ```
 
-En ancho compacto, la navegación se abre mediante botón con nombre accesible y se cierra devolviendo
-foco al botón. Elementos sin permiso no se ofrecen, pero API siempre vuelve a autorizar.
+In compact width, navigation opens via a button with an accessible name and returns focus to the button when closed. Elements without permission are not offered, but the API always re-authorizes.
 
-| Rango orientativo | Navegación | Tablas/pares | Acciones |
-|---|---|---|---|
-| <600px | encabezado + drawer | tarjetas o pasos apilados | barra inferior contextual |
-| 600-1023px | rail colapsable | grid flexible / dos paneles si caben | cabecera de sección |
-| >=1024px | sidebar persistente | tablas y split panes | cabecera/rail contextual |
+| Approximate range | Navigation | Tables/pairs | Actions |
+|---|---|---:|---|
+| <600px | header + drawer | cards or stacked steps | contextual bottom bar |
+| 600-1023px | collapsible rail | flexible grid / two panes if they fit | section header |
+| >=1024px | persistent sidebar | tables and split panes | header/rail context |
 
-Diálogos peligrosos ocupan una superficie enfocada; en compacto pueden ser pantalla completa. Esta
-regla responsive aplica a A01-A14 salvo una anotación más específica.
+Dangerous dialogs occupy a focused surface; in compact they may be full screen. This responsive rule applies to A01–A14 except where a more specific note exists.
 
 ## FR-SCREEN-A01 - Login
 
-**Acción principal:** iniciar sesión.
+**Primary action:** sign in.
 
 ```text
 ┌──────────────────────────────┐
@@ -395,13 +392,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> email -> contraseña -> mostrar -> iniciar.
-- **Estados:** inicial, enviando, credencial inválida, rate limit, sesión expirada.
-- **Amplio:** tarjeta centrada; no incluye navegación Admin antes de autenticar.
+- **Focus:** title -> email -> password -> show -> sign in.
+- **States:** initial, sending, invalid credential, rate limit, session expired.
+- **Wide:** centered card; does not include Admin navigation before authentication.
 
 ## FR-SCREEN-A02 - Dashboard
 
-**Acción principal:** continuar el trabajo prioritario.
+**Primary action:** continue priority work.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -414,13 +411,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** título -> crear -> alertas/acciones -> recientes.
-- **Estados:** vacío, cargando, alertas, permiso parcial.
-- **Compacto:** tarjetas apiladas; una acción principal por tarjeta.
+- **Focus:** title -> create -> alerts/actions -> recent.
+- **States:** empty, loading, alerts, partial permission.
+- **Compact:** cards stacked; one primary action per card.
 
-## FR-SCREEN-A03 - Lista de contenido
+## FR-SCREEN-A03 - Content list
 
-**Acción principal:** abrir o crear contenido.
+**Primary action:** open or create content.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -432,13 +429,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** título -> crear -> filtros -> filas/acciones.
-- **Estados:** vacío con crear, sin resultados, error, permiso sólo lectura.
-- **Compacto:** filas se convierten en tarjetas con etiqueta-valor.
+- **Focus:** title -> create -> filters -> rows/actions.
+- **States:** empty with create, no results, error, read-only permission.
+- **Compact:** rows become cards with label-value pairs.
 
-## FR-SCREEN-A04 - Crear contenido
+## FR-SCREEN-A04 - Create content
 
-**Acción principal:** crear borrador.
+**Primary action:** create a draft.
 
 ```text
 ┌──────────────────────────────┐
@@ -452,13 +449,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └──────────────────────────────┘
 ```
 
-- **Foco:** título -> campos -> resumen de errores -> crear.
-- **Estados:** limpio, inválido, creando, error recuperable.
-- **Regla:** no solicita audio/recursos antes de que exista borrador.
+- **Focus:** title -> fields -> error summary -> create.
+- **States:** clean, invalid, creating, recoverable error.
+- **Rule:** does not request audio/resources before a draft exists.
 
-## FR-SCREEN-A05 - Editar contenido
+## FR-SCREEN-A05 - Edit content
 
-**Acción principal:** guardar cambios válidos.
+**Primary action:** save valid changes.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -471,14 +468,14 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** estado guardado -> pestañas -> campos -> guardar/previsualizar.
-- **Estados:** guardando, guardado, cambios locales, offline, error y conflicto.
-- **Conflicto:** compara "tu versión" y "versión remota"; nunca sobrescribe automáticamente.
-- **Compacto:** pestañas se vuelven selector/secciones; barra de guardado permanece visible.
+- **Focus:** saved state -> tabs -> fields -> save/preview.
+- **States:** saving, saved, local changes, offline, error and conflict.
+- **Conflict:** compares "your version" and "remote version"; never overwrites automatically.
+- **Compact:** tabs become selector/sections; save bar remains visible.
 
-## FR-SCREEN-A06 - Capítulos y párrafos
+## FR-SCREEN-A06 - Chapters and paragraphs
 
-**Acción principal:** editar la estructura.
+**Primary action:** edit the structure.
 
 ```text
 ┌───────────────┬────────────────────────────┐
@@ -489,13 +486,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └───────────────┴────────────────────────────┘
 ```
 
-- **Foco:** árbol -> agregar -> editor -> acciones; reordenar también funciona con teclado.
-- **Estados:** vacío, seleccionado, reordenando, error de longitud, cambios pendientes.
-- **Compacto:** lista de capítulos -> detalle en ruta secundaria con volver.
+- **Focus:** tree -> add -> editor -> actions; reordering also works with keyboard.
+- **States:** empty, selected, reordering, length error, pending changes.
+- **Compact:** chapter list -> detail on a secondary route with back.
 
-## FR-SCREEN-A07 - Traducciones
+## FR-SCREEN-A07 - Translations
 
-**Acción principal:** asociar texto inglés/español por unidad.
+**Primary action:** associate English/Spanish text per unit.
 
 ```text
 ┌─────────────────────┬──────────────────────┐
@@ -506,14 +503,14 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └─────────────────────┴──────────────────────┘
 ```
 
-- **Foco:** unidad original -> traducción relacionada -> acciones.
-- **Estados:** faltante, desalineada, completa, conflicto.
-- **Accesibilidad:** relación no depende de columnas/color; IDs y encabezados anuncian pares.
-- **Compacto:** pares apilados uno tras otro.
+- **Focus:** original unit -> related translation -> actions.
+- **States:** missing, misaligned, complete, conflict.
+- **Accessibility:** relationship does not rely on columns/color; IDs and headings announce pairs.
+- **Compact:** pairs stacked one after another.
 
-## FR-SCREEN-A08 - Configuración de voz
+## FR-SCREEN-A08 - Voice settings
 
-**Acción principal:** elegir voces válidas.
+**Primary action:** choose valid voices.
 
 ```text
 ┌──────────────────────────────┐
@@ -526,13 +523,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └──────────────────────────────┘
 ```
 
-- **Foco:** voz/prueba por idioma -> velocidad -> estimación -> guardar.
-- **Estados:** no elegida, incompatible, muestra cargando/error, válida.
-- **Regla:** prueba y costo pasan por API; no hay credenciales AWS en Admin.
+- **Focus:** voice/test per language -> speed -> estimate -> save.
+- **States:** not chosen, incompatible, shows loading/error, valid.
+- **Rule:** test and cost go through the API; there are no AWS credentials in Admin.
 
-## FR-SCREEN-A09 - Procesamiento
+## FR-SCREEN-A09 - Processing
 
-**Acción principal:** procesar, cancelar o reintentar según estado.
+**Primary action:** process, cancel, or retry depending on state.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -545,14 +542,14 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** título/estado -> acciones -> detalle seguro.
-- **Estados:** listo, cola, progreso, cancelando, fallido, parcial, completo, límite.
-- **Fallo:** muestra recursos conservados y `[ Reintentar ]`; no duplica trabajo.
-- **Compacto:** etapas apiladas; progreso conserva etiqueta textual.
+- **Focus:** title/state -> actions -> safe detail.
+- **States:** ready, queued, in progress, canceling, failed, partial, complete, limit.
+- **Failure:** shows preserved resources and `[ Reintentar ]`; does not duplicate work.
+- **Compact:** stages stacked; progress preserves textual label.
 
-## FR-SCREEN-A10 - Revisión
+## FR-SCREEN-A10 - Review
 
-**Acción principal:** aprobar o rechazar con evidencia.
+**Primary action:** approve or reject with evidence.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -564,13 +561,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** checklist -> preview -> comentario -> rechazar/aprobar.
-- **Estados:** pendiente, defecto, comentario requerido, lista, permiso insuficiente.
-- **Regla:** aprobar/rechazar produce transición auditada; color no es única señal.
+- **Focus:** checklist -> preview -> comment -> reject/approve.
+- **States:** pending, defect, comment required, list, insufficient permission.
+- **Rule:** approve/reject produces an audited transition; color is not the sole signal.
 
-## FR-SCREEN-A11 - Previsualización
+## FR-SCREEN-A11 - Preview
 
-**Acción principal:** comprobar la experiencia exacta del Reader.
+**Primary action:** check the exact Reader experience.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -583,13 +580,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** opciones de viewport/modo -> preview -> marcar/volver.
-- **Estados:** audio ausente, marcas inválidas, recursos faltantes, válida.
-- **Regla:** usa los mismos contratos/componentes de lectura, no una simulación desconectada.
+- **Focus:** viewport/mode options -> preview -> mark/back.
+- **States:** audio missing, invalid marks, missing resources, valid.
+- **Rule:** uses the same reading contracts/components, not a disconnected simulation.
 
-## FR-SCREEN-A12 - Publicación
+## FR-SCREEN-A12 - Publish
 
-**Acción principal:** confirmar publicación de una versión aprobada.
+**Primary action:** confirm publishing an approved version.
 
 ```text
 ┌──────────────────────────────┐
@@ -602,13 +599,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └──────────────────────────────┘
 ```
 
-- **Foco:** resumen -> cancelar -> publicar.
-- **Estados:** bloqueada con razones, confirmación, publicando, publicada, error.
-- **Regla:** requiere permiso; nunca ofrece publicar si faltan validaciones.
+- **Focus:** summary -> cancel -> publish.
+- **States:** blocked with reasons, confirmation, publishing, published, error.
+- **Rule:** requires permission; never offers publish if validations are missing.
 
-## FR-SCREEN-A13 - Historial y auditoría
+## FR-SCREEN-A13 - History and audit
 
-**Acción principal:** investigar un cambio.
+**Primary action:** investigate a change.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -619,13 +616,13 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** filtros -> eventos -> detalle.
-- **Estados:** vacío, filtrado, cargando, evento retenido/expirado.
-- **Regla:** detalle omite secretos y datos no necesarios.
+- **Focus:** filters -> events -> detail.
+- **States:** empty, filtered, loading, event retained/expired.
+- **Rule:** detail omits secrets and unnecessary data.
 
-## FR-SCREEN-A14 - Errores y trabajos
+## FR-SCREEN-A14 - Errors and jobs
 
-**Acción principal:** diagnosticar y recuperar.
+**Primary action:** diagnose and recover.
 
 ```text
 ┌────────────────────────────────────────────┐
@@ -637,33 +634,33 @@ regla responsive aplica a A01-A14 salvo una anotación más específica.
 └────────────────────────────────────────────┘
 ```
 
-- **Foco:** filtros -> trabajo -> diagnóstico/reintento.
-- **Estados:** activo, fallido, cancelado, límite, recuperado.
-- **Regla:** reintento muestra costo/efecto y usa idempotencia.
+- **Focus:** filters -> job -> diagnose/retry.
+- **States:** active, failed, canceled, limit, recovered.
+- **Rule:** retry shows cost/effect and uses idempotency.
 
-## Matriz de validación Admin
+## Admin validation matrix
 
-| Pantalla | Acción principal | Foco anotado | Estados | Compacto | Amplio |
+| Screen | Primary action | Focus annotated | States | Compact | Wide |
 |---|---:|---:|---:|---:|---:|
 | A01 Login | PASS | PASS | PASS | PASS | PASS |
 | A02 Dashboard | PASS | PASS | PASS | PASS | PASS |
-| A03 Contenido | PASS | PASS | PASS | PASS | PASS |
-| A04 Crear | PASS | PASS | PASS | PASS | PASS |
-| A05 Editar | PASS | PASS | PASS | PASS | PASS |
-| A06 Capítulos | PASS | PASS | PASS | PASS | PASS |
-| A07 Traducciones | PASS | PASS | PASS | PASS | PASS |
-| A08 Voz | PASS | PASS | PASS | PASS | PASS |
-| A09 Procesamiento | PASS | PASS | PASS | PASS | PASS |
-| A10 Revisión | PASS | PASS | PASS | PASS | PASS |
+| A03 Content | PASS | PASS | PASS | PASS | PASS |
+| A04 Create | PASS | PASS | PASS | PASS | PASS |
+| A05 Edit | PASS | PASS | PASS | PASS | PASS |
+| A06 Chapters | PASS | PASS | PASS | PASS | PASS |
+| A07 Translations | PASS | PASS | PASS | PASS | PASS |
+| A08 Voice | PASS | PASS | PASS | PASS | PASS |
+| A09 Processing | PASS | PASS | PASS | PASS | PASS |
+| A10 Review | PASS | PASS | PASS | PASS | PASS |
 | A11 Preview | PASS | PASS | PASS | PASS | PASS |
-| A12 Publicación | PASS | PASS | PASS | PASS | PASS |
-| A13 Historial | PASS | PASS | PASS | PASS | PASS |
-| A14 Errores | PASS | PASS | PASS | PASS | PASS |
+| A12 Publish | PASS | PASS | PASS | PASS | PASS |
+| A13 History | PASS | PASS | PASS | PASS | PASS |
+| A14 Errors | PASS | PASS | PASS | PASS | PASS |
 
-## Walkthroughs Admin
+## Admin walkthroughs
 
-- Crear -> guardar borrador -> recuperar conflicto: PASS.
-- Estructurar -> traducir -> configurar voz: PASS.
-- Procesar -> error -> reintentar: PASS.
-- Revisar -> previsualizar -> rechazar/aprobar: PASS.
-- Aprobar -> confirmar publicación -> auditar: PASS.
+- Create -> save draft -> recover conflict: PASS.
+- Structure -> translate -> configure voice: PASS.
+- Process -> error -> retry: PASS.
+- Review -> preview -> reject/approve: PASS.
+- Approve -> confirm publish -> audit: PASS.

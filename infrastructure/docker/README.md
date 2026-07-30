@@ -1,21 +1,21 @@
-# Contenedores de despliegue
+# Deployment containers
 
-Docker sigue siendo opcional para desarrollo: `pnpm dev` usa procesos locales y SQLite sin
-contenedores. La Fase 13 añade imágenes reproducibles para despliegue:
+Docker remains optional for development: `pnpm dev` uses local processes and SQLite without
+containers. Phase 13 adds reproducible images for deployment:
 
-- `api.Dockerfile`: FastAPI como usuario sin privilegios y volumen `/data`;
-- `admin.Dockerfile`: build Vite y Nginx para la SPA administrativa;
-- `reader.Dockerfile`: build Reader/PWA y Nginx;
-- `compose.yaml`: migración Alembic previa, salud, capacidades mínimas y volumen SQLite.
+- `api.Dockerfile`: FastAPI as an unprivileged user and volume `/data`;
+- `admin.Dockerfile`: Vite build and Nginx for the admin SPA;
+- `reader.Dockerfile`: Reader/PWA build and Nginx;
+- `compose.yaml`: prior Alembic migration, health, minimal capabilities, and SQLite volume.
 
-Las imágenes base están fijadas a versiones explícitas. CI construye las tres imágenes sin
-publicarlas; un tag SemVer publica en GHCR cuando el repositorio disponga de remote GitHub.
+Base images are pinned to explicit versions. CI builds the three images without
+publishing them; a SemVer tag publishes to GHCR when the repository has a remote on GitHub.
 
-Uso local opcional:
+Optional local usage:
 
 ```powershell
 pnpm deploy:local
 pnpm deploy:smoke
 ```
 
-Requiere Docker Desktop o Docker Engine. No cambia la ruta de desarrollo normal.
+Requires Docker Desktop or Docker Engine. It does not change the normal development workflow.

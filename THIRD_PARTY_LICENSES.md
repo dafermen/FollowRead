@@ -1,19 +1,19 @@
-# Licencias de terceros
+# Third-party licenses
 
-FollowRead se publica como código fuente bajo la licencia MIT. Esa licencia sólo cubre el código y
-los recursos originales de este repositorio; no sustituye las licencias de dependencias,
-herramientas, SDK ni componentes de terceros.
+FollowRead is published as source code under the MIT license. That license only covers the original code and
+resources in this repository; it does not replace the licenses of dependencies,
+tools, SDKs, or third-party components.
 
-Las versiones exactas se fijan en:
+Exact versions are fixed in:
 
-- `pnpm-lock.yaml` para el workspace JavaScript/TypeScript;
-- `apps/api/pyproject.toml` para la API Python;
-- los proyectos nativos de `apps/reader/android` y `apps/reader/ios` para Capacitor.
+- `pnpm-lock.yaml` for the JavaScript/TypeScript workspace;
+- `apps/api/pyproject.toml` for the Python API;
+- the native projects in `apps/reader/android` and `apps/reader/ios` for Capacitor.
 
-Las dependencias no se versionan dentro del repositorio: `node_modules`, entornos virtuales,
-artefactos compilados y caches están excluidos. Cada distribución conserva los avisos y textos de
-licencia incluidos por sus respectivos paquetes.
+Dependencies are not versioned inside the repository: `node_modules`, virtual environments,
+compiled artifacts and caches are excluded. Each distribution preserves the notices and license texts
+included by their respective packages.
 
-Antes de distribuir binarios, imágenes OCI, APK, IPA o instaladores se debe generar y aprobar el
-inventario del artefacto concreto con nombre, versión, licencia, copyright y avisos exigidos. La
-publicación del código fuente no equivale a esa aprobación de binarios.
+Before distributing binaries, OCI images, APKs, IPAs or installers, an inventory of the specific artifact
+must be generated and approved listing name, version, license, copyright and required notices. The
+publication of the source code does not constitute approval of those binaries.

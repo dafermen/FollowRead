@@ -1,70 +1,70 @@
-# Política inicial de datos
+# Initial Data Policy
 
-**Estado:** Aprobada para diseño de MVP  
-**Tarea responsable:** FR-PH00-TASK-006 - COMPLETED
+**Status:** Approved for MVP design  
+**Responsible task:** FR-PH00-TASK-006 - COMPLETED
 
-## Principios
+## Principles
 
-1. Recopilar lo mínimo.
-2. Definir propósito antes de crear un campo.
-3. Separar contenido editorial, datos operativos y datos de usuario.
-4. No almacenar PII de menores en el MVP.
-5. Permitir lectura local sin cuenta.
-6. No incluir datos sensibles en logs.
-7. Diseñar exportación y eliminación antes de habilitar cuentas Reader.
+1. Collect the minimum necessary.
+2. Define purpose before creating a field.
+3. Separate editorial content, operational data, and user data.
+4. Do not store minors' PII in the MVP.
+5. Allow local reading without an account.
+6. Do not include sensitive data in logs.
+7. Design export and deletion before enabling Reader accounts.
 
-## Inventario inicial
+## Initial inventory
 
-| Categoría | Datos | Propósito | Ubicación | Retención inicial |
+| Category | Data | Purpose | Location | Initial retention |
 |---|---|---|---|---|
-| Admin | email/identificador, hash, roles | Acceso editorial | API/SQLite | Mientras esté activa + política |
-| Sesión Admin | hashes de token/CSRF, tiempos y revocación | Acceso autenticado revocable | API/SQLite | Hasta expirar/revocar + limpieza operativa de 30 días |
-| Contenido | texto, traducción, metadatos | Publicación/lectura | SQLite/S3/local | Por versión/política editorial |
-| Recursos | audio, marcas, imágenes | Lectura sincronizada | S3/local | Por versión |
-| Auditoría | actor, acción, objetivo, resultado | Seguridad/trazabilidad | SQLite/logs | >=365 días |
-| Trabajo | etapa, error seguro, costo estimado | Procesamiento/diagnóstico | SQLite/logs | 90 días tras terminar |
-| Perfil local | preferencias y alias no identificable | Personalización | Dispositivo | Hasta borrar app/datos |
-| Progreso | contenido, versión, anclaje, fecha | Reanudar/sincronizar | Local/API opcional | Hasta eliminación |
-| Favoritos | IDs de contenido | Biblioteca personal | Local/API opcional | Hasta eliminación |
-| Vocabulario | palabra, contexto, contenido | Aprendizaje | Local/API opcional | Hasta eliminación |
+| Admin | email/identifier, hash, roles | Editorial access | API/SQLite | While active + policy |
+| Admin Session | token/CSRF hashes, timestamps and revocation | Revocable authenticated access | API/SQLite | Until expired/revoked + 30-day operational cleanup |
+| Content | text, translation, metadata | Publishing/reading | SQLite/S3/local | Per version/editorial policy |
+| Assets | audio, marks, images | Synchronized reading | S3/local | Per version |
+| Audit | actor, action, target, outcome | Security/traceability | SQLite/logs | >=365 days |
+| Job | stage, safe error, estimated cost | Processing/diagnosis | SQLite/logs | 90 days after completion |
+| Local profile | non-identifiable preferences and alias | Personalization | Device | Until app/data is deleted |
+| Progress | content, version, anchor, date | Resume/sync | Local/optional API | Until deletion |
+| Favorites | content IDs | Personal library | Local/optional API | Until deletion |
+| Vocabulary | word, context, content | Learning | Local/optional API | Until deletion |
 
-## Menores
+## Minors
 
-El MVP:
+For the MVP:
 
-- no solicita nombre legal, email, fecha de nacimiento, escuela o ubicación de un menor;
-- no crea una cuenta personal infantil;
-- no envía analítica identificable de uso infantil;
-- permite un perfil local no identificable o una sesión supervisada;
-- no presenta el perfil local como mecanismo legal de consentimiento.
+- it does not request a minor's legal name, email, date of birth, school, or location;
+- it does not create a child personal account;
+- it does not send identifiable analytics of child usage;
+- it allows a non-identifiable local profile or a supervised session;
+- it does not present the local profile as a legal consent mechanism.
 
-Antes de cambiar estas reglas se requiere una decisión con jurisdicciones, edad, consentimiento,
-relación tutor-menor, exportación, eliminación, retención y respuesta a solicitudes.
+Before changing these rules, a decision is required covering jurisdictions, age, consent,
+guardian-child relationship, export, deletion, retention, and responses to requests.
 
-## Logs y telemetría
+## Logs and telemetry
 
-Permitido: correlation ID, identificadores internos, etapa, duración, código de error y conteos.
+Allowed: correlation ID, internal identifiers, stage, duration, error code, and counts.
 
-Prohibido por defecto: contraseñas, tokens, claves, texto completo privado, vocabulario personal,
-correo en texto libre, datos de menores y URLs firmadas completas.
+Prohibited by default: passwords, tokens, keys, full private text, personal vocabulary,
+free-text email addresses, minors' data, and full signed URLs.
 
-Los eventos de autenticación usan identificadores internos, acción, resultado y correlation ID. No
-guardan la contraseña intentada, el token, el correo solicitado ni cuerpos HTTP.
+Authentication events use internal identifiers, action, result, and correlation ID. They do not
+store the attempted password, the token, the requested email, or HTTP bodies.
 
-Los tokens de sesión y CSRF se entregan sólo al cliente correspondiente. SQLite conserva sus hashes,
-nunca sus valores utilizables. Las sesiones revocadas o expiradas pueden eliminarse mediante una
-limpieza operativa una vez cumplidos 30 días; la evidencia de seguridad necesaria vive en auditoría.
+Session and CSRF tokens are delivered only to the corresponding client. SQLite retains their hashes,
+never usable values. Revoked or expired sessions may be removed by an operational
+cleanup once 30 days have passed; the required security evidence lives in audit.
 
-## Derechos y eliminación
+## Rights and deletion
 
-- Los datos locales se pueden borrar desde configuración o datos de la plataforma.
-- Una cuenta futura debe ofrecer solicitud de exportación y eliminación.
-- Auditoría legalmente requerida puede conservarse separada y minimizada.
-- Eliminar una descarga no elimina progreso remoto; el usuario debe distinguir ambas acciones.
+- Local data can be deleted from settings or platform data.
+- A future account must offer export and deletion requests.
+- Legally required audit records can be kept separate and minimized.
+- Deleting a download does not remove remote progress; the user must distinguish the two actions.
 
-## Validación
+## Validation
 
-- Cada categoría tiene propósito, ubicación y retención: PASS.
-- La política cumple FR-DEC-009: PASS.
-- Logs tienen lista permitida/prohibida: PASS.
-- La lectura local no depende de cuenta: PASS.
+- Each category has purpose, location, and retention: PASS.
+- The policy complies with FR-DEC-009: PASS.
+- Logs have allowed/prohibited lists: PASS.
+- Local reading does not depend on an account: PASS.

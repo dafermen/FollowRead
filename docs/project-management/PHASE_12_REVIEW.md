@@ -1,44 +1,43 @@
-# Revisión de Fase 12 - Calidad, seguridad y rendimiento
+# Phase 12 Review - Quality, Security, and Performance
 
-**Fecha:** 2026-07-26
-**Estado:** PASS
+**Date:** 2026-07-26
+**Status:** PASS
 
-## Resultado
+## Outcome
 
-El producto completo quedó endurecido sin cambiar SQLite ni incorporar servicios externos. API,
-Admin y Reader tienen recuperación global de errores, observabilidad privada, caché explícita,
-compresión y pruebas reproducibles de seguridad, accesibilidad, carga y regresión.
+The complete product was hardened without changing SQLite or incorporating external services. API,
+Admin, and Reader have global error recovery, private observability, explicit caching,
+compression, and reproducible tests for security, accessibility, load, and regression.
 
-## Criterios de salida
+## Exit Criteria
 
-| Criterio | Evidencia | Estado |
+| Criterion | Evidence | Status |
 |---|---|---|
-| Auditoría de seguridad | cabeceras, errores seguros, CORS y documento de auditoría | PASS |
-| Auditoría de accesibilidad | ocho rutas reales en Chrome móvil | PASS |
-| Optimización y lazy loading | chunks separados para Admin y sala de lectura | PASS |
-| Compresión y caching | GZip, ETag, cache-control y tres estrategias PWA | PASS |
-| Carga y regresión | presupuesto p95 y comando integral | PASS |
-| Manejo global de errores | barreras React y contrato API seguro | PASS |
-| Logging y métricas | JSON, request ID, Server-Timing y Prometheus | PASS |
-| Dependencias | cero vulnerabilidades conocidas moderadas o superiores | PASS |
-| Documentación | arquitectura, seguridad, pruebas y comandos online | PASS |
+| Security audit | headers, safe errors, CORS and audit document | PASS |
+| Accessibility audit | eight real routes on mobile Chrome | PASS |
+| Optimization and lazy loading | separate chunks for Admin and reading room | PASS |
+| Compression and caching | GZip, ETag, cache-control and three PWA strategies | PASS |
+| Load and regression | p95 budget and comprehensive command | PASS |
+| Global error handling | React boundaries and safe API contract | PASS |
+| Logging and metrics | JSON, request ID, Server-Timing and Prometheus | PASS |
+| Dependencies | zero known vulnerabilities moderate or above | PASS |
+| Documentation | architecture, security, tests and online commands | PASS |
 
-## Incidencias encontradas y resueltas
+## Issues Found and Resolved
 
-1. La carga diferida introdujo un estado intermedio legítimo no contemplado por una prueba Reader;
-   se actualizó la regresión para verificarlo.
-2. La auditoría detectó 17 avisos transitivos de Capacitor; se actualizaron dependencias transitivas
-   y se confirmó la generación de assets Android/iOS.
-3. `pip-audit` detectó seis avisos en el instalador `pip`; el setup ahora lo actualiza a una versión
-   corregida antes de instalar la API.
+1. Lazy loading introduced a legitimate intermediate state not considered by a Reader test;
+   the regression was updated to verify it.
+2. The audit detected 17 transitive Capacitor warnings; transitive dependencies were updated
+   and generation of Android/iOS assets was confirmed.
+3. `pip-audit` detected six warnings in the installer `pip`; the setup now updates it to a fixed version before installing the API.
 
-## Evidencia
+## Evidence
 
 - `pnpm check`
 - `pnpm security:audit`
 - `pnpm quality:budget`
 - `pnpm quality:load`
 - `pnpm quality:a11y`
-- E2E Reader, offline, móvil y aprendizaje
+- E2E Reader, offline, mobile and learnability
 
-La Fase 12 queda cerrada. La siguiente fase es **Fase 13 - CI/CD y despliegue**.
+Phase 12 is closed. The next phase is **Phase 13 - CI/CD and deployment**.

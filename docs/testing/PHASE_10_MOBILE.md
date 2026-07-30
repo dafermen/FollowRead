@@ -1,49 +1,47 @@
-# Evidencia móvil de Fase 10
+# Phase 10 Mobile Evidence
 
-**Fecha:** 2026-07-26
-**Resultado:** PASS con validación iOS pendiente de hardware macOS antes de publicar
+**Date:** 2026-07-26
+**Result:** PASS with iOS validation pending macOS hardware before release
 
-## Automatización
+## Automation
 
-| Verificación | Resultado |
+| Verification | Result |
 |---|---|
 | `pnpm mobile:validate` | PASS |
-| 8 archivos / 33 pruebas Reader | PASS |
-| Build web y `cap sync android/ios` | PASS |
-| `pnpm mobile:build:android` | PASS, APK debug generado |
-| Chrome 390 × 844 con safe areas 47/34 | PASS |
-| Chrome 844 × 390 con safe areas laterales/inferior | PASS |
-| Progreso después de rotación | PASS |
-| Android API 35, instalación y arranque en AVD | PASS |
-| Android mantiene `MainActivity` al rotar | PASS |
-| Estructura, SPM, orientaciones y permisos iOS | PASS estático |
-| Build/ejecución iOS | Requerido en macOS/Xcode 26 antes de App Store |
+| 8 files / 33 Reader tests | PASS |
+| Web build and `cap sync android/ios` | PASS |
+| `pnpm mobile:build:android` | PASS, debug APK generated |
+| Chrome 390 × 844 with safe areas 47/34 | PASS |
+| Chrome 844 × 390 with lateral/bottom safe areas | PASS |
+| Progress after rotation | PASS |
+| Android API 35, install and launch on AVD | PASS |
+| Android preserves `MainActivity` on rotate | PASS |
+| iOS structure, SPM, orientations and permissions | PASS static |
+| iOS build/run | Required on macOS/Xcode 26 before App Store |
 
-Las capturas de ejecución se guardan localmente bajo `var/e2e/` y no se versionan:
+Runtime screenshots are saved locally under `var/e2e/` and are not versioned:
 
 - `phase10-reader-portrait.png`;
 - `phase10-reader-landscape.png`;
 - `phase10-android-portrait.png`;
 - `phase10-android-landscape.png`.
 
-## Escenarios cubiertos
+## Scenarios covered
 
-1. Shell compacto sin overflow horizontal.
-2. Navegación inferior por encima del indicador de inicio.
-3. Cabecera por debajo de notch/status bar.
-4. Lector horizontal con controles visibles.
-5. Tiempo y palabra activa conservados al rotar.
-6. APK instala y abre `com.followread.reader/.MainActivity`.
-7. El cuento incluido carga sin depender de la API.
-8. Android solicita únicamente red; iOS no solicita permisos sensibles.
+1. Compact shell without horizontal overflow.
+2. Bottom navigation above the home indicator.
+3. Header below notch/status bar.
+4. Horizontal reader with visible controls.
+5. Time and active word preserved on rotate.
+6. APK installs and opens `com.followread.reader/.MainActivity`.
+7. The included story loads without relying on the API.
+8. Android only requests network; iOS does not request sensitive permissions.
 
-## Matriz manual previa a publicación
+## Pre-release manual matrix
 
-| Plataforma | Mínimo | Actual | Grande/tablet |
+| Platform | Minimum | Current | Large/tablet |
 |---|---|---|---|
-| Android | API 24, WebView actualizado | API 35/36 | tablet vertical/horizontal |
-| iOS | iPhone, iOS 15 | iOS vigente | iPad vertical/horizontal |
+| Android | API 24, updated WebView | API 35/36 | tablet portrait/landscape |
+| iOS | iPhone, iOS 15 | current iOS | iPad portrait/landscape |
 
-En cada dispositivo: primer inicio, splash claro/oscuro, biblioteca, lectura offline, voz disponible y
-no disponible, fondo/primer plano, pérdida/retorno de red, rotación, tamaño de texto del sistema,
-notch/isla dinámica, navegación gestual y reinicio del proceso.
+On each device: first launch, light/dark splash, library, offline reading, voice available and unavailable, background/foreground, network loss/return, rotation, system text size, notch/dynamic island, gesture navigation and process restart.

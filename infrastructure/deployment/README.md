@@ -1,11 +1,9 @@
-# Automatización de despliegue
+# Deployment automation
 
-Los archivos `*.example.env` contienen sólo valores públicos o placeholders. Copia el ejemplo del
-entorno a un archivo no versionado, configura dominios y ejecuta `scripts/deploy-compose.mjs`.
+The files `*.example.env` contain only public values or placeholders. Copy the environment example to an unversioned file, configure domains, and run `scripts/deploy-compose.mjs`.
 
-`local` puede levantarse directamente con `pnpm deploy:local`. `staging` y `production` requieren
-un archivo explícito y `FOLLOWREAD_DEPLOY_APPROVED=YES`. Un rollback cambia artefactos a un tag
-SemVer anterior y nunca revierte la base de datos automáticamente.
+`local` can be brought up directly with `pnpm deploy:local`. `staging` and `production` require
+an explicit file and `FOLLOWREAD_DEPLOY_APPROVED=YES`. A rollback changes artifacts to a previous SemVer tag and never rolls back the database automatically.
 
-Consulta `docs/deployment/CONTAINER_DEPLOYMENT.md`, `RELEASE_PROCESS.md` y
+See `docs/deployment/CONTAINER_DEPLOYMENT.md`, `RELEASE_PROCESS.md`, and
 `BACKUP_AND_ROLLBACK.md`.

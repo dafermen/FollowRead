@@ -1,18 +1,18 @@
 # @followread/reader-engine
 
-Sincronización, palabra activa y control de reproducción sin dependencia de React ni del DOM.
+Synchronization, active word, and playback control without dependence on React or the DOM.
 
-## Capacidades
+## Capabilities
 
-- valida duración, orden, límites y relación entre marcas y capítulos;
-- encuentra la palabra activa con búsqueda binaria;
-- reproduce, pausa, busca, salta, repite y cambia velocidad o capítulo;
-- conserva progreso mediante posición y anclas estables;
-- modela resize, orientación, interrupción y pérdida de audio.
+- validates duration, ordering, bounds, and relationship between marks and chapters;
+- finds the active word using binary search;
+- plays, pauses, seeks, skips, repeats, and changes speed or chapter;
+- preserves progress via stable position and anchors;
+- models resize, orientation, interruption, and audio loss.
 
 ```powershell
 pnpm --filter @followread/reader-engine test
 pnpm --filter @followread/reader-engine build
 ```
 
-La integración completa está descrita en `docs/architecture/READER_ENGINE.md`.
+Full integration is described in `docs/architecture/READER_ENGINE.md`.

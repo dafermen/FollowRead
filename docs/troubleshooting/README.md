@@ -1,35 +1,30 @@
-# Solución de problemas
+# Troubleshooting
 
-Los documentos específicos se crearán cuando exista una implementación verificable. Cada guía
-incluirá síntoma, causa probable, confirmación, archivos, diagnóstico, solución, validación y
-prevención.
+Specific documents will be created when a verifiable deployment exists. Each guide will include symptom, likely cause, confirmation, files, diagnosis, fix, validation, and prevention.
 
-Áreas previstas: audio, Speech Marks, AWS, base de datos, autenticación, sincronización del Reader,
-Capacitor Android/iOS, offline y despliegue.
+Planned areas: audio, Speech Marks, AWS, database, authentication, Reader sync, Capacitor Android/iOS, offline, and deployment.
 
-Guías móviles:
+Mobile guides:
 
 - `CAPACITOR_ANDROID.md`
 - `CAPACITOR_IOS.md`
-# Solución de problemas
+# Troubleshooting
 
-## `/health` responde pero `/ready` devuelve 503
+## `/health` responds but `/ready` returns 503
 
-El proceso está vivo, pero SQLite no acepta consultas. Revisar:
+The process is alive, but SQLite is not accepting queries. Check:
 
-1. que `FOLLOWREAD_DATABASE_URL` empiece por `sqlite:///`;
-2. que el directorio de la base exista y sea escribible por el proceso;
-3. que `pnpm migrate` haya aplicado la cabeza de Alembic;
-4. que no se haya movido o bloqueado `var/followread.db`.
+1. that `FOLLOWREAD_DATABASE_URL` starts with `sqlite:///`;
+2. that the database directory exists and is writable by the process;
+3. that `pnpm migrate` has applied the Alembic head;
+4. that `var/followread.db` has not been moved or locked.
 
-No sustituir readiness por health en una comprobación de despliegue.
+Do not replace readiness with health in a deployment check.
 
-## Correlacionar un error 500
+## Correlate a 500 error
 
-Copiar el valor `X-Request-ID` de la respuesta o `error.details.request_id` y buscarlo en los logs
-JSON. La respuesta no contiene trazas ni detalles de base de datos por diseño.
+Copy the `X-Request-ID` value from the response or `error.details.request_id` and search for it in the JSON logs. The response does not contain traces or database details by design.
 
-## El catálogo está vacío
+## The catalog is empty
 
-Confirmar que la publicación esté activa, la versión tenga estado `published`, y existan `checksum`
-y `package_url`. Borradores, publicaciones inactivas y paquetes incompletos se excluyen.
+Confirm that the publication is active, the version has status `published`, and that `checksum` and `package_url` exist. Drafts, inactive publications, and incomplete packages are excluded.

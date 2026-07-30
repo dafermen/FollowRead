@@ -1,19 +1,19 @@
-# Operaciones
+# Operations
 
-Esta es la entrada canónica para operar FollowRead después de construir un artefacto.
+This is the canonical entry for operating FollowRead after building an artifact.
 
-## Controles operativos
+## Operational controls
 
-- confirmar `GET /ready` antes de enviar tráfico;
-- conservar request IDs y logs estructurados sin contenido personal;
-- vigilar latencia, errores, disponibilidad y uso de almacenamiento;
-- respaldar SQLite antes de migraciones o cambios de versión;
-- verificar checksum e integridad de cada backup;
-- ejecutar smoke tests después de desplegar;
-- revertir artefactos sin hacer downgrade automático de datos;
-- documentar incidente, impacto, decisión y recuperación.
+- confirm `GET /ready` before sending traffic;
+- retain request IDs and structured logs without personal content;
+- monitor latency, errors, availability, and storage usage;
+- back up SQLite before migrations or version changes;
+- verify checksum and integrity of each backup;
+- run smoke tests after deploying;
+- roll back artifacts without automatically downgrading data;
+- document incident, impact, decision, and recovery.
 
-## Comandos locales
+## Local commands
 
 ```powershell
 pnpm deploy:backup
@@ -22,13 +22,12 @@ pnpm deploy:smoke
 pnpm quality:load
 ```
 
-`deploy:restore` es destructivo y exige confirmación explícita. En staging/production también se
-requiere aprobación de entorno y una copia previa a la restauración.
+`deploy:restore` is destructive and requires explicit confirmation. In staging/production, environment approval and a copy prior to restoration are also required.
 
-## Runbooks relacionados
+## Related runbooks
 
-- [Observabilidad](architecture/OBSERVABILITY.md)
-- [Backup y rollback](deployment/BACKUP_AND_ROLLBACK.md)
-- [Contenedores](deployment/CONTAINER_DEPLOYMENT.md)
-- [Solución de problemas](TROUBLESHOOTING.md)
-- [Problemas conocidos](project-management/KNOWN_ISSUES.md)
+- [Observability](architecture/OBSERVABILITY.md)
+- [Backup and rollback](deployment/BACKUP_AND_ROLLBACK.md)
+- [Containers](deployment/CONTAINER_DEPLOYMENT.md)
+- [Troubleshooting](TROUBLESHOOTING.md)
+- [Known issues](project-management/KNOWN_ISSUES.md)

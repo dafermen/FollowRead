@@ -1,56 +1,61 @@
 # Changelog
 
-Los cambios relevantes de FollowRead se documentan aquí siguiendo el estilo de Keep a Changelog.
-El proyecto aún no tiene una versión pública estable.
+The relevant changes of FollowRead are documented here following the Keep a Changelog style.
+The project does not yet have a stable public release.
 
 ## Unreleased
 
 ### Added
 
-- licencia MIT para el código y los recursos originales del repositorio;
-- estructura documental canónica y ADR;
-- política de trece categorías de pruebas antes del despliegue;
-- continuidad obligatoria mediante `AGENTS.md` y `CURRENT_STATUS.md`;
-- CI, contenedores, backup/restore, release notes, smoke y rollback preparados;
-- narración OpenAI opcional con alineación por palabra y MP3 servido sólo desde la API.
-- caché persistente de narración basada en la huella del texto, voz y modelos para evitar llamadas
-  repetidas al proveedor de pago.
-- narración publicada del cuento de demostración con OpenAI `marin` en español y `cedar` en inglés.
-- ilustraciones opcionales por capítulo con fallback automático a la portada;
-- nueva ilustración original para **The Shining Path / El sendero brillante**, capítulo 2 de
+- an English portfolio README with a visual product tour and four verified Reader/Admin screenshots;
+- a reproducible `pnpm screenshots:readme` command for refreshing the README gallery;
+- an English, visually verified edition of the original FollowRead master project prompt;
+- MIT license for the repository's original code and assets;
+- canonical documentation structure and ADRs;
+- pre-deployment policy of thirteen test categories;
+- mandatory continuity via `AGENTS.md` and `CURRENT_STATUS.md`;
+- CI, containers, backup/restore, release notes, smoke and rollback prepared;
+- optional OpenAI narration with word-level alignment and MP3 served only from the API.
+- persistent narration cache based on the fingerprint of the text, voice, and models to avoid
+  repeated calls to the paid provider.
+- published narration of the demo story with OpenAI `marin` in Spanish and `cedar` in English.
+- optional illustrations per chapter with automatic fallback to the cover;
+- new original illustration for **The Shining Path / El sendero brillante**, chapter 2 of
   **The Fox and the Moon / El zorro y la luna**.
-- catálogo demo completo con cuatro lecturas bilingües publicadas y dos capítulos por lectura;
-- tres portadas originales para **The River Between Us**, **El jardín secreto** y
+- complete demo catalog with four bilingual readings published and two chapters per reading;
+- three original covers for **The River Between Us**, **El jardín secreto**, and
   **La casa de los sonidos**;
-- siembra idempotente del catálogo completo con audio local o narración OpenAI reutilizable.
+- idempotent seeding of the full catalog with local audio or reusable OpenAI narration.
 
 ### Changed
 
-- repositorio preparado para su publicación pública inicial en GitHub;
-- SQLite es la persistencia autoritativa del MVP;
-- el indicador de lectura ahora es una mano debajo de la palabra y las correcciones de voz nunca
-  hacen retroceder el resaltado;
-- la mano de lectura usa el gesto `👆` para señalar claramente la palabra desde abajo;
-- el checksum del paquete publicado se actualiza al cambiar audio o marcas temporales;
-- el Reader refresca el bootstrap incluido cuando cambia su checksum y evita servirlo desde una
-  caché obsoleta.
-- las filas de demostración de Admin abren directamente su lectura publicada en Reader;
-- la portada de inicio prioriza un cuento cuando el catálogo también contiene artículos o lecciones;
-- `pnpm demo:seed` prepara el catálogo completo y asegura audio natural para todas las lecturas
-  cuando OpenAI está configurado.
+- all repository documentation, contribution templates and continuity files now use American
+  English while preserving literal bilingual product labels and story titles;
+- repository prepared for its initial public release on GitHub;
+- SQLite is the authoritative persistence for the MVP;
+- the reading indicator is now a hand under the word and voice corrections never
+  move the highlight backward;
+- the reading hand uses the `👆` gesture to clearly point to the word from below;
+- the checksum of the published package updates when audio or timestamps change;
+- the Reader refreshes the included bootstrap when its checksum changes and avoids serving it from a
+  stale cache.
+- Admin demo rows open their published reading directly in the Reader;
+- the home cover prioritizes a story when the catalog also contains articles or lessons;
+- `pnpm demo:seed` prepares the full catalog and ensures natural audio for all readings
+  when OpenAI is configured.
 
 ### Fixed
 
-- el Reader ya no intenta reproducir rutas locales generadas por el adaptador simulado como si
-  fueran MP3 publicados;
-- una versión offline incluida obsoleta ya no oculta el audio real disponible en la API;
-- el botón EN ya no queda sin efecto cuando el alineador externo entrega dos marcas con una pequeña
-  superposición temporal.
-- el resaltado sincronizado ya no cambia la palabra de `inline` a `inline-block`, por lo que el
-  párrafo mantiene su composición durante la narración;
-- el desplazamiento automático ya no recentra cada palabra que continúa dentro del área visible.
+- the Reader no longer attempts to play local paths generated by the simulated adapter as if
+  they were published MP3s;
+- an obsolete included offline version no longer hides the real audio available from the API;
+- the EN button no longer becomes unresponsive when the external aligner provides two marks with a small
+  temporal overlap.
+- synchronized highlighting no longer changes the word from `inline` to `inline-block`, so the
+  paragraph maintains its layout during narration;
+- auto-scrolling no longer recenters every word that continues within the visible area.
 
-## 0.0.0 - MVP en desarrollo
+## 0.0.0 - MVP in development
 
-- Fases 0 a 12 completadas.
-- Fase 13 preparada localmente y pendiente de Docker, GitHub y staging reales.
+- Phases 0 through 12 completed.
+- Phase 13 prepared locally and pending real Docker, GitHub, and staging.

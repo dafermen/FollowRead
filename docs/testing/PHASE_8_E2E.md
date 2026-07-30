@@ -1,33 +1,33 @@
-# Verificación E2E de Reader - Fase 8
+# E2E Verification of Reader - Phase 8
 
-## Preparación
+## Preparation
 
 ```powershell
 pnpm demo:seed
 pnpm dev
 ```
 
-En otra terminal:
+In another terminal:
 
 ```powershell
 pnpm reader:e2e
 ```
 
-El recorrido usa Chrome o Edge en modo headless contra los servicios reales. Verifica inicio,
-biblioteca, detalle, lector, ajustes y manifest PWA. Las interacciones de favoritos, historial,
-configuración, aprendizaje, narración y fallos recuperables se cubren con Vitest.
+The walkthrough uses Chrome or Edge in headless mode against the real services. It verifies sign-in,
+library, detail, reader, settings, and PWA manifest. Interactions for favorites, history,
+configuration, learning, narration, and recoverable crashes are covered with Vitest.
 
-## Revisión visual
+## Visual review
 
-Revisar al menos:
+Inspect at minimum:
 
-- 1440 × 1000: rail lateral, jerarquía y tarjetas;
-- 390 × 844: navegación inferior, safe areas y controles;
-- 320 CSS px o zoom 400%: reflow sin desplazamiento horizontal de contenido;
-- teclado: skip link, foco visible, filtros, lector y panel de aprendizaje;
-- movimiento reducido y temas claro/oscuro.
+- 1440 × 1000: sidebar, hierarchy, and cards;
+- 390 × 844: bottom navigation, safe areas, and controls;
+- 320 CSS px or 400% zoom: reflow without horizontal scrolling of content;
+- keyboard: skip link, visible focus, filters, reader, and learning panel;
+- reduced motion and light/dark themes.
 
-## Alcance
+## Scope
 
-La prueba PWA comprueba shell instalable. No exige contenido descargado porque esa capacidad se
-implementa en la Fase 9.
+The PWA test checks for an installable shell. It does not require downloaded content because that capability
+is implemented in Phase 9.

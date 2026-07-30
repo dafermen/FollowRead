@@ -1,39 +1,33 @@
-# Evidencia de calidad, accesibilidad y rendimiento - Fase 12
+# Quality, accessibility, and performance evidence - Phase 12
 
-**Fecha:** 2026-07-26
-**Resultado:** PASS
+**Date:** 2026-07-26
+**Result:** PASS
 
-## Automatización añadida
+## Automation added
 
-| Comando | Cobertura |
+| Command | Coverage |
 |---|---|
-| `pnpm quality:a11y` | semántica, nombres, etiquetas, idioma, IDs, landmarks y reflow móvil |
-| `pnpm quality:budget` | chunks, gzip, service worker, cabeceras, timing y métricas |
-| `pnpm quality:load` | 120 solicitudes concurrentes sobre salud y catálogo SQLite |
-| `pnpm security:audit` | vulnerabilidades JavaScript y Python |
-| `pnpm quality:regression` | puerta completa, cuatro E2E Reader y las auditorías anteriores |
+| `pnpm quality:a11y` | semantics, names, labels, language, IDs, landmarks and mobile reflow |
+| `pnpm quality:budget` | chunks, gzip, service worker, headers, timing and metrics |
+| `pnpm quality:load` | 120 concurrent requests against health and SQLite catalog |
+| `pnpm security:audit` | JavaScript and Python vulnerabilities |
+| `pnpm quality:regression` | full door, four E2E Reader and the previous audits |
 
-## Resultado medido
+## Measured result
 
-- Admin: entrada 12.7 KB, área administrativa diferida 54.0 KB y React 189.7 KB; todos los chunks
-  están por debajo de 150 KB gzip.
-- Reader: entrada 65.0 KB, sala de lectura diferida 19.8 KB y React 189.7 KB; todos los chunks están
-  por debajo de 150 KB gzip.
-- Carga final: 120 solicitudes, concurrencia 12, p50 60.9 ms, p95 107.9 ms, máximo 122.5 ms,
-  cero fallos. Presupuesto p95: 750 ms.
-- Accesibilidad automatizada: ocho rutas de Admin/Reader a 390 × 844 sin nombres vacíos, campos sin
-  etiqueta, imágenes sin `alt`, IDs duplicados, landmarks ausentes ni desbordamiento horizontal.
-- Dependencias: cero vulnerabilidades conocidas de nivel moderado o superior en JavaScript y cero
-  vulnerabilidades conocidas en el entorno Python.
+- Admin: entry 12.7 KB, deferred admin area 54.0 KB and React 189.7 KB; all chunks are below 150 KB gzip.
+- Reader: entry 65.0 KB, deferred reading room 19.8 KB and React 189.7 KB; all chunks are below 150 KB gzip.
+- Final load: 120 requests, concurrency 12, p50 60.9 ms, p95 107.9 ms, max 122.5 ms, zero failures. p95 budget: 750 ms.
+- Automated accessibility: eight Admin/Reader routes at 390 × 844 without empty names, unlabeled fields, images missing `alt`, duplicate IDs, missing landmarks or horizontal overflow.
+- Dependencies: zero known moderate-or-higher vulnerabilities in JavaScript and zero known vulnerabilities in the Python environment.
 
-## Regresión funcional
+## Functional regression
 
-- Admin: 14 pruebas.
-- Reader: 38 pruebas.
-- Reader Engine: 6 pruebas.
-- Configuración: 3 pruebas.
-- API: 101 pruebas.
-- Tipos estrictos, lint, formato, cobertura y builds de producción en verde.
+- Admin: 14 tests.
+- Reader: 38 tests.
+- Reader Engine: 6 tests.
+- Configuration: 3 tests.
+- API: 101 tests.
+- Strict types, lint, format, coverage and production builds green.
 
-La auditoría automatizada reduce regresiones, pero no sustituye pruebas con tecnologías de
-asistencia ni la validación física iOS requerida antes de TestFlight.
+Automated auditing reduces regressions, but does not replace testing with assistive technologies nor the required physical iOS validation before TestFlight.

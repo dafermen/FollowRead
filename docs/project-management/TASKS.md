@@ -1,2734 +1,2624 @@
-# Tareas de FollowRead
+# FollowRead Tasks
 
-## Reglas de uso
+## Rules of use
 
-Este archivo contiene las tareas detalladas de las fases activadas. Las fases posteriores se
-descompondrán antes de activarlas. Una tarea sólo se marca `COMPLETED` cuando código o documentos, pruebas y criterios de
-aceptación correspondientes están satisfechos.
+This file contains the detailed tasks for the activated phases. Later phases will be broken down before activation. A task is only marked `COMPLETED` when corresponding code or documents, tests, and acceptance criteria are satisfied.
 
-## Resumen
+## Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH00-TASK-001 | Analizar el prompt maestro y establecer la línea base | COMPLETED | Critical |
-| FR-PH00-TASK-002 | Definir y validar la visión del producto | COMPLETED | Critical |
-| FR-PH00-TASK-003 | Definir usuarios, necesidades y resultados | COMPLETED | High |
-| FR-PH00-TASK-004 | Definir alcance, MVP y fuera de alcance | COMPLETED | Critical |
-| FR-PH00-TASK-005 | Especificar requisitos funcionales y reglas de negocio | COMPLETED | Critical |
-| FR-PH00-TASK-006 | Especificar requisitos no funcionales, seguridad y privacidad | COMPLETED | Critical |
-| FR-PH00-TASK-007 | Crear historias de usuario y casos de uso | COMPLETED | High |
-| FR-PH00-TASK-008 | Definir criterios de aceptación y trazabilidad | COMPLETED | Critical |
-| FR-PH00-TASK-009 | Validar contexto y arquitectura inicial | COMPLETED | High |
-| FR-PH00-TASK-010 | Definir estrategia UX y accesibilidad | COMPLETED | High |
-| FR-PH00-TASK-011 | Definir estrategias de pruebas y despliegue | COMPLETED | High |
-| FR-PH00-TASK-012 | Revisar y cerrar la Fase 0 | COMPLETED | Critical |
+| FR-PH00-TASK-001 | Analyze the master prompt and establish the baseline | COMPLETED | Critical |
+| FR-PH00-TASK-002 | Define and validate the product vision | COMPLETED | Critical |
+| FR-PH00-TASK-003 | Define users, needs and outcomes | COMPLETED | High |
+| FR-PH00-TASK-004 | Define scope, MVP and out of scope | COMPLETED | Critical |
+| FR-PH00-TASK-005 | Specify functional requirements and business rules | COMPLETED | Critical |
+| FR-PH00-TASK-006 | Specify non-functional requirements, security and privacy | COMPLETED | Critical |
+| FR-PH00-TASK-007 | Create user stories and use cases | COMPLETED | High |
+| FR-PH00-TASK-008 | Define acceptance criteria and traceability | COMPLETED | Critical |
+| FR-PH00-TASK-009 | Validate context and initial architecture | COMPLETED | High |
+| FR-PH00-TASK-010 | Define UX and accessibility strategy | COMPLETED | High |
+| FR-PH00-TASK-011 | Define testing and deployment strategies | COMPLETED | High |
+| FR-PH00-TASK-012 | Review and close Phase 0 | COMPLETED | Critical |
 
-## Resumen de Fase 1
+## Phase 1 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH01-TASK-001 | Inventariar pantallas, estados y principios | COMPLETED | Critical |
-| FR-PH01-TASK-002 | Diseñar arquitectura de información y flujos | COMPLETED | Critical |
-| FR-PH01-TASK-003 | Crear wireframes de Reader | COMPLETED | High |
-| FR-PH01-TASK-004 | Crear wireframes de Admin | COMPLETED | High |
-| FR-PH01-TASK-005 | Definir sistema visual y componentes | COMPLETED | High |
-| FR-PH01-TASK-006 | Especificar responsive y accesibilidad | COMPLETED | Critical |
-| FR-PH01-TASK-007 | Validar prototipos y recorridos críticos | COMPLETED | High |
-| FR-PH01-TASK-008 | Revisar y cerrar la Fase 1 | COMPLETED | Critical |
+| FR-PH01-TASK-001 | Inventory screens, states and principles | COMPLETED | Critical |
+| FR-PH01-TASK-002 | Design information architecture and flows | COMPLETED | Critical |
+| FR-PH01-TASK-003 | Create Reader wireframes | COMPLETED | High |
+| FR-PH01-TASK-004 | Create Admin wireframes | COMPLETED | High |
+| FR-PH01-TASK-005 | Define visual system and components | COMPLETED | High |
+| FR-PH01-TASK-006 | Specify responsive and accessibility | COMPLETED | Critical |
+| FR-PH01-TASK-007 | Validate prototypes and critical journeys | COMPLETED | High |
+| FR-PH01-TASK-008 | Review and close Phase 1 | COMPLETED | Critical |
 
-## Resumen de Fase 2
+## Phase 2 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH02-TASK-001 | Elegir herramientas e inicializar repositorio y monorepo | COMPLETED | Critical |
-| FR-PH02-TASK-002 | Configurar workspace, TypeScript y paquetes compartidos | COMPLETED | Critical |
-| FR-PH02-TASK-003 | Crear aplicaciones base Admin y Reader | COMPLETED | Critical |
-| FR-PH02-TASK-004 | Crear aplicación base FastAPI | COMPLETED | Critical |
-| FR-PH02-TASK-005 | Configurar calidad y pruebas base | COMPLETED | Critical |
-| FR-PH02-TASK-006 | Definir configuración y variables de entorno | COMPLETED | High |
-| FR-PH02-TASK-007 | Preparar SQLite local | COMPLETED | High |
-| FR-PH02-TASK-008 | Configurar migraciones base | COMPLETED | High |
-| FR-PH02-TASK-009 | Unificar scripts y hooks locales | COMPLETED | High |
-| FR-PH02-TASK-010 | Crear integración continua | COMPLETED | High |
-| FR-PH02-TASK-011 | Verificar instalación limpia y cerrar Fase 2 | COMPLETED | Critical |
+| FR-PH02-TASK-001 | Choose tools and initialize repository and monorepo | COMPLETED | Critical |
+| FR-PH02-TASK-002 | Configure workspace, TypeScript and shared packages | COMPLETED | Critical |
+| FR-PH02-TASK-003 | Create base Admin and Reader apps | COMPLETED | Critical |
+| FR-PH02-TASK-004 | Create base FastAPI application | COMPLETED | Critical |
+| FR-PH02-TASK-005 | Configure base quality and testing | COMPLETED | Critical |
+| FR-PH02-TASK-006 | Define configuration and environment variables | COMPLETED | High |
+| FR-PH02-TASK-007 | Prepare local SQLite | COMPLETED | High |
+| FR-PH02-TASK-008 | Configure base migrations | COMPLETED | High |
+| FR-PH02-TASK-009 | Unify local scripts and hooks | COMPLETED | High |
+| FR-PH02-TASK-010 | Create continuous integration | COMPLETED | High |
+| FR-PH02-TASK-011 | Verify clean install and close Phase 2 | COMPLETED | Critical |
 
-## Resumen de Fase 3
+## Phase 3 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH03-TASK-001 | Diseñar el modelo de datos y sus invariantes | COMPLETED | Critical |
-| FR-PH03-TASK-002 | Crear fundamentos persistentes y tipos comunes | COMPLETED | Critical |
-| FR-PH03-TASK-003 | Modelar contenido editorial, versiones y publicación | COMPLETED | Critical |
-| FR-PH03-TASK-004 | Modelar recursos y trabajos de procesamiento | COMPLETED | High |
-| FR-PH03-TASK-005 | Modelar identidad, roles y permisos sin autenticación | COMPLETED | High |
-| FR-PH03-TASK-006 | Modelar datos de lectura y sincronización | COMPLETED | High |
-| FR-PH03-TASK-007 | Crear la migración funcional y validar integridad | COMPLETED | Critical |
-| FR-PH03-TASK-008 | Implementar repositorios y unidad de trabajo | COMPLETED | Critical |
-| FR-PH03-TASK-009 | Implementar servicios, validaciones y errores | COMPLETED | Critical |
-| FR-PH03-TASK-010 | Exponer catálogo y contenido por API | COMPLETED | Critical |
-| FR-PH03-TASK-011 | Añadir logging, readiness y OpenAPI verificable | COMPLETED | High |
-| FR-PH03-TASK-012 | Auditar y cerrar Fase 3 | COMPLETED | Critical |
+| FR-PH03-TASK-001 | Design the data model and its invariants | COMPLETED | Critical |
+| FR-PH03-TASK-002 | Create persistent foundations and common types | COMPLETED | Critical |
+| FR-PH03-TASK-003 | Model editorial content, versions and publishing | COMPLETED | Critical |
+| FR-PH03-TASK-004 | Model resources and processing jobs | COMPLETED | High |
+| FR-PH03-TASK-005 | Model identity, roles and permissions without authentication | COMPLETED | High |
+| FR-PH03-TASK-006 | Model reading data and synchronization | COMPLETED | High |
+| FR-PH03-TASK-007 | Create the functional migration and validate integrity | COMPLETED | Critical |
+| FR-PH03-TASK-008 | Implement repositories and unit of work | COMPLETED | Critical |
+| FR-PH03-TASK-009 | Implement services, validations and errors | COMPLETED | Critical |
+| FR-PH03-TASK-010 | Expose catalog and content via API | COMPLETED | Critical |
+| FR-PH03-TASK-011 | Add logging, readiness and verifiable OpenAPI | COMPLETED | High |
+| FR-PH03-TASK-012 | Audit and close Phase 3 | COMPLETED | Critical |
 
-## Resumen de Fase 4
+## Phase 4 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH04-TASK-001 | Diseñar identidad, sesión y controles web | COMPLETED | Critical |
-| FR-PH04-TASK-002 | Modelar credenciales y sesiones revocables | COMPLETED | Critical |
-| FR-PH04-TASK-003 | Implementar primitivas de contraseña y token | COMPLETED | Critical |
-| FR-PH04-TASK-004 | Crear bootstrap seguro de superadministrador | COMPLETED | Critical |
-| FR-PH04-TASK-005 | Exponer login, logout y sesión actual | COMPLETED | Critical |
-| FR-PH04-TASK-006 | Aplicar cookie, CSRF, origen, caché y CORS | COMPLETED | Critical |
-| FR-PH04-TASK-007 | Aplicar autorización RBAC por permiso | COMPLETED | Critical |
-| FR-PH04-TASK-008 | Añadir auditoría y límite de intentos | COMPLETED | High |
-| FR-PH04-TASK-009 | Verificar seguridad, OpenAPI y documentación | COMPLETED | Critical |
-| FR-PH04-TASK-010 | Auditar y cerrar Fase 4 | COMPLETED | Critical |
+| FR-PH04-TASK-001 | Design identity, session and web controls | COMPLETED | Critical |
+| FR-PH04-TASK-002 | Model credentials and revocable sessions | COMPLETED | Critical |
+| FR-PH04-TASK-003 | Implement password and token primitives | COMPLETED | Critical |
+| FR-PH04-TASK-004 | Create secure bootstrap for superadministrator | COMPLETED | Critical |
+| FR-PH04-TASK-005 | Expose login, logout and current session | COMPLETED | Critical |
+| FR-PH04-TASK-006 | Apply cookie, CSRF, origin, cache and CORS | COMPLETED | Critical |
+| FR-PH04-TASK-007 | Apply RBAC authorization by permission | COMPLETED | Critical |
+| FR-PH04-TASK-008 | Add auditing and attempt limiting | COMPLETED | High |
+| FR-PH04-TASK-009 | Verify security, OpenAPI and documentation | COMPLETED | Critical |
+| FR-PH04-TASK-010 | Audit and close Phase 4 | COMPLETED | Critical |
 
-## Resumen de Fase 5
+## Phase 5 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH05-TASK-001 | Descomponer y activar la Fase 5 | COMPLETED | Critical |
-| FR-PH05-TASK-002 | Crear shell y fundamentos visuales de Admin | COMPLETED | Critical |
-| FR-PH05-TASK-003 | Integrar acceso y sesión en Admin | COMPLETED | Critical |
-| FR-PH05-TASK-004 | Implementar Dashboard editorial | COMPLETED | High |
-| FR-PH05-TASK-005 | Implementar lista y filtros de contenido | COMPLETED | Critical |
-| FR-PH05-TASK-006 | Implementar creación y metadatos de contenido | COMPLETED | Critical |
-| FR-PH05-TASK-007 | Implementar editor, estructura y recuperación | COMPLETED | Critical |
-| FR-PH05-TASK-008 | Implementar traducciones, recursos y voz | COMPLETED | High |
-| FR-PH05-TASK-009 | Implementar procesamiento y diagnóstico | COMPLETED | High |
-| FR-PH05-TASK-010 | Implementar revisión, publicación e historial | COMPLETED | Critical |
-| FR-PH05-TASK-011 | Verificar responsive, accesibilidad y estados | COMPLETED | Critical |
-| FR-PH05-TASK-012 | Auditar y cerrar Fase 5 | COMPLETED | Critical |
+| FR-PH05-TASK-001 | Break down and activate Phase 5 | COMPLETED | Critical |
+| FR-PH05-TASK-002 | Create Admin shell and visual foundations | COMPLETED | Critical |
+| FR-PH05-TASK-003 | Integrate access and session in Admin | COMPLETED | Critical |
+| FR-PH05-TASK-004 | Implement editorial Dashboard | COMPLETED | High |
+| FR-PH05-TASK-005 | Implement content list and filters | COMPLETED | Critical |
+| FR-PH05-TASK-006 | Implement content creation and metadata | COMPLETED | Critical |
+| FR-PH05-TASK-007 | Implement editor, structure and retrieval | COMPLETED | Critical |
+| FR-PH05-TASK-008 | Implement translations, resources and voice | COMPLETED | High |
+| FR-PH05-TASK-009 | Implement processing and diagnostics | COMPLETED | High |
+| FR-PH05-TASK-010 | Implement review, publishing and history | COMPLETED | Critical |
+| FR-PH05-TASK-011 | Verify responsive, accessibility and states | COMPLETED | Critical |
+| FR-PH05-TASK-012 | Audit and close Phase 5 | COMPLETED | Critical |
 
-## Resumen de Fase 6
+## Phase 6 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH06-TASK-001 | Descomponer y activar la Fase 6 | COMPLETED | Critical |
-| FR-PH06-TASK-002 | Definir configuración, contratos y voces | COMPLETED | Critical |
-| FR-PH06-TASK-003 | Dividir texto y estimar costos | COMPLETED | Critical |
-| FR-PH06-TASK-004 | Implementar adaptadores local y Amazon Polly | COMPLETED | Critical |
-| FR-PH06-TASK-005 | Almacenar audio con integridad | COMPLETED | High |
-| FR-PH06-TASK-006 | Procesar y mapear Speech Marks | COMPLETED | Critical |
-| FR-PH06-TASK-007 | Orquestar trabajos, idempotencia y reintentos | COMPLETED | Critical |
-| FR-PH06-TASK-008 | Exponer API segura de procesamiento | COMPLETED | Critical |
-| FR-PH06-TASK-009 | Integrar progreso y diagnóstico en Admin | COMPLETED | High |
-| FR-PH06-TASK-010 | Verificar, documentar y cerrar Fase 6 | COMPLETED | Critical |
+| FR-PH06-TASK-001 | Break down and activate Phase 6 | COMPLETED | Critical |
+| FR-PH06-TASK-002 | Define configuration, contracts and voices | COMPLETED | Critical |
+| FR-PH06-TASK-003 | Split text and estimate costs | COMPLETED | Critical |
+| FR-PH06-TASK-004 | Implement local and Amazon Polly adapters | COMPLETED | Critical |
+| FR-PH06-TASK-005 | Store audio with integrity | COMPLETED | High |
+| FR-PH06-TASK-006 | Process and map Speech Marks | COMPLETED | Critical |
+| FR-PH06-TASK-007 | Orchestrate jobs, idempotency and retries | COMPLETED | Critical |
+| FR-PH06-TASK-008 | Expose secure processing API | COMPLETED | Critical |
+| FR-PH06-TASK-009 | Integrate progress and diagnostics in Admin | COMPLETED | High |
+| FR-PH06-TASK-010 | Verify, document and close Phase 6 | COMPLETED | Critical |
 
-## Resumen de Fase 7
+## Phase 7 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH07-TASK-001 | Descomponer y activar la Fase 7 | COMPLETED | Critical |
-| FR-PH07-TASK-002 | Definir contratos y estados del Reader Engine | COMPLETED | Critical |
-| FR-PH07-TASK-003 | Validar líneas de tiempo y localizar la palabra activa | COMPLETED | Critical |
-| FR-PH07-TASK-004 | Implementar reproducción, búsqueda, velocidad y capítulos | COMPLETED | Critical |
-| FR-PH07-TASK-005 | Recuperar progreso y responder a interrupciones | COMPLETED | High |
-| FR-PH07-TASK-006 | Exponer el paquete publicado para lectura | COMPLETED | Critical |
-| FR-PH07-TASK-007 | Crear y sembrar el cuento bilingüe del MVP | COMPLETED | High |
-| FR-PH07-TASK-008 | Integrar un demostrador visual del motor | COMPLETED | High |
-| FR-PH07-TASK-009 | Verificar motor, API y recorrido visual | COMPLETED | Critical |
-| FR-PH07-TASK-010 | Documentar y cerrar la Fase 7 | COMPLETED | Critical |
+| FR-PH07-TASK-001 | Break down and activate Phase 7 | COMPLETED | Critical |
+| FR-PH07-TASK-002 | Define contracts and states of the Reader Engine | COMPLETED | Critical |
+| FR-PH07-TASK-003 | Validate timelines and locate the active word | COMPLETED | Critical |
+| FR-PH07-TASK-004 | Implement playback, seeking, speed and chapters | COMPLETED | Critical |
+| FR-PH07-TASK-005 | Recover progress and respond to interruptions | COMPLETED | High |
+| FR-PH07-TASK-006 | Expose the published package for reading | COMPLETED | Critical |
+| FR-PH07-TASK-007 | Create and seed the bilingual MVP story | COMPLETED | High |
+| FR-PH07-TASK-008 | Integrate a visual demonstrator of the engine | COMPLETED | High |
+| FR-PH07-TASK-009 | Verify engine, API and visual journey | COMPLETED | Critical |
+| FR-PH07-TASK-010 | Document and close Phase 7 | COMPLETED | Critical |
 
-## Resumen de Fase 8
+## Phase 8 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH08-TASK-001 | Descomponer y activar la Fase 8 | COMPLETED | Critical |
-| FR-PH08-TASK-002 | Crear shell y navegación responsive del Reader | COMPLETED | Critical |
-| FR-PH08-TASK-003 | Implementar inicio, biblioteca, categorías y búsqueda | COMPLETED | Critical |
-| FR-PH08-TASK-004 | Implementar detalle y acceso contextual al lector | COMPLETED | Critical |
-| FR-PH08-TASK-005 | Integrar narración audible con Reader Engine | COMPLETED | Critical |
-| FR-PH08-TASK-006 | Implementar favoritos, progreso e historial | COMPLETED | High |
-| FR-PH08-TASK-007 | Implementar configuración y modos de lectura | COMPLETED | Critical |
-| FR-PH08-TASK-008 | Implementar vocabulario y ayudas de aprendizaje | COMPLETED | High |
-| FR-PH08-TASK-009 | Convertir Reader en PWA instalable | COMPLETED | Critical |
-| FR-PH08-TASK-010 | Verificar responsive y accesibilidad | COMPLETED | Critical |
-| FR-PH08-TASK-011 | Añadir pruebas de integración y E2E | COMPLETED | Critical |
-| FR-PH08-TASK-012 | Documentar, auditar y cerrar la Fase 8 | COMPLETED | Critical |
+| FR-PH08-TASK-001 | Break down and activate Phase 8 | COMPLETED | Critical |
+| FR-PH08-TASK-002 | Create Reader shell and responsive navigation | COMPLETED | Critical |
+| FR-PH08-TASK-003 | Implement home, library, categories and search | COMPLETED | Critical |
+| FR-PH08-TASK-004 | Implement detail and contextual access to the reader | COMPLETED | Critical |
+| FR-PH08-TASK-005 | Integrate audible narration with Reader Engine | COMPLETED | Critical |
+| FR-PH08-TASK-006 | Implement favorites, progress and history | COMPLETED | High |
+| FR-PH08-TASK-007 | Implement settings and reading modes | COMPLETED | Critical |
+| FR-PH08-TASK-008 | Implement vocabulary and learning aids | COMPLETED | High |
+| FR-PH08-TASK-009 | Convert Reader into an installable PWA | COMPLETED | Critical |
+| FR-PH08-TASK-010 | Verify responsive and accessibility | COMPLETED | Critical |
+| FR-PH08-TASK-011 | Add integration and E2E tests | COMPLETED | Critical |
+| FR-PH08-TASK-012 | Document, audit and close Phase 8 | COMPLETED | Critical |
 
-## Resumen de Fase 9
+## Phase 9 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH09-TASK-001 | Descomponer y activar la Fase 9 | COMPLETED | Critical |
-| FR-PH09-TASK-002 | Alinear paquete publicado y checksum | COMPLETED | Critical |
-| FR-PH09-TASK-003 | Crear catálogo y repositorio local | COMPLETED | Critical |
-| FR-PH09-TASK-004 | Combinar catálogos y comparar versiones | COMPLETED | Critical |
-| FR-PH09-TASK-005 | Descargar, validar y activar atómicamente | COMPLETED | Critical |
-| FR-PH09-TASK-006 | Gestionar espacio, descargas y eliminación | COMPLETED | High |
-| FR-PH09-TASK-007 | Abrir contenido y apoyos sin conexión | COMPLETED | Critical |
-| FR-PH09-TASK-008 | Encolar y sincronizar progreso idempotente | COMPLETED | Critical |
-| FR-PH09-TASK-009 | Actualizar y recuperar ante fallos | COMPLETED | Critical |
-| FR-PH09-TASK-010 | Verificar accesibilidad, fallos y E2E offline | COMPLETED | Critical |
-| FR-PH09-TASK-011 | Documentar, auditar y cerrar la Fase 9 | COMPLETED | Critical |
+| FR-PH09-TASK-001 | Break down and activate Phase 9 | COMPLETED | Critical |
+| FR-PH09-TASK-002 | Align published package and checksum | COMPLETED | Critical |
+| FR-PH09-TASK-003 | Create catalog and local repository | COMPLETED | Critical |
+| FR-PH09-TASK-004 | Merge catalogs and compare versions | COMPLETED | Critical |
+| FR-PH09-TASK-005 | Download, validate and activate atomically | COMPLETED | Critical |
+| FR-PH09-TASK-006 | Manage space, downloads and deletion | COMPLETED | High |
+| FR-PH09-TASK-007 | Open content and supports offline | COMPLETED | Critical |
+| FR-PH09-TASK-008 | Enqueue and synchronize progress idempotently | COMPLETED | Critical |
+| FR-PH09-TASK-009 | Update and recover from failures | COMPLETED | Critical |
+| FR-PH09-TASK-010 | Verify accessibility, failures and offline E2E | COMPLETED | Critical |
+| FR-PH09-TASK-011 | Document, audit and close Phase 9 | COMPLETED | Critical |
 
 ---
 
 ## FR-PH00-TASK-001
 
-**Título:** Analizar el prompt maestro y establecer la línea base  
-**Fase:** 0  
-**Descripción:** Convertir el PDF en una fuente de trabajo controlada y crear los registros iniciales.  
-**Objetivo:** Conocer el estado real del proyecto y dejar trazabilidad antes de cualquier desarrollo.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** PDF maestro disponible.  
-**Archivos relacionados:** `docs/project-management/*`, `docs/requirements/PROMPT_ANALYSIS.md`  
-**Criterios de aceptación:**
+**Title:** Analyze the master prompt and establish the baseline  
+**Phase:** 0  
+**Description:** Convert the PDF into a controlled working source and create the initial records.  
+**Goal:** Understand the project's real status and leave traceability before any development.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Master PDF available.  
+**Related files:** `docs/project-management/*`, `docs/requirements/PROMPT_ANALYSIS.md`  
+**Acceptance criteria:**
 
-- El PDF completo fue revisado.
-- El estado del directorio fue inspeccionado sin eliminar contenido.
-- Existen fase activa, tareas, decisiones, riesgos, problemas y próximo paso.
-- Las contradicciones iniciales están registradas.
+- The full PDF was reviewed.
+- The directory state was inspected without deleting content.
+- There is an active phase, tasks, decisions, risks, issues and next step.
+- Initial contradictions are recorded.
 
-**Pruebas requeridas:** Confirmar presencia y legibilidad de los archivos de gestión.  
-**Documentación requerida:** Línea base de gestión y análisis del prompt.  
-**Problemas encontrados:** FR-ISSUE-001 a FR-ISSUE-004.  
-**Decisiones tomadas:** FR-DEC-001 a FR-DEC-005.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-002.
+**Required tests:** Confirm presence and readability of management files.  
+**Required documentation:** Management baseline and prompt analysis.  
+**Problems found:** FR-ISSUE-001 to FR-ISSUE-004.  
+**Decisions made:** FR-DEC-001 to FR-DEC-005.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-002.
 
 ---
 
 ## FR-PH00-TASK-002
 
-**Título:** Definir y validar la visión del producto  
-**Fase:** 0  
-**Descripción:** Precisar problema, propuesta de valor, principios y resultados del producto.  
-**Objetivo:** Dar una dirección medible que permita decidir qué construir y qué aplazar.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH00-TASK-001.  
-**Archivos relacionados:** `docs/requirements/PRODUCT_VISION.md`  
-**Criterios de aceptación:**
+**Title:** Define and validate the product vision  
+**Phase:** 0  
+**Description:** Clarify problem, value proposition, principles and product outcomes.  
+**Goal:** Provide a measurable direction that allows deciding what to build and what to defer.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH00-TASK-001.  
+**Related files:** `docs/requirements/PRODUCT_VISION.md`  
+**Acceptance criteria:**
 
-- El problema y la propuesta de valor son claros.
-- Las audiencias primarias y secundarias no se contradicen.
-- Hay resultados medibles y supuestos identificados.
-- La visión es compatible con la regla de contenido dinámico y uso offline.
+- The problem and value proposition are clear.
+- Primary and secondary audiences do not contradict each other.
+- There are measurable outcomes and identified assumptions.
+- The vision is compatible with the dynamic content rule and offline use.
 
-**Pruebas requeridas:** Revisión de consistencia contra el prompt, alcance y requisitos.  
-**Documentación requerida:** Visión actualizada y decisiones abiertas enlazadas.  
-**Problemas encontrados:** Las tres audiencias lectoras estaban presentadas al mismo nivel que
-usuarios editoriales y operativos; se aclaró la jerarquía por relación con el valor.  
-**Decisiones tomadas:** FR-DEC-006.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-003.
+**Required tests:** Consistency review against the prompt, scope and requirements.  
+**Required documentation:** Updated vision and linked open decisions.  
+**Problems found:** The three reader audiences were presented at the same level as editorial and operational users; hierarchy was clarified by relation to value.  
+**Decisions made:** FR-DEC-006.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-003.
 
 ---
 
 ## FR-PH00-TASK-003
 
-**Título:** Definir usuarios, necesidades y resultados  
-**Fase:** 0  
-**Descripción:** Definir perfiles de lectores, tutores, editores y administradores.  
-**Objetivo:** Relacionar cada capacidad con una necesidad real y un resultado observable.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH00-TASK-002.  
-**Archivos relacionados:** `docs/requirements/USER_PROFILES.md`,
+**Title:** Define users, needs and outcomes  
+**Phase:** 0  
+**Description:** Define profiles for readers, tutors, editors and administrators.  
+**Goal:** Relate each capability to a real need and an observable outcome.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH00-TASK-002.  
+**Related files:** `docs/requirements/USER_PROFILES.md`,
 `docs/requirements/PRODUCT_VISION.md`, `docs/ux-ui/UX_STRATEGY.md`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- Cada perfil tiene contexto, objetivo, dificultad y necesidad de accesibilidad.
-- Se distingue usuario de cuenta y persona administradora.
-- Se define el rol de adulto responsable para menores o se registra su aplazamiento.
+- Each profile has context, goal, difficulty and accessibility needs.
+- Account user and administrator person are distinguished.
+- The role of responsible adult for minors is defined or its deferral is recorded.
 
-**Pruebas requeridas:** Revisión de cobertura contra modos infantil, adulto y aprendizaje.  
-**Documentación requerida:** Perfiles y necesidades priorizadas.  
-**Problemas encontrados:** FR-ISSUE-004, resuelto para MVP.  
-**Decisiones tomadas:** FR-DEC-006 y FR-DEC-009.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-004.
+**Required tests:** Coverage review against child, adult and learning modes.  
+**Required documentation:** Prioritized profiles and needs.  
+**Problems found:** FR-ISSUE-004, resolved for MVP.  
+**Decisions made:** FR-DEC-006 and FR-DEC-009.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-004.
 
 ---
 
 ## FR-PH00-TASK-004
 
-**Título:** Definir alcance, MVP y fuera de alcance  
-**Fase:** 0  
-**Descripción:** Separar el producto mínimo demostrable del roadmap completo.  
-**Objetivo:** Evitar que el alcance de portafolio impida entregar una versión coherente.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH00-TASK-002, FR-PH00-TASK-003.  
-**Archivos relacionados:** `docs/requirements/PROJECT_SCOPE.md`, `docs/project-management/DECISIONS.md`  
-**Criterios de aceptación:**
+**Title:** Define scope, MVP and out of scope  
+**Phase:** 0  
+**Description:** Separate the minimally demonstrable product from the full roadmap.  
+**Goal:** Prevent portfolio scope from blocking delivery of a coherent version.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH00-TASK-002, FR-PH00-TASK-003.  
+**Related files:** `docs/requirements/PROJECT_SCOPE.md`, `docs/project-management/DECISIONS.md`  
+**Acceptance criteria:**
 
-- MVP, posteriores e inexistentes están explícitos.
-- Cada componente tiene límites.
-- Se resuelven los tipos de contenido iniciales.
-- Se identifican restricciones y supuestos.
+- MVP, later and nonexistent items are explicit.
+- Each component has boundaries.
+- Initial content types are resolved.
+- Constraints and assumptions are identified.
 
-**Pruebas requeridas:** Revisión de cobertura y contradicciones con el prompt.  
-**Documentación requerida:** Alcance aprobado y decisiones abiertas actualizadas.  
-**Problemas encontrados:** FR-ISSUE-002 y FR-ISSUE-003, resueltos.  
-**Decisiones tomadas:** FR-DEC-007, FR-DEC-008, FR-DEC-009 y FR-DEC-010.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-005.
+**Required tests:** Coverage and contradiction review against the prompt.  
+**Required documentation:** Approved scope and updated open decisions.  
+**Problems found:** FR-ISSUE-002 and FR-ISSUE-003, resolved.  
+**Decisions made:** FR-DEC-007, FR-DEC-008, FR-DEC-009 and FR-DEC-010.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-005.
 
 ---
 
 ## FR-PH00-TASK-005
 
-**Título:** Especificar requisitos funcionales y reglas de negocio  
-**Fase:** 0  
-**Descripción:** Crear requisitos identificables para Admin, Reader, API, audio y contenido.  
-**Objetivo:** Convertir funciones narrativas en comportamientos verificables.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH00-TASK-004.  
-**Archivos relacionados:** `docs/requirements/FUNCTIONAL_REQUIREMENTS.md`,
+**Title:** Specify functional requirements and business rules  
+**Phase:** 0  
+**Description:** Create identifiable requirements for Admin, Reader, API, audio and content.  
+**Goal:** Turn narrative functions into verifiable behaviors.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH00-TASK-004.  
+**Related files:** `docs/requirements/FUNCTIONAL_REQUIREMENTS.md`,
 `docs/requirements/BUSINESS_RULES.md`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- Cada requisito tiene ID, prioridad, fuente y criterio de verificación.
-- Estados y versiones de contenido tienen reglas explícitas.
-- Actualización, integridad, progreso y errores están cubiertos.
-- No hay llamada frontend directa a AWS.
+- Each requirement has ID, priority, source and verification criterion.
+- Content states and versions have explicit rules.
+- Update, integrity, progress and errors are covered.
+- No frontend direct call to AWS.
 
-**Pruebas requeridas:** Validación de IDs únicos y revisión de cobertura.  
-**Documentación requerida:** Requisitos funcionales y reglas de negocio completas para el MVP.  
-**Problemas encontrados:** El inventario no incluía fuente ni alcance MVP por requisito.  
-**Decisiones tomadas:** FR-DEC-007 a FR-DEC-010.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-006.
+**Required tests:** Validation of unique IDs and coverage review.  
+**Required documentation:** Complete functional requirements and business rules for the MVP.  
+**Problems found:** The inventory did not include source or MVP scope per requirement.  
+**Decisions made:** FR-DEC-007 to FR-DEC-010.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-006.
 
 ---
 
 ## FR-PH00-TASK-006
 
-**Título:** Especificar requisitos no funcionales, seguridad y privacidad  
-**Fase:** 0  
-**Descripción:** Definir metas verificables de accesibilidad, rendimiento, seguridad y operación.  
-**Objetivo:** Evitar criterios vagos y riesgos tardíos.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH00-TASK-004.  
-**Archivos relacionados:** `docs/requirements/NON_FUNCTIONAL_REQUIREMENTS.md`,
+**Title:** Specify non-functional requirements, security and privacy  
+**Phase:** 0  
+**Description:** Define verifiable goals for accessibility, performance, security and operation.  
+**Goal:** Avoid vague criteria and late risks.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH00-TASK-004.  
+**Related files:** `docs/requirements/NON_FUNCTIONAL_REQUIREMENTS.md`,
 `docs/architecture/SECURITY_STRATEGY.md`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- WCAG 2.2 AA tiene alcance y método de validación.
-- Seguridad y privacidad infantil tienen decisiones o bloqueos explícitos.
-- Rendimiento, disponibilidad offline, compatibilidad y mantenibilidad son medibles.
-- Secretos, auditoría y retención de datos tienen estrategia.
+- WCAG 2.2 AA has scope and validation method.
+- Child security and privacy have explicit decisions or blockers.
+- Performance, offline availability, compatibility and maintainability are measurable.
+- Secrets, auditing and data retention have a strategy.
 
-**Pruebas requeridas:** Revisión de verificabilidad y amenazas iniciales.  
-**Documentación requerida:** Requisitos no funcionales y estrategia de seguridad.  
-**Problemas encontrados:** FR-ISSUE-004, resuelto para MVP mediante minimización de datos.  
-**Decisiones tomadas:** FR-DEC-009; umbrales iniciales documentados como revisables con evidencia.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-007.
+**Required tests:** Review verifiability and initial threats.  
+**Required documentation:** Non-functional requirements and security strategy.  
+**Problems found:** FR-ISSUE-004, resolved for MVP by minimizing data.  
+**Decisions made:** FR-DEC-009; initial thresholds documented as reviewable with evidence.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-007.
 
 ---
 
 ## FR-PH00-TASK-007
 
-**Título:** Crear historias de usuario y casos de uso  
-**Fase:** 0  
-**Descripción:** Expresar recorridos de usuario y flujos alternos por componente.  
-**Objetivo:** Asegurar que los requisitos representan interacciones completas.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH00-TASK-003, FR-PH00-TASK-005.  
-**Archivos relacionados:** `docs/requirements/USER_STORIES.md`, `docs/requirements/USE_CASES.md`  
-**Criterios de aceptación:**
+**Title:** Create user stories and use cases  
+**Phase:** 0  
+**Description:** Express user journeys and alternate flows per component.  
+**Goal:** Ensure requirements represent complete interactions.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH00-TASK-003, FR-PH00-TASK-005.  
+**Related files:** `docs/requirements/USER_STORIES.md`, `docs/requirements/USE_CASES.md`  
+**Acceptance criteria:**
 
-- Cada flujo crítico tiene historia y caso de uso.
-- Se incluyen errores, offline, accesibilidad y permisos.
-- Las historias enlazan requisitos.
+- Each critical flow has a story and a use case.
+- Errors, offline, accessibility and permissions are included.
+- Stories link to requirements.
 
-**Pruebas requeridas:** Recorrido de escenarios felices y alternos.  
-**Documentación requerida:** Historias y casos de uso priorizados.  
-**Problemas encontrados:** Faltaban historias específicas de tutor, infantil y adulto, y alternos de
-accesibilidad, borrador y sincronización.  
-**Decisiones tomadas:** No se requirió nueva decisión; se aplicaron FR-DEC-006 a FR-DEC-010.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-008.
+**Required tests:** Walkthrough of happy and alternate scenarios.  
+**Required documentation:** Prioritized stories and use cases.  
+**Problems found:** Missing specific stories for tutor, child and adult, and alternates for accessibility, draft and synchronization.  
+**Decisions made:** No new decision required; FR-DEC-006 to FR-DEC-010 were applied.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-008.
 
 ---
 
 ## FR-PH00-TASK-008
 
-**Título:** Definir criterios de aceptación y trazabilidad  
-**Fase:** 0  
-**Descripción:** Relacionar requisito, historia, caso de uso, implementación futura y prueba.  
-**Objetivo:** Mantener evidencia desde necesidad hasta validación.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH00-TASK-005, FR-PH00-TASK-006, FR-PH00-TASK-007.  
-**Archivos relacionados:** `docs/requirements/ACCEPTANCE_CRITERIA.md`,
+**Title:** Define acceptance criteria and traceability  
+**Phase:** 0  
+**Description:** Relate requirement, story, use case, future implementation and test.  
+**Goal:** Maintain evidence from need to validation.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH00-TASK-005, FR-PH00-TASK-006, FR-PH00-TASK-007.  
+**Related files:** `docs/requirements/ACCEPTANCE_CRITERIA.md`,
 `docs/requirements/TRACEABILITY_MATRIX.md`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- Todos los requisitos MVP tienen criterio de aceptación.
-- No hay IDs duplicados ni referencias inexistentes.
-- Cada requisito crítico tiene estrategia de prueba.
+- All MVP requirements have acceptance criteria.
+- No duplicate IDs or nonexistent references.
+- Each critical requirement has a test strategy.
 
-**Pruebas requeridas:** Validador documental automático o comprobación equivalente.  
-**Documentación requerida:** Criterios y matriz de trazabilidad.  
-**Problemas encontrados:** La matriz inicial sólo cubría una fracción de los requisitos.  
-**Decisiones tomadas:** Se aceptó trazabilidad por rangos inclusivos con validación automática.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-009.
+**Required tests:** Automatic document validator or equivalent check.  
+**Required documentation:** Criteria and traceability matrix.  
+**Problems found:** The initial matrix only covered a fraction of the requirements.  
+**Decisions made:** Traceability by inclusive ranges with automatic validation was accepted.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-009.
 
 ---
 
 ## FR-PH00-TASK-009
 
-**Título:** Validar contexto y arquitectura inicial  
-**Fase:** 0  
-**Descripción:** Definir límites, dependencias, flujos y responsabilidades del sistema.  
-**Objetivo:** Preparar un diseño modular sin comprometer detalles prematuros.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH00-TASK-005, FR-PH00-TASK-006.  
-**Archivos relacionados:** `docs/architecture/SYSTEM_CONTEXT.md`,
+**Title:** Validate context and initial architecture  
+**Phase:** 0  
+**Description:** Define system boundaries, dependencies, flows and responsibilities.  
+**Goal:** Prepare a modular design without committing to premature details.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH00-TASK-005, FR-PH00-TASK-006.  
+**Related files:** `docs/architecture/SYSTEM_CONTEXT.md`,
 `docs/architecture/INITIAL_ARCHITECTURE.md`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- Admin, Reader, API y Reader Engine tienen responsabilidades y prohibiciones.
-- AWS, PostgreSQL, Redis futuro y almacenamiento local aparecen en los flujos correctos.
-- Se documenta contenido dinámico, offline y procesamiento.
+- Admin, Reader, API and Reader Engine have responsibilities and prohibitions.
+- AWS, PostgreSQL, future Redis and local storage appear in the correct flows.
+- Dynamic content, offline and processing are documented.
 
-**Pruebas requeridas:** Revisión de escenarios contra arquitectura.  
-**Documentación requerida:** Diagramas textuales y decisiones enlazadas.  
-**Problemas encontrados:** Ninguna contradicción crítica; decisiones de tecnología concreta quedan
-para sus fases sin romper límites.  
-**Decisiones tomadas:** FR-DEC-001 a FR-DEC-004.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-010.
+**Required tests:** Scenario review against architecture.  
+**Required documentation:** Textual diagrams and linked decisions.  
+**Problems found:** No critical contradiction; concrete technology decisions are left to their phases without breaking boundaries.  
+**Decisions made:** FR-DEC-001 to FR-DEC-004.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-010.
 
 ---
 
 ## FR-PH00-TASK-010
 
-**Título:** Definir estrategia UX y accesibilidad  
-**Fase:** 0  
-**Descripción:** Fijar principios y validaciones para experiencias infantil, adulta y educativa.  
-**Objetivo:** Llevar accesibilidad y seguridad de interacción al inicio del diseño.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH00-TASK-003, FR-PH00-TASK-006.  
-**Archivos relacionados:** `docs/ux-ui/UX_STRATEGY.md`  
-**Criterios de aceptación:**
+**Title:** Define UX and accessibility strategy  
+**Phase:** 0  
+**Description:** Set principles and validations for child, adult and educational experiences.  
+**Goal:** Bring accessibility and interaction safety to the start of design.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH00-TASK-003, FR-PH00-TASK-006.  
+**Related files:** `docs/ux-ui/UX_STRATEGY.md`  
+**Acceptance criteria:**
 
-- Los modos tienen necesidades distintas sin duplicar el producto.
-- Mano, movimiento, contraste, teclado, lectores de pantalla y tacto están cubiertos.
-- Los principios se pueden validar en Fase 1.
+- Modes have distinct needs without duplicating the product.
+- Hand, motion, contrast, keyboard, screen readers and touch are covered.
+- Principles can be validated in Phase 1.
 
-**Pruebas requeridas:** Checklist contra WCAG 2.2 AA y escenarios de usuarios.  
-**Documentación requerida:** Estrategia UX y accesibilidad inicial.  
-**Problemas encontrados:** La estrategia no tenía mapeo explícito a perfiles ni checklist base.  
-**Decisiones tomadas:** Modos como configuraciones sobre una base común.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-011.
+**Required tests:** Checklist against WCAG 2.2 AA and user scenarios.  
+**Required documentation:** Initial UX and accessibility strategy.  
+**Problems found:** The strategy had no explicit mapping to profiles nor a base checklist.  
+**Decisions made:** Modes as configurations over a common foundation.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-011.
 
 ---
 
 ## FR-PH00-TASK-011
 
-**Título:** Definir estrategias de pruebas y despliegue  
-**Fase:** 0  
-**Descripción:** Planear niveles de prueba, entornos, datos y publicación segura.  
-**Objetivo:** Hacer verificables las fases posteriores y reducir riesgos operativos.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH00-TASK-006, FR-PH00-TASK-009.  
-**Archivos relacionados:** `docs/testing/TEST_STRATEGY.md`,
+**Title:** Define testing and deployment strategies  
+**Phase:** 0  
+**Description:** Plan test levels, environments, data and secure publication.  
+**Goal:** Make subsequent phases verifiable and reduce operational risks.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH00-TASK-006, FR-PH00-TASK-009.  
+**Related files:** `docs/testing/TEST_STRATEGY.md`,
 `docs/deployment/DEPLOYMENT_STRATEGY.md`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- Cada riesgo crítico tiene nivel de prueba.
-- AWS nunca se usa realmente en pruebas automatizadas.
-- Local, development, staging y production tienen propósito.
-- Migración y rollback tienen estrategia.
+- Each critical risk has a test level.
+- AWS is never actually used in automated tests.
+- Local, development, staging and production have purpose.
+- Migration and rollback have strategy.
 
-**Pruebas requeridas:** Revisión de cobertura por componente y fase.  
-**Documentación requerida:** Estrategias de pruebas y despliegue.  
-**Problemas encontrados:** Faltaba relacionar riesgos con evidencia y detallar migración/rollback.  
-**Decisiones tomadas:** Puertas de calidad por fase y AWS falso en automatización.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH00-TASK-012.
+**Required tests:** Coverage review by component and phase.  
+**Required documentation:** Testing and deployment strategies.  
+**Problems found:** Lacked linking of risks to evidence and detail on migration/rollback.  
+**Decisions made:** Quality gates by phase and fake AWS in automation.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Execute FR-PH00-TASK-012.
 
 ---
 
 ## FR-PH00-TASK-012
 
-**Título:** Revisar y cerrar la Fase 0  
-**Fase:** 0  
-**Descripción:** Verificar coherencia, trazabilidad, riesgos, decisiones y criterios de salida.  
-**Objetivo:** Autorizar Fase 1 sólo con una base de producto estable.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH00-TASK-002 a FR-PH00-TASK-011.  
-**Archivos relacionados:** Todos los entregables de Fase 0.  
-**Criterios de aceptación:**
+**Title:** Review and close Phase 0  
+**Phase:** 0  
+**Description:** Verify coherence, traceability, risks, decisions and exit criteria.  
+**Goal:** Authorize Phase 1 only with a stable product foundation.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH00-TASK-002 to FR-PH00-TASK-011.  
+**Related files:** All Phase 0 deliverables.  
+**Acceptance criteria:**
 
-- Todos los criterios de salida de `PHASES.md` se cumplen.
-- No hay bloqueos críticos ocultos.
-- Requisitos y enlaces pasan validación.
-- La fase queda `READY_FOR_REVIEW` antes de `COMPLETED`.
-- Se registra autorización explícita para preparar Fase 1.
+- All exit criteria from `PHASES.md` are met.
+- There are no hidden critical blockers.
+- Requirements and links pass validation.
+- The phase is `READY_FOR_REVIEW` before `COMPLETED`.
+- Explicit authorization to prepare Phase 1 is recorded.
 
-**Pruebas requeridas:** Validación documental completa y revisión manual cruzada.  
-**Documentación requerida:** Estado, sesión, riesgos, decisiones y próximos pasos actualizados.  
-**Problemas encontrados:** Dos falsos positivos del comprobador por acentos y mezcla de secciones;
-se corrigió el validador y la auditoría pasó.  
-**Decisiones tomadas:** Fase 0 autorizada para cierre; deuda permitida documentada.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Preparar y activar FR-PH01-TASK-001.
+**Required tests:** Complete documentary validation and cross manual review.  
+**Required documentation:** Updated status, session, risks, decisions and next steps.  
+**Problems found:** Two false positives from the checker due to accents and mixed sections; the validator was fixed and the audit passed.  
+**Decisions made:** Phase 0 authorized for closure; permitted recorded debt.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Prepare and activate FR-PH01-TASK-001.
 
 ---
 
 ## FR-PH01-TASK-001
 
-**Título:** Inventariar pantallas, estados y principios  
-**Fase:** 1  
-**Descripción:** Convertir alcance, perfiles y casos en inventario de superficies y estados.  
-**Objetivo:** Asegurar cobertura antes de dibujar flujos y wireframes.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 0 COMPLETED.  
-**Archivos relacionados:** `docs/ux-ui/SCREEN_INVENTORY.md`, `docs/ux-ui/UX_STRATEGY.md`  
-**Criterios de aceptación:**
+**Title:** Inventory screens, states and principles  
+**Phase:** 1  
+**Description:** Convert scope, profiles and cases into an inventory of surfaces and states.  
+**Goal:** Ensure coverage before drawing flows and wireframes.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 0 COMPLETED.  
+**Related files:** `docs/ux-ui/SCREEN_INVENTORY.md`, `docs/ux-ui/UX_STRATEGY.md`  
+**Acceptance criteria:**
 
-- Pantallas mínimas Reader/Admin están enumeradas.
-- Cada pantalla tiene usuario, acción principal y estados.
-- Casos de uso y perfiles tienen superficie asignada.
-- No se mezclan Admin y Reader.
+- Minimum Reader/Admin screens are listed.
+- Each screen has user, main action and states.
+- Use cases and profiles have assigned surface.
+- Admin and Reader are not mixed.
 
-**Pruebas requeridas:** Cobertura automática/manual contra casos y prompt.  
-**Documentación requerida:** Inventario de pantallas y estados.  
-**Problemas encontrados:** Abreviaturas de casos/perfiles no eran comprobables; se añadió cobertura
-explícita.  
-**Decisiones tomadas:** Lector es ruta enfocada y Admin permanece separado.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-002.
+**Required tests:** Automated/manual coverage against cases and prompt.  
+**Required documentation:** Inventory of screens and states.  
+**Problems found:** Abbreviations of cases/profiles were not verifiable; explicit coverage was added.  
+**Decisions made:** Reader is a focused route and Admin remains separate.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-002.
 
 ---
 
 ## FR-PH01-TASK-002
 
-**Título:** Diseñar arquitectura de información y flujos  
-**Fase:** 1  
-**Descripción:** Crear navegación y flujos Reader/Admin con alternos.  
-**Objetivo:** Definir recorridos antes de wireframes.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH01-TASK-001.  
-**Archivos relacionados:** `docs/ux-ui/USER_FLOWS.md`, `docs/ux-ui/INFORMATION_ARCHITECTURE.md`  
-**Criterios de aceptación:**
+**Title:** Design information architecture and flows  
+**Phase:** 1  
+**Description:** Create navigation and flows for Reader/Admin with alternates.  
+**Goal:** Define journeys before wireframes.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH01-TASK-001.  
+**Related files:** `docs/ux-ui/USER_FLOWS.md`, `docs/ux-ui/INFORMATION_ARCHITECTURE.md`  
+**Acceptance criteria:**
 
-- Flujos cubren los 12 casos de uso.
-- Offline, error, permiso y recuperación están incluidos.
-- Navegación infantil no expone Admin.
+- Flows cover the 12 use cases.
+- Offline, error, permission and recovery are included.
+- Child navigation does not expose Admin.
 
-**Pruebas requeridas:** Walkthrough por perfil/caso.  
-**Documentación requerida:** Mapas y flujos.  
-**Problemas encontrados:** Ninguno crítico.  
-**Decisiones tomadas:** Navegación Reader con cuatro áreas primarias; Lector como ruta enfocada.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-003.
+**Required tests:** Walkthrough by profile/case.  
+**Required documentation:** Maps and flows.  
+**Problems found:** No critical issues.  
+**Decisions made:** Reader navigation with four primary areas; Reader as a focused route.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-003.
 
 ---
 
 ## FR-PH01-TASK-003
 
-**Título:** Crear wireframes de Reader  
-**Fase:** 1  
-**Descripción:** Diseñar wireframes responsive de todas las pantallas Reader.  
-**Objetivo:** Resolver jerarquía y controles sin diseño visual final.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH01-TASK-002.  
-**Archivos relacionados:** `docs/ux-ui/WIREFRAMES.md`  
-**Criterios de aceptación:**
+**Title:** Create Reader wireframes  
+**Phase:** 1  
+**Description:** Design responsive wireframes for all Reader screens.  
+**Goal:** Resolve hierarchy and controls without final visual design.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH01-TASK-002.  
+**Related files:** `docs/ux-ui/WIREFRAMES.md`  
+**Acceptance criteria:**
 
-- Pantallas Reader mínimas y estados tienen wireframe.
-- Lector cubre modos, mano, controles, offline y errores.
-- Acción principal y orden de foco están anotados.
+- Minimal Reader screens and states have wireframes.
+- Reader covers modes, hand, controls, offline and errors.
+- Primary action and focus order are annotated.
 
-**Pruebas requeridas:** Walkthrough Reader y checklist de accesibilidad.  
-**Documentación requerida:** Wireframes Reader.  
-**Problemas encontrados:** Favoritos e Historial necesitaban orden de foco explícito; corregido.  
-**Decisiones tomadas:** Lector usa ruta enfocada; mano no interactiva; auto-scroll no mueve foco.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-004.
+**Required tests:** Reader walkthrough and accessibility checklist.  
+**Required documentation:** Reader wireframes.  
+**Problems found:** Favorites and History needed explicit focus order; corrected.  
+**Decisions made:** Reader uses a focused route; hand is non-interactive; auto-scroll does not move focus.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-004.
 
 ---
 
 ## FR-PH01-TASK-004
 
-**Título:** Crear wireframes de Admin  
-**Fase:** 1  
-**Descripción:** Diseñar wireframes responsive del flujo editorial.  
-**Objetivo:** Resolver creación, guardado, revisión, error y publicación.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH01-TASK-002.  
-**Archivos relacionados:** `docs/ux-ui/WIREFRAMES.md`  
-**Criterios de aceptación:**
+**Title:** Create Admin wireframes  
+**Phase:** 1  
+**Description:** Design responsive wireframes for the editorial flow.  
+**Goal:** Resolve creation, saving, review, error and publishing.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH01-TASK-002.  
+**Related files:** `docs/ux-ui/WIREFRAMES.md`  
+**Acceptance criteria:**
 
-- Pantallas Admin mínimas y estados tienen wireframe.
-- Borrador, conflicto, procesamiento y permisos son visibles.
-- Publicación peligrosa tiene confirmación y evidencia.
+- Minimal Admin screens and states have wireframes.
+- Draft, conflict, processing and permissions are visible.
+- Dangerous publish has confirmation and evidence.
 
-**Pruebas requeridas:** Walkthrough editorial y teclado.  
-**Documentación requerida:** Wireframes Admin.  
-**Problemas encontrados:** Ninguno crítico.  
-**Decisiones tomadas:** Admin usa sidebar/rail/drawer por ancho; tablas se vuelven tarjetas o pasos.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-005.
+**Required tests:** Editorial walkthrough and keyboard testing.  
+**Required documentation:** Admin wireframes.  
+**Problems found:** No critical issues.  
+**Decisions made:** Admin uses sidebar/rail/drawer depending on width; tables become cards or steps.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-005.
 
 ---
 
 ## FR-PH01-TASK-005
 
-**Título:** Definir sistema visual y componentes  
-**Fase:** 1  
-**Descripción:** Definir tokens, tipografía, color, espaciado, iconos y componentes.  
-**Objetivo:** Crear una base coherente para Reader/Admin y sus modos.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH01-TASK-003, FR-PH01-TASK-004.  
-**Archivos relacionados:** `docs/ux-ui/DESIGN_SYSTEM.md`  
-**Criterios de aceptación:**
+**Title:** Define visual system and components  
+**Phase:** 1  
+**Description:** Define tokens, typography, color, spacing, icons and components.  
+**Goal:** Create a coherent base for Reader/Admin and their modes.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH01-TASK-003, FR-PH01-TASK-004.  
+**Related files:** `docs/ux-ui/DESIGN_SYSTEM.md`  
+**Acceptance criteria:**
 
-- Tokens y componentes tienen estados accesibles.
-- Modos comparten sistema sin perder identidad.
-- Contraste y tamaños cumplen metas.
+- Tokens and components have accessible states.
+- Modes share the system without losing identity.
+- Contrast and sizes meet targets.
 
-**Pruebas requeridas:** Contraste y revisión de estados.  
-**Documentación requerida:** Sistema visual.  
-**Problemas encontrados:** Ninguno; se evitó elegir una librería de iconos prematuramente.  
-**Decisiones tomadas:** Stack tipográfico del sistema; tokens semánticos; modos comparten componentes.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-006.
+**Required tests:** Contrast and state review.  
+**Required documentation:** Visual system.  
+**Problems found:** None; avoided choosing an icon library prematurely.  
+**Decisions made:** Typographic stack for the system; semantic tokens; modes share components.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-006.
 
 ---
 
 ## FR-PH01-TASK-006
 
-**Título:** Especificar responsive y accesibilidad  
-**Fase:** 1  
-**Descripción:** Definir breakpoints por contenido, reflow, foco, movimiento y tacto.  
-**Objetivo:** Hacer implementables los requisitos de accesibilidad.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH01-TASK-003, FR-PH01-TASK-004, FR-PH01-TASK-005.  
-**Archivos relacionados:** `docs/ux-ui/ACCESSIBILITY.md`, `docs/ux-ui/RESPONSIVE_DESIGN.md`  
-**Criterios de aceptación:**
+**Title:** Specify responsive and accessibility  
+**Phase:** 1  
+**Description:** Define breakpoints by content, reflow, focus, motion and touch.  
+**Goal:** Make accessibility requirements implementable.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH01-TASK-003, FR-PH01-TASK-004, FR-PH01-TASK-005.  
+**Related files:** `docs/ux-ui/ACCESSIBILITY.md`, `docs/ux-ui/RESPONSIVE_DESIGN.md`  
+**Acceptance criteria:**
 
-- Cada patrón tiene teclado/foco/lector de pantalla.
-- Zoom, orientación, safe areas y reduced motion están especificados.
-- Objetivos infantiles cumplen tamaño.
+- Each pattern has keyboard/focus/screen reader behavior.
+- Zoom, orientation, safe areas and reduced motion are specified.
+- Child targets meet size goals.
 
-**Pruebas requeridas:** Checklist WCAG y escenarios responsive.  
-**Documentación requerida:** Accesibilidad y responsive.  
-**Problemas encontrados:** Ninguno crítico.  
-**Decisiones tomadas:** Breakpoints por contenido; 320px mínimo; reflow 400%; mano decorativa.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-007.
+**Required tests:** WCAG checklist and responsive scenarios.  
+**Required documentation:** Accessibility and responsive.  
+**Problems found:** No critical issues.  
+**Decisions made:** Breakpoints by content; 320px minimum; 400% reflow; decorative hand.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-007.
 
 ---
 
 ## FR-PH01-TASK-007
 
-**Título:** Validar prototipos y recorridos críticos  
-**Fase:** 1  
-**Descripción:** Probar recorridos Reader/Admin y registrar hallazgos.  
-**Objetivo:** Detectar fallos antes de implementar.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH01-TASK-003 a 006.  
-**Archivos relacionados:** `docs/ux-ui/USER_FLOWS.md`, `docs/ux-ui/UX_VALIDATION.md`  
-**Criterios de aceptación:**
+**Title:** Validate prototypes and critical journeys  
+**Phase:** 1  
+**Description:** Test Reader/Admin journeys and record findings.  
+**Goal:** Detect failures before implementation.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH01-TASK-003 to 006.  
+**Related files:** `docs/ux-ui/USER_FLOWS.md`, `docs/ux-ui/UX_VALIDATION.md`  
+**Acceptance criteria:**
 
-- Recorridos críticos completan su objetivo.
-- Hallazgos tienen severidad y resolución/deuda.
-- No hay bloqueo de accesibilidad crítico.
+- Critical journeys complete their objective.
+- Findings have severity and resolution/debt.
+- No critical accessibility block exists.
 
-**Pruebas requeridas:** Walkthrough y protocolo de usabilidad.  
-**Documentación requerida:** Informe de validación.  
-**Problemas encontrados:** Siete hallazgos; todos resueltos en wireframes/especificaciones.  
-**Decisiones tomadas:** No anunciar palabra activa en cada tick; preview comparte componentes futuros.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH01-TASK-008.
+**Required tests:** Walkthrough and usability protocol.  
+**Required documentation:** Validation report.  
+**Problems found:** Seven findings; all resolved in wireframes/specs.  
+**Decisions made:** Do not announce active word on every tick; preview shares future components.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH01-TASK-008.
 
 ---
 
 ## FR-PH01-TASK-008
 
-**Título:** Revisar y cerrar la Fase 1  
-**Fase:** 1  
-**Descripción:** Auditar entregables y criterios de salida de UX/UI.  
-**Objetivo:** Autorizar preparación del monorepo sólo con diseño coherente.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH01-TASK-001 a 007.  
-**Archivos relacionados:** Todos los entregables de Fase 1.  
-**Criterios de aceptación:**
+**Title:** Review and close Phase 1  
+**Phase:** 1  
+**Description:** Audit deliverables and UX/UI exit criteria.  
+**Goal:** Authorize preparing the monorepo only with coherent design.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH01-TASK-001 to 007.  
+**Related files:** All Phase 1 deliverables.  
+**Acceptance criteria:**
 
-- Criterios de salida de PHASES pasan.
-- Pantallas, estados, flujos y componentes están cubiertos.
-- La tarea pasa READY_FOR_REVIEW antes de COMPLETED.
+- PHASES exit criteria pass.
+- Screens, states, flows and components are covered.
+- The task reaches READY_FOR_REVIEW before COMPLETED.
 
-**Pruebas requeridas:** Auditoría documental de Fase 1.  
-**Documentación requerida:** Estado, riesgos, decisiones y sesión.  
-**Problemas encontrados:** Falsos positivos de validadores por acentos; controles normalizados.  
-**Decisiones tomadas:** Fase 1 autorizada para cierre con deuda de pruebas reales trasladada a Fase 8/12.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Preparar y activar Fase 2.
+**Required tests:** Documentary audit of Phase 1.  
+**Required documentation:** Status, risks, decisions and session.  
+**Problems found:** False positives from validators due to accents; controls normalized.  
+**Decisions made:** Phase 1 authorized for closure with real test debt moved to Phase 8/12.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Prepare and activate Phase 2.
 
 ---
 
 ## FR-PH02-TASK-001
 
-**Título:** Elegir herramientas e inicializar repositorio y monorepo  
-**Fase:** 2  
-**Descripción:** Seleccionar el orquestador mínimo, crear Git y materializar la estructura acordada.  
-**Objetivo:** Establecer una base versionable sin mezclar Admin, Reader, API ni paquetes compartidos.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 1 COMPLETED.  
-**Archivos relacionados:** `.git/`, `package.json`, `pnpm-workspace.yaml`, `README.md`,
+**Title:** Choose tools and initialize repository and monorepo  
+**Phase:** 2  
+**Description:** Select the minimal orchestrator, create Git and materialize the agreed structure.  
+**Goal:** Establish a versionable base without mixing Admin, Reader, API or shared packages.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 1 COMPLETED.  
+**Related files:** `.git/`, `package.json`, `pnpm-workspace.yaml`, `README.md`,
 `apps/`, `packages/`, `infrastructure/`, `scripts/`, `.github/`  
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-- El repositorio Git existe sobre `main`.
-- pnpm workspaces y la versión esperada de Node están declarados.
-- Admin, Reader, API y paquetes compartidos tienen directorios independientes.
-- No existe `LICENSE` hasta resolver FR-DEC-OPEN-004.
+- The Git repository exists at `main`.
+- pnpm workspaces and the expected Node version are declared.
+- Admin, Reader, API and shared packages have independent directories.
+- `LICENSE` does not exist until FR-DEC-OPEN-004 is resolved.
 
-**Pruebas requeridas:** Validación de Git, manifiestos y árbol esperado.  
-**Documentación requerida:** README inicial y decisión de herramientas.  
-**Problemas encontrados:** FR-ISSUE-001, resuelto al inicializar Git. La cuenta aislada de
-validación mostró la protección `safe.directory`; la comprobación con el propietario pasó.  
-**Decisiones tomadas:** FR-DEC-011.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-002.
+**Required tests:** Validation of Git, manifests and expected tree.  
+**Required documentation:** Initial README and tool decision.  
+**Problems found:** FR-ISSUE-001, resolved by initializing Git. The isolated validation account showed the protection `safe.directory`; verification with the owner passed.  
+**Decisions made:** FR-DEC-011.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-002.
 
 ---
 
 ## FR-PH02-TASK-002
 
-**Título:** Configurar workspace, TypeScript y paquetes compartidos  
-**Fase:** 2  
-**Descripción:** Definir configuración estricta y manifiestos para los paquetes del monorepo.  
-**Objetivo:** Compartir contratos y utilidades sin introducir dependencias entre aplicaciones.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH02-TASK-001.  
-**Archivos relacionados:** `tsconfig.base.json`, `packages/*/package.json`, `packages/*/src/`  
-**Criterios de aceptación:**
+**Title:** Configure workspace, TypeScript and shared packages  
+**Phase:** 2  
+**Description:** Define strict configuration and manifests for monorepo packages.  
+**Goal:** Share contracts and utilities without introducing dependencies between applications.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH02-TASK-001.  
+**Related files:** `tsconfig.base.json`, `packages/*/package.json`, `packages/*/src/`  
+**Acceptance criteria:**
 
-- TypeScript usa `strict` y opciones seguras comunes.
-- Cada paquete tiene nombre, exports y límites explícitos.
-- Reader Engine no depende de React.
-- Los paquetes compilan sin funcionalidad de producto.
+- TypeScript uses `strict` and common safe options.
+- Each package has name, exports and explicit boundaries.
+- Reader Engine does not depend on React.
+- Packages compile without product functionality.
 
-**Pruebas requeridas:** Typecheck de todos los paquetes.  
-**Documentación requerida:** Convenciones de workspace y dependencias.  
-**Problemas encontrados:** La instalación inicial no tuvo red en el sandbox; se repitió con acceso
-autorizado y finalizó correctamente.  
-**Decisiones tomadas:** Aplicar FR-DEC-001 y FR-DEC-003; TypeScript 5.9.3 fijado.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-003.
+**Required tests:** Typecheck all packages.  
+**Required documentation:** Workspace and dependency conventions.  
+**Problems found:** Initial installation had no network in the sandbox; it was repeated with authorized access and completed successfully.  
+**Decisions made:** Apply FR-DEC-001 and FR-DEC-003; TypeScript 5.9.3 pinned.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-003.
 
 ---
 
 ## FR-PH02-TASK-003
 
-**Título:** Crear aplicaciones base Admin y Reader  
-**Fase:** 2  
-**Descripción:** Crear dos aplicaciones React/Vite separadas con TypeScript estricto.  
-**Objetivo:** Verificar builds y ejecución independientes sin implementar pantallas de producto.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH02-TASK-002.  
-**Archivos relacionados:** `apps/admin-web/`, `apps/reader/`  
-**Criterios de aceptación:**
+**Title:** Create base Admin and Reader applications  
+**Phase:** 2  
+**Description:** Create two separate React/Vite applications with strict TypeScript.  
+**Goal:** Verify independent builds and execution without implementing product screens.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH02-TASK-002.  
+**Related files:** `apps/admin-web/`, `apps/reader/`  
+**Acceptance criteria:**
 
-- Ambas aplicaciones arrancan y generan build.
-- Cada aplicación tiene prueba de humo.
-- Admin no se importa desde Reader ni se incluye en configuración móvil.
-- Las pantallas son placeholders accesibles, no implementación funcional.
+- Both applications start and produce a build.
+- Each application has a smoke test.
+- Admin is not imported from Reader nor included in mobile configuration.
+- Screens are accessible placeholders, not functional implementation.
 
-**Pruebas requeridas:** Tests de humo y builds de producción.  
-**Documentación requerida:** Comandos de ejecución por aplicación.  
-**Problemas encontrados:** La primera prueba no importaba explícitamente `describe`, `it` y
-`expect`; ambas suites se corrigieron y pasaron al repetirse.  
-**Decisiones tomadas:** Aplicar FR-DEC-001; React 19.2.8, Vite 8.1.5 y Vitest 4.1.10 fijados.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-004.
+**Required tests:** Smoke tests and production builds.  
+**Required documentation:** Run commands per application.  
+**Problems found:** The first test did not explicitly import `describe`, `it` and `expect`; both suites were fixed and passed on rerun.  
+**Decisions made:** Apply FR-DEC-001; React 19.2.8, Vite 8.1.5 and Vitest 4.1.10 pinned.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-004.
 
 ---
 
 ## FR-PH02-TASK-004
 
-**Título:** Crear aplicación base FastAPI  
-**Fase:** 2  
-**Descripción:** Crear la API modular con endpoint de salud y configuración tipada.  
-**Objetivo:** Verificar una base Python aislada de servicios externos y de la persistencia futura.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH02-TASK-001.  
-**Archivos relacionados:** `apps/api/pyproject.toml`, `apps/api/src/`, `apps/api/tests/`  
-**Criterios de aceptación:**
+**Title:** Create base FastAPI application  
+**Phase:** 2  
+**Description:** Create the modular API with a health endpoint and typed configuration.  
+**Goal:** Verify an isolated Python base without external services and future persistence.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH02-TASK-001.  
+**Related files:** `apps/api/pyproject.toml`, `apps/api/src/`, `apps/api/tests/`  
+**Acceptance criteria:**
 
-- FastAPI arranca y `/health` responde sin AWS ni PostgreSQL.
-- Código y configuración tienen type hints.
-- La estructura separa rutas, configuración y adaptadores.
-- Una prueba automatizada valida el endpoint.
+- FastAPI starts and `/health` responds without AWS or PostgreSQL.
+- Code and configuration have type hints.
+- The structure separates routes, configuration and adapters.
+- An automated test validates the endpoint.
 
-**Pruebas requeridas:** pytest y typecheck Python.  
-**Documentación requerida:** Comandos y límites de la API.  
-**Problemas encontrados:** Ruff detectó el patrón de dependencia FastAPI en un valor predeterminado;
-se migró a `Annotated`. El cliente Starlette produjo una deprecación y se sustituyó por transporte
-ASGI de HTTPX; la repetición pasó sin advertencias.  
-**Decisiones tomadas:** Aplicar FR-DEC-004; FastAPI 0.139.2 y Python 3.12.13 validados.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-005.
+**Required tests:** pytest and Python typecheck.  
+**Required documentation:** API commands and bounds.  
+**Problems found:** Ruff detected the FastAPI dependency pattern in a default value; it was migrated to `Annotated`. The Starlette client produced a deprecation and was replaced by HTTPX ASGI transport; the rerun passed without warnings.  
+**Decisions made:** Apply FR-DEC-004; FastAPI 0.139.2 and Python 3.12.13 validated.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-005.
 
 ---
 
 ## FR-PH02-TASK-005
 
-**Título:** Configurar calidad y pruebas base  
-**Fase:** 2  
-**Descripción:** Configurar lint, formato, typecheck, unit tests y cobertura mínima.  
-**Objetivo:** Detectar defectos de forma consistente antes de añadir funcionalidad.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH02-TASK-002, FR-PH02-TASK-003, FR-PH02-TASK-004.  
-**Archivos relacionados:** Configuraciones de ESLint, Prettier, Vitest, Ruff, mypy y pytest.  
-**Criterios de aceptación:**
+**Title:** Configure base quality and tests  
+**Phase:** 2  
+**Description:** Configure lint, format, typecheck, unit tests and minimum coverage.  
+**Goal:** Detect defects consistently before adding functionality.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH02-TASK-002, FR-PH02-TASK-003, FR-PH02-TASK-004.  
+**Related files:** Configurations for ESLint, Prettier, Vitest, Ruff, mypy and pytest.  
+**Acceptance criteria:**
 
-- Lint, formato, tipos, pruebas y builds tienen comandos raíz.
-- Los comandos fallan con errores reales y no dependen de servicios externos.
-- Se ejecutan pruebas base de JS/TS y Python.
+- Lint, format, types, tests and builds have root commands.
+- Commands fail on real errors and do not depend on external services.
+- Base JS/TS and Python tests run.
 
-**Pruebas requeridas:** Ejecutar la puerta local completa.  
-**Documentación requerida:** Matriz de comandos y herramientas.  
-**Problemas encontrados:** Prettier detectó 15 archivos sin formato y se aplicó el formateador. Node
-advirtió que la configuración ESLint no tenía tipo ESM; se añadió `type: module` y la repetición pasó
-sin advertencias.  
-**Decisiones tomadas:** Puerta raíz ordenada por formato, lint, tipos, pruebas y builds; cobertura
-base 100% para los tres scaffolds.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-006.
+**Required tests:** Run the full local gate.  
+**Required documentation:** Matrix of commands and tools.  
+**Problems found:** Prettier detected 15 unformatted files and the formatter was applied. Node warned that the ESLint configuration had no ESM type; `type: module` was added and the rerun passed without warnings.  
+**Decisions made:** Root gate ordered by format, lint, types, tests and builds; base coverage 100% for the three scaffolds.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-006.
 
 ---
 
 ## FR-PH02-TASK-006
 
-**Título:** Definir configuración y variables de entorno  
-**Fase:** 2  
-**Descripción:** Crear ejemplos y validación para configuración local, test y producción.  
-**Objetivo:** Evitar secretos comprometidos y valores implícitos inseguros.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH02-TASK-003, FR-PH02-TASK-004.  
-**Archivos relacionados:** `.env.example`, configuraciones por aplicación, documentación.  
-**Criterios de aceptación:**
+**Title:** Define configuration and environment variables  
+**Phase:** 2  
+**Description:** Create examples and validation for local, test and production configuration.  
+**Goal:** Avoid committed secrets and insecure implicit values.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH02-TASK-003, FR-PH02-TASK-004.  
+**Related files:** `.env.example`, app-specific configurations, documentation.  
+**Acceptance criteria:**
 
-- Variables requeridas tienen descripción y validación.
-- Ejemplos no contienen secretos.
-- Tests usan configuración aislada.
-- AWS permanece detrás de adaptadores de API.
+- Required variables have description and validation.
+- Examples do not contain secrets.
+- Tests use isolated configuration.
+- AWS remains behind API adapters.
 
-**Pruebas requeridas:** Casos de configuración válida e inválida.  
-**Documentación requerida:** Catálogo de variables por entorno.  
-**Problemas encontrados:** El test del paquete requirió separar configuración de build y
-typecheck; Ruff corrigió el orden de imports Python.  
-**Decisiones tomadas:** Ejemplos por aplicación; sólo `VITE_*` público; validación TypeScript y
-Pydantic antes de consumir valores.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-007.
+**Required tests:** Valid and invalid configuration cases.  
+**Required documentation:** Catalog of variables by environment.  
+**Problems found:** The package test required separating build configuration and typecheck; Ruff corrected Python import order.  
+**Decisions made:** Examples per application; only `VITE_*` public; TypeScript and Pydantic validation before consuming values.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-007.
 
 ---
 
 ## FR-PH02-TASK-007
 
-**Título:** Preparar SQLite local  
-**Fase:** 2  
-**Descripción:** Crear persistencia local reproducible y comprobación de disponibilidad.  
-**Objetivo:** Disponer de persistencia MVP sin Docker ni infraestructura remota.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH02-TASK-004, FR-PH02-TASK-006.  
-**Archivos relacionados:** `apps/api/src/followread_api/database.py`,
-`infrastructure/database/`, `.env.example`, configuración API.  
-**Criterios de aceptación:**
+**Title:** Prepare local SQLite  
+**Phase:** 2  
+**Description:** Create reproducible local persistence and availability check.  
+**Goal:** Provide MVP persistence without Docker or remote infrastructure.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH02-TASK-004, FR-PH02-TASK-006.  
+**Related files:** `apps/api/src/followread_api/database.py`,
+`infrastructure/database/`, `.env.example`, API configuration.  
+**Acceptance criteria:**
 
-- SQLite crea su directorio/archivo fuera de Git.
-- La API valida el DSN y puede comprobar una conexión real.
-- Tests usan archivos temporales y no comparten estado.
-- No se requieren Docker, credenciales ni AWS real.
+- SQLite creates its directory/file outside Git.
+- The API validates the DSN and can check a real connection.
+- Tests use temporary files and do not share state.
+- No Docker, credentials or real AWS required.
 
-**Pruebas requeridas:** Crear, conectar, escribir/leer transaccionalmente y aislar una base temporal.  
-**Documentación requerida:** Ubicación, backup, limpieza y límites de concurrencia.  
-**Problemas encontrados:** FR-ISSUE-005 se resolvió mediante cambio de alcance autorizado; mypy
-requirió sustituir el tipo dinámico `SqliteDsn` por una cadena con patrón Pydantic.  
-**Decisiones tomadas:** FR-DEC-013: SQLite sustituye PostgreSQL en el MVP.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-008.
+**Required tests:** Create, connect, transactional write/read and isolate a temporary database.  
+**Required documentation:** Location, backup, cleanup and concurrency limits.  
+**Problems found:** FR-ISSUE-005 was resolved by an authorized scope change; mypy required replacing the dynamic type `SqliteDsn` with a string using a Pydantic pattern.  
+**Decisions made:** FR-DEC-013: SQLite replaces PostgreSQL in the MVP.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-008.
 
 ---
 
 ## FR-PH02-TASK-008
 
-**Título:** Configurar migraciones base  
-**Fase:** 2  
-**Descripción:** Integrar Alembic y crear una migración inicial reproducible.  
-**Objetivo:** Controlar la evolución del esquema desde el inicio.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH02-TASK-007.  
-**Archivos relacionados:** `apps/api/alembic.ini`, `apps/api/migrations/`  
-**Criterios de aceptación:**
+**Title:** Configure base migrations  
+**Phase:** 2  
+**Description:** Integrate Alembic and create a reproducible initial migration.  
+**Goal:** Control schema evolution from the start.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH02-TASK-007.  
+**Related files:** `apps/api/alembic.ini`, `apps/api/migrations/`  
+**Acceptance criteria:**
 
-- Alembic aplica y revierte la migración inicial.
-- El historial parte de una única cabeza.
-- La configuración obtiene la URL desde el entorno.
+- Alembic applies and reverts the initial migration.
+- History starts from a single head.
+- Configuration obtains the URL from the environment.
 
-**Pruebas requeridas:** Upgrade, downgrade y upgrade en base desechable.  
-**Documentación requerida:** Flujo para crear y revisar migraciones.  
-**Problemas encontrados:** Ninguno; la línea base es deliberadamente vacía porque las tablas
-funcionales pertenecen a Fase 3.  
-**Decisiones tomadas:** Alembic 1.18.5, batch mode SQLite y convención de nombres SQLAlchemy.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-009.
+**Required tests:** Upgrade, downgrade and upgrade on a disposable database.  
+**Required documentation:** Flow to create and review migrations.  
+**Problems found:** None; the baseline is intentionally empty because functional tables belong to Phase 3.  
+**Decisions made:** Alembic 1.18.5, SQLite batch mode and SQLAlchemy naming convention.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-009.
 
 ---
 
 ## FR-PH02-TASK-009
 
-**Título:** Unificar scripts y hooks locales  
-**Fase:** 2  
-**Descripción:** Crear scripts multiplataforma y hooks que ejecuten verificaciones rápidas.  
-**Objetivo:** Dar a desarrollo y CI una interfaz común.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH02-TASK-005, FR-PH02-TASK-008.  
-**Archivos relacionados:** `scripts/`, configuración de hooks, `package.json`  
-**Criterios de aceptación:**
+**Title:** Unify local scripts and hooks  
+**Phase:** 2  
+**Description:** Create cross-platform scripts and hooks that run quick checks.  
+**Goal:** Give development and CI a common interface.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH02-TASK-005, FR-PH02-TASK-008.  
+**Related files:** `scripts/`, hooks configuration, `package.json`  
+**Acceptance criteria:**
 
-- Un comando raíz ejecuta la puerta completa.
-- Hooks no modifican archivos silenciosamente.
-- Scripts funcionan en Windows y CI.
+- A root command runs the complete gate.
+- Hooks do not modify files silently.
+- Scripts work on Windows and CI.
 
-**Pruebas requeridas:** Ejecutar scripts desde un checkout limpio.  
-**Documentación requerida:** Tabla de comandos.  
-**Problemas encontrados:** Pytest intentó usar una carpeta temporal de Windows sin permisos; la
-puerta se hizo reproducible con `.pytest-temp/` dentro del checkout.  
-**Decisiones tomadas:** `pnpm check` es la puerta completa y `pnpm check:fast` la del pre-commit;
-el hook sólo valida y nunca modifica archivos.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-010.
+**Required tests:** Run scripts from a clean checkout.  
+**Required documentation:** Command table.  
+**Problems found:** Pytest tried to use a Windows temp folder without permissions; the gate was made reproducible using `.pytest-temp/` inside the checkout.  
+**Decisions made:** `pnpm check` is the complete gate and `pnpm check:fast` is the pre-commit gate; the hook only validates and never modifies files.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-010.
 
 ---
 
 ## FR-PH02-TASK-010
 
-**Título:** Crear integración continua  
-**Fase:** 2  
-**Descripción:** Ejecutar la puerta de calidad en GitHub Actions con cachés y versiones fijadas.  
-**Objetivo:** Impedir que cambios no validados lleguen a la rama principal.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH02-TASK-009.  
-**Archivos relacionados:** `.github/workflows/ci.yml`  
-**Criterios de aceptación:**
+**Title:** Create continuous integration  
+**Phase:** 2  
+**Description:** Run the quality gate in GitHub Actions with caches and pinned versions.  
+**Goal:** Prevent unvalidated changes from reaching main branch.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH02-TASK-009.  
+**Related files:** `.github/workflows/ci.yml`  
+**Acceptance criteria:**
 
-- CI instala Node, pnpm y Python en versiones declaradas.
-- Ejecuta lint, tipos, pruebas y builds.
-- No usa credenciales ni servicios AWS reales.
-- El workflow es validable localmente por sus mismos comandos.
+- CI installs Node, pnpm and Python in declared versions.
+- Runs lint, types, tests and builds.
+- Does not use credentials or real AWS services.
+- The workflow is locally validatable by the same commands.
 
-**Pruebas requeridas:** Validación sintáctica y equivalencia con puerta local.  
-**Documentación requerida:** Descripción del workflow y solución de fallos.  
-**Problemas encontrados:** No existe un ejecutor local de GitHub Actions; se añadió un validador
-estático que comprueba versiones, permisos y equivalencia de comandos sin exponer secretos.  
-**Decisiones tomadas:** CI usa Node 24, pnpm 10.32.1 y Python 3.12, permisos de contenido de sólo
-lectura y la misma puerta `pnpm ci` que el entorno local.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH02-TASK-011.
+**Required tests:** Syntactic validation and equivalence with local gate.  
+**Required documentation:** Workflow description and failure resolution.  
+**Problems found:** There is no local executor for GitHub Actions; a static validator was added that checks versions, permissions and command equivalence without exposing secrets.  
+**Decisions made:** CI uses Node 24, pnpm 10.32.1 and Python 3.12, read-only content permissions and the same gate `pnpm ci` as the local environment.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH02-TASK-011.
 
 ---
 
 ## FR-PH02-TASK-011
 
-**Título:** Verificar instalación limpia y cerrar Fase 2  
-**Fase:** 2  
-**Descripción:** Auditar todos los criterios de salida desde un entorno reproducible.  
-**Objetivo:** Autorizar modelado de datos sólo con una base técnica estable.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH02-TASK-001 a 010.  
-**Archivos relacionados:** Todos los entregables de Fase 2.  
-**Criterios de aceptación:**
+**Title:** Verify clean install and close Phase 2  
+**Phase:** 2  
+**Description:** Audit all exit criteria from a reproducible environment.  
+**Goal:** Authorize data modeling only with a stable technical base.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH02-TASK-001 to 010.  
+**Related files:** All Phase 2 deliverables.  
+**Acceptance criteria:**
 
-- Los siete criterios de salida de `PHASES.md` pasan.
-- Instalación limpia, ejecución, pruebas y builds están documentados.
-- La tarea pasa por `READY_FOR_REVIEW` antes de `COMPLETED`.
-- No hay bloqueo crítico oculto.
+- The seven exit criteria of `PHASES.md` pass.
+- Clean install, run, tests and builds are documented.
+- The task passes through `READY_FOR_REVIEW` before `COMPLETED`.
+- No hidden critical blockage exists.
 
-**Pruebas requeridas:** Auditoría limpia completa y revisión cruzada.  
-**Documentación requerida:** Revisión de fase, estado, sesión, riesgos, problemas y próximos pasos.  
-**Problemas encontrados:** La auditoría detectó que Git convertía texto a CRLF en clones Windows
-aunque Prettier exige LF; `.gitattributes` se corrigió y un segundo clon pasó.  
-**Decisiones tomadas:** El cierre usa un clon Git real del commit `c348ca1`, no un archivo ZIP, y
-conserva evidencia en `PHASE_2_REVIEW.md`.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-001.
+**Required tests:** Full clean audit and cross review.  
+**Required documentation:** Phase review, status, session, risks, problems and next steps.  
+**Problems found:** The audit detected that Git converted text to CRLF on Windows clones even though Prettier requires LF; `.gitattributes` was fixed and a second clone passed.  
+**Decisions made:** Closure uses a real Git clone of commit `c348ca1`, not a ZIP file, and preserves evidence in `PHASE_2_REVIEW.md`.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-001.
 
 ---
 
 ## FR-PH03-TASK-001
 
-**Título:** Diseñar el modelo de datos y sus invariantes  
-**Fase:** 3  
-**Descripción:** Convertir las 22 entidades iniciales en un modelo relacional trazable.  
-**Objetivo:** Resolver propiedad, cardinalidad, estados, versionado y borrado antes de crear tablas.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 2 COMPLETED.  
-**Archivos relacionados:** `docs/architecture/DATA_MODEL.md`, requisitos y reglas de negocio.  
-**Criterios de aceptación:**
+**Title:** Design the data model and its invariants  
+**Phase:** 3  
+**Description:** Convert the 22 initial entities into a traceable relational model.  
+**Goal:** Resolve ownership, cardinality, states, versioning and deletion before creating tables.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 2 COMPLETED.  
+**Related files:** `docs/architecture/DATA_MODEL.md`, requirements and business rules.  
+**Acceptance criteria:**
 
-- Las 22 entidades del prompt están inventariadas.
-- Identificadores, cardinalidades y restricciones críticas son explícitos.
-- Autenticación y autorización de ejecución permanecen en Fase 4.
-- El modelo es viable en SQLite y conserva una ruta futura a PostgreSQL.
+- The 22 entities from the prompt are inventoried.
+- Identifiers, cardinalities and critical constraints are explicit.
+- Authentication and execution authorization remain in Phase 4.
+- The model is viable in SQLite and preserves a future path to PostgreSQL.
 
-**Pruebas requeridas:** Revisión contra requisitos, reglas, casos de uso y política de datos.  
-**Documentación requerida:** Modelo relacional, invariantes y diagrama.  
-**Problemas encontrados:** El prompt define `ReadingLevel` como entidad y sus niveles como enum; se
-resolvió con una tabla de referencia cuyo código está restringido al conjunto oficial.  
-**Decisiones tomadas:** `ReadingContent` conserva identidad, `ContentVersion` concentra lo
-publicable, traducciones contienen su estructura editorial y Fase 3 no agrega credenciales.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-002.
+**Required tests:** Review against requirements, rules, use cases and data policy.  
+**Required documentation:** Relational model, invariants and diagram.  
+**Problems found:** The prompt defines `ReadingLevel` as an entity and its levels as an enum; it was resolved with a reference table whose code is restricted to the official set.  
+**Decisions made:** `ReadingContent` retains identity, `ContentVersion` concentrates publishable content, translations contain their editorial structure and Phase 3 does not add credentials.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-002.
 
 ---
 
 ## FR-PH03-TASK-002
 
-**Título:** Crear fundamentos persistentes y tipos comunes  
-**Fase:** 3  
-**Descripción:** Implementar IDs, timestamps, enums, metadatos y convenciones SQLAlchemy.  
-**Objetivo:** Evitar duplicación y discrepancias entre modelos.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-001.  
-**Archivos relacionados:** `apps/api/src/followread_api/models/`.  
-**Criterios de aceptación:** UUIDs portables, fechas UTC, enums validados y tipos estrictos.  
-**Pruebas requeridas:** Construcción, defaults y restricciones comunes.  
-**Documentación requerida:** Convenciones de persistencia.  
-**Problemas encontrados:** SQLite no conserva necesariamente zona horaria al leer `DATETIME`; la
-aplicación genera UTC y los contratos normalizarán la salida.  
-**Decisiones tomadas:** UUID usa `sqlalchemy.Uuid`; enums son `StrEnum`; timestamps comparten
-defaults UTC y `updated_at` administrado por SQLAlchemy.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-003.
+**Title:** Create persistent foundations and common types  
+**Phase:** 3  
+**Description:** Implement IDs, timestamps, enums, metadata and SQLAlchemy conventions.  
+**Goal:** Avoid duplication and discrepancies between models.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-001.  
+**Related files:** `apps/api/src/followread_api/models/`.  
+**Acceptance criteria:** Portable UUIDs, UTC dates, validated enums and strict types.  
+**Required tests:** Build, defaults and common constraints.  
+**Required documentation:** Persistence conventions.  
+**Problems found:** SQLite does not necessarily preserve timezone when reading `DATETIME`; the application emits UTC and contracts will normalize the output.  
+**Decisions made:** UUID uses `sqlalchemy.Uuid`; enums are `StrEnum`; timestamps share UTC defaults and `updated_at` managed by SQLAlchemy.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-003.
 
 ---
 
 ## FR-PH03-TASK-003
 
-**Título:** Modelar contenido editorial, versiones y publicación  
-**Fase:** 3  
-**Descripción:** Implementar contenido, traducciones, capítulos, párrafos, categorías, niveles,
-versiones y publicaciones.  
-**Objetivo:** Crear el agregado editorial que alimentará Admin y Reader.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-002.  
-**Archivos relacionados:** modelos, migraciones y pruebas API.  
-**Criterios de aceptación:** Orden editorial, bilingüismo, estados y versión publicada son íntegros.  
-**Pruebas requeridas:** Relaciones, unicidad, cascadas seguras y consultas de catálogo.  
-**Documentación requerida:** Mapeo de reglas FR-BR-001..007 y FR-BR-016..017.  
-**Problemas encontrados:** La publicación activa por contenido requiere una relación explícita
-además de la versión; se modeló con unicidad en contenido y versión.  
-**Decisiones tomadas:** Traducciones contienen capítulos/párrafos propios enlazables por
-`stable_key`; versiones publicadas se protegen en servicios y FKs `RESTRICT`.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-004.
+**Title:** Model editorial content, versions and publication  
+**Phase:** 3  
+**Description:** Implement content, translations, chapters, paragraphs, categories, levels, versions and publications.  
+**Goal:** Create the editorial aggregate that will feed Admin and Reader.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-002.  
+**Related files:** models, migrations and API tests.  
+**Acceptance criteria:** Editorial order, bilingualism, states and published version are intact.  
+**Required tests:** Relations, uniqueness, safe cascades and catalog queries.  
+**Required documentation:** Mapping of rules FR-BR-001..007 and FR-BR-016..017.  
+**Problems found:** Active publication by content requires an explicit relation in addition to version; it was modeled with uniqueness on content and version.  
+**Decisions made:** Translations contain their own chapters/paragraphs linkable by `stable_key`; published versions are protected in services and FKs `RESTRICT`.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-004.
 
 ---
 
 ## FR-PH03-TASK-004
 
-**Título:** Modelar recursos y trabajos de procesamiento  
-**Fase:** 3  
-**Descripción:** Implementar audio, Speech Marks, ilustraciones y trabajos sin integrar AWS.  
-**Objetivo:** Preparar trazabilidad e idempotencia para Fase 6.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH03-TASK-003.  
-**Archivos relacionados:** modelos, migraciones y pruebas.  
-**Criterios de aceptación:** Los recursos pertenecen a una versión y los trabajos tienen estado.  
-**Pruebas requeridas:** Integridad versión/recurso, orden de marcas e idempotencia de trabajos.  
-**Documentación requerida:** Límites con adaptadores AWS futuros.  
-**Problemas encontrados:** Speech Marks requieren rangos temporales y de caracteres además del
-orden; se añadieron restricciones para ambos.  
-**Decisiones tomadas:** Recursos pertenecen a versión/idioma, marcas a un audio, e idempotencia de
-trabajo es una clave única; ningún modelo importa SDK de AWS.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-005.
+**Title:** Model resources and processing jobs  
+**Phase:** 3  
+**Description:** Implement audio, Speech Marks, illustrations and jobs without integrating AWS.  
+**Goal:** Prepare traceability and idempotency for Phase 6.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH03-TASK-003.  
+**Related files:** models, migrations and tests.  
+**Acceptance criteria:** Resources belong to a version and jobs have state.  
+**Tests required:** Version/resource integrity, mark ordering and job idempotency.  
+**Documentation required:** Boundaries with future AWS adapters.  
+**Issues found:** Speech Marks require time and character ranges in addition to order; restrictions for both were added.  
+**Decisions made:** Resources belong to version/language, marks belong to an audio, and job idempotency is a unique key; no model imports the AWS SDK.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-005.
 
 ---
 
 ## FR-PH03-TASK-005
 
-**Título:** Modelar identidad, roles y permisos sin autenticación  
-**Fase:** 3  
-**Descripción:** Persistir User, Administrator, Role y Permission sin emitir tokens ni contraseñas.  
-**Objetivo:** Preparar el esquema requerido para la implementación segura de Fase 4.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH03-TASK-002.  
-**Archivos relacionados:** modelos, migraciones y pruebas.  
-**Criterios de aceptación:** Roles/permisos son normalizados y Administrator especializa User.  
-**Pruebas requeridas:** Unicidad, asociaciones y eliminación restringida.  
-**Documentación requerida:** Límite explícito con Fase 4.  
-**Problemas encontrados:** Ninguno; el esquema puede representar administradores sin almacenar
-credenciales prematuramente.  
-**Decisiones tomadas:** Administrator es una extensión uno a uno de User; RBAC usa tablas de unión;
-contraseñas, tokens y endpoints de sesión permanecen en Fase 4.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-006.
+**Title:** Model identity, roles and permissions without authentication  
+**Phase:** 3  
+**Description:** Persist User, Administrator, Role and Permission without issuing tokens or passwords.  
+**Goal:** Prepare the schema required for a secure implementation in Phase 4.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH03-TASK-002.  
+**Related files:** models, migrations and tests.  
+**Acceptance criteria:** Roles/permissions are normalized and Administrator specializes User.  
+**Tests required:** Uniqueness, associations and restricted deletion.  
+**Documentation required:** Explicit boundary with Phase 4.  
+**Issues found:** None; the schema can represent administrators without storing credentials prematurely.  
+**Decisions made:** Administrator is a one-to-one extension of User; RBAC uses join tables; passwords, tokens and session endpoints remain in Phase 4.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-006.
 
 ---
 
 ## FR-PH03-TASK-006
 
-**Título:** Modelar datos de lectura y sincronización  
-**Fase:** 3  
-**Descripción:** Implementar progreso, favoritos, vocabulario y registros de descarga.  
-**Objetivo:** Preservar propiedad, versión y claves idempotentes para Reader/offline.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH03-TASK-003, FR-PH03-TASK-005.  
-**Archivos relacionados:** modelos, migraciones y pruebas.  
-**Criterios de aceptación:** Claves únicas evitan duplicados y progreso conserva anclaje/versionado.  
-**Pruebas requeridas:** Upsert lógico, propiedad y aislamiento entre usuarios/perfiles.  
-**Documentación requerida:** Mapeo con FR-BR-009 y Fase 9.  
-**Problemas encontrados:** Ninguno; las claves idempotentes y compuestas cubren duplicados del
-cliente sin crear perfiles infantiles remotos.  
-**Decisiones tomadas:** Progreso es único por usuario/contenido y conserva versión/anclaje;
-vocabulario no admite notas libres; descargas registran cliente y operación idempotente.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-007.
+**Title:** Model reading and sync data  
+**Phase:** 3  
+**Description:** Implement progress, favorites, vocabulary and download records.  
+**Goal:** Preserve ownership, version and idempotent keys for Reader/offline.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH03-TASK-003, FR-PH03-TASK-005.  
+**Related files:** models, migrations and tests.  
+**Acceptance criteria:** Unique keys prevent duplicates and progress preserves anchoring/versioning.  
+**Tests required:** Logical upsert, ownership and isolation between users/profiles.  
+**Documentation required:** Mapping with FR-BR-009 and Phase 9.  
+**Issues found:** None; idempotent and composite keys cover client duplicates without creating child remote profiles.  
+**Decisions made:** Progress is unique per user/content and preserves version/anchor; vocabulary does not allow free-form notes; downloads record client and idempotent operation.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-007.
 
 ---
 
 ## FR-PH03-TASK-007
 
-**Título:** Crear la migración funcional y validar integridad  
-**Fase:** 3  
-**Descripción:** Generar y revisar la migración que materializa el modelo funcional.  
-**Objetivo:** Crear/revertir el esquema completo desde una base vacía.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-003 a 006.  
-**Archivos relacionados:** `apps/api/migrations/versions/`, pruebas de migración.  
-**Criterios de aceptación:** Una cabeza, upgrade/downgrade, FK activas e índices verificados.  
-**Pruebas requeridas:** Migración vacía, inspección de esquema y restricciones.  
-**Documentación requerida:** Revisión de migración.  
-**Problemas encontrados:** La primera revisión reveló que `AuditLog` aún no estaba materializado;
-se añadió antes de aceptar o sincronizar la migración.  
-**Decisiones tomadas:** La revisión `2bf6cf5e1177` crea el esquema funcional completo sobre la base
-de Fase 2; la prueba inspecciona tablas/FKs y ejecuta upgrade, downgrade y upgrade.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-008.
+**Title:** Create the functional migration and validate integrity  
+**Phase:** 3  
+**Description:** Generate and review the migration that materializes the functional model.  
+**Goal:** Create/revert the full schema from an empty database.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-003 to 006.  
+**Related files:** `apps/api/migrations/versions/`, migration tests.  
+**Acceptance criteria:** Single head, upgrade/downgrade, FKs active and indexes verified.  
+**Tests required:** Empty migration, schema inspection and constraints.  
+**Documentation required:** Migration review.  
+**Issues found:** The first review revealed that `AuditLog` was not yet materialized; it was added before accepting or syncing the migration.  
+**Decisions made:** Review `2bf6cf5e1177` creates the complete functional schema based on Phase 2; the test inspects tables/ FKs and runs upgrade, downgrade and upgrade.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-008.
 
 ---
 
 ## FR-PH03-TASK-008
 
-**Título:** Implementar repositorios y unidad de trabajo  
-**Fase:** 3  
-**Descripción:** Crear persistencia desacoplada de HTTP con transacciones explícitas.  
-**Objetivo:** Centralizar consultas y evitar commits implícitos en rutas.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-007.  
-**Archivos relacionados:** `apps/api/src/followread_api/repositories/`.  
-**Criterios de aceptación:** CRUD base, consultas de catálogo y transacciones son testeables.  
-**Pruebas requeridas:** Commit, rollback, not-found, duplicados y paginación.  
-**Documentación requerida:** Contratos de repositorio.  
-**Problemas encontrados:** Ninguno; las consultas correlacionadas de relaciones evitan duplicar
-filas al filtrar idiomas y categorías.  
-**Decisiones tomadas:** Los repositorios sólo preparan cambios; `SqlAlchemyUnitOfWork` controla
-commit/rollback. El catálogo exige publicación activa, estado `published`, checksum y paquete.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-009.
+**Title:** Implement repositories and unit of work  
+**Phase:** 3  
+**Description:** Create persistence decoupled from HTTP with explicit transactions.  
+**Goal:** Centralize queries and avoid implicit commits in routes.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-007.  
+**Related files:** `apps/api/src/followread_api/repositories/`.  
+**Acceptance criteria:** Base CRUD, catalog queries and transactions are testable.  
+**Tests required:** Commit, rollback, not-found, duplicates and pagination.  
+**Documentation required:** Repository contracts.  
+**Issues found:** None; correlated relation queries avoid duplicating rows when filtering languages and categories.  
+**Decisions made:** Repositories only prepare changes; `SqlAlchemyUnitOfWork` controls commit/rollback. The catalog requires active publication, state `published`, checksum and package.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-009.
 
 ---
 
 ## FR-PH03-TASK-009
 
-**Título:** Implementar servicios, validaciones y errores  
-**Fase:** 3  
-**Descripción:** Aplicar invariantes mediante servicios y un contrato de error estándar.  
-**Objetivo:** Mantener reglas de negocio fuera de rutas y adaptadores.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-008.  
-**Archivos relacionados:** servicios, schemas y manejo de errores.  
-**Criterios de aceptación:** Errores estables, validación de estados y respuestas tipadas.  
-**Pruebas requeridas:** Reglas válidas/inválidas y traducción a HTTP.  
-**Documentación requerida:** Catálogo de errores.  
-**Problemas encontrados:** FastAPI tipa el manejador global contra `Exception`; el adaptador hace
-un cast controlado después de registrarse exclusivamente para `DomainError`.  
-**Decisiones tomadas:** Los códigos `catalog.invalid_query` y `content.not_found` son estables;
-mensajes y detalles son seguros. El servicio valida límites y slugs antes de consultar persistencia.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-010.
+**Title:** Implement services, validations and errors  
+**Phase:** 3  
+**Description:** Enforce invariants via services and a standard error contract.  
+**Goal:** Keep business rules out of routes and adapters.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-008.  
+**Related files:** services, schemas and error handling.  
+**Acceptance criteria:** Stable errors, state validation and typed responses.  
+**Tests required:** Valid/invalid rules and translation to HTTP.  
+**Documentation required:** Error catalog.  
+**Issues found:** FastAPI types the global handler against `Exception`; the adapter performs a controlled cast after registering exclusively for `DomainError`.  
+**Decisions made:** Codes `catalog.invalid_query` and `content.not_found` are stable; messages and details are safe. The service validates limits and slugs before querying persistence.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-010.
 
 ---
 
 ## FR-PH03-TASK-010
 
-**Título:** Exponer catálogo y contenido por API  
-**Fase:** 3  
-**Descripción:** Crear el primer corte HTTP para listar y consultar contenido publicado.  
-**Objetivo:** Demostrar persistencia-servicio-API sin adelantar Admin ni autenticación.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-009.  
-**Archivos relacionados:** rutas, schemas, servicios y pruebas de integración.  
-**Criterios de aceptación:** Lista paginada y detalle sólo exponen publicaciones válidas.  
-**Pruebas requeridas:** 200, 404, paginación, filtros y contenido no publicado.  
-**Documentación requerida:** OpenAPI y README API.  
-**Problemas encontrados:** SQLite en memoria creaba conexiones aisladas cuando FastAPI ejecutaba
-rutas síncronas en otro hilo; la fábrica ahora usa `StaticPool` sólo para bases en memoria.  
-**Decisiones tomadas:** `GET /catalog` expone resumen paginado y filtros; `GET /catalog/{slug}`
-expone el árbol editorial. Las rutas son de sólo lectura y no confirman transacciones.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-011.
+**Title:** Expose catalog and content via API  
+**Phase:** 3  
+**Description:** Create the first HTTP cut to list and fetch published content.  
+**Goal:** Demonstrate persistence-service-API without advancing Admin or authentication.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-009.  
+**Related files:** routes, schemas, services and integration tests.  
+**Acceptance criteria:** Paginated list and detail only expose valid publications.  
+**Tests required:** 200, 404, pagination, filters and unpublished content.  
+**Documentation required:** OpenAPI and API README.  
+**Issues found:** In-memory SQLite created isolated connections when FastAPI executed synchronous routes in another thread; the factory now uses `StaticPool` only for in-memory databases.  
+**Decisions made:** `GET /catalog` exposes paginated summary and filters; `GET /catalog/{slug}` exposes the editorial tree. Routes are read-only and do not confirm transactions.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-011.
 
 ---
 
 ## FR-PH03-TASK-011
 
-**Título:** Añadir logging, readiness y OpenAPI verificable  
-**Fase:** 3  
-**Descripción:** Completar observabilidad base y contratos operativos.  
-**Objetivo:** Distinguir vida/disponibilidad y diagnosticar sin filtrar datos sensibles.  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH03-TASK-010.  
-**Archivos relacionados:** configuración, middleware, rutas health y OpenAPI.  
-**Criterios de aceptación:** Logs estructurados, readiness de SQLite y esquema OpenAPI comprobado.  
-**Pruebas requeridas:** Vida, readiness, request ID, error y esquema.  
-**Documentación requerida:** Operación y troubleshooting.  
-**Problemas encontrados:** La captura de logging compartida entre varias instancias de la app era
-frágil en la suite; la prueba verifica el evento emitido y prueba el formatter JSON por separado.  
-**Decisiones tomadas:** Request ID seguro de hasta 64 caracteres; logs sin query/cuerpo; errores
-inesperados devuelven 500 genérico. Readiness consulta SQLite y liveness no lo hace.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH03-TASK-012.
+**Title:** Add logging, readiness and verifiable OpenAPI  
+**Phase:** 3  
+**Description:** Complete base observability and operational contracts.  
+**Goal:** Distinguish liveness/readiness and diagnose without leaking sensitive data.  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH03-TASK-010.  
+**Related files:** configuration, middleware, health routes and OpenAPI.  
+**Acceptance criteria:** Structured logs, SQLite readiness and verified OpenAPI schema.  
+**Tests required:** Liveness, readiness, request ID, error and schema.  
+**Documentation required:** Operation and troubleshooting.  
+**Issues found:** Shared logging capture across multiple app instances was brittle in the suite; the test verifies the emitted event and tests the JSON formatter separately.  
+**Decisions made:** Secure Request ID up to 64 characters; logs without query/body; unexpected errors return generic 500. Readiness queries SQLite and liveness does not.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH03-TASK-012.
 
 ---
 
 ## FR-PH03-TASK-012
 
-**Título:** Auditar y cerrar Fase 3  
-**Fase:** 3  
-**Descripción:** Revisar criterios, trazabilidad, migraciones, API y pruebas.  
-**Objetivo:** Autorizar autenticación sólo con una base backend estable.  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH03-TASK-001 a 011.  
-**Archivos relacionados:** Todos los entregables de Fase 3.  
-**Criterios de aceptación:** Ocho criterios de salida pasan y la tarea usa READY_FOR_REVIEW.  
-**Pruebas requeridas:** Auditoría desde SQLite vacía y puerta completa.  
-**Documentación requerida:** Revisión de fase y actualización de gestión.  
-**Problemas encontrados:** Ninguno abierto; los hallazgos de AuditLog, SQLite en memoria y pruebas
-de logging quedaron resueltos antes de la auditoría.  
-**Decisiones tomadas:** Los ocho criterios pasan; la tarea entra en `READY_FOR_REVIEW` antes del
-cierre obligatorio. Evidencia en `PHASE_3_REVIEW.md`.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Preparar y activar las tareas de Fase 4.
+**Title:** Audit and close Phase 3  
+**Phase:** 3  
+**Description:** Review criteria, traceability, migrations, API and tests.  
+**Goal:** Authorize authentication only with a stable backend database.  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH03-TASK-001 to 011.  
+**Related files:** All Phase 3 deliverables.  
+**Acceptance criteria:** Eight exit criteria pass and the task uses READY_FOR_REVIEW.  
+**Tests required:** Audit from empty SQLite and full gating.  
+**Documentation required:** Phase review and management update.  
+**Issues found:** No open issues; AuditLog, in-memory SQLite and logging test findings were resolved before the audit.  
+**Decisions made:** The eight criteria pass; the task enters `READY_FOR_REVIEW` before mandatory closure. Evidence in `PHASE_3_REVIEW.md`.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Prepare and activate Phase 4 tasks.
 
 ---
 
 ## FR-PH04-TASK-001
 
-**Título:** Diseñar identidad, sesión y controles web  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 3 COMPLETED.  
-**Criterios de aceptación:** Tecnología, TTL, almacenamiento, cookie, CSRF y límites MVP decididos.  
-**Pruebas requeridas:** Revisión contra FR-THREAT-001/006/007 y FR-AC-018/021.  
-**Documentación requerida:** FR-DEC-014 y criterios de salida de Fase 4.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-24  
-**Siguiente acción:** Ejecutar FR-PH04-TASK-002.
+**Title:** Design identity, session and web controls  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 3 COMPLETED.  
+**Acceptance criteria:** Technology, TTL, storage, cookie, CSRF and MVP limits decided.  
+**Tests required:** Review against FR-THREAT-001/006/007 and FR-AC-018/021.  
+**Documentation required:** FR-DEC-014 and Phase 4 exit criteria.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-24  
+**Next action:** Run FR-PH04-TASK-002.
 
 ---
 
 ## FR-PH04-TASK-002
 
-**Título:** Modelar credenciales y sesiones revocables  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-001.  
-**Criterios de aceptación:** Hash de contraseña separado; token sólo hasheado; expiración,
-revocación y metadatos mínimos con índices/restricciones.  
-**Pruebas requeridas:** Migración reversible, unicidad, expiración y revocación.  
-**Documentación requerida:** Actualizar modelo y política de retención.  
-**Fecha de inicio:** 2026-07-24  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; continuar primitivas criptográficas.
+**Title:** Model revocable credentials and sessions  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-001.  
+**Acceptance criteria:** Separate password hash; token only hashed; expiration, revocation and minimal metadata with indexes/constraints.  
+**Tests required:** Reversible migration, uniqueness, expiration and revocation.  
+**Documentation required:** Update model and retention policy.  
+**Start date:** 2026-07-24  
+**End date:** 2026-07-25  
+**Next action:** Completed; continue cryptographic primitives.
 
 ---
 
 ## FR-PH04-TASK-003
 
-**Título:** Implementar primitivas de contraseña y token  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-002.  
-**Criterios de aceptación:** Argon2id verificable/actualizable y token aleatorio hasheado.  
-**Pruebas requeridas:** Hash, rechazo, rehash, entropía y comparación segura.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; usar primitivas en bootstrap y sesiones.
+**Title:** Implement password and token primitives  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-002.  
+**Acceptance criteria:** Argon2id verifiable/updatable and random token hashed.  
+**Tests required:** Hash, reject, rehash, entropy and secure comparison.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; use primitives in bootstrap and sessions.
 
 ---
 
 ## FR-PH04-TASK-004
 
-**Título:** Crear bootstrap seguro de superadministrador  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-003.  
-**Criterios de aceptación:** Comando local idempotente, entrada no registrada y sin contraseña seed.  
-**Pruebas requeridas:** Creación, duplicado y entrada inválida.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; usar la cuenta inicial en login.
+**Title:** Create secure superadmin bootstrap  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-003.  
+**Acceptance criteria:** Idempotent local command, unlogged input and no seed password.  
+**Tests required:** Creation, duplicate and invalid input.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; use the initial account in login.
 
 ---
 
 ## FR-PH04-TASK-005
 
-**Título:** Exponer login, logout y sesión actual  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-003 y 004.  
-**Criterios de aceptación:** Contratos seguros, expiración/revocación y mensajes no enumerables.  
-**Pruebas requeridas:** Éxito, credencial inválida, expirada, logout y repetición.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; proteger acciones administrativas con la sesión.
+**Title:** Expose login, logout and current session  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-003 and 004.  
+**Acceptance criteria:** Secure contracts, expiration/revocation and non-enumerable messages.  
+**Tests required:** Success, invalid credential, expired, logout and replay.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; protect administrative actions with the session.
 
 ---
 
 ## FR-PH04-TASK-006
 
-**Título:** Aplicar cookie, CSRF, origen, caché y CORS  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-005.  
-**Criterios de aceptación:** Atributos por entorno, no-store y rechazo cross-site en cambios.  
-**Pruebas requeridas:** Headers, origen válido/inválido, CSRF ausente y preflight.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; conservar estos controles en rutas protegidas.
+**Title:** Apply cookie, CSRF, origin, cache and CORS  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-005.  
+**Acceptance criteria:** Attributes per environment, no-store and cross-site rejection on mutations.  
+**Tests required:** Headers, valid/invalid origin, missing CSRF and preflight.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; preserve these controls on protected routes.
 
 ---
 
 ## FR-PH04-TASK-007
 
-**Título:** Aplicar autorización RBAC por permiso  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-005.  
-**Criterios de aceptación:** Dependencias deny-by-default y permisos explícitos por acción.  
-**Pruebas requeridas:** Matriz positiva/negativa, sesión revocada y usuario inactivo.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; auditar decisiones y limitar intentos.
+**Title:** Apply RBAC authorization by permission  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-005.  
+**Acceptance criteria:** Deny-by-default dependencies and explicit permissions per action.  
+**Tests required:** Positive/negative matrix, revoked session and inactive user.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; audit decisions and limit attempts.
 
 ---
 
 ## FR-PH04-TASK-008
 
-**Título:** Añadir auditoría y límite de intentos  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH04-TASK-005 y 007.  
-**Criterios de aceptación:** Éxitos/fallos auditados sin secretos y abuso temporalmente limitado.  
-**Pruebas requeridas:** Ventana, recuperación, correlación y redacción.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; ejecutar verificación formal de seguridad.
+**Title:** Add auditing and attempt limiting  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH04-TASK-005 and 007.  
+**Acceptance criteria:** Successes/failures audited without secrets and abuse temporarily limited.  
+**Tests required:** Window, recovery, correlation and redaction.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; run formal security verification.
 
 ---
 
 ## FR-PH04-TASK-009
 
-**Título:** Verificar seguridad, OpenAPI y documentación  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-002 a 008.  
-**Criterios de aceptación:** FR-AC-018/021, amenazas, contratos y guías cubiertos.  
-**Pruebas requeridas:** Suite de seguridad y puerta completa.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; ejecutar auditoría de cierre.
+**Title:** Verify security, OpenAPI and documentation  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-002 to 008.  
+**Acceptance criteria:** FR-AC-018/021, threats, contracts and guides covered.  
+**Tests required:** Security suite and full gating.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; run closing audit.
 
 ---
 
 ## FR-PH04-TASK-010
 
-**Título:** Auditar y cerrar Fase 4  
-**Fase:** 4  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH04-TASK-001 a 009.  
-**Criterios de aceptación:** Ocho criterios pasan y la tarea usa READY_FOR_REVIEW.  
-**Pruebas requeridas:** Auditoría desde SQLite vacía y sesión hostil.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; preparar el desglose de Fase 5.
+**Title:** Audit and close Phase 4  
+**Phase:** 4  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH04-TASK-001 to 009.  
+**Acceptance criteria:** Eight criteria pass and the task uses READY_FOR_REVIEW.  
+**Tests required:** Audit from empty SQLite and hostile session.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; prepare breakdown for Phase 5.
 
 ---
 
 ## FR-PH05-TASK-001
 
-**Título:** Descomponer y activar la Fase 5  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 4 COMPLETED.  
-**Criterios de aceptación:** Tareas, dependencias, pruebas y criterios de salida de Admin definidos.  
-**Pruebas requeridas:** Revisión contra FR-ADMIN-001 a 011 y FR-SCREEN-A01 a A14.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; implementar fundamentos visuales.
+**Title:** Break down and activate Phase 5  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 4 COMPLETED.  
+**Acceptance criteria:** Tasks, dependencies, tests and Admin exit criteria defined.  
+**Tests required:** Review against FR-ADMIN-001 to 011 and FR-SCREEN-A01 to A14.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; implement visual foundations.
 
 ---
 
 ## FR-PH05-TASK-002
 
-**Título:** Crear shell y fundamentos visuales de Admin  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-001.  
-**Criterios de aceptación:** Shell, navegación, tokens y composición responsive desde 320 CSS px.  
-**Pruebas requeridas:** Render de rutas, landmarks, navegación y build estricto.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completar sesión y permisos reales.
+**Title:** Create Admin shell and visual foundations  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-001.  
+**Acceptance criteria:** Shell, navigation, tokens and responsive composition from 320 CSS px.  
+**Tests required:** Route render, landmarks, navigation and strict build.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Complete session and real permissions.
 
 ---
 
 ## FR-PH05-TASK-003
 
-**Título:** Integrar acceso y sesión en Admin  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-002 y Fase 4.  
-**Criterios de aceptación:** Login, restauración, expiración y logout seguros; permisos controlan UI.  
-**Pruebas requeridas:** Éxito, inválido, límite, indisponibilidad, expiración, logout y permiso parcial.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; conectar el Dashboard a un resumen autorizado.
+**Title:** Integrate access and session into Admin  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-002 and Phase 4.  
+**Acceptance criteria:** Secure login, restore, expiration and logout; permissions control UI.  
+**Tests required:** Success, invalid, limit, unavailability, expiration, logout and partial permission.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; connect the Dashboard to an authorized summary.
 
 ---
 
 ## FR-PH05-TASK-004
 
-**Título:** Implementar Dashboard editorial  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH05-TASK-003.  
-**Criterios de aceptación:** Prioridades, métricas, actividad y estados vacío/error provienen de API.  
-**Pruebas requeridas:** Carga, datos, vacío, permiso parcial y error recuperable.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; conectar la lista administrativa de contenido.
+**Title:** Implement editorial Dashboard  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH05-TASK-003.  
+**Acceptance criteria:** Priorities, metrics, activity and empty/error states come from the API.  
+**Tests required:** Load, data, empty, partial permission and recoverable error.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; connect the admin content list.
 
 ---
 
 ## FR-PH05-TASK-005
 
-**Título:** Implementar lista y filtros de contenido  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-003.  
-**Criterios de aceptación:** Catálogo paginado, búsqueda, filtros y acciones según permiso.  
-**Pruebas requeridas:** Resultados, vacío, combinación de filtros, error y representación compacta.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; implementar creación de borradores.
+**Title:** Implement content list and filters  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-003.  
+**Acceptance criteria:** Paginated catalog, search, filters and actions according to permission.  
+**Tests required:** Results, empty, combined filters, error and compact representation.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; implement draft creation.
 
 ---
 
 ## FR-PH05-TASK-006
 
-**Título:** Implementar creación y metadatos de contenido  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-005.  
-**Criterios de aceptación:** Crear borrador con tipo, idiomas, audiencia, nivel y categorías válidos.  
-**Pruebas requeridas:** Creación, validación, duplicado, permiso y error recuperable.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; implementar el editor estructural.
+**Title:** Implement content creation and metadata  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-005.  
+**Acceptance criteria:** Create draft with valid type, languages, audience, level and categories.  
+**Tests required:** Creation, validation, duplicate, permission and recoverable error.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; implement the structural editor.
 
 ---
 
 ## FR-PH05-TASK-007
 
-**Título:** Implementar editor, estructura y recuperación  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-006.  
-**Criterios de aceptación:** Editar capítulos/párrafos, autoguardar, recuperar y resolver conflicto.  
-**Pruebas requeridas:** Guardado, salida, recuperación, reordenamiento por teclado y conflicto.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; preparar traducciones, recursos y voces.
+**Title:** Implement editor, structure and recovery  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-006.  
+**Acceptance criteria:** Edit chapters/paragraphs, autosave, recover and resolve conflict.  
+**Tests required:** Save, exit, recovery, keyboard reordering and conflict.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; prepare translations, assets and voices.
 
 ---
 
 ## FR-PH05-TASK-008
 
-**Título:** Implementar traducciones, recursos y voz  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH05-TASK-007.  
-**Criterios de aceptación:** Pares bilingües, carga validada y selección de voz compatible.  
-**Pruebas requeridas:** Faltante, desalineación, archivo inválido, voz incompatible y guardado.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; traducciones, ilustraciones y voces conectadas.
+**Title:** Implement translations, assets and voice  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH05-TASK-007.  
+**Acceptance criteria:** Bilingual pairs, validated upload and compatible voice selection.  
+**Tests required:** Missing, misalignment, invalid file, incompatible voice and save.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; translations, illustrations and voices connected.
 
 ---
 
 ## FR-PH05-TASK-009
 
-**Título:** Implementar procesamiento y diagnóstico  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH05-TASK-008 y contratos de Fase 6 cuando correspondan.  
-**Criterios de aceptación:** Progreso, costo, cancelación, error y reintento idempotente visibles.  
-**Pruebas requeridas:** Cola, progreso, fallo parcial, reintento, cancelación y permiso.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada en `/processing`.
+**Title:** Implement processing and diagnostics  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH05-TASK-008 and Phase 6 contracts when applicable.  
+**Acceptance criteria:** Progress, cost, cancellation, error and idempotent retry visible.  
+**Tests required:** Queue, progress, partial failure, retry, cancellation and permission.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed in `/processing`.
 
 ---
 
 ## FR-PH05-TASK-010
 
-**Título:** Implementar revisión, publicación e historial  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-007 a 009.  
-**Criterios de aceptación:** Preview, checklist y transiciones auditadas respetan permisos y estado.  
-**Pruebas requeridas:** Aprobar, rechazar, publicar, despublicar, archivar y denegaciones.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada en `/reviews` y API administrativa.
+**Title:** Implement review, publishing and history  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-007 to 009.  
+**Acceptance criteria:** Preview, checklist and audited transitions respect permissions and state.  
+**Tests required:** Approve, reject, publish, unpublish, archive and denials.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed in `/reviews` and admin API.
 
 ---
 
 ## FR-PH05-TASK-011
 
-**Título:** Verificar responsive, accesibilidad y estados  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-003 a 010.  
-**Criterios de aceptación:** Flujos funcionan a 320 px, zoom/reflow, teclado y lector de pantalla.  
-**Pruebas requeridas:** Automatizadas y manuales de WCAG 2.2 AA para recorridos críticos.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; evidencia en `PHASE_5_REVIEW.md`.
+**Title:** Verify responsive, accessibility and states  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-003 to 010.  
+**Acceptance criteria:** Flows work at 320 px, zoom/reflow, keyboard and screen reader.  
+**Tests required:** Automated and manual WCAG 2.2 AA for critical journeys.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; evidence in `PHASE_5_REVIEW.md`.
 
 ---
 
 ## FR-PH05-TASK-012
 
-**Título:** Auditar y cerrar Fase 5  
-**Fase:** 5  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH05-TASK-001 a 011.  
-**Criterios de aceptación:** Ocho criterios de salida pasan y la puerta completa queda en verde.  
-**Pruebas requeridas:** Recorrido login → editar → revisar → publicar sobre SQLite desechable.
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Completada; Fase 5 cerrada en PASS.
+**Title:** Audit and close Phase 5  
+**Phase:** 5  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH05-TASK-001 to 011.  
+**Acceptance criteria:** Eight exit criteria pass and the full gate is green.  
+**Tests required:** Login → edit → review → publish flow on disposable SQLite.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Completed; Phase 5 closed as PASS.
 
 ---
 
 ## FR-PH06-TASK-001
 
-**Título:** Descomponer y activar la Fase 6  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Criterios de aceptación:** El alcance de Polly, Speech Marks, costos y pruebas queda trazable.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Break down and activate Phase 6  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Acceptance criteria:** The scope of Polly, Speech Marks, costs and tests is traceable.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-002
 
-**Título:** Definir configuración, contratos y voces  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-001.  
-**Criterios de aceptación:** Proveedor, almacenamiento, límite, fragmento e idiomas se validan.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Define configuration, contracts and voices  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-001.  
+**Acceptance criteria:** Provider, storage, limit, fragment and languages are validated.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-003
 
-**Título:** Dividir texto y estimar costos  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-002.  
-**Criterios de aceptación:** No corta palabras y bloquea costos sobre el máximo antes del proveedor.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Split text and estimate costs  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-002.  
+**Acceptance criteria:** Does not split words and locks costs above the maximum before contacting the provider.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-004
 
-**Título:** Implementar adaptadores local y Amazon Polly  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-002.  
-**Criterios de aceptación:** Modo local sin red y límite AWS intercambiables por configuración.  
-**Pruebas requeridas:** Cliente AWS simulado; nunca una llamada AWS real automatizada.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Implement local and Amazon Polly adapters  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-002.  
+**Acceptance criteria:** Local mode without network and AWS limit interchangeable by configuration.  
+**Tests required:** Simulated AWS client; never a real automated AWS call.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-005
 
-**Título:** Almacenar audio con integridad  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH06-TASK-003 y 004.  
-**Criterios de aceptación:** URI, duración, voz, idioma, estado y checksum quedan persistidos.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Store audio with integrity  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH06-TASK-003 and 004.  
+**Acceptance criteria:** URI, duration, voice, language, state and checksum are persisted.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-006
 
-**Título:** Procesar y mapear Speech Marks  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-004.  
-**Criterios de aceptación:** Palabras conservan tiempo, caracteres, orden y vínculo al párrafo.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Process and map Speech Marks  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-004.  
+**Acceptance criteria:** Words retain time, character, order and link to the paragraph.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-007
 
-**Título:** Orquestar trabajos, idempotencia y reintentos  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-003 a 006.  
-**Criterios de aceptación:** Estado, progreso, error, cancelación, tres intentos y clave única funcionan.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Orchestrate jobs, idempotency and retries  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-003 to 006.  
+**Acceptance criteria:** State, progress, error, cancellation, three attempts and unique key work.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-008
 
-**Título:** Exponer API segura de procesamiento  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-007.  
-**Criterios de aceptación:** Endpoints exigen sesión, permiso, origen y CSRF en mutaciones.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Expose secure processing API  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-007.  
+**Acceptance criteria:** Endpoints require session, permission, origin and CSRF on mutations.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-009
 
-**Título:** Integrar progreso y diagnóstico en Admin  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH06-TASK-008.  
-**Criterios de aceptación:** Voz, idioma, costo, progreso, error, reintento y cancelación son visibles.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25
+**Title:** Integrate progress and diagnostics into Admin  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH06-TASK-008.  
+**Acceptance criteria:** Voice, language, cost, progress, error, retry and cancellation are visible.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25
 
 ---
 
 ## FR-PH06-TASK-010
 
-**Título:** Verificar, documentar y cerrar Fase 6  
-**Fase:** 6  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH06-TASK-001 a 009.  
-**Criterios de aceptación:** Puerta completa en verde y evidencia sin AWS real.  
-**Pruebas requeridas:** Mocks, errores, costos, fragmentos, marcas, API y pantalla.  
-**Fecha de inicio:** 2026-07-25  
-**Fecha de finalización:** 2026-07-25  
-**Siguiente acción:** Descomponer la Fase 7 antes de activarla.
+**Title:** Verify, document and close Phase 6  
+**Phase:** 6  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH06-TASK-001 to 009.  
+**Acceptance criteria:** Gate fully green and evidence without real AWS.  
+**Tests required:** Mocks, errors, costs, snippets, marks, API and screen.  
+**Start date:** 2026-07-25  
+**End date:** 2026-07-25  
+**Next action:** Break down Phase 7 before activating it.
 
 ---
 
 ## FR-PH07-TASK-001
 
-**Título:** Descomponer y activar la Fase 7  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 6 COMPLETED.  
-**Criterios de aceptación:** Actividades del prompt maestro convertidas en contratos, pruebas y
-criterios de salida verificables.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Break down and activate Phase 7  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 6 COMPLETED.  
+**Acceptance criteria:** Master-prompt activities converted into contracts, tests and verifiable exit criteria.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-002
 
-**Título:** Definir contratos y estados del Reader Engine  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH07-TASK-001.  
-**Criterios de aceptación:** Timeline, Speech Mark, capítulo, progreso y estado de reproducción son
-tipos públicos sin dependencia de React ni DOM.  
-**Pruebas requeridas:** Compilación TypeScript strict.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Define Reader Engine contracts and states  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH07-TASK-001.  
+**Acceptance criteria:** Timeline, Speech Mark, chapter, progress and playback state are public types with no dependency on React or the DOM.  
+**Tests required:** TypeScript strict compilation.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-003
 
-**Título:** Validar líneas de tiempo y localizar la palabra activa  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH07-TASK-002.  
-**Criterios de aceptación:** Duraciones, orden, límites y capítulos se validan; la palabra activa se
-obtiene mediante búsqueda binaria y tolera pausas entre palabras.  
-**Pruebas requeridas:** Límites, tiempos inválidos, capítulos desconocidos y espacios sin marca.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Validate timelines and locate the active word  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH07-TASK-002.  
+**Acceptance criteria:** Durations, ordering, boundaries and chapters are validated; the active word is obtained via binary search and tolerates pauses between words.  
+**Tests required:** Boundaries, invalid times, unknown chapters and unmarked spaces.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-004
 
-**Título:** Implementar reproducción, búsqueda, velocidad y capítulos  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH07-TASK-003.  
-**Criterios de aceptación:** Play, pause, tick, seek, skip, repeat, tasa y capítulo producen estados
-deterministas y observables.  
-**Pruebas requeridas:** Recorrido completo, final, reinicio y tasas inválidas.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Implement playback, seek, rate and chapters  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH07-TASK-003.  
+**Acceptance criteria:** Play, pause, tick, seek, skip, repeat, rate and chapter produce deterministic and observable states.  
+**Tests required:** Full run, end, restart and invalid rates.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-005
 
-**Título:** Recuperar progreso y responder a interrupciones  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH07-TASK-004.  
-**Criterios de aceptación:** Posición y anclas se serializan; blur pausa; resize y orientación
-recalculan layout; pérdida de audio entra en error explícito.  
-**Pruebas requeridas:** Recuperación, interrupción, revisión de layout y error de audio.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Recover progress and respond to interruptions  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH07-TASK-004.  
+**Acceptance criteria:** Position and anchors serialize; blur pauses; resize and orientation recalculate layout; audio loss enters explicit error.  
+**Tests required:** Recovery, interruption, layout review and audio error.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-006
 
-**Título:** Exponer el paquete publicado para lectura  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fases 3 y 6.  
-**Criterios de aceptación:** La API entrega únicamente la publicación activa con traducciones,
-capítulos, párrafos, ilustración, audio y marcas vinculadas.  
-**Pruebas requeridas:** Éxito, contenido ausente, audio ausente y marca sin párrafo.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Expose the published package for reading  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phases 3 and 6.  
+**Acceptance criteria:** The API delivers only the active publication with translations, chapters, paragraphs, illustration, audio and linked marks.  
+**Tests required:** Success, missing content, missing audio and mark without paragraph.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-007
 
-**Título:** Crear y sembrar el cuento bilingüe del MVP  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH07-TASK-006.  
-**Criterios de aceptación:** Historia e ilustración originales, dos idiomas alineados, audio local,
-Speech Marks y publicación se crean idempotentemente en SQLite.  
-**Pruebas requeridas:** Primera ejecución, repetición y paquete bilingüe legible.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Create and seed the bilingual MVP story  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH07-TASK-006.  
+**Acceptance criteria:** Original story and illustration, two aligned languages, local audio, Speech Marks and publication are created idempotently in SQLite.  
+**Tests required:** First run, repeat run and readable bilingual package.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-008
 
-**Título:** Integrar un demostrador visual del motor  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH07-TASK-004 a 007.  
-**Criterios de aceptación:** El navegador muestra biblioteca, cuento, palabra activa, mano,
-auto-scroll, progreso, capítulos, velocidad, repetición e idiomas.  
-**Pruebas requeridas:** Carga, error, controles, cambio de idioma y persistencia.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Integrate a visual demonstrator of the engine  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH07-TASK-004 to 007.  
+**Acceptance criteria:** The browser shows library, story, active word, hand, auto-scroll, progress, chapters, rate, repeat and languages.  
+**Tests required:** Load, error, controls, language change and persistence.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-009
 
-**Título:** Verificar motor, API y recorrido visual  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH07-TASK-002 a 008.  
-**Criterios de aceptación:** Pruebas unitarias e integración, tipos, lint, formato y builds pasan en
-la puerta del monorepo.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26
+**Title:** Verify engine, API and visual walkthrough  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH07-TASK-002 to 008.  
+**Acceptance criteria:** Unit and integration tests, types, lint, format and builds pass on the monorepo gate.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26
 
 ---
 
 ## FR-PH07-TASK-010
 
-**Título:** Documentar y cerrar la Fase 7  
-**Fase:** 7  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH07-TASK-001 a 009.  
-**Criterios de aceptación:** Arquitectura, operación, limitaciones y evidencia quedan documentadas y
-los ocho criterios de salida pasan.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completar la Fase 8 con PWA, estados de biblioteca y audio real.
+**Title:** Document and close Phase 7  
+**Phase:** 7  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH07-TASK-001 to 009.  
+**Acceptance criteria:** Architecture, operation, limitations and evidence are documented and the eight exit criteria pass.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Complete Phase 8 with PWA, library states and real audio.
 
 ---
 
 ## FR-PH08-TASK-001
 
-**Título:** Descomponer y activar la Fase 8  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 7 COMPLETED.  
-**Criterios de aceptación:** Las quince actividades del prompt quedan relacionadas con pantallas,
-requisitos, pruebas y criterios de salida.  
-**Pruebas requeridas:** Revisión contra FR-READER-001 a 015 y FR-SCREEN-R01 a R12.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Break down and activate Phase 8  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 7 COMPLETED.  
+**Acceptance criteria:** The fifteen prompt activities are related to screens, requirements, tests and exit criteria.  
+**Tests required:** Review against FR-READER-001 to 015 and FR-SCREEN-R01 to R12.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-002
 
-**Título:** Crear shell y navegación responsive del Reader  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-001.  
-**Criterios de aceptación:** Navegación amplia y compacta, ruta actual, conexión y acceso a
-preferencias funcionan desde 320 CSS px.  
-**Pruebas requeridas:** Rutas, landmarks, foco, navegación y reflow.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Create Reader shell and responsive navigation  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-001.  
+**Acceptance criteria:** Wide and compact navigation, current route, connectivity and access to preferences work from 320 CSS px.  
+**Tests required:** Routes, landmarks, focus, navigation and reflow.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-003
 
-**Título:** Implementar inicio, biblioteca, categorías y búsqueda  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-002.  
-**Criterios de aceptación:** Catálogo publicado se descubre por texto, categoría, idioma y nivel;
-carga, error y vacío conservan contexto.  
-**Pruebas requeridas:** Resultados, filtros combinados, vacío, error y conexión.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Implement home, library, categories and search  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-002.  
+**Acceptance criteria:** Published catalog is discoverable by text, category, language and level; loading, error and empty states preserve context.  
+**Tests required:** Results, combined filters, empty, error and connectivity.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-004
 
-**Título:** Implementar detalle y acceso contextual al lector  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-003.  
-**Criterios de aceptación:** Portada, resumen, categorías, idiomas, nivel y progreso llevan a
-comenzar o continuar la versión publicada.  
-**Pruebas requeridas:** Sin progreso, con progreso, favorito y contenido ausente.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Implement detail and contextual access to the reader  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-003.  
+**Acceptance criteria:** Cover, summary, categories, languages, level and progress lead to start or continue the published version.  
+**Tests required:** No progress, with progress, favorite and missing content.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-005
 
-**Título:** Integrar narración audible con Reader Engine  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-004 y Fase 7.  
-**Criterios de aceptación:** La voz disponible del dispositivo sigue marcas canónicas, respeta
-pausa, velocidad, idioma y error recuperable sin requerir API keys.  
-**Pruebas requeridas:** Disponible, ausente, pausa, final, boundary, cambio de velocidad e idioma.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Integrate audible narration with Reader Engine  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-004 and Phase 7.  
+**Acceptance criteria:** The device's available voice follows canonical marks, respects pause, rate, language and recovers from errors without requiring API keys.  
+**Tests required:** Available, absent, pause, end, boundary, rate change and language change.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-006
 
-**Título:** Implementar favoritos, progreso e historial  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH08-TASK-003 y 004.  
-**Criterios de aceptación:** Datos locales no sensibles se guardan sin duplicados y permiten
-reanudar o eliminar una preferencia.  
-**Pruebas requeridas:** Vacío, agregar, quitar, reanudar, orden temporal y dato corrupto.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Implement favorites, progress and history  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH08-TASK-003 and 004.  
+**Acceptance criteria:** Non-sensitive local data is saved without duplication and allows resuming or removing a preference.  
+**Tests required:** Empty, add, remove, resume, temporal ordering and corrupt data.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-007
 
-**Título:** Implementar configuración y modos de lectura  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-002.  
-**Criterios de aceptación:** Infantil, adulto y aprender inglés aplican idioma, tamaño, tema,
-puntero, movimiento, auto-scroll y narración sin duplicar la aplicación.  
-**Pruebas requeridas:** Defaults, persistencia, cambio de modo, sistema/reduced motion y reset.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Implement settings and reading modes  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-002.  
+**Acceptance criteria:** Child, adult and learn-English modes apply language, size, theme, pointer, movement, auto-scroll and narration without duplicating the app.  
+**Tests required:** Defaults, persistence, mode switch, system/reduced motion and reset.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-008
 
-**Título:** Implementar vocabulario y ayudas de aprendizaje  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH08-TASK-005 y 007.  
-**Criterios de aceptación:** Una palabra inglesa puede seleccionarse, traducirse con contenido
-editorial alineado, repetirse y guardarse o quitarse del vocabulario local.  
-**Pruebas requeridas:** Panel, foco, traducción, repetición, guardar, quitar y estado vacío.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Implement vocabulary and learning aids  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH08-TASK-005 and 007.  
+**Acceptance criteria:** An English word can be selected, translated with aligned editorial content, repeated and saved or removed from local vocabulary.  
+**Tests required:** Panel, focus, translation, repeat, save, remove and empty state.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-009
 
-**Título:** Convertir Reader en PWA instalable  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-002.  
-**Criterios de aceptación:** Manifest, icono, tema, registro seguro y service worker del shell hacen
-Reader instalable sin adelantar descargas de contenido de Fase 9.  
-**Pruebas requeridas:** Manifest válido, registro, actualización y fallback sin soporte.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Turn Reader into an installable PWA  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-002.  
+**Acceptance criteria:** Manifest, icon, theme, secure registration and shell service worker make Reader installable without prefetching Phase 9 content.  
+**Tests required:** Valid manifest, registration, update and fallback without support.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-010
 
-**Título:** Verificar responsive y accesibilidad  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-002 a 009.  
-**Criterios de aceptación:** 320 px, 400% reflow, teclado, foco, nombres, contraste, reduced motion,
-safe areas y objetivos infantiles cumplen especificación.  
-**Pruebas requeridas:** Automatización y revisión visual en compacto y amplio.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Verify responsive and accessibility  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-002 to 009.  
+**Acceptance criteria:** 320 px, 400% reflow, keyboard, focus, names, contrast, reduced motion, safe areas and child targets meet specification.  
+**Tests required:** Automation and visual review in compact and wide.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-011
 
-**Título:** Añadir pruebas de integración y E2E  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-003 a 010.  
-**Criterios de aceptación:** Recorridos descubrir-detalle-leer, favorito, historial, ajustes,
-aprendizaje e instalación tienen evidencia automatizada o de navegador real.  
-**Pruebas requeridas:** Vitest y recorrido Chrome headless contra API/Reader reales.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Add integration and E2E tests  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-003 to 010.  
+**Acceptance criteria:** Discover-detail-read flows, favorite, history, settings, learning and install have automated or real-browser evidence.  
+**Tests required:** Vitest and Chrome headless walkthroughs against real API/Reader.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH08-TASK-012
 
-**Título:** Documentar, auditar y cerrar la Fase 8  
-**Fase:** 8  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH08-TASK-001 a 011.  
-**Criterios de aceptación:** Quince actividades, requisitos y criterios de salida pasan; puerta
-completa, evidencia visual y documentación quedan actualizadas.  
-**Pruebas requeridas:** `pnpm check` y auditoría final desde SQLite sembrada.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Descomponer la Fase 9.
+**Title:** Document, audit and close Phase 8  
+**Phase:** 8  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH08-TASK-001 to 011.  
+**Acceptance criteria:** Fifteen activities, requirements and exit criteria pass; gate is complete, visual evidence and documentation are updated.  
+**Tests required:** `pnpm check` and final audit from seeded SQLite.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Break down Phase 9.
 
 ---
 
 ## FR-PH09-TASK-001
 
-**Título:** Descomponer y activar la Fase 9  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** Fase 8 COMPLETED.  
-**Criterios de aceptación:** Las catorce actividades del prompt se relacionan con FR-OFFLINE-001 a
-008, reglas, flujos, almacenamiento, sincronización y pruebas.  
-**Pruebas requeridas:** Revisión del prompt, requisitos, arquitectura y wireframes.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Ejecutar FR-PH09-TASK-002.
+**Title:** Break down and activate Phase 9  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** Phase 8 COMPLETED.  
+**Acceptance criteria:** The fourteen prompt activities relate to FR-OFFLINE-001 to 008, rules, flows, storage, sync and tests.  
+**Tests required:** Review of the prompt, requirements, architecture and wireframes.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Execute FR-PH09-TASK-002.
 
 ---
 
 ## FR-PH09-TASK-002
 
-**Título:** Alinear paquete publicado y checksum  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-001.  
-**Criterios de aceptación:** API y navegador calculan SHA-256 sobre los mismos bytes canónicos y
-publicación/siembra persisten el valor verificable.  
-**Pruebas requeridas:** Respuesta canónica, checksum válido/alterado y publicación.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Align published package and checksum  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-001.  
+**Acceptance criteria:** API and browser compute SHA-256 over the same canonical bytes and publication/seeding persist the verifiable value.  
+**Tests required:** Canonical response, valid/altered checksum and publication.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-003
 
-**Título:** Crear catálogo y repositorio local  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-002.  
-**Criterios de aceptación:** IndexedDB conserva paquetes, metadatos activos y operaciones; un
-contenido inicial verificable forma parte del build.  
-**Pruebas requeridas:** CRUD, apertura, migración, dato corrupto y bootstrap sin red.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Create local catalog and repository  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-002.  
+**Acceptance criteria:** IndexedDB retains packages, active metadata and operations; an initial verifiable content is part of the build.  
+**Tests required:** CRUD, open, migration, corrupt data and bootstrap without network.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-004
 
-**Título:** Combinar catálogos y comparar versiones  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-003.  
-**Criterios de aceptación:** Catálogo local/remoto se combina sin duplicados y comunica disponible,
-descargado, actualización, sólo local e incompatible.  
-**Pruebas requeridas:** Nuevo, igual, superior, retirado, incompatible y sin red.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Merge catalogs and compare versions  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-003.  
+**Acceptance criteria:** Local/remote catalog combines without duplicates and communicates available, downloaded, update, local-only and incompatible.  
+**Tests required:** New, same, higher, withdrawn, incompatible and offline.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-005
 
-**Título:** Descargar, validar y activar atómicamente  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-002 a 004.  
-**Criterios de aceptación:** Sólo un paquete completo, compatible y con checksum válido reemplaza
-el puntero activo; el temporal nunca queda visible.  
-**Pruebas requeridas:** Éxito, corrupción, interrupción, duplicado y rollback.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Download, validate and activate atomically  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-002 to 004.  
+**Acceptance criteria:** Only a complete, compatible package with valid checksum replaces the active pointer; the temporary is never visible.  
+**Tests required:** Success, corruption, interruption, duplicate and rollback.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-006
 
-**Título:** Gestionar espacio, descargas y eliminación  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** High  
-**Dependencias:** FR-PH09-TASK-005.  
-**Criterios de aceptación:** Límite por paquete, estimación de uso, advertencia, rechazo, reintento
-y eliminación local preservan progreso.  
-**Pruebas requeridas:** 100 MB, 250 MB, cuota insuficiente, eliminar y reintentar.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Manage space, downloads and deletion  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** High  
+**Dependencies:** FR-PH09-TASK-005.  
+**Acceptance criteria:** Per-package limit, usage estimation, warning, rejection, retry and local deletion preserve progress.  
+**Tests required:** 100 MB, 250 MB, insufficient quota, delete and retry.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-007
 
-**Título:** Abrir contenido y apoyos sin conexión  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-003 a 006.  
-**Criterios de aceptación:** Biblioteca, detalle, texto, marcas, ilustración, voz local, aprendizaje
-y progreso funcionan sin API para un paquete activo.  
-**Pruebas requeridas:** Primer inicio, offline posterior, lectura y vocabulario.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Open content and offline supports  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-003 to 006.  
+**Acceptance criteria:** Library, detail, text, marks, illustration, local voice, learning and progress work without the API for an active package.  
+**Tests required:** First start, later offline, reading and vocabulary.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-008
 
-**Título:** Encolar y sincronizar progreso idempotente  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-003 y API de progreso.  
-**Criterios de aceptación:** Operaciones con UUID se conservan hasta confirmación, reenvío no
-duplica y la posición remota no retrocede silenciosamente.  
-**Pruebas requeridas:** Offline, reconexión, triple reenvío, conflicto y error.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Queue and sync idempotent progress  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-003 and progress API.  
+**Acceptance criteria:** UUID operations persist until confirmation, resends do not duplicate and remote position does not silently regress.  
+**Tests required:** Offline, reconnection, triple resend, conflict and error.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-009
 
-**Título:** Actualizar y recuperar ante fallos  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-004 a 008.  
-**Criterios de aceptación:** Refresco detecta versiones, actualiza sólo cambios, migra anclaje y
-conserva la versión anterior ante fallo.  
-**Pruebas requeridas:** Actualización válida, corrupta, retirada e incompatible.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Update and recover from failures  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-004 to 008.  
+**Acceptance criteria:** Refresh detects versions, updates only changes, migrates anchors and preserves the previous version on failure.  
+**Tests required:** Valid update, corrupt update, withdrawn and incompatible.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-010
 
-**Título:** Verificar accesibilidad, fallos y E2E offline  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-003 a 009.  
-**Criterios de aceptación:** Estados usan texto/semántica, teclado y 320 px; Chrome demuestra
-descarga, desconexión, lectura, progreso, reconexión y corrupción.  
-**Pruebas requeridas:** Vitest, API y Chrome real offline.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Completada.
+**Title:** Verify accessibility, failures and offline E2E  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-003 to 009.  
+**Acceptance criteria:** States use text/semantics, keyboard and 320 px; Chrome demonstrates download, disconnect, read, progress, reconnect and corruption.  
+**Tests required:** Vitest, API and real Chrome offline.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Completed.
 
 ---
 
 ## FR-PH09-TASK-011
 
-**Título:** Documentar, auditar y cerrar la Fase 9  
-**Fase:** 9  
-**Estado:** COMPLETED  
-**Prioridad:** Critical  
-**Dependencias:** FR-PH09-TASK-001 a 010.  
-**Criterios de aceptación:** Actividades, requisitos, criterios de salida, evidencia y operación
-quedan documentados; la puerta completa pasa.  
-**Pruebas requeridas:** `pnpm check` desde SQLite sembrada y auditoría final.  
-**Fecha de inicio:** 2026-07-26  
-**Fecha de finalización:** 2026-07-26  
-**Siguiente acción:** Descomponer la Fase 10.
+**Title:** Document, audit and close Phase 9  
+**Phase:** 9  
+**Status:** COMPLETED  
+**Priority:** Critical  
+**Dependencies:** FR-PH09-TASK-001 to 010.  
+**Acceptance criteria:** Activities, requirements, exit criteria, evidence and operation are documented; the gate is complete.  
+**Tests required:** `pnpm check` from seeded SQLite and final audit.  
+**Start date:** 2026-07-26  
+**End date:** 2026-07-26  
+**Next action:** Break down Phase 10.
 
 ---
 
 ## FR-PH10-TASK-001
 
-**Título:** Descomponer y activar la Fase 10
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** Fase 9.
-**Criterios de aceptación:** Actividades del prompt, frontera Reader/Admin, plugins, plataformas,
-permisos, recursos, pruebas y publicación quedan convertidos en tareas verificables.
-**Pruebas requeridas:** Revisión textual y visual de la página 23 del prompt maestro.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Break down and activate Phase 10
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** Phase 9.
+**Acceptance criteria:** Prompt activities, Reader/Admin boundary, plugins, platforms, permissions, resources, tests and publication are converted into verifiable tasks.
+**Tests required:** Textual and visual review of page 23 of the master prompt.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-002
 
-**Título:** Configurar Capacitor exclusivamente para Reader
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-001.
-**Criterios de aceptación:** Capacitor 8 usa `com.followread.reader` y `apps/reader/dist`; Admin y
-Reader Engine no importan dependencias nativas.
-**Pruebas requeridas:** TypeScript, build y `mobile:validate`.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Configure Capacitor exclusively for Reader
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-001.
+**Acceptance criteria:** Capacitor 8 uses `com.followread.reader` and `apps/reader/dist`; Admin and Reader Engine do not import native dependencies.
+**Tests required:** TypeScript, build and `mobile:validate`.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-003
 
-**Título:** Crear y versionar Android e iOS
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-002.
-**Criterios de aceptación:** Proyectos nativos generados por CLI, Android API 24/36, iOS 15 y SPM
-quedan bajo Reader con configuración sincronizable.
-**Pruebas requeridas:** `cap sync android`, `cap sync ios` y auditoría de archivos.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Create and version Android and iOS
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-002.
+**Acceptance criteria:** Native projects generated by CLI, Android API 24/36, iOS 15 and SPM are under Reader with synchronizable configuration.
+**Tests required:** `cap sync android`, `cap sync ios` and file audit.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-004
 
-**Título:** Generar iconos y splash claro/oscuro
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** High
-**Dependencias:** FR-PH10-TASK-003.
-**Criterios de aceptación:** Fuentes 1024/2732 y recursos Android/iOS adaptativos se generan sin
-alterar el icono ni el manifest PWA.
-**Pruebas requeridas:** Dimensiones PNG, catálogos iOS, densidades Android y revisión visual.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Generate light/dark icons and splash
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** High
+**Dependencies:** FR-PH10-TASK-003.
+**Acceptance criteria:** 1024/2732 artboards and adaptive Android/iOS resources are generated without altering the icon or the PWA manifest.
+**Tests required:** PNG dimensions, iOS catalogs, Android densities and visual review.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-005
 
-**Título:** Integrar red, almacenamiento y ciclo de vida
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-002.
-**Criterios de aceptación:** Conectividad nativa actualiza UI/sync, fondo pausa lectura, regreso
-recalcula/sincroniza, IndexedDB y `localStorage` conservan responsabilidades.
-**Pruebas requeridas:** Vitest web/nativo y regresión offline.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Integrate network, storage and lifecycle
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-002.
+**Acceptance criteria:** Native connectivity updates UI/sync, background pauses reading, resume recalculates/syncs, IndexedDB and `localStorage` preserve responsibilities.
+**Tests required:** Vitest web/native and offline regression.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-006
 
-**Título:** Configurar permisos y política de audio
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-003 y 005.
-**Criterios de aceptación:** Sólo red está permitida; no existen permisos sensibles ni declaración
-de audio en segundo plano sin implementación nativa continua.
-**Pruebas requeridas:** Auditoría de manifest/plist y validador negativo.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Configure permissions and audio policy
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-003 and 005.
+**Acceptance criteria:** Only network is allowed; there are no sensitive permissions nor background audio declaration without continuous native implementation.
+**Tests required:** Manifest/plist audit and negative validator.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-007
 
-**Título:** Verificar safe areas y orientación
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-003 y 005.
-**Criterios de aceptación:** Shell y lector respetan insets en ambas orientaciones sin overflow ni
-pérdida de tiempo, palabra o capítulo.
-**Pruebas requeridas:** Chrome 390×844 y 844×390 con insets emulados.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Verify safe areas and orientation
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-003 and 005.
+**Acceptance criteria:** Shell and reader respect insets in both orientations without overflow or loss of time, word or chapter.
+**Tests required:** Chrome 390×844 and 844×390 with emulated insets.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-008
 
-**Título:** Compilar e instalar Android
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-003 a 007.
-**Criterios de aceptación:** Un solo comando detecta JDK/SDK, sincroniza, genera APK debug, instala y
-abre en Android API 35; la actividad sobrevive la rotación.
-**Pruebas requeridas:** Gradle `assembleDebug`, ADB, arranque frío y capturas.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Build and install Android
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-003 to 007.
+**Acceptance criteria:** A single command detects JDK/SDK, syncs, produces debug APK, installs and opens on Android API 35; the activity survives rotation.
+**Tests required:** Gradle `assembleDebug`, ADB, cold boot and screenshots.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-009
 
-**Título:** Validar el proyecto iOS
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-003 a 007.
-**Criterios de aceptación:** Proyecto Xcode/SPM, bundle ID, iOS 15, recursos, orientaciones,
-permisos y sincronización son válidos; la limitación macOS/Xcode queda explícita.
-**Pruebas requeridas:** `cap sync ios` y auditoría estructural; build físico obligatorio antes de
-TestFlight.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Validar en Mac antes de publicación.
+**Title:** Validate the iOS project
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-003 to 007.
+**Acceptance criteria:** Xcode/SPM project, bundle ID, iOS 15, resources, orientations, permissions and sync are valid; the macOS/Xcode limitation is made explicit.
+**Tests required:** `cap sync ios` and structural audit; physical build required before TestFlight.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Validate on Mac before publishing.
 
 ---
 
 ## FR-PH10-TASK-010
 
-**Título:** Automatizar la puerta móvil
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-002 a 009.
-**Criterios de aceptación:** La puerta bloquea Admin, permisos, recursos, configuración o proyectos
-incompletos; doctor y E2E producen diagnóstico/evidencia.
-**Pruebas requeridas:** `mobile:validate`, `mobile:doctor`, Vitest y `reader:mobile-e2e`.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Automate the mobile gate
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-002 to 009.
+**Acceptance criteria:** The gate blocks Admin, permissions, resources, configuration or incomplete projects; doctor and E2E produce diagnosis/evidence.
+**Tests required:** `mobile:validate`, `mobile:doctor`, Vitest and `reader:mobile-e2e`.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-011
 
-**Título:** Documentar builds, publicación y fallos
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** High
-**Dependencias:** FR-PH10-TASK-008 a 010.
-**Criterios de aceptación:** Arquitectura, Android, iOS, firma, tiendas, versionado, rollback,
-variables y troubleshooting tienen instrucciones reproducibles sin secretos.
-**Pruebas requeridas:** Revisión cruzada de comandos y documentación visible en Reader.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Document builds, publishing and failures
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** High
+**Dependencies:** FR-PH10-TASK-008 to 010.
+**Acceptance criteria:** Architecture, Android, iOS, signing, stores, versioning, rollback, variables and troubleshooting have reproducible instructions without secrets.
+**Tests required:** Cross-check of commands and documentation visible in Reader.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH10-TASK-012
 
-**Título:** Auditar y cerrar la Fase 10
-**Fase:** 10
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH10-TASK-001 a 011.
-**Criterios de aceptación:** Requisitos, evidencia, documentación, proyectos nativos, APK y puerta
-completa quedan en verde; validación iOS física permanece como gate externo de publicación.
-**Pruebas requeridas:** `pnpm check`, build Android, E2E móvil y revisión de fase.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Descomponer la Fase 11.
+**Title:** Audit and close Phase 10
+**Phase:** 10
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH10-TASK-001 to 011.
+**Acceptance criteria:** Requirements, evidence, documentation, native projects, APK and gate are green; physical iOS validation remains an external gate to publishing.
+**Tests required:** `pnpm check`, Android build, mobile E2E and phase review.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Break down Phase 11.
 
 ---
 
-## Resumen de Fase 11
+## Phase 11 Summary
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH11-TASK-001 | Descomponer y activar la Fase 11 | COMPLETED | Critical |
-| FR-PH11-TASK-002 | Definir el dominio educativo editorial | COMPLETED | Critical |
-| FR-PH11-TASK-003 | Crear la experiencia visual de aprendizaje | COMPLETED | Critical |
-| FR-PH11-TASK-004 | Mostrar u ocultar traducción contextual | COMPLETED | Critical |
-| FR-PH11-TASK-005 | Implementar significado y ejemplos | COMPLETED | Critical |
-| FR-PH11-TASK-006 | Completar repetición y velocidad | COMPLETED | Critical |
-| FR-PH11-TASK-007 | Ampliar vocabulario y palabras favoritas | COMPLETED | High |
-| FR-PH11-TASK-008 | Registrar historial y progreso educativo | COMPLETED | High |
-| FR-PH11-TASK-009 | Rediseñar la pantalla Mi vocabulario | COMPLETED | High |
-| FR-PH11-TASK-010 | Verificar accesibilidad, offline y móvil | COMPLETED | Critical |
-| FR-PH11-TASK-011 | Automatizar pruebas de aprendizaje | COMPLETED | Critical |
-| FR-PH11-TASK-012 | Documentar, auditar y cerrar la Fase 11 | COMPLETED | Critical |
+| FR-PH11-TASK-001 | Break down and activate Phase 11 | COMPLETED | Critical |
+| FR-PH11-TASK-002 | Define the editorial educational domain | COMPLETED | Critical |
+| FR-PH11-TASK-003 | Create the visual learning experience | COMPLETED | Critical |
+| FR-PH11-TASK-004 | Show or hide contextual translation | COMPLETED | Critical |
+| FR-PH11-TASK-005 | Implement meaning and examples | COMPLETED | Critical |
+| FR-PH11-TASK-006 | Complete repeat and rate controls | COMPLETED | Critical |
+| FR-PH11-TASK-007 | Expand vocabulary and favorite words | COMPLETED | High |
+| FR-PH11-TASK-008 | Record educational history and progress | COMPLETED | High |
+| FR-PH11-TASK-009 | Redesign My Vocabulary screen | COMPLETED | High |
+| FR-PH11-TASK-010 | Verify accessibility, offline and mobile | COMPLETED | Critical |
+| FR-PH11-TASK-011 | Automate learning tests | COMPLETED | Critical |
+| FR-PH11-TASK-012 | Document, audit and close Phase 11 | COMPLETED | Critical |
 
 ---
 
 ## FR-PH11-TASK-001
 
-**Título:** Descomponer y activar la Fase 11
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** Fase 10.
-**Criterios de aceptación:** Las once actividades de la página 24 del prompt y la prohibición de
-dependencia esencial de IA quedan convertidas en tareas verificables.
-**Pruebas requeridas:** Extracción textual y revisión visual del prompt maestro.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Break down and activate Phase 11
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** Phase 10.
+**Acceptance criteria:** The eleven activities on page 24 of the prompt and the prohibition of essential AI dependency are converted into verifiable tasks.
+**Tests required:** Text extraction and visual review of the master prompt.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-002
 
-**Título:** Definir el dominio educativo editorial
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-001.
-**Criterios de aceptación:** Párrafos bilingües y Speech Marks producen fichas deterministas,
-ejemplos y progreso sin diccionario externo ni IA.
-**Pruebas requeridas:** `learningDomain.test.ts`.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Define the educational editorial domain
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-001.
+**Acceptance criteria:** Bilingual paragraphs and Speech Marks produce deterministic cards, examples, and progress without an external dictionary or AI.
+**Tests required:** `learningDomain.test.ts`.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-003
 
-**Título:** Crear la experiencia visual de aprendizaje
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-002.
-**Criterios de aceptación:** Toolbar, métricas, palabras interactivas y panel contextual son
-visibles sin ocultar reproducción ni progreso.
-**Pruebas requeridas:** React, Chrome y revisión de capturas.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Create the visual learning experience
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-002.
+**Acceptance criteria:** Toolbar, metrics, interactive words, and contextual panel are visible without hiding playback or progress.
+**Tests required:** React, Chrome, and screenshot review.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-004
 
-**Título:** Mostrar u ocultar traducción contextual
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-002 y 003.
-**Criterios de aceptación:** Cada párrafo muestra su traducción editorial pareada bajo demanda y la
-preferencia se conserva localmente.
-**Pruebas requeridas:** Integración React y Chrome real.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Show or hide contextual translation
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-002 and 003.
+**Acceptance criteria:** Each paragraph shows its paired editorial translation on demand and the preference is stored locally.
+**Tests required:** React integration and real Chrome.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-005
 
-**Título:** Implementar significado y ejemplos
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-002.
-**Criterios de aceptación:** La palabra seleccionada expone equivalente, explicación contextual,
-ejemplo original y ejemplo traducido, con fallback explícito.
-**Pruebas requeridas:** Dominio, React y E2E.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Implement meaning and examples
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-002.
+**Acceptance criteria:** The selected word exposes equivalent, contextual explanation, original example and translated example, with an explicit fallback.
+**Tests required:** Domain, React, and E2E.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-006
 
-**Título:** Completar repetición y velocidad
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** Reader Engine de Fase 7.
-**Criterios de aceptación:** Palabra y oración se reinician desde marcas canónicas; velocidad
-0.5x-2x sigue disponible y no duplica lógica temporal.
-**Pruebas requeridas:** Reader Engine, React y regresión de narración.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Complete repetition and speed
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** Phase 7 Reader Engine.
+**Acceptance criteria:** Word and sentence reset from canonical marks; speed 0.5x–2x remains available and does not duplicate timing logic.
+**Tests required:** Reader Engine, React, and narration regression.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-007
 
-**Título:** Ampliar vocabulario y palabras favoritas
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** High
-**Dependencias:** FR-PH11-TASK-005.
-**Criterios de aceptación:** Guardar, quitar, marcar favorita, buscar y filtrar funciona con
-migración segura de registros locales anteriores.
-**Pruebas requeridas:** Storage, React y E2E.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Expand vocabulary and favorite words
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** High
+**Dependencies:** FR-PH11-TASK-005.
+**Acceptance criteria:** Save, remove, mark favorite, search and filter work with safe migration of previous local records.
+**Tests required:** Storage, React, and E2E.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-008
 
-**Título:** Registrar historial y progreso educativo
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** High
-**Dependencias:** FR-PH11-TASK-007.
-**Criterios de aceptación:** Se conservan hasta 100 consultas, contador, estado nueva/aprendiendo/
-dominada, repasos y resumen local sin PII.
-**Pruebas requeridas:** Storage y dominio.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Record history and educational progress
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** High
+**Dependencies:** FR-PH11-TASK-007.
+**Acceptance criteria:** Up to 100 queries are retained, counter, state new/learning/mastered, reviews and local summary without PII are preserved.
+**Tests required:** Storage and domain.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-009
 
-**Título:** Rediseñar la pantalla Mi vocabulario
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** High
-**Dependencias:** FR-PH11-TASK-007 y 008.
-**Criterios de aceptación:** Dashboard, meta, tarjetas contextuales, búsqueda, filtros, audio,
-estados e historial forman un recorrido visual completo.
-**Pruebas requeridas:** React y capturas desktop/móvil.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Redesign the My Vocabulary screen
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** High
+**Dependencies:** FR-PH11-TASK-007 and 008.
+**Acceptance criteria:** Dashboard, goal, contextual cards, search, filters, audio, states and history form a complete visual journey.
+**Tests required:** React and desktop/mobile screenshots.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-010
 
-**Título:** Verificar accesibilidad, offline y móvil
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-003 a 009.
-**Criterios de aceptación:** Idiomas, teclado, foco restaurado, Escape, estados textuales, reflow a
-390 px y datos del paquete descargado funcionan sin servicio externo.
-**Pruebas requeridas:** React, Chrome, E2E móvil y revisión manual.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Verify accessibility, offline and mobile
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-003 to 009.
+**Acceptance criteria:** Languages, keyboard, restored focus, Escape, textual states, reflow to 390 px and downloaded package data work without external service.
+**Tests required:** React, Chrome, mobile E2E and manual review.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-011
 
-**Título:** Automatizar pruebas de aprendizaje
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-002 a 010.
-**Criterios de aceptación:** Vitest y Chrome real comprueban traducción, contexto, ejemplo,
-persistencia, favorito, historial, filtro y ausencia de overflow.
-**Pruebas requeridas:** `pnpm reader:learning-e2e` y cobertura Reader.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Completada.
+**Title:** Automate learning tests
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-002 to 010.
+**Acceptance criteria:** Vitest and real Chrome check translation, context, example, persistence, favorite, history, filter and absence of overflow.
+**Tests required:** `pnpm reader:learning-e2e` and Reader coverage.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Completed.
 
 ---
 
 ## FR-PH11-TASK-012
 
-**Título:** Documentar, auditar y cerrar la Fase 11
-**Fase:** 11
-**Estado:** COMPLETED
-**Prioridad:** Critical
-**Dependencias:** FR-PH11-TASK-001 a 011.
-**Criterios de aceptación:** Arquitectura, pruebas, operación, tareas y revisión cubren todas las
-actividades del prompt; la puerta completa queda verde.
-**Pruebas requeridas:** `pnpm check`, E2E y revisión de fase.
-**Fecha de inicio:** 2026-07-26
-**Fecha de finalización:** 2026-07-26
-**Siguiente acción:** Descomponer la Fase 12.
+**Title:** Document, audit and close Phase 11
+**Phase:** 11
+**Status:** COMPLETED
+**Priority:** Critical
+**Dependencies:** FR-PH11-TASK-001 to 011.
+**Acceptance criteria:** Architecture, tests, operation, tasks and review cover all prompt activities; the full gate turns green.
+**Tests required:** `pnpm check`, E2E and phase review.
+**Start date:** 2026-07-26
+**End date:** 2026-07-26
+**Next action:** Break down Phase 12.
 
 ---
 
-# Fase 12 - Calidad, seguridad y rendimiento
+# Phase 12 - Quality, security and performance
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH12-TASK-001 | Descomponer y medir línea base | COMPLETED | Critical |
-| FR-PH12-TASK-002 | Añadir manejo global de errores | COMPLETED | Critical |
-| FR-PH12-TASK-003 | Completar logging, timing y métricas | COMPLETED | Critical |
-| FR-PH12-TASK-004 | Aplicar compresión y caching | COMPLETED | High |
-| FR-PH12-TASK-005 | Implementar lazy loading y presupuestos | COMPLETED | High |
-| FR-PH12-TASK-006 | Automatizar auditoría de accesibilidad | COMPLETED | Critical |
-| FR-PH12-TASK-007 | Crear pruebas de carga | COMPLETED | High |
-| FR-PH12-TASK-008 | Auditar y corregir dependencias | COMPLETED | Critical |
-| FR-PH12-TASK-009 | Consolidar regresión integral | COMPLETED | Critical |
-| FR-PH12-TASK-010 | Documentar, auditar y cerrar la fase | COMPLETED | Critical |
+| FR-PH12-TASK-001 | Break down and measure baseline | COMPLETED | Critical |
+| FR-PH12-TASK-002 | Add global error handling | COMPLETED | Critical |
+| FR-PH12-TASK-003 | Complete logging, timing and metrics | COMPLETED | Critical |
+| FR-PH12-TASK-004 | Apply compression and caching | COMPLETED | High |
+| FR-PH12-TASK-005 | Implement lazy loading and budgets | COMPLETED | High |
+| FR-PH12-TASK-006 | Automate accessibility audit | COMPLETED | Critical |
+| FR-PH12-TASK-007 | Create load tests | COMPLETED | High |
+| FR-PH12-TASK-008 | Audit and fix dependencies | COMPLETED | Critical |
+| FR-PH12-TASK-009 | Consolidate end-to-end regression | COMPLETED | Critical |
+| FR-PH12-TASK-010 | Document, audit and close the phase | COMPLETED | Critical |
 
-Las diez tareas comenzaron y terminaron el 2026-07-26. Sus criterios verificables, comandos,
-resultados medidos e incidencias resueltas están en `PHASE_12_REVIEW.md`,
-`../testing/PHASE_12_QUALITY.md` y `../architecture/PHASE_12_SECURITY_AUDIT.md`.
+The ten tasks started and finished on 2026-07-26. Their verifiable criteria, commands, measured results and resolved incidents are in `PHASE_12_REVIEW.md`, `../testing/PHASE_12_QUALITY.md` and `../architecture/PHASE_12_SECURITY_AUDIT.md`.
 
-**Siguiente acción:** Descomponer la Fase 13.
+**Next action:** Break down Phase 13.
 
 ---
 
-# Fase 13 - CI/CD y despliegue
+# Phase 13 - CI/CD and deployment
 
-| ID | Título | Estado | Prioridad |
+| ID | Title | Status | Priority |
 |---|---|---|---|
-| FR-PH13-TASK-001 | Descomponer y activar la Fase 13 | COMPLETED | Critical |
-| FR-PH13-TASK-002 | Empaquetar API en contenedor | COMPLETED | Critical |
-| FR-PH13-TASK-003 | Empaquetar Admin y Reader | COMPLETED | Critical |
-| FR-PH13-TASK-004 | Orquestar migración, salud y volumen SQLite | COMPLETED | Critical |
-| FR-PH13-TASK-005 | Ampliar CI con seguridad, artefactos e imágenes | COMPLETED | Critical |
-| FR-PH13-TASK-006 | Automatizar SemVer, notas y releases | COMPLETED | High |
-| FR-PH13-TASK-007 | Implementar backup y restore verificables | COMPLETED | Critical |
-| FR-PH13-TASK-008 | Implementar rollback no destructivo | COMPLETED | Critical |
-| FR-PH13-TASK-009 | Definir secretos, entornos y aprobaciones | COMPLETED | Critical |
-| FR-PH13-TASK-010 | Actualizar documentación y continuidad | COMPLETED | Critical |
-| FR-PH13-TASK-011 | Validar estáticamente y ejecutar puerta local | COMPLETED | Critical |
-| FR-PH13-TASK-012 | Validar Docker, GitHub y staging reales | BLOCKED | Critical |
+| FR-PH13-TASK-001 | Break down and activate Phase 13 | COMPLETED | Critical |
+| FR-PH13-TASK-002 | Package API in container | COMPLETED | Critical |
+| FR-PH13-TASK-003 | Package Admin and Reader | COMPLETED | Critical |
+| FR-PH13-TASK-004 | Orchestrate migration, health and SQLite volume | COMPLETED | Critical |
+| FR-PH13-TASK-005 | Expand CI with security, artifacts and images | COMPLETED | Critical |
+| FR-PH13-TASK-006 | Automate SemVer, notes and releases | COMPLETED | High |
+| FR-PH13-TASK-007 | Implement verifiable backup and restore | COMPLETED | Critical |
+| FR-PH13-TASK-008 | Implement non-destructive rollback | COMPLETED | Critical |
+| FR-PH13-TASK-009 | Define secrets, environments and approvals | COMPLETED | Critical |
+| FR-PH13-TASK-010 | Update documentation and continuity | COMPLETED | Critical |
+| FR-PH13-TASK-011 | Validate statically and run local gate | COMPLETED | Critical |
+| FR-PH13-TASK-012 | Validate Docker, GitHub and real staging | BLOCKED | Critical |
 
-**Bloqueo de TASK-012:** Docker no está instalado, falta confirmar CI en GitHub y no existe proveedor
-elegido. No se requieren credenciales para el desarrollo local normal.
+**Block on TASK-012:** Docker is not installed, CI on GitHub must be confirmed and no provider has been chosen. No credentials are required for normal local development.
 
-**Siguiente acción:** ejecutar TASK-012 en infraestructura autorizada.
+**Next action:** run TASK-012 on authorized infrastructure.
+
+---

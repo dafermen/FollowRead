@@ -1,47 +1,43 @@
-# Revisión de cierre de Fase 4
+# Phase 4 Closure Review
 
-**Fecha:** 2026-07-25  
-**Estado evaluado:** READY_FOR_REVIEW  
-**Base de datos del MVP:** SQLite  
-**Cabeza Alembic:** `20260725_0002`
+**Date:** 2026-07-25  
+**Evaluated status:** READY_FOR_REVIEW  
+**MVP database:** SQLite  
+**Alembic head:** `20260725_0002`
 
-## Resultado
+## Outcome
 
-Los ocho criterios de salida pasan. La autenticación editorial usa Argon2id, sesiones opacas
-revocables, controles web estrictos, RBAC deny-by-default, limitación temporal y auditoría sin
-secretos. No se crearon cuentas infantiles ni recuperación de contraseña.
+All eight exit criteria pass. Editorial authentication uses Argon2id, revocable opaque sessions, strict web controls, deny-by-default RBAC, time-limited access and secret-free auditing. No child accounts or password recovery were created.
 
-## Evidencia por criterio
+## Evidence by criterion
 
-| # | Criterio | Evidencia | Resultado |
+| # | Criterion | Evidence | Result |
 |---:|---|---|---|
-| 1 | Contraseña Argon2id sin texto claro | `PasswordService`, credencial separada y pruebas hash/rehash | PASS |
-| 2 | Sesión opaca expirables/revocable | hash SHA-256, TTL 30 min/8 h, logout y pruebas de expiración | PASS |
-| 3 | Controles del navegador | cookies Strict/HttpOnly/Secure prod, CSRF, origen, no-store y CORS | PASS |
-| 4 | Contratos seguros | login/logout/session, errores no enumerables y OpenAPI | PASS |
-| 5 | Autorización explícita | matriz de 4 roles/8 permisos y dependencia deny-by-default | PASS |
-| 6 | Bootstrap sin seed | comando local idempotente con entrada oculta | PASS |
-| 7 | Abuso y evidencia | 5 intentos/15 min, bloqueo 15 min y `AuditLog` redactado | PASS |
-| 8 | Puerta integral SQLite | 79 pruebas Python, 5 web, cobertura 100%, tipos, lint y builds | PASS |
+| 1 | Argon2id password with no cleartext | `PasswordService`, separated credential and hash/rehash tests | PASS |
+| 2 | Expirable/revocable opaque session | SHA-256 hash, TTL 30 min/8 h, logout and expiration tests | PASS |
+| 3 | Browser controls | cookies Strict/HttpOnly/Secure prod, CSRF, origin, no-store and CORS | PASS |
+| 4 | Secure contracts | login/logout/session, non-enumerable errors and OpenAPI | PASS |
+| 5 | Explicit authorization | 4-role/8-permission matrix and deny-by-default dependency | PASS |
+| 6 | Bootstrap without seed | idempotent local command with hidden input | PASS |
+| 7 | Abuse and evidence | 5 attempts/15 min, 15 min lockout and `AuditLog` redacted | PASS |
+| 8 | SQLite gate comprehensive | 79 Python tests, 5 web, 100% coverage, types, lint and builds | PASS |
 
-## Ejecución de auditoría
+## Audit execution
 
-1. Una SQLite desechable avanzó desde base hasta `20260725_0002`.
-2. Downgrade hasta base y segundo upgrade hasta head pasaron.
-3. `pnpm check` pasó con formato, lint, mypy strict, tests, cobertura y builds.
-4. Casos hostiles cubren cuenta inexistente, contraseña incorrecta, bloqueo, sesión expirada o
-   revocada, usuario inactivo, falta de permiso, origen hostil y CSRF ausente/inválido.
-5. OpenAPI incluye salud, catálogo, autenticación y acceso administrativo protegido.
-6. Admin, Reader, readiness y documentación permanecen disponibles localmente.
+1. A disposable SQLite progressed from base to `20260725_0002`.
+2. Downgrade to base and a second upgrade to head passed.
+3. `pnpm check` passed with formatting, lint, mypy strict, tests, coverage and builds.
+4. Hostile cases cover non-existent account, incorrect password, lockout, expired or revoked session, inactive user, missing permission, hostile origin and absent/invalid CSRF.
+5. OpenAPI includes health, catalog, authentication and protected administrative access.
+6. Admin, Reader, readiness and documentation remain available locally.
 
-## Límites confirmados
+## Confirmed limits
 
-- Sin JWT ni tokens en `localStorage`/`sessionStorage`.
-- Sin contraseña o token en SQLite, logs o auditoría.
-- Sin recuperación de contraseña ni cuentas infantiles en el MVP.
-- Sin AWS, PostgreSQL o servicios remotos.
+- No JWTs or tokens in `localStorage`/`sessionStorage`.
+- No password or token in SQLite, logs or audit.
+- No password recovery or child accounts in the MVP.
+- No AWS, PostgreSQL or remote services.
 
-## Recomendación
+## Recommendation
 
-Cerrar FR-PH04-TASK-009, FR-PH04-TASK-010 y la Fase 4. El siguiente trabajo es preparar el desglose
-de la Fase 5 antes de iniciar el panel administrativo.
+Close FR-PH04-TASK-009, FR-PH04-TASK-010 and Phase 4. Next work is to prepare the Phase 5 breakdown before starting the administrative panel.

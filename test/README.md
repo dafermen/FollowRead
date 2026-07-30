@@ -1,21 +1,21 @@
-# Inventario de pruebas
+# Test Inventory
 
-FollowRead es un monorepo y conserva las pruebas unitarias cerca del código que validan. Esta
-carpeta es el índice transversal; no se moverán pruebas sólo para imitar una estructura genérica.
+FollowRead is a monorepo and keeps unit tests close to the code they validate. This
+folder is the cross-cutting index; tests will not be moved just to mimic a generic structure.
 
-| Categoría | Ubicación actual |
+| Category | Current location |
 |---|---|
-| Unitarias y componentes web | `apps/*/src/**/*.test.ts(x)` y `packages/*/src/**/*.test.ts` |
-| API e integración | `apps/api/tests/` |
-| Contratos | OpenAPI, schemas API, package integrity y pruebas de catálogo |
+| Unit and web components | `apps/*/src/**/*.test.ts(x)` and `packages/*/src/**/*.test.ts` |
+| API and integration | `apps/api/tests/` |
+| Contracts | OpenAPI, API schemas, package integrity and catalog tests |
 | E2E | `scripts/verify-*-e2e.mjs` |
-| Regresión | `scripts/run-regression.mjs` |
-| Seguridad | pruebas de auth/permisos, auditorías y `docs/architecture/PHASE_12_SECURITY_AUDIT.md` |
-| Rendimiento | `scripts/load-test.mjs` y `scripts/verify-quality-budget.mjs` |
-| Fixtures | datos dentro de cada suite y `apps/reader/public/offline/bootstrap.json` |
+| Regression | `scripts/run-regression.mjs` |
+| Security | auth/permissions tests, audits and `docs/architecture/PHASE_12_SECURITY_AUDIT.md` |
+| Performance | `scripts/load-test.mjs` and `scripts/verify-quality-budget.mjs` |
+| Fixtures | data inside each suite and `apps/reader/public/offline/bootstrap.json` |
 
-Las brechas y el estado de las trece categorías obligatorias se controlan en
+Gaps and the status of the thirteen mandatory categories are tracked in
 [`docs/testing/PRE_DEPLOYMENT_TESTS.md`](../docs/testing/PRE_DEPLOYMENT_TESTS.md).
 
-Si una fixture es compartida por varias aplicaciones, debe crearse en `test/fixtures/` con
-procedencia, licencia, contenido esperado y política de actualización documentadas.
+If a fixture is shared by multiple applications, it must be created in `test/fixtures/` with
+origin, license, expected content and update policy documented.

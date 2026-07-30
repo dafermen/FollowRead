@@ -1,86 +1,85 @@
-# Diseño responsive
+# Responsive design
 
-**Estado:** Validado  
-**Tarea responsable:** FR-PH01-TASK-006 - COMPLETED
+**Status:** Validated  
+**Responsible task:** FR-PH01-TASK-006 - COMPLETED
 
-## Principio
+## Principle
 
-Los rangos describen cuándo el contenido necesita otra composición; no detectan marcas de dispositivo.
-La experiencia debe funcionar desde 320 CSS px y con zoom/reflow de 400%.
+The ranges describe when content needs a different composition; they do not detect device marks.
+The experience must work from 320 CSS px and with 400% zoom/reflow.
 
-## Rangos orientativos
+## Indicative ranges
 
-| Rango | Nombre | Navegación | Grid | Diálogos |
+| Range | Name | Navigation | Grid | Dialogs |
 |---|---|---|---|---|
-| 320-599px | compacto | bottom nav Reader / drawer Admin | 1 columna | pantalla completa cuando complejo |
-| 600-1023px | medio | rail compacto o bottom nav | 1-2 columnas | centrado o sheet |
-| >=1024px | amplio | sidebar persistente | 2-4 columnas/rail | centrado |
+| 320-599px | compact | bottom nav Reader / drawer Admin | 1 column | full screen when complex |
+| 600-1023px | medium | compact rail or bottom nav | 1-2 columns | centered or sheet |
+| >=1024px | wide | persistent sidebar | 2-4 columns/rail | centered |
 
-Ningún componente usa el rango como sustituto de medición del contenedor. Tarjetas, editor bilingüe y
-controles usan container queries o comportamiento equivalente cuando se implemente.
+No component uses the range as a substitute for measuring the container. Cards, bilingual editor and
+controls use container queries or equivalent behavior when implemented.
 
-## Reglas Reader
+## Reader rules
 
-| Pantalla/patrón | Compacto | Medio | Amplio |
+| Screen/pattern | Compact | Medium | Wide |
 |---|---|---|---|
-| Inicio | tarjetas apiladas | continuar + recomendaciones | columna principal + grid |
-| Biblioteca | filtros en sheet | filtros colapsables | rail de filtros |
-| Categorías | chips/grid 2 | grid 3 | lista + resultados |
-| Búsqueda | campo/filters sheet | filtros inline parciales | filtros + lista/grid |
-| Detalle | portada arriba | portada/datos 2 columnas | portada + datos + descripción |
-| Lector | texto/control inferior | texto + controles | texto centrado + rail opcional |
-| Descargas | tarjetas | lista enriquecida | tabla |
-| Favoritos/Historial | lista | grid/lista | lista con metadatos |
-| Vocabulario | tarjeta por palabra | lista 2 columnas | tabla/lista + detalle |
-| Configuración | formulario/preview alternados | dos paneles si caben | formulario + preview |
-| Perfil | una columna | una columna amplia | panel centrado |
+| Home | stacked cards | continue + recommendations | main column + grid |
+| Library | filters in sheet | collapsible filters | filter rail |
+| Categories | chips/2-column grid | 3-column grid | list + results |
+| Search | field/filters sheet | partial inline filters | filters + list/grid |
+| Detail | cover on top | cover/data 2 columns | cover + data + description |
+| Reader | text/controls at bottom | text + controls | centered text + optional rail |
+| Downloads | cards | enriched list | table |
+| Favorites/History | list | grid/list | list with metadata |
+| Vocabulary | one card per word | 2-column list | table/list + detail |
+| Settings | alternating form/preview | two panels if they fit | form + preview |
+| Profile | one column | one wide column | centered panel |
 
-## Reglas Admin
+## Admin rules
 
-- Tablas se transforman en tarjetas etiqueta-valor; no usan scroll horizontal como única solución.
-- Split panes se convierten en secuencia lista -> detalle.
-- Editor bilingüe apila pares completos, no todos los idiomas en bloques separados.
-- Barra de guardado/estado permanece visible sin cubrir campos.
-- Acciones de publicación mantienen resumen antes de confirmación.
-- Navegación drawer devuelve foco al botón que la abrió.
+- Tables transform into label-value cards; horizontal scroll is not the only solution.
+- Split panes become a list -> detail sequence.
+- Bilingual editor stacks full pairs, not all languages in separate blocks.
+- Save/status bar remains visible without covering fields.
+- Publish actions keep a summary before confirmation.
+- Drawer navigation returns focus to the button that opened it.
 
-## Lector, orientación y teclado
+## Reader, orientation and keyboard
 
-- Vertical: controles debajo del texto.
-- Horizontal estrecho: controles en rail lateral si conserva 45ch; de lo contrario debajo.
-- Teclado virtual no cubre palabra/campo activo.
-- Al cambiar orientación se conserva tiempo, palabra, scroll lógico y foco.
-- Fullscreen es opcional; salir no pierde progreso.
+- Vertical: controls below the text.
+- Narrow landscape: controls in a side rail if 45ch is maintained; otherwise below.
+- Virtual keyboard does not cover the active word/field.
+- When changing orientation, time, word, logical scroll and focus are preserved.
+- Fullscreen is optional; exiting does not lose progress.
 
 ## Safe areas
 
-Aplicar `env(safe-area-inset-*)` a navegación, controles inferiores y dialogs fullscreen. El texto de
-lectura usa padding adicional y nunca se ubica bajo notch o gesto del sistema.
+Apply `env(safe-area-inset-*)` to navigation, bottom controls and fullscreen dialogs. Reading text uses additional padding and is never placed under a notch or system gesture area.
 
-## Reflow y zoom
+## Reflow and zoom
 
-- A 400% y 1280 CSS px de viewport, contenido crítico cabe en una dimensión sin doble scroll.
-- Excepciones justificadas: timelines/preview visual pueden usar una región con scroll nombrada.
-- Texto no se trunca para caber; se envuelve.
-- Acciones persistentes no reducen el área de lectura por debajo de una unidad útil.
-- La mano se recalcula después de cambio de fuente, zoom y reflow.
+- At 400% and 1280 CSS px viewport, critical content fits in one dimension without double scroll.
+- Justified exceptions: timelines/visual preview may use a named scroll region.
+- Text is not truncated to fit; it wraps.
+- Persistent actions do not reduce the reading area below a usable unit.
+- The reachable area is recalculated after font change, zoom and reflow.
 
-## Imágenes y recursos
+## Images and assets
 
-- `srcset/sizes` o equivalente para portadas/ilustraciones.
-- Relación de aspecto reservada para evitar saltos.
-- Audio se carga bajo demanda.
-- Ilustraciones tienen texto alternativo editorial o se marcan decorativas.
+- `srcset/sizes` or equivalent for covers/illustrations.
+- Aspect ratio reserved to avoid layout shifts.
+- Audio is loaded on demand.
+- Illustrations have editorial alternative text or are marked decorative.
 
-## Validación de escenarios
+## Scenario validation
 
-| Escenario | Resultado |
+| Scenario | Result |
 |---|---|
-| 320px compacto Reader/Admin | PASS en especificación |
-| 600-1023px medio | PASS en especificación |
-| >=1024px amplio | PASS en especificación |
-| zoom/reflow 400% | PASS en especificación |
-| vertical/horizontal | PASS en especificación |
-| safe areas | PASS en especificación |
-| teclado virtual | PASS en especificación |
-| reduced motion | delegado a ACCESSIBILITY.md, cubierto |
+| 320px compact Reader/Admin | PASS in specification |
+| 600-1023px medium | PASS in specification |
+| >=1024px wide | PASS in specification |
+| zoom/reflow 400% | PASS in specification |
+| vertical/horizontal | PASS in specification |
+| safe areas | PASS in specification |
+| virtual keyboard | PASS in specification |
+| reduced motion | delegated to ACCESSIBILITY.md, covered |

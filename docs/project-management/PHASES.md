@@ -1,41 +1,39 @@
-# Plan de fases de FollowRead
+# FollowRead Phase Plan
 
-## Convenciones
+## Conventions
 
-- Una fase sólo puede cerrarse cuando sus entregables críticos existen, se revisaron y cumplen sus
-  criterios de salida.
-- Una tarea usa uno de estos estados: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`,
-  `READY_FOR_REVIEW`, `COMPLETED`, `CANCELLED` o `DEFERRED`.
-- Las decisiones arquitectónicas que cambien este plan deben registrarse en `DECISIONS.md`.
+- A phase can only be closed when its critical deliverables exist, have been reviewed, and meet their exit criteria.
+- A task uses one of these states: `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`,
+  `READY_FOR_REVIEW`, `COMPLETED`, `CANCELLED` or `DEFERRED`.
+- Architectural decisions that change this plan must be recorded in `DECISIONS.md`.
 
-## Fases
+## Phases
 
-| Fase | Nombre | Objetivo principal | Estado |
+| Phase | Name | Main objective | State |
 |---:|---|---|---|
-| 0 | Descubrimiento, definición y planificación | Definir el producto y el plan verificable | COMPLETED |
-| 1 | Diseño UX/UI y sistema visual | Diseñar flujos, pantallas y accesibilidad | COMPLETED |
-| 2 | Monorepo y entorno de desarrollo | Preparar proyectos, herramientas y CI base | COMPLETED |
-| 3 | Modelado de datos y API base | Crear la base funcional del backend | COMPLETED |
-| 4 | Autenticación y autorización | Proteger Admin y preparar usuarios Reader | COMPLETED |
-| 5 | FollowRead Admin | Crear la administración de contenido | COMPLETED |
-| 6 | Integración con Amazon Polly | Generar audio y Speech Marks con seguridad | COMPLETED |
-| 7 | Motor de lectura | Implementar sincronización audio-texto reusable | COMPLETED |
-| 8 | FollowRead Reader Web | Crear biblioteca, lector y PWA accesible | COMPLETED |
-| 9 | Sincronización y modo offline | Descargar, validar y sincronizar contenido | COMPLETED |
-| 10 | Capacitor, Android e iOS | Empaquetar sólo Reader para dispositivos | COMPLETED |
-| 11 | Modo aprender inglés | Agregar funciones educativas | COMPLETED |
-| 12 | Calidad, seguridad y rendimiento | Endurecer el sistema para uso estable | COMPLETED |
-| 13 | CI/CD y despliegue | Automatizar validaciones y entregas | IN_PROGRESS |
-| 14 | Documentación final y GitHub | Preparar evaluación, contribución y portafolio | NOT_STARTED |
+| 0 | Discovery, definition and planning | Define the product and a verifiable plan | COMPLETED |
+| 1 | UX/UI design and visual system | Design flows, screens and accessibility | COMPLETED |
+| 2 | Monorepo and development environment | Prepare projects, tools and base CI | COMPLETED |
+| 3 | Data modeling and base API | Create the backend functional foundation | COMPLETED |
+| 4 | Authentication and authorization | Protect Admin and prepare Reader users | COMPLETED |
+| 5 | FollowRead Admin | Build the content administration | COMPLETED |
+| 6 | Integration with Amazon Polly | Generate audio and Speech Marks with security | COMPLETED |
+| 7 | Reading engine | Implement reusable audio-text synchronization | COMPLETED |
+| 8 | FollowRead Reader Web | Build library, reader and accessible PWA | COMPLETED |
+| 9 | Synchronization and offline mode | Download, validate and sync content | COMPLETED |
+| 10 | Capacitor, Android and iOS | Package only Reader for devices | COMPLETED |
+| 11 | Learn English mode | Add educational features | COMPLETED |
+| 12 | Quality, security and performance | Harden the system for stable use | COMPLETED |
+| 13 | CI/CD and deployment | Automate validations and deliveries | IN_PROGRESS |
+| 14 | Final documentation and GitHub | Prepare evaluation, contribution and portfolio | NOT_STARTED |
 
-## Fase 0 - Cerrada
+## Phase 0 - Closed
 
-### Objetivo
+### Objective
 
-Transformar el prompt maestro en un conjunto coherente, priorizado y trazable de decisiones,
-requisitos, riesgos y estrategias antes de escribir código.
+Turn the master prompt into a coherent, prioritized and traceable set of decisions, requirements, risks and strategies before writing code.
 
-### Entregables críticos
+### Critical deliverables
 
 - `docs/requirements/PRODUCT_VISION.md`
 - `docs/requirements/PROJECT_SCOPE.md`
@@ -51,297 +49,276 @@ requisitos, riesgos y estrategias antes de escribir código.
 - `docs/ux-ui/UX_STRATEGY.md`
 - `docs/testing/TEST_STRATEGY.md`
 - `docs/deployment/DEPLOYMENT_STRATEGY.md`
-- los archivos de `docs/project-management/`
+- the files in `docs/project-management/`
 
-### Criterios de salida
+### Exit criteria
 
-1. Todos los requisitos tienen identificador, prioridad y criterio verificable.
-2. Las historias, casos de uso y pruebas planeadas pueden rastrearse a requisitos.
-3. El alcance de MVP y lo que queda fuera están explícitos.
-4. Los límites entre Admin, Reader, API y Reader Engine están definidos.
-5. Privacidad infantil, autenticación, datos, AWS, offline y accesibilidad tienen estrategia.
-6. Las decisiones abiertas tienen dueño y fecha objetivo.
-7. Los riesgos altos tienen mitigación y tarea asociada.
-8. El plan fue revisado como un conjunto sin contradicciones críticas.
-9. La tarea de cierre de Fase 0 está `COMPLETED`.
+1. All requirements have an identifier, priority and verifiable criterion.
+2. Stories, use cases and planned tests can be traced to requirements.
+3. The MVP scope and what is out of scope are explicit.
+4. Boundaries between Admin, Reader, API and Reader Engine are defined.
+5. Child privacy, authentication, data, AWS, offline and accessibility have strategies.
+6. Open decisions have an owner and a target date.
+7. High risks have mitigation and an associated task.
+8. The plan was reviewed as a whole with no critical contradictions.
+9. The Phase 0 closing task is `COMPLETED`.
 
-### Prohibiciones mientras la Fase 0 esté activa
+### Prohibitions while Phase 0 is active
 
-- No crear pantallas definitivas.
-- No instalar dependencias.
-- No integrar servicios AWS.
-- No crear el monorepo de aplicaciones.
-- No marcar requisitos provisionales como aprobados.
+- Do not create final screens.
+- Do not install dependencies.
+- Do not integrate AWS services.
+- Do not create the applications monorepo.
+- Do not mark provisional requirements as approved.
 
-### Resultado
+### Outcome
 
-Fase 0 cerrada el 2026-07-24. Evidencia: `PHASE_0_REVIEW.md`.
+Phase 0 closed on 2026-07-24. Evidence: `PHASE_0_REVIEW.md`.
 
-## Fase 1 - Cerrada
+## Phase 1 - Closed
 
-### Objetivo
+### Objective
 
-Diseñar la experiencia, navegación, wireframes, sistema visual, responsive y accesibilidad antes de
-implementar pantallas.
+Design the experience, navigation, wireframes, visual system, responsiveness and accessibility before implementing screens.
 
-### Criterios de salida
+### Exit criteria
 
-1. Flujos Reader y Admin cubren casos críticos y alternos.
-2. Todas las pantallas mínimas tienen wireframe y estados.
-3. Sistema visual define tipografía, color, espaciado, iconos y componentes.
-4. Infantil, adulto y aprendizaje están resueltos como modos coherentes.
-5. Responsive, teclado, foco, movimiento y tacto tienen especificación.
-6. Prototipos críticos pasan walkthrough y revisión de accesibilidad.
-7. Todos los entregables de Fase 1 están validados.
+1. Reader and Admin flows cover critical and alternate cases.
+2. All minimum screens have wireframes and states.
+3. Visual system defines typography, color, spacing, icons and components.
+4. Child, adult and learning modes are resolved as coherent modes.
+5. Responsiveness, keyboard, focus, motion and touch have specifications.
+6. Critical prototypes pass walkthroughs and accessibility review.
+7. All Phase 1 deliverables are validated.
 
-### Resultado
+### Outcome
 
-Fase 1 cerrada el 2026-07-24. Evidencia: `PHASE_1_REVIEW.md`.
+Phase 1 closed on 2026-07-24. Evidence: `PHASE_1_REVIEW.md`.
 
-## Fase 2 - Cerrada
+## Phase 2 - Closed
 
-### Objetivo
+### Objective
 
-Crear el monorepo, aplicaciones base, herramientas, entorno local, pruebas y CI sin implementar aún
-funcionalidad de producto.
+Create the monorepo, base applications, tools, local environment, tests and CI without yet implementing product functionality.
 
-### Criterios de salida
+### Exit criteria
 
-1. Admin, Reader y API existen separados y arrancan.
-2. TypeScript strict, Python type hints, lint y formato están configurados.
-3. Pruebas base y builds pasan.
-4. SQLite y migraciones base funcionan sin Docker ni servicios externos.
-5. Variables de entorno están documentadas sin secretos.
-6. Scripts, hooks y CI ejecutan la misma validación.
-7. Instalación limpia está documentada y verificada.
+1. Admin, Reader and API exist separately and start.
+2. TypeScript strict, Python type hints, lint and formatting are configured.
+3. Base tests and builds pass.
+4. SQLite and base migrations work without Docker or external services.
+5. Environment variables are documented without secrets.
+6. Scripts, hooks and CI perform the same validation.
+7. Clean installation is documented and verified.
 
-### Resultado
+### Outcome
 
-Fase 2 cerrada el 2026-07-24. Evidencia: `PHASE_2_REVIEW.md`.
+Phase 2 closed on 2026-07-24. Evidence: `PHASE_2_REVIEW.md`.
 
-## Fase 3 - Cerrada
+## Phase 3 - Closed
 
-### Objetivo
+### Objective
 
-Crear la base funcional del backend mediante un modelo relacional consistente, migraciones,
-repositorios, servicios, contratos HTTP, errores, logging, health checks, OpenAPI y pruebas.
+Create the backend functional foundation through a consistent relational model, migrations, repositories, services, HTTP contracts, errors, logging, health checks, OpenAPI and tests.
 
-### Criterios de salida
+### Exit criteria
 
-1. Las 22 entidades iniciales del prompt tienen modelo o aplazamiento explícito y trazable.
-2. Relaciones, restricciones, estados, versionado y borrado preservan las reglas de negocio.
-3. Una migración funcional crea y revierte el esquema SQLite desde una base vacía.
-4. Repositorios y servicios mantienen la lógica de dominio fuera de las rutas HTTP.
-5. Validaciones y respuestas de error usan un contrato estándar sin filtrar detalles internos.
-6. Health/readiness, logging estructurado y OpenAPI reflejan el comportamiento real.
-7. Un corte de catálogo/contenido funciona por API con pruebas unitarias y de integración.
-8. La puerta completa pasa desde una base SQLite desechable.
+1. The 22 initial entities from the prompt have a model or an explicit, traceable postponement.
+2. Relationships, constraints, states, versioning and deletion preserve business rules.
+3. A working migration creates and reverts the SQLite schema from an empty base.
+4. Repositories and services keep domain logic out of HTTP routes.
+5. Validations and error responses use a standard contract without leaking internal details.
+6. Health/readiness, structured logging and OpenAPI reflect real behavior.
+7. A slice of catalog/content works via API with unit and integration tests.
+8. The full gate passes from a disposable SQLite base.
 
-### Resultado
+### Outcome
 
-Fase 3 cerrada el 2026-07-24. Evidencia: `PHASE_3_REVIEW.md`.
+Phase 3 closed on 2026-07-24. Evidence: `PHASE_3_REVIEW.md`.
 
-## Resumen de criterios de las fases siguientes
+## Summary of criteria for following phases
 
-Cada fase posterior deberá definir, antes de comenzar, tareas completas con dependencias, archivos,
-pruebas y criterios de aceptación. La descripción detallada de actividades del prompt maestro se
-considera la fuente mínima; `TASKS.md` se ampliará al preparar cada fase.
+Each subsequent phase must define, before starting, complete tasks with dependencies, files, tests and acceptance criteria. The detailed description of activities from the master prompt is considered the minimum source; `TASKS.md` will be expanded when preparing each phase.
 
-## Fase 5 - Cerrada
+## Phase 5 - Closed
 
-### Objetivo
+### Objective
 
-Crear una aplicación administrativa accesible que permita al equipo editorial iniciar sesión,
-visualizar el trabajo prioritario y gestionar el contenido desde el borrador hasta la publicación.
+Create an accessible administrative application that allows the editorial team to sign in, view prioritized work and manage content from draft to publication.
 
-### Criterios de salida
+### Exit criteria
 
-1. Login, restauración de sesión y logout usan los contratos seguros de Fase 4.
-2. Shell, dashboard y navegación responden a permisos y funcionan desde 320 CSS px.
-3. Lista, creación y edición de contenido persisten metadatos, estructura y traducciones válidas.
-4. Borradores conservan cambios, comunican guardado y evitan sobreescritura ante conflicto.
-5. Recursos, voz y procesamiento presentan estados, errores recuperables y acciones autorizadas.
-6. Revisión, previsualización y publicación siguen la máquina de estados auditada.
-7. Estados vacío, carga, error y permiso parcial son accesibles y conservan contexto.
-8. Pruebas de componentes, integración y recorrido crítico pasan con la puerta completa.
+1. Login, session restore and logout use the secure contracts from Phase 4.
+2. Shell, dashboard and navigation respond to permissions and work from 320 CSS px.
+3. Listing, creation and editing of content persist metadata, structure and valid translations.
+4. Drafts preserve changes, communicate saves and avoid overwrite on conflict.
+5. Resources, voice and processing present states, recoverable errors and authorized actions.
+6. Review, preview and publication follow the audited state machine.
+7. Empty, loading, error and partial-permission states are accessible and preserve context.
+8. Component, integration and critical-path tests pass with the full gate.
 
-### Resultado
+### Outcome
 
-Fase 5 cerrada el 2026-07-25. Evidencia: `PHASE_5_REVIEW.md`.
+Phase 5 closed on 2026-07-25. Evidence: `PHASE_5_REVIEW.md`.
 
-## Fase 6 - Cerrada
+## Phase 6 - Closed
 
-### Objetivo
+### Objective
 
-Generar audio y Speech Marks desde traducciones editoriales mediante contratos desacoplados,
-control de costo, almacenamiento íntegro y una experiencia administrativa recuperable.
+Generate audio and Speech Marks from editorial translations using decoupled contracts, cost control, intact storage and a recoverable administrative experience.
 
-### Resultado
+### Outcome
 
-Fase 6 cerrada el 2026-07-25. Evidencia: `PHASE_6_REVIEW.md`. El MVP mantiene el adaptador local
-como opción predeterminada y no requiere una cuenta AWS.
+Phase 6 closed on 2026-07-25. Evidence: `PHASE_6_REVIEW.md`. The MVP keeps the local adapter as the default option and does not require an AWS account.
 
-## Fase 7 - Cerrada
+## Phase 7 - Closed
 
-### Objetivo
+### Objective
 
-Convertir el contenido publicado y sus Speech Marks en un motor determinista, reusable y ajeno a
-React que controle el tiempo, la palabra activa, capítulos, velocidad, recuperación e
-interrupciones.
+Turn the published content and its Speech Marks into a deterministic, reusable, React-agnostic engine that controls timing, the active word, chapters, speed, recovery and interruptions.
 
-### Criterios de salida
+### Exit criteria
 
-1. El motor valida una línea de tiempo y encuentra la palabra activa de forma determinista.
-2. Reproducir, pausar, repetir, buscar, cambiar velocidad y navegar capítulos actualizan un único
-   estado observable.
-3. El progreso puede serializarse y recuperarse por contenido e idioma.
-4. Cambios de viewport, interrupciones y pérdida de audio tienen comportamiento explícito.
-5. La API entrega texto, recursos y Speech Marks publicados en un paquete estable.
-6. Existe un cuento bilingüe original sembrable en SQLite sin servicios externos.
-7. Pruebas unitarias, de integración, tipos, lint y compilación pasan.
-8. La arquitectura y las restricciones del audio simulado están documentadas.
+1. The engine validates a timeline and deterministically finds the active word.
+2. Play, pause, repeat, seek, change speed and navigate chapters update a single observable state.
+3. Progress can be serialized and recovered by content and language.
+4. Viewport changes, interruptions and audio loss have explicit behavior.
+5. The API delivers published text, resources and Speech Marks in a stable package.
+6. There is an original bilingual story seedable into SQLite without external services.
+7. Unit, integration tests, types, lint and compilation pass.
+8. The architecture and constraints of simulated audio are documented.
 
-### Resultado
+### Outcome
 
-Fase 7 cerrada el 2026-07-26. Evidencia: `PHASE_7_REVIEW.md`. Se adelantó un corte visual de Fase 8
-para poder demostrar el motor desde el navegador sin cerrar todavía la PWA completa.
+Phase 7 closed on 2026-07-26. Evidence: `PHASE_7_REVIEW.md`. An early visual slice of Phase 8 was advanced to demonstrate the engine from the browser without yet completing the full PWA.
 
-## Fase 8 - Cerrada
+## Phase 8 - Closed
 
-### Objetivo
+### Objective
 
-Entregar FollowRead Reader Web como una aplicación responsive, accesible e instalable con
-biblioteca, detalle, lector audible, áreas personales, configuración y modos de lectura.
+Deliver FollowRead Reader Web as a responsive, accessible and installable application with library, detail, audible reader, personal areas, settings and reading modes.
 
-### Criterios de salida
+### Exit criteria
 
-1. Inicio, biblioteca, búsqueda, categorías, detalle y lector consumen el catálogo publicado.
-2. Favoritos, progreso, historial y vocabulario local funcionan sin guardar PII.
-3. Los modos infantil, adulto y aprendizaje aplican preferencias coherentes.
-4. La voz del dispositivo se integra sin API key y degrada a seguimiento visual.
-5. Manifest, icono y service worker hacen instalable el shell.
-6. Navegación, reflow, teclado, foco, reduced motion y safe areas cumplen la especificación.
-7. Vitest y un recorrido Chrome headless cubren los recorridos críticos.
-8. Documentación, revisión visual y puerta completa quedan en verde.
+1. Home, library, search, categories, detail and reader consume the published catalog.
+2. Favorites, progress, history and vocabulary work locally without storing PII.
+3. Child, adult and learning modes apply coherent preferences.
+4. Device voice integrates without an API key and degrades to visual tracking.
+5. Manifest, icon and service worker make the shell installable.
+6. Navigation, reflow, keyboard, focus, reduced motion and safe areas meet the specification.
+7. Vitest and a Chrome headless run cover the critical flows.
+8. Documentation, visual review and full gate are green.
 
-### Resultado
+### Outcome
 
-Fase 8 cerrada el 2026-07-26. Evidencia: `PHASE_8_REVIEW.md`. Las descargas verificadas de contenido
-y la operación offline permanecen explícitamente en la Fase 9.
+Phase 8 closed on 2026-07-26. Evidence: `PHASE_8_REVIEW.md`. Verified content downloads and offline operation remain explicitly in Phase 9.
 
-## Fase 9 - Cerrada
+## Phase 9 - Closed
 
-### Objetivo
+### Objective
 
-Permitir descargar, validar, actualizar y utilizar contenido sin conexión, conservando el progreso
-local y sincronizándolo de forma idempotente cuando vuelve la red.
+Allow downloading, validating, updating and using content offline, preserving local progress and synchronizing idempotently when the network returns.
 
-### Criterios de salida
+### Exit criteria
 
-1. Catálogo remoto y paquetes locales se combinan y comparan por versión y checksum.
-2. Sólo paquetes compatibles, completos y con SHA-256 válido se activan.
-3. IndexedDB conserva contenido, metadatos y operaciones sin almacenar PII.
-4. El build incluye al menos un cuento verificable para el primer inicio sin conexión.
-5. Descargas, actualizaciones, eliminación, cuota y recuperación tienen estados visibles.
-6. Biblioteca, detalle, lectura, voz local y progreso funcionan sin API.
-7. La reconexión sincroniza operaciones idempotentes sin retroceder progreso.
-8. Pruebas unitarias, API y Chrome real demuestran corrupción, offline y reconexión.
+1. Remote catalog and local packages are merged and compared by version and checksum.
+2. Only compatible, complete packages with valid SHA-256 are activated.
+3. IndexedDB preserves content, metadata and operations without storing PII.
+4. The build includes at least one verifiable story for first offline start.
+5. Downloads, updates, deletion, quota and recovery have visible states.
+6. Library, detail, reading, local voice and progress work without the API.
+7. Reconnection syncs idempotent operations without rolling back progress.
+8. Unit tests, API and real Chrome demonstrate corruption, offline and reconnection.
 
-### Resultado
+### Outcome
 
-Fase 9 cerrada el 2026-07-26. Evidencia: `PHASE_9_REVIEW.md`.
+Phase 9 closed on 2026-07-26. Evidence: `PHASE_9_REVIEW.md`.
 
-## Fase 10 - Cerrada
+## Phase 10 - Closed
 
-### Objetivo
+### Objective
 
-Convertir exclusivamente FollowRead Reader en aplicaciones Android/iOS mediante Capacitor,
-preservando web/PWA, offline, accesibilidad y la separación total de Admin.
+Convert only FollowRead Reader into Android/iOS apps via Capacitor, preserving web/PWA, offline, accessibility and full separation from Admin.
 
-### Criterios de salida
+### Exit criteria
 
-1. Capacitor empaqueta sólo `apps/reader/dist` con identificador estable.
-2. Android e iOS, iconos, splash claro/oscuro y configuración nativa están versionados.
-3. Red y ciclo de vida usan plugins mínimos; IndexedDB/`localStorage` persisten sin permisos.
-4. No existen permisos sensibles ni audio en segundo plano engañoso.
-5. Safe areas y orientación conservan controles, tiempo, palabra y progreso.
-6. Un APK Android se compila, instala y abre en un emulador API 35.
-7. iOS se sincroniza y valida estructuralmente; macOS/Xcode es gate de publicación.
-8. Doctor, validador, Vitest, E2E, builds y documentación cubren operación/publicación.
+1. Capacitor packages only `apps/reader/dist` with a stable identifier.
+2. Android and iOS, icons, light/dark splash and native configuration are versioned.
+3. Network and lifecycle use minimal plugins; IndexedDB/`localStorage` persist without permissions.
+4. No sensitive permissions nor misleading background audio exist.
+5. Safe areas and orientation preserve controls, timing, word and progress.
+6. An Android APK is compiled, installed and opens on an API 35 emulator.
+7. iOS is synchronized and structurally validated; macOS/Xcode is the publication gate.
+8. Doctor, validator, Vitest, E2E, builds and documentation cover operation/publication.
 
-### Resultado
+### Outcome
 
-Fase 10 cerrada el 2026-07-26. Evidencia: `PHASE_10_REVIEW.md` y
-`../testing/PHASE_10_MOBILE.md`. La prueba iOS física no puede ejecutarse en Windows y permanece
-obligatoria antes de TestFlight, sin bloquear el desarrollo de la Fase 11.
+Phase 10 closed on 2026-07-26. Evidence: `PHASE_10_REVIEW.md` and
+`../testing/PHASE_10_MOBILE.md`. The physical iOS test cannot be run on Windows and remains mandatory before TestFlight, without blocking Phase 11 development.
 
-## Fase 11 - Cerrada
+## Phase 11 - Closed
 
-### Objetivo
+### Objective
 
-Implementar funciones educativas dentro del Reader sin sacar al estudiante del cuento ni depender
-de inteligencia artificial para capacidades esenciales.
+Implement educational features inside the Reader without removing the student from the story or relying on AI for essential capabilities.
 
-### Criterios de salida
+### Exit criteria
 
-1. Traducción editorial visible/oculta conserva la posición de lectura.
-2. Palabra y oración pueden repetirse respetando marcas y velocidad.
-3. Seleccionar palabra muestra significado y ejemplos bilingües contextuales.
-4. Vocabulario, favoritas e historial persisten localmente sin PII.
-5. Estados nueva/aprendiendo/dominada, repasos y métricas muestran progreso privado.
-6. La pantalla Mi vocabulario permite buscar, filtrar, escuchar y eliminar.
-7. Teclado, foco, idiomas, Escape, reflow y offline conservan accesibilidad.
-8. Dominio, storage, React, Chrome real, móvil y puerta integral quedan en verde.
+1. Visible/hidden editorial translation preserves the reading position.
+2. Word and sentence can be repeated respecting marks and speed.
+3. Selecting a word shows meaning and contextual bilingual examples.
+4. Vocabulary, favorites and history persist locally without PII.
+5. States new/learning/mastered, reviews and metrics show private progress.
+6. The My Vocabulary screen allows searching, filtering, listening and deleting.
+7. Keyboard, focus, languages, Escape, reflow and offline preserve accessibility.
+8. Domain, storage, React, real Chrome, mobile and full gate are green.
 
-### Resultado
+### Outcome
 
-Fase 11 cerrada el 2026-07-26. Evidencia: `PHASE_11_REVIEW.md`,
-`../architecture/LEARNING_MODE.md` y `../testing/PHASE_11_LEARNING.md`. La siguiente fase es
-**Fase 12 - Calidad, seguridad y rendimiento**.
+Phase 11 closed on 2026-07-26. Evidence: `PHASE_11_REVIEW.md`,
+`../architecture/LEARNING_MODE.md` and `../testing/PHASE_11_LEARNING.md`. The next phase is
+Phase 12 - Quality, security and performance.
 
-## Fase 12 - Cerrada
+## Phase 12 - Closed
 
-### Objetivo
+### Objective
 
-Endurecer el producto completo para uso estable mediante recuperación, observabilidad privada,
-seguridad HTTP, optimización, caching y auditorías reproducibles.
+Harden the entire product for stable use through recovery, private observability, HTTP security, optimization, caching and reproducible audits.
 
-### Criterios de salida
+### Exit criteria
 
-1. API y aplicaciones contienen fallos inesperados sin exponer detalles ni perder contexto.
-2. Logging JSON, request IDs, timing y métricas agregadas permiten diagnóstico local.
-3. Lazy loading, chunks y presupuestos gzip evitan regresiones de bundle.
-4. Compresión, ETag, cache-control y service worker tienen políticas explícitas.
-5. Ocho rutas críticas pasan auditoría móvil de semántica, etiquetas y reflow.
-6. Carga concurrente cumple p95 menor a 750 ms sin errores.
-7. Dependencias JavaScript/Python no tienen vulnerabilidades conocidas moderadas o superiores.
-8. Pruebas, E2E, builds, auditorías y documentación quedan en verde.
+1. API and applications handle unexpected failures without exposing details or losing context.
+2. JSON logging, request IDs, timing and aggregated metrics allow local diagnosis.
+3. Lazy loading, chunks and gzip budgets prevent bundle regressions.
+4. Compression, ETag, cache-control and service worker have explicit policies.
+5. Eight critical routes pass mobile audit for semantics, labels and reflow.
+6. Concurrent load meets p95 under 750 ms with no errors.
+7. JavaScript/Python dependencies have no known moderate-or-higher vulnerabilities.
+8. Tests, E2E, builds, audits and documentation are green.
 
-### Resultado
+### Outcome
 
-Fase 12 cerrada el 2026-07-26. Evidencia: `PHASE_12_REVIEW.md`,
-`../architecture/PHASE_12_SECURITY_AUDIT.md`, `../architecture/OBSERVABILITY.md` y
-`../testing/PHASE_12_QUALITY.md`. La siguiente fase es **Fase 13 - CI/CD y despliegue**.
+Phase 12 closed on 2026-07-26. Evidence: `PHASE_12_REVIEW.md`,
+`../architecture/PHASE_12_SECURITY_AUDIT.md`, `../architecture/OBSERVABILITY.md` and
+`../testing/PHASE_12_QUALITY.md`. The next phase is Phase 13 - CI/CD and deployment.
 
-## Fase 13 - En validación externa
+## Phase 13 - Under external validation
 
-### Objetivo
+### Objective
 
-Automatizar validaciones, artefactos, contenedores, releases y operación segura a través de local,
-development, staging y production.
+Automate validations, artifacts, containers, releases and secure operation across local, development, staging and production.
 
-### Criterios de salida
+### Exit criteria
 
-1. GitHub Actions ejecuta calidad, seguridad y construcción de imágenes.
-2. API, Admin y Reader se empaquetan de forma independiente con salud y mínimos privilegios.
-3. Migración, backup, restore y rollback tienen comandos seguros y documentación.
-4. Versionado SemVer produce release notes, builds web e imágenes OCI inmutables.
-5. Secretos y aprobaciones quedan limitados por entorno y nunca entran al repositorio.
-6. Compose levanta el stack, migra SQLite y pasa smoke tests.
-7. Un runner GitHub real valida CI/release sin depender de estado local.
-8. Staging demuestra backup, migración, smoke y rollback antes de production.
+1. GitHub Actions runs quality, security and image builds.
+2. API, Admin and Reader are packaged independently with health and minimal privileges.
+3. Migration, backup, restore and rollback have safe commands and documentation.
+4. SemVer versioning produces release notes, web builds and immutable OCI images.
+5. Secrets and approvals are limited by environment and never enter the repository.
+6. Compose brings up the stack, migrates SQLite and passes smoke tests.
+7. A real GitHub runner validates CI/release without depending on local state.
+8. Staging demonstrates backup, migration, smoke and rollback before production.
 
-### Estado
+### Status
 
-Los puntos 1 a 5 están implementados y pasan validación local/estática. Los puntos 6 a 8 esperan
-Docker, remote GitHub y proveedor. Evidencia: `PHASE_13_REVIEW.md` y `../deployment/`.
+Items 1 through 5 are implemented and pass local/static validation. Items 6 through 8 await Docker, remote GitHub and a provider. Evidence: `PHASE_13_REVIEW.md` and `../deployment/`.

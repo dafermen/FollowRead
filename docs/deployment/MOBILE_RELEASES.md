@@ -1,6 +1,6 @@
-# Compilación y publicación móvil
+# Mobile build and release
 
-## Preparación común
+## Common preparation
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -10,41 +10,41 @@ pnpm mobile:assets
 pnpm mobile:sync
 ```
 
-Configura `VITE_API_BASE_URL` con el endpoint HTTPS del entorno antes de sincronizar. El bundle nunca
-contiene credenciales AWS, contraseñas de tienda ni llaves de firma.
+Configure `VITE_API_BASE_URL` with the environment's HTTPS endpoint before syncing. The bundle never
+contains AWS credentials, storefront passwords, or signing keys.
 
-## Android de desarrollo
+## Development Android
 
 ```powershell
 pnpm mobile:build:android
 ```
 
-El comando detecta Java incluido con Android Studio, sincroniza el Reader y produce:
+The command detects the Java included with Android Studio, syncs the Reader and produces:
 
 `apps/reader/android/app/build/outputs/apk/debug/app-debug.apk`
 
-También se puede abrir `apps/reader/android` con:
+You can also open `apps/reader/android` with:
 
 ```powershell
 pnpm mobile:open:android
 ```
 
-## Android para Google Play
+## Android for Google Play
 
-1. Incrementar `versionCode` y `versionName`.
-2. Ejecutar `pnpm check` y la matriz de dispositivos.
-3. Crear/usar un keystore fuera del repositorio y respaldarlo de forma segura.
-4. Generar un Android App Bundle firmado desde Android Studio o `cap build android` pasando todas
-   las opciones de firma por el entorno seguro.
-5. Verificar el AAB con Play App Signing y subir primero a prueba interna.
-6. Completar ficha, clasificación, privacidad, contenido infantil y Data safety.
-7. Promover gradualmente después de smoke tests.
+1. Increase `versionCode` and `versionName`.
+2. Run `pnpm check` and the device matrix.
+3. Create/use a keystore outside the repository and back it up securely.
+4. Generate a signed Android App Bundle from Android Studio or `cap build android`, passing all
+   signing options via the secure environment.
+5. Verify the AAB with Play App Signing and upload first to internal testing.
+6. Complete the store listing, rating, privacy, children’s content, and Data safety.
+7. Gradually promote after smoke tests.
 
-No se versionan `.jks`, `.keystore`, APK, AAB ni contraseñas.
+Do not version `.jks`, `.keystore`, APK, AAB, or passwords.
 
 ## iOS
 
-iOS 15+ requiere macOS, Xcode 26+ y sus Command Line Tools:
+iOS 15+ requires macOS, Xcode 26+ and its Command Line Tools:
 
 ```bash
 pnpm install --frozen-lockfile
@@ -52,25 +52,25 @@ pnpm mobile:sync:ios
 pnpm mobile:open:ios
 ```
 
-El proyecto usa Swift Package Manager. En Xcode:
+The project uses Swift Package Manager. In Xcode:
 
-1. seleccionar el Team y conservar `com.followread.reader`;
-2. incrementar `MARKETING_VERSION` y `CURRENT_PROJECT_VERSION`;
-3. ejecutar en simulador y dispositivo físico;
-4. verificar orientación, safe areas, voz, offline y ciclo de vida;
-5. `Product > Archive`, validar y distribuir primero a TestFlight;
-6. completar privacidad, edades, contenido infantil y metadatos de App Store Connect.
+1. select the Team and keep `com.followread.reader`;
+2. bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION`;
+3. run on simulator and physical device;
+4. verify orientation, safe areas, voice, offline behavior and lifecycle;
+5. `Product > Archive`, validate and distribute first to TestFlight;
+6. complete privacy, age ratings, children’s content and App Store Connect metadata.
 
-## Contenido y nuevas versiones
+## Content and new releases
 
-Un cuento publicado se descarga como paquete versionado con checksum; no exige reconstruir la app.
-Sí exige nuevo binario cualquier cambio de plugins, permisos, Capacitor, comportamiento de
-almacenamiento, política de red, iconos, splash o código Reader.
+A published story is downloaded as a versioned package with checksum; it does not require rebuilding the app.
+A new binary is required for any changes to plugins, permissions, Capacitor, storage behavior,
+network policy, icons, splash, or Reader code.
 
 ## Rollback
 
-- contenido: despublicar/republicar el paquete sin reemplazar binario;
-- aplicación: detener promoción y volver a la versión estable de la tienda;
-- nunca reutilizar un `versionCode`/`CURRENT_PROJECT_VERSION`;
-- conservar compatibilidad con paquetes anteriores y ejecutar smoke tests offline/sync;
-- registrar causa, artefacto, alcance y resultado.
+- content: unpublish/republish the package without replacing the binary;
+- app: stop promotion and revert to the store's stable version;
+- never reuse a `versionCode`/`CURRENT_PROJECT_VERSION`;
+- maintain compatibility with previous packages and run offline/sync smoke tests;
+- log cause, artifact, scope and outcome.

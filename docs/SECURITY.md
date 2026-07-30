@@ -1,18 +1,18 @@
-# Seguridad
+# Security
 
-Esta es la entrada canónica a la seguridad de FollowRead.
+This is the canonical entry for FollowRead security.
 
-## Reglas obligatorias
+## Mandatory rules
 
-- no guardar secretos, tokens, certificados, SQLite ni archivos `.env` reales en Git;
-- no registrar texto leído, vocabulario, tokens ni PII;
-- no crear cuentas personales de menores en el MVP;
-- mantener autenticación, autorización y auditoría del lado de la API;
-- usar adaptadores locales en pruebas; no depender de AWS real;
-- auditar dependencias antes de un release;
-- tratar findings de seguridad como bloqueadores hasta resolverlos o aprobar una excepción fechada.
+- do not store secrets, tokens, certificates, SQLite or real `.env` files in Git;
+- do not log read text, vocabulary, tokens or PII;
+- do not create personal accounts for minors in the MVP;
+- keep authentication, authorization and auditing on the API side;
+- use local adapters in tests; do not depend on real AWS;
+- audit dependencies before a release;
+- treat security findings as blockers until they are resolved or a dated exception is approved.
 
-## Verificación
+## Reporting
 
 ```powershell
 pnpm security:audit
@@ -20,13 +20,12 @@ pnpm check
 pnpm quality:regression
 ```
 
-El reporte de una vulnerabilidad no debe realizarse en un issue público. Hasta definir un canal
-privado formal, debe comunicarse directamente al propietario del repositorio.
+Vulnerability reports must not be submitted in a public issue. Until a formal private channel is defined, they should be communicated directly to the repository owner.
 
-## Fuentes detalladas
+## Detailed sources
 
-- [Estrategia de seguridad](architecture/SECURITY_STRATEGY.md)
-- [Modelo de amenazas](architecture/THREAT_MODEL.md)
-- [Auditoría de Fase 12](architecture/PHASE_12_SECURITY_AUDIT.md)
-- [Política de datos](requirements/DATA_POLICY.md)
-- [Variables de entorno](development/ENVIRONMENT_VARIABLES.md)
+- [Security strategy](architecture/SECURITY_STRATEGY.md)
+- [Threat model](architecture/THREAT_MODEL.md)
+- [Phase 12 audit](architecture/PHASE_12_SECURITY_AUDIT.md)
+- [Data policy](requirements/DATA_POLICY.md)
+- [Environment variables](development/ENVIRONMENT_VARIABLES.md)

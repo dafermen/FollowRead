@@ -1,31 +1,34 @@
-name: Solicitud de mejora
-description: Proponer una mejora trazable para FollowRead
+--- BEGIN FILE ---
+name: Feature request
+description: Propose a traceable improvement for FollowRead
 title: "[Feature]: "
 labels: ["enhancement"]
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Problema
-      description: Describe la necesidad del usuario, no sólo la solución.
+      label: Problem
+      description: Describe the user's need, not just the solution.
     validations:
       required: true
   - type: textarea
     id: outcome
     attributes:
-      label: Resultado esperado
-      description: ¿Qué debería poder lograr el usuario?
+      label: Expected outcome
+      description: What should the user be able to accomplish?
     validations:
       required: true
   - type: textarea
     id: acceptance
     attributes:
-      label: Criterios de aceptación
-      description: Incluye casos normales, errores, accesibilidad y privacidad.
+      label: Acceptance criteria
+      description: Include normal cases, errors, accessibility, and privacy.
     validations:
       required: true
   - type: textarea
     id: impact
     attributes:
-      label: Impacto técnico
-      description: Contratos, datos, seguridad, rendimiento, despliegue o migraciones.
+      label: Technical impact
+      description: Contracts, data, security, performance, deployment, or migrations.
+
+--- END FILE ---

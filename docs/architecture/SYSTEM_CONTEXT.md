@@ -1,30 +1,29 @@
-# Contexto del sistema
+# System Context
 
-**Estado:** Validado para Fase 0 - FR-PH00-TASK-009 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-009 COMPLETED.
 
-## Propósito
+## Purpose
 
-Este documento muestra quién usa FollowRead, qué límites controla el proyecto y qué servicios externos
-requiere. No define todavía clases, tablas ni endpoints.
+This document shows who uses FollowRead, what boundaries the project controls, and what external services it requires. It does not yet define classes, tables, or endpoints.
 
-## Personas y sistemas externos
+## People and external systems
 
-| Elemento | Responsabilidad o relación |
+| Element | Responsibility or relationship |
 |---|---|
-| Lector infantil | Consume contenido con interfaz simple y apoyo visual |
-| Lector adulto | Consume contenido con controles y presentación configurables |
-| Estudiante de inglés | Usa repetición, traducción y vocabulario |
-| Tutor/familia/docente | Acompaña el uso; alcance de cuentas por decidir |
-| Editor | Crea contenido y solicita procesamiento |
-| Revisor | Valida texto, audio y sincronización |
-| Publicador/administrador | Autoriza publicación y opera el sistema |
-| Amazon Polly | Genera audio y Speech Marks |
-| Amazon S3 | Guarda audio, imágenes y paquetes |
-| SQLite | Conserva datos autoritativos y relaciones del MVP dentro del servicio API |
-| Proveedor de identidad | No decidido; la primera arquitectura permite identidad propia o externa |
-| Tiendas móviles | Distribuyen Reader en fases posteriores |
+| Child reader | Consumes content with a simple interface and visual support |
+| Adult reader | Consumes content with configurable controls and presentation |
+| English learner | Uses repetition, translation, and vocabulary |
+| Tutor/family/teacher | Accompanies use; account scope to be decided |
+| Editor | Creates content and requests processing |
+| Reviewer | Validates text, audio, and synchronization |
+| Publisher/administrator | Authorizes publication and operates the system |
+| Amazon Polly | Generates audio and Speech Marks |
+| Amazon S3 | Stores audio, images, and packages |
+| SQLite | Holds authoritative data and MVP relationships within the API service |
+| Identity provider | Not decided; the initial architecture allows self or external identity |
+| Mobile stores | Distribute Reader in later phases |
 
-## Diagrama de contexto
+## Context diagram
 
 ```mermaid
 flowchart LR
@@ -39,39 +38,35 @@ flowchart LR
     stores["Apple App Store / Google Play"] --> reader
 ```
 
-## Límites de confianza
+## Trust boundaries
 
-1. Navegadores y dispositivos son clientes no confiables.
-2. API es el único límite autorizado para lógica privilegiada y AWS.
-3. El archivo SQLite pertenece exclusivamente a la API y no es accesible desde clientes.
-4. S3 usa acceso controlado; URLs temporales o entrega mediada se decidirán después.
-5. Almacenamiento local puede dañarse o modificarse; Reader valida paquetes.
+1. Browsers and devices are untrusted clients.
+2. The API is the only authorized boundary for privileged logic and AWS.
+3. The SQLite file belongs exclusively to the API and is not accessible from clients.
+4. S3 uses controlled access; temporary URLs or mediated delivery will be decided later.
+5. Local storage can be corrupted or modified; Reader validates packages.
 
-## Flujos principales
+## Main flows
 
-### Publicación
+### Publication
 
-Admin -> API -> validación -> trabajo de procesamiento -> Polly -> S3 -> revisión -> versión publicada
--> catálogo remoto.
+Admin -> API -> validation -> processing job -> Polly -> S3 -> review -> published version -> remote catalog.
 
-### Lectura
+### Reading
 
-Reader -> catálogo local/remoto -> paquete compatible -> Reader Engine -> audio/temporización ->
-interfaz -> progreso local/API.
+Reader -> local/remote catalog -> compatible package -> Reader Engine -> audio/timing -> interface -> local/API progress.
 
-### Uso offline
+### Offline use
 
-Reader descarga a área temporal -> valida checksum -> activa localmente -> lee sin API -> encola
-progreso -> sincroniza al recuperar conexión.
+Reader downloads to a temporary area -> validates checksum -> activates locally -> reads without API -> queues progress -> syncs when connection is restored.
 
-## Responsabilidades fuera del sistema
+## Responsibilities outside the system
 
-- derechos y calidad editorial del contenido;
-- políticas legales y consentimiento;
-- gestión de cuentas de tiendas móviles;
-- presupuesto y contratos del proveedor cloud.
+- editorial rights and content quality;
+- legal policies and consent;
+- management of mobile store accounts;
+- cloud provider budget and contracts.
 
-## Resultado de validación
+## Validation result
 
-Personas, sistemas externos, límites de confianza y flujos fueron contrastados con los 12 casos de uso:
-PASS. Ver `ARCHITECTURE_VALIDATION.md`.
+People, external systems, trust boundaries, and flows were checked against the 12 use cases: PASS. See `ARCHITECTURE_VALIDATION.md`.

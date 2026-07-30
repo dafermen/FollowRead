@@ -1,42 +1,42 @@
-# Revisión de Fase 5
+# Phase 5 Review
 
-**Fase:** FollowRead Admin  
-**Fecha:** 2026-07-25  
-**Resultado:** PASS
+**Phase:** FollowRead Admin  
+**Date:** 2026-07-25  
+**Result:** PASS
 
-## Criterios de salida
+## Exit criteria
 
-| Criterio | Evidencia | Estado |
+| Criterion | Evidence | Status |
 |---|---|---|
-| Acceso administrativo | login, restauración, logout, permisos y vista previa identificada | PASS |
-| Gestión de contenido | catálogo, filtros, creación y editor estructurado | PASS |
-| Traducciones y recursos | edición bilingüe, voces compatibles e ilustraciones validadas | PASS |
-| Recuperación | autoguardado, almacenamiento local temporal y conflicto optimista | PASS |
-| Procesamiento | pantalla de costo, progreso, diagnóstico, cancelación y reintento | PASS |
-| Revisión | checklist de texto, alineación y audio | PASS |
-| Publicación | aprobar, rechazar, publicar, despublicar y archivar con auditoría | PASS |
-| Calidad y accesibilidad | teclado, etiquetas, estados anunciados, reflow y movimiento reducido | PASS |
+| Administrative access | login, restore, logout, permissions and preview identified | PASS |
+| Content management | catalog, filters, creation and structured editor | PASS |
+| Translations and assets | bilingual editing, supported voices and illustrations validated | PASS |
+| Recovery | autosave, temporary local storage and optimistic conflict | PASS |
+| Processing | cost screen, progress, diagnosis, cancellation and retry | PASS |
+| Review | text checklist, alignment and audio | PASS |
+| Publishing | approve, reject, publish, unpublish and archive with audit | PASS |
+| Quality and accessibility | keyboard, labels, announced states, reflow and reduced motion | PASS |
 
-## Verificación responsive y accesible
+## Responsive and accessible verification
 
-- navegación principal y móvil con nombres accesibles y estado de página;
-- formularios asociados a etiquetas, errores con `role="alert"` y progreso con atributos ARIA;
-- controles nativos utilizables por teclado y foco visible heredado del sistema visual;
-- rejillas que cambian a una columna entre 680 y 320 px sin desplazamiento horizontal previsto;
-- textos y controles conservan jerarquía al aumentar zoom;
-- animaciones reducidas cuando el sistema solicita `prefers-reduced-motion`;
-- ilustraciones requieren descripción alternativa antes de habilitar la carga;
-- estados de guardado, vista previa y actividad se anuncian sin depender sólo del color.
+- main and mobile navigation with accessible names and page state;
+- forms associated with labels, errors with `role="alert"` and progress with ARIA attributes;
+- native controls usable by keyboard and visible focus inherited from the system visual;
+- grids that change to a single column between 680 and 320 px without expected horizontal scrolling;
+- text and controls preserve hierarchy when zoomed;
+- animations reduced when the system requests `prefers-reduced-motion`;
+- illustrations require alternative description before enabling upload;
+- save, preview and activity states are announced without relying only on color.
 
-## Pruebas
+## Tests
 
-- 13 escenarios de Admin cubren dashboard, catálogo, creación, documentación, editor, recursos,
-  procesamiento, revisión, publicación, acceso y cierre de sesión;
-- el recorrido API cubre login → crear → editar → cargar recurso → procesar → revisar → publicar →
-  despublicar → archivar sobre SQLite desechable;
-- lint, tipos, pruebas y cobertura backend de 100% están en verde.
+- 13 Admin scenarios cover dashboard, catalog, creation, documentation, editor, assets,
+  processing, review, publishing, access and logout;
+- the API walkthrough covers login → create → edit → upload asset → process → review → publish →
+  unpublish → archive on disposable SQLite;
+- lint, types, tests and 100% backend coverage are green.
 
-## Resultado
+## Result
 
-Los doce trabajos de la fase están satisfechos. El Admin es demostrable y funcional en navegador,
-incluido el modo local sin AWS.
+The twelve phase jobs are satisfied. The Admin is demonstrable and functional in the browser,
+including local mode without AWS.

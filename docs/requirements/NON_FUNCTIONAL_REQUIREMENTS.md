@@ -1,82 +1,82 @@
-# Requisitos no funcionales
+# Non-functional Requirements
 
-**Estado del documento:** Validado para Fase 0 - FR-PH00-TASK-006 COMPLETED.  
-Las metas son umbrales iniciales verificables; una decisión registrada puede ajustarlas con evidencia.
+**Document status:** Validated for Phase 0 - FR-PH00-TASK-006 COMPLETED.  
+Goals are initial verifiable thresholds; a recorded decision may adjust them with evidence.
 
-## Accesibilidad
+## Accessibility
 
-| ID | Requisito | Prioridad | Meta | Fuente | Verificación |
+| ID | Requirement | Priority | Target | Source | Verification |
 |---|---|---|---|---|---|
-| NFR-ACCESSIBILITY-001 | Admin y Reader cumplirán WCAG 2.2 AA en flujos MVP | Must | Cero defectos críticos; revisión manual de criterios aplicables | Prompt §22 | axe + auditoría |
-| NFR-ACCESSIBILITY-002 | Toda acción principal funcionará con teclado | Must | 100% sin trampas y con foco visible | Prompt §22 | Manual/E2E |
-| NFR-ACCESSIBILITY-003 | Controles tendrán nombre, estado y mensaje accesible | Must | 100% de controles críticos | Prompt §22 | Componentes |
-| NFR-ACCESSIBILITY-004 | Objetivos táctiles serán adecuados | Must | 24x24 CSS px mínimo; 44x44 infantil | WCAG 2.2 / Prompt | Inspección |
-| NFR-ACCESSIBILITY-005 | Movimiento y mano podrán reducirse u ocultarse | Must | 100% respeta preferencia y ajuste | Prompt §11/22 | Preferencias |
-| NFR-ACCESSIBILITY-006 | Color no será el único indicador | Must | 100% de estados críticos con señal adicional | Prompt §22 | Visual/manual |
+| NFR-ACCESSIBILITY-001 | Admin and Reader will meet WCAG 2.2 AA in MVP flows | Must | Zero critical defects; manual review of applicable criteria | Prompt §22 | axe + audit |
+| NFR-ACCESSIBILITY-002 | All primary actions will work with keyboard | Must | 100% free of traps and with visible focus | Prompt §22 | Manual/E2E |
+| NFR-ACCESSIBILITY-003 | Controls will have accessible name, state, and message | Must | 100% of critical controls | Prompt §22 | Components |
+| NFR-ACCESSIBILITY-004 | Touch targets will be appropriate | Must | Minimum 24x24 CSS px; 44x44 preferred | WCAG 2.2 / Prompt | Inspection |
+| NFR-ACCESSIBILITY-005 | Motion and hand interactions can be reduced or hidden | Must | 100% respects preference and setting | Prompt §11/22 | Preferences |
+| NFR-ACCESSIBILITY-006 | Color will not be the sole indicator | Must | 100% of critical states have an additional signal | Prompt §22 | Visual/manual |
 
-## Rendimiento y fiabilidad
+## Performance and Reliability
 
-| ID | Requisito | Prioridad | Meta | Fuente | Verificación |
+| ID | Requirement | Priority | Target | Source | Verification |
 |---|---|---|---|---|---|
-| NFR-PERFORMANCE-001 | La reproducción responderá sin bloqueo perceptible | Must | Ninguna tarea UI >50 ms en control crítico | Prompt §22 | Perfil |
-| NFR-PERFORMANCE-002 | Resolver palabra activa será eficiente | Must | p95 <2 ms con 10.000 marcas en referencia | Prompt §10/22 | Benchmark |
-| NFR-PERFORMANCE-003 | Catálogo e imágenes usarán carga diferida | Should | Sin recursos fuera de vista salvo prefetch documentado | Prompt §22 | Red |
-| NFR-PERFORMANCE-004 | El resaltado seguirá el reloj de audio | Must | Actualización visual <=150 ms p95 desde timestamp observado | FR-OV-002 | Integración |
-| NFR-PERFORMANCE-005 | Contenido local abrirá rápidamente | Must | p75 <=2 s en dispositivo de referencia | Prompt §22 | E2E |
-| NFR-RELIABILITY-001 | Progreso confirmado no se perderá silenciosamente | Must | 100% de escenarios de interrupción conserva o explica | Prompt §2 | Fallos |
-| NFR-RELIABILITY-002 | Paquetes locales se activarán atómicamente | Must | Cero versiones parciales activas | Prompt §7 | Descarga cortada |
-| NFR-RELIABILITY-003 | Reintentos serán idempotentes | Must | Mismo estado tras 3 reenvíos | Prompt §12 | Integración |
-| NFR-AVAILABILITY-001 | Contenido descargado abrirá sin backend | Must | 100% del flujo crítico offline | Prompt §22 | E2E offline |
-| NFR-AVAILABILITY-002 | Recuperación operativa tendrá objetivo | Should | RTO 4 h y RPO 24 h para MVP | Estrategia de despliegue | Simulación |
+| NFR-PERFORMANCE-001 | Playback will respond without perceptible jank | Must | No UI task >50 ms in critical control | Prompt §22 | Profile |
+| NFR-PERFORMANCE-002 | Resolving active word will be efficient | Must | p95 <2 ms with 10,000 marks in reference | Prompt §10/22 | Benchmark |
+| NFR-PERFORMANCE-003 | Catalog and images will use lazy loading | Should | No resources outside viewport except documented prefetch | Prompt §22 | Network |
+| NFR-PERFORMANCE-004 | Highlighting will follow the audio clock | Must | Visual update <=150 ms p95 from observed timestamp | FR-OV-002 | Integration |
+| NFR-PERFORMANCE-005 | Local content will open quickly | Must | p75 <=2 s on reference device | Prompt §22 | E2E |
+| NFR-RELIABILITY-001 | Confirmed progress will not be lost silently | Must | 100% of interruption scenarios preserve or explain | Prompt §2 | Failures |
+| NFR-RELIABILITY-002 | Local packages will activate atomically | Must | Zero partial versions active | Prompt §7 | Interrupted download |
+| NFR-RELIABILITY-003 | Retries will be idempotent | Must | Same state after 3 resends | Prompt §12 | Integration |
+| NFR-AVAILABILITY-001 | Downloaded content will open without backend | Must | 100% of critical flow offline | Prompt §22 | E2E offline |
+| NFR-AVAILABILITY-002 | Operational recovery will have objectives | Should | RTO 4 h and RPO 24 h for MVP | Deployment strategy | Simulation |
 
-## Seguridad y privacidad
+## Security and Privacy
 
-| ID | Requisito | Prioridad | Meta | Fuente | Verificación |
+| ID | Requirement | Priority | Target | Source | Verification |
 |---|---|---|---|---|---|
-| NFR-SECURITY-001 | Ningún secreto se incluirá en cliente o Git | Must | Cero secretos detectados | Prompt §4/27 | Escaneo |
-| NFR-SECURITY-002 | API validará todas las entradas | Must | 100% de endpoints con esquema/límites | Prompt §22 | Negativas |
-| NFR-SECURITY-003 | Autorización se verificará en servidor | Must | Denegar por defecto; matriz completa | Prompt Fase 4 | Permisos |
-| NFR-SECURITY-004 | Contraseñas usarán hash resistente | Must | Argon2id o estándar vigente documentado | Prompt Fase 4 | Config review |
-| NFR-SECURITY-005 | CORS será restrictivo por entorno | Must | Sin wildcard con credenciales/producción | Prompt §22 | Config |
-| NFR-SECURITY-006 | Eventos privilegiados serán auditables | Must | Actor, acción, objetivo, fecha y resultado | Prompt §13/22 | Auditoría |
-| NFR-SECURITY-007 | Sesiones privilegiadas expirarán y podrán revocarse | Must | TTL y revocación probados | Prompt Fase 4 | Seguridad |
-| NFR-PRIVACY-001 | Sólo se recopilarán datos con propósito | Must | 100% de campos en inventario | Prompt §22 | Revisión |
-| NFR-PRIVACY-002 | MVP no almacenará PII de menores | Must | Cero campos/telemetría identificable infantil | FR-DEC-009 | Inventario/E2E |
-| NFR-PRIVACY-003 | Eliminación/exportación se diseñará antes de cuentas Reader | Must | Flujos documentados antes de habilitar cuenta | Privacidad | Revisión |
+| NFR-SECURITY-001 | No secret will be included in client or Git | Must | Zero detected secrets | Prompt §4/27 | Scanning |
+| NFR-SECURITY-002 | API will validate all inputs | Must | 100% of endpoints with schema/limits | Prompt §22 | Negative tests |
+| NFR-SECURITY-003 | Authorization will be enforced on the server | Must | Deny by default; complete matrix | Prompt Phase 4 | Permissions |
+| NFR-SECURITY-004 | Passwords will use a strong hash | Must | Argon2id or documented current standard | Prompt Phase 4 | Config review |
+| NFR-SECURITY-005 | CORS will be restrictive per environment | Must | No wildcard with credentials/production | Prompt §22 | Config |
+| NFR-SECURITY-006 | Privileged events will be auditable | Must | Actor, action, target, date, and outcome | Prompt §13/22 | Audit |
+| NFR-SECURITY-007 | Privileged sessions will expire and be revocable | Must | TTL and revocation tested | Prompt Phase 4 | Security |
+| NFR-PRIVACY-001 | Data will only be collected with purpose | Must | 100% of fields in inventory | Prompt §22 | Review |
+| NFR-PRIVACY-002 | MVP will not store PII of minors | Must | Zero fields/telemetry that identify children | FR-DEC-009 | Inventory/E2E |
+| NFR-PRIVACY-003 | Deletion/export will be designed before Reader accounts | Must | Flows documented before enabling account | Privacy | Review |
 
-## Mantenibilidad y compatibilidad
+## Maintainability and Compatibility
 
-| ID | Requisito | Prioridad | Meta | Fuente | Verificación |
+| ID | Requirement | Priority | Target | Source | Verification |
 |---|---|---|---|---|---|
-| NFR-MAINTAINABILITY-001 | TypeScript usará `strict` y evitará `any` | Must | Cero errores; excepciones justificadas | Prompt §25 | CI |
-| NFR-MAINTAINABILITY-002 | Python usará type hints y capas claras | Must | Chequeo estático/revisión sin violación crítica | Prompt §25 | CI/review |
-| NFR-MAINTAINABILITY-003 | Reader Engine no dependerá de React | Must | Cero imports prohibidos | Prompt §10 | Arquitectura |
-| NFR-MAINTAINABILITY-004 | Decisiones/dependencias se documentarán | Must | 100% de cambios materiales con ADR/registro | Prompt §25 | PR |
-| NFR-COMPATIBILITY-001 | Reader funcionará en navegadores modernos | Must | Últimas 2 versiones estables de Chrome, Edge, Firefox y Safari al release | Prompt §22 | Playwright/manual |
-| NFR-COMPATIBILITY-002 | Reader soportará orientación y safe areas | Must | Cero controles críticos inaccesibles | Prompt §22/Fase 10 | Dispositivos |
+| NFR-MAINTAINABILITY-001 | TypeScript will use `strict` and avoid `any` | Must | Zero errors; exceptions justified | Prompt §25 | CI |
+| NFR-MAINTAINABILITY-002 | Python will use type hints and clear layering | Must | Static check/review without critical violations | Prompt §25 | CI/review |
+| NFR-MAINTAINABILITY-003 | Reader Engine will not depend on React | Must | Zero prohibited imports | Prompt §10 | Architecture |
+| NFR-MAINTAINABILITY-004 | Decisions/dependencies will be documented | Must | 100% of material changes with ADR/record | Prompt §25 | PR |
+| NFR-COMPATIBILITY-001 | Reader will run on modern browsers | Must | Last 2 stable versions of Chrome, Edge, Firefox, and Safari at release | Prompt §22 | Playwright/manual |
+| NFR-COMPATIBILITY-002 | Reader will support orientation and safe areas | Must | Zero critical controls inaccessible | Prompt §22/Phase 10 | Devices |
 
-## Operación y costos
+## Operation and Cost
 
-| ID | Requisito | Prioridad | Meta | Fuente | Verificación |
+| ID | Requirement | Priority | Target | Source | Verification |
 |---|---|---|---|---|---|
-| NFR-OBSERVABILITY-001 | API/trabajos emitirán logs estructurados | Must | Correlation ID en 100% del flujo sin datos sensibles | Prompt §22 | Inspección |
-| NFR-OBSERVABILITY-002 | Health checks distinguirán vida/disponibilidad | Must | Endpoints con dependencias explícitas | Prompt Fase 3 | API |
-| NFR-COST-001 | Procesamiento estimará costo y aplicará límites | Should | Límite obligatorio por entorno; exceso bloquea antes de AWS | Prompt Fase 6 | Adaptador falso |
-| NFR-RECOVERY-001 | Despliegues/migraciones tendrán rollback | Must | Procedimiento probado en staging | Prompt Fase 13 | Simulación |
-| NFR-STORAGE-001 | Paquetes tendrán límite configurable | Should | 250 MB por paquete por defecto; aviso desde 100 MB | Offline | Fixtures |
+| NFR-OBSERVABILITY-001 | API/jobs will emit structured logs | Must | Correlation ID in 100% of the flow with no sensitive data | Prompt §22 | Inspection |
+| NFR-OBSERVABILITY-002 | Health checks will distinguish liveness/availability | Must | Endpoints with explicit dependencies | Prompt Phase 3 | API |
+| NFR-COST-001 | Processing will estimate cost and enforce limits | Should | Mandatory limit per environment; excess blocks before AWS | Prompt Phase 6 | Fake adapter |
+| NFR-RECOVERY-001 | Deployments/migrations will have rollback | Must | Procedure tested in staging | Prompt Phase 13 | Simulation |
+| NFR-STORAGE-001 | Packages will have configurable limit | Should | 250 MB per package by default; warning from 100 MB | Offline | Fixtures |
 
-## Retención inicial
+## Initial Retention
 
-- auditoría privilegiada: 365 días como mínimo, configurable;
-- trabajos de procesamiento y errores: 90 días después de terminar;
-- borradores: hasta eliminación por editor o política organizacional;
-- progreso/favoritos/vocabulario autenticado: hasta solicitud de eliminación;
-- perfil local: hasta borrado de datos de la aplicación;
-- temporales de descarga: limpieza inmediata o en siguiente inicio seguro.
+- privileged audit: minimum 365 days, configurable;
+- processing jobs and errors: 90 days after completion;
+- drafts: until removed by editor or organizational policy;
+- authenticated progress/favorites/vocabulary: until deletion request;
+- local profile: until app data is deleted;
+- download temporaries: immediate cleanup or on next safe startup.
 
-## Validación
+## Validation
 
-- Cada requisito tiene ID, prioridad, meta, fuente y verificación: PASS.
-- Accesibilidad WCAG 2.2 AA tiene alcance y método: PASS.
-- Rendimiento, offline, compatibilidad y recuperación tienen umbral: PASS.
-- Seguridad, secretos, auditoría y privacidad infantil tienen estrategia verificable: PASS.
+- Each requirement has ID, priority, target, source, and verification: PASS.
+- Accessibility WCAG 2.2 AA has scope and method: PASS.
+- Performance, offline, compatibility, and recovery have thresholds: PASS.
+- Security, secrets, auditability, and child privacy have verifiable strategy: PASS.

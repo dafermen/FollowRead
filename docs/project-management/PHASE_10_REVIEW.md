@@ -1,42 +1,42 @@
-# Revisión de Fase 10 - Capacitor, Android e iOS
+# Phase 10 Review - Capacitor, Android and iOS
 
-**Fecha:** 2026-07-26
-**Estado:** COMPLETED
+**Date:** 2026-07-26
+**Status:** COMPLETED
 
-## Resultado
+## Outcome
 
-FollowRead Reader es ahora la única aplicación empaquetada con Capacitor 8. Android e iOS comparten
-el mismo build web/PWA y conservan catálogo, cuento incluido, lectura, voz local, progreso y
-descargas offline. Admin permanece fuera de todos los proyectos nativos.
+FollowRead Reader is now the only application packaged with Capacitor 8. Android and iOS share
+the same web/PWA build and retain catalog, included story, reading, local voice, progress and
+offline downloads. Admin remains outside all native projects.
 
-## Criterios verificados
+## Verified criteria
 
-1. `com.followread.reader`, `webDir: dist` y proyectos nativos versionados.
-2. Android API 24/36 y iOS 15 con Swift Package Manager.
-3. Icono adaptativo y splash claro/oscuro generados desde fuentes validadas.
-4. Network/App/Splash/StatusBar son los únicos plugins.
-5. IndexedDB y `localStorage` no requieren acceso a archivos.
-6. Android sólo declara Internet; Network aporta estado. iOS no pide permisos sensibles.
-7. Web Speech se pausa al ir a fondo; no se declara reproducción continua.
-8. Safe areas y rotación se verificaron en vertical/horizontal conservando progreso.
-9. APK debug generado, instalado y abierto en un AVD API 35.
-10. iOS sincroniza y supera auditoría estática; build/TestFlight requiere macOS/Xcode 26.
-11. Build, firma, tiendas, rollback y troubleshooting están documentados.
-12. La puerta completa incluye validación móvil.
+1. `com.followread.reader`, `webDir: dist` and native projects versioned.
+2. Android API 24/36 and iOS 15 with Swift Package Manager.
+3. Adaptive icon and light/dark splash generated from validated sources.
+4. Network/App/Splash/StatusBar are the only plugins.
+5. IndexedDB and `localStorage` do not require file access.
+6. Android only declares Internet; Network provides status. iOS does not request sensitive permissions.
+7. Web Speech pauses when backgrounded; continuous playback is not declared.
+8. Safe areas and rotation were verified in portrait/landscape preserving progress.
+9. Debug APK generated, installed and opened on an AVD API 35.
+10. iOS synchronizes and passes static audit; build/TestFlight requires macOS/Xcode 26.
+11. Build, signing, stores, rollback and troubleshooting are documented.
+12. The full gate includes mobile validation.
 
-## Evidencia
+## Evidence
 
-- 33 pruebas Reader;
+- 33 Reader tests;
 - `pnpm mobile:validate`: PASS;
-- `pnpm reader:mobile-e2e`: PASS vertical y horizontal;
+- `pnpm reader:mobile-e2e`: PASS vertical and horizontal;
 - `pnpm mobile:build:android`: BUILD SUCCESSFUL;
-- instalación/arranque ADB de `com.followread.reader/.MainActivity`: PASS;
-- `cap sync android` y `cap sync ios`: PASS;
-- capturas Chrome/Android bajo `var/e2e`;
+- ADB install/start of `com.followread.reader/.MainActivity`: PASS;
+- `cap sync android` and `cap sync ios`: PASS;
+- Chrome/Android screenshots under `var/e2e`;
 - `pnpm check`: PASS.
 
-## Restricción externa
+## External constraint
 
-Windows no puede ejecutar Xcode ni un simulador iOS. El proyecto iOS, recursos, SPM, bundle ID,
-orientaciones y permisos se validaron; la matriz física iPhone/iPad queda como condición previa a
-publicar en TestFlight/App Store. No requiere cambios de producto para continuar la Fase 11.
+Windows cannot run Xcode or an iOS simulator. The iOS project, resources, SPM, bundle ID,
+orientations and permissions were validated; the physical iPhone/iPad matrix remains a prerequisite to
+publishing on TestFlight/App Store. No product changes are required to continue Phase 11.

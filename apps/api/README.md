@@ -1,17 +1,17 @@
 # FollowRead API
 
-Aplicación FastAPI. Es la única frontera autorizada para credenciales y adaptadores AWS.
+FastAPI application. It is the only authorized boundary for credentials and AWS adapters.
 
-## Desarrollo
+## Development
 
-Desde la raíz del repositorio:
+From the repository root:
 
 ```powershell
 .\apps\api\.venv\Scripts\python.exe -m uvicorn followread_api.main:app `
   --app-dir .\apps\api\src --reload --port 8000
 ```
 
-Comprobaciones:
+Checks:
 
 ```powershell
 .\apps\api\.venv\Scripts\python.exe -m pytest .\apps\api
@@ -19,24 +19,24 @@ Comprobaciones:
 .\apps\api\.venv\Scripts\python.exe -m mypy .\apps\api\src .\apps\api\tests
 ```
 
-Migraciones:
+Migrations:
 
 ```powershell
 pnpm migrate
 pnpm demo:seed
 ```
 
-El endpoint `GET /health` no requiere SQLite, Redis ni AWS. SQLite usa
-`var/followread.db` por defecto y PostgreSQL queda fuera del MVP.
+The `GET /health` endpoint does not require SQLite, Redis, or AWS. SQLite uses
+`var/followread.db` by default and PostgreSQL is out of scope for the MVP.
 
-## Procesamiento del MVP
+## MVP processing
 
-La API usa audio local simulado por defecto. Genera archivos y Speech Marks deterministas sin
-cuenta, red ni costo. El contrato opcional de Amazon Polly se activa sólo con
-`FOLLOWREAD_POLLY_PROVIDER=aws`; las pruebas nunca realizan llamadas AWS reales.
+The API uses simulated local audio by default. It generates deterministic files and Speech Marks without
+account, network, or cost. The optional Amazon Polly contract is activated only with
+`FOLLOWREAD_POLLY_PROVIDER=aws`; tests never make real AWS calls.
 
-Los contratos administrativos de contenido, ilustraciones, procesamiento, revisión y publicación
-se pueden explorar en `http://localhost:8000/docs` al levantar el proyecto.
+The administrative contracts for content, illustrations, processing, review, and publishing
+can be explored at `http://localhost:8000/docs` when running the project.
 
-El cuento demo queda disponible en
-`GET /catalog/el-zorro-y-la-luna/reader-package`. El comando de siembra es idempotente.
+The demo story is available at
+`GET /catalog/el-zorro-y-la-luna/reader-package`. The seed command is idempotent.

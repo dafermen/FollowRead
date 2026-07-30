@@ -1,51 +1,49 @@
-# Problemas conocidos
+# Known Issues
 
-## FR-ISSUE-001 - Proyecto sin repositorio Git
+## FR-ISSUE-001 - Project without Git repository
 
-- **Estado:** RESOLVED
-- **Severidad:** Medium
-- **Síntoma:** `C:\Projects\FollowRead` sólo contiene el PDF maestro y no tiene `.git`.
-- **Impacto:** No hay historial, ramas ni mecanismo seguro de reversión.
-- **Resolución:** Repositorio inicializado sobre `main` en FR-PH02-TASK-001. Estructura y estado
-  fueron comprobados con la identidad propietaria del directorio.
+- **Status:** RESOLVED
+- **Severity:** Medium
+- **Symptom:** `C:\Projects\FollowRead` only contains the master PDF and does not have `.git`.
+- **Impact:** There is no history, branches, or safe rollback mechanism.
+- **Resolution:** Repository initialized on `main` in FR-PH02-TASK-001. Structure and status
+  were checked with the directory's owning identity.
 
-## FR-ISSUE-002 - Inconsistencia en tipos de contenido
+## FR-ISSUE-002 - Inconsistency in content types
 
-- **Estado:** RESOLVED
-- **Severidad:** Low
-- **Síntoma:** La descripción incluye "documentos", pero los tipos enumerados son `story`,
-  `article`, `book` y `lesson`.
-- **Resolución:** FR-DEC-007 representa documentos como `article` hasta que exista una diferencia
-  funcional.
+- **Status:** RESOLVED
+- **Severity:** Low
+- **Symptom:** The description includes "documents," but the enumerated types are `story`,
+  `article`, `book`, and `lesson`.
+- **Resolution:** FR-DEC-007 represents documents as `article` until there is a functional difference.
 
-## FR-ISSUE-003 - Funciones adultas sin modelo de datos explícito
+## FR-ISSUE-003 - Adult features without explicit data model
 
-- **Estado:** RESOLVED
-- **Severidad:** Medium
-- **Síntoma:** El modo adulto requiere notas y marcadores, pero las entidades iniciales no incluyen
-  `Note` ni `Bookmark`.
-- **Resolución:** FR-DEC-010 mantiene favoritos/progreso en MVP y aplaza notas libres.
+- **Status:** RESOLVED
+- **Severity:** Medium
+- **Symptom:** Adult mode requires notes and bookmarks, but the initial entities do not include
+  `Note` or `Bookmark`.
+- **Resolution:** FR-DEC-010 keeps favorites/progress in the MVP and defers free-form notes.
 
-## FR-ISSUE-004 - Reglas de cuentas infantiles no definidas
+## FR-ISSUE-004 - Child account rules undefined
 
-- **Estado:** RESOLVED_FOR_MVP
-- **Severidad:** High
-- **Síntoma:** Existe modo infantil, pero no se define si un niño posee cuenta o cómo consiente un
-  adulto.
-- **Resolución:** FR-DEC-009 prohíbe cuentas personales y datos identificables de menores en el MVP.
-  Una capacidad futura requerirá revisión nueva.
+- **Status:** RESOLVED_FOR_MVP
+- **Severity:** High
+- **Symptom:** There is a child mode, but it is not defined whether a child owns an account or how an
+  adult gives consent.
+- **Resolution:** FR-DEC-009 prohibits personal accounts and identifiable data of minors in the MVP.
+  A future capability will require a new review.
 
-## FR-ISSUE-005 - Docker no disponible
+## FR-ISSUE-005 - Docker not available
 
-- **Estado:** RESOLVED_BY_SCOPE_CHANGE
-- **Severidad:** Medium
-- **Síntoma:** PowerShell no reconoce `docker` ni puede consultar `docker compose version`.
-- **Impacto:** No se puede validar PostgreSQL local, healthcheck ni migraciones.
-- **Acción requerida:** Instalar o iniciar Docker Desktop y asegurar que el CLI esté en `PATH`.
-- **Tarea bloqueada:** FR-PH02-TASK-007.
-- **Progreso seguro:** Compose, variables, DSN y validación estática están completos y pasan
-  `pnpm check`; sólo quedan pruebas que requieren el runtime.
-- **Auditoría repetida:** Confirmado en tres intentos. No existe `docker` en `PATH`, rutas habituales,
-  registro de aplicaciones instaladas, procesos o servicios; tampoco existe Podman como runtime
-  compatible disponible.
-- **Resolución:** El propietario autorizó FR-DEC-013: SQLite reemplaza PostgreSQL/Docker en el MVP.
+- **Status:** RESOLVED_BY_SCOPE_CHANGE
+- **Severity:** Medium
+- **Symptom:** PowerShell does not recognize `docker` nor can it query `docker compose version`.
+- **Impact:** Local PostgreSQL, healthcheck, and migrations cannot be validated.
+- **Required action:** Install or start Docker Desktop and ensure the CLI is in `PATH`.
+- **Blocked task:** FR-PH02-TASK-007.
+- **Safe progress:** Compose, variables, DSN, and static validation are complete and pass
+  `pnpm check`; only tests that require the runtime remain.
+- **Repeated audit:** Confirmed in three attempts. There is no `docker` in `PATH`, common paths,
+  installed applications registry, processes, or services; Podman is also not available as a compatible runtime.
+- **Resolution:** The owner authorized FR-DEC-013: SQLite replaces PostgreSQL/Docker in the MVP.

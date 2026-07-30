@@ -1,113 +1,112 @@
-# Especificación de accesibilidad
+# Accessibility Specification
 
-**Estado:** Validada para diseño  
-**Tarea responsable:** FR-PH01-TASK-006 - COMPLETED  
-**Objetivo:** WCAG 2.2 AA para flujos MVP.
+**Status:** Validated for design  
+**Responsible task:** FR-PH01-TASK-006 - COMPLETED  
+**Goal:** WCAG 2.2 AA for MVP flows.
 
-## Teclado por patrón
+## Keyboard by pattern
 
-| Patrón | Interacción | Foco al abrir/cerrar |
+| Pattern | Interaction | Focus on open/close |
 |---|---|---|
-| Navegación | Tab/Shift+Tab; Enter activa | ruta nueva enfoca h1 cuando corresponde |
-| Drawer | botón abre; Escape cierra | primer elemento / vuelve al botón |
-| Dialog | Tab contenido; Escape si cancelable | inicial significativo / vuelve al disparador |
-| Tabs | flechas entre tabs; Tab al panel | tab activo |
-| Combobox | flechas, Enter, Escape | campo conserva foco |
-| Lista reordenable | botones subir/bajar y anuncio | elemento movido |
-| Media controls | Tab + Space/Enter | control activado |
-| WordToken | Tab sólo cuando interactivo; Enter/Space | palabra conserva foco |
-| Toast reversible | alcanzable sin robar foco | vuelve al contexto |
-| Error summary | enlaces a campos | campo inválido |
+| Navigation | Tab/Shift+Tab; Enter activates | new route focuses h1 when appropriate |
+| Drawer | button opens; Escape closes | first element / returns to button |
+| Dialog | Tab within content; Escape if cancelable | meaningful initial / returns to trigger |
+| Tabs | arrow keys between tabs; Tab to panel | active tab |
+| Combobox | arrows, Enter, Escape | field retains focus |
+| Reorderable list | move up/down buttons and announcement | moved item |
+| Media controls | Tab + Space/Enter | control activated |
+| WordToken | Tab only when interactive; Enter/Space | word retains focus |
+| Reversible toast | reachable without stealing focus | returns to context |
+| Error summary | links to fields | invalid field |
 
-No se exige arrastrar, hover o gesto como única forma de completar una acción.
+Dragging, hover, or gestures are not required as the sole way to complete an action.
 
-## Foco
+## Focus
 
-- Indicador de 3px con offset y contraste suficiente.
-- Nunca queda detrás de header, controles sticky o teclado virtual.
-- Auto-scroll visual no mueve foco.
-- Agregar/eliminar elemento lleva foco a un lugar predecible anunciado.
-- Carga incremental no inserta contenido antes del foco.
-- Rutas protegidas enfocan el mensaje de denegación.
+- 3px indicator with offset and sufficient contrast.
+- Never hidden behind header, sticky controls, or virtual keyboard.
+- Visual auto-scroll does not move focus.
+- Adding/removing an element moves focus to a predictable, announced location.
+- Incremental loading does not insert content before the focus.
+- Protected routes focus the denial message.
 
-## Lector de pantalla
+## Screen reader
 
-- Una región `main` y un h1 por pantalla.
-- Navegación con nombre distinto cuando hay varias.
-- Estados de guardado/descarga usan `status`; errores urgentes usan `alert` con moderación.
-- Progreso tiene nombre, valor y texto.
-- La palabra activa visual no se anuncia en cada tick: causaría ruido. El texto completo sigue
-  disponible y la posición se anuncia bajo demanda.
-- Mano SVG es decorativa (`aria-hidden`) porque el resaltado contiene la información.
-- Controles de reproducción exponen acción actual: "Pausar" mientras reproduce.
+- One region `main` and one h1 per screen.
+- Distinctly named navigation when there are multiple.
+- Save/download states use `status`; urgent errors use `alert` sparingly.
+- Progress has name, value, and text.
+- The visually active word is not announced on every tick: that would create noise. The full text remains available and position is announced on demand.
+- SVG hand is decorative (`aria-hidden`) because the highlight contains the information.
+- Playback controls expose the current action: "Pause" while playing.
 
-## Texto, color y contenido
+## Text, color, and content
 
-- Pares críticos superan 4.5:1 según `DESIGN_SYSTEM.md`.
-- Texto grande y elementos no textuales cumplen sus umbrales aplicables.
-- Estados combinan texto, icono y color.
-- Errores usan lenguaje concreto y se asocian al campo.
-- Traducciones conservan etiqueta de idioma (`lang`).
-- Cambios de idioma se marcan por fragmento.
+- Critical pairs exceed 4.5:1 per `DESIGN_SYSTEM.md`.
+- Large text and non-text elements meet their applicable thresholds.
+- States combine text, icon, and color.
+- Errors use concrete language and are associated with the field.
+- Translations preserve language tag (`lang`).
+- Language changes are marked by fragment.
 
-## Tacto y puntero
+## Touch and pointer
 
-- 24x24 CSS px mínimo; 44x44 en modo infantil.
-- Alternativa a drag para reordenar.
-- Alternativa a hover para tooltips/información.
-- Cancelación o undo para activaciones accidentales cuando sea razonable.
-- Palabras tocables mantienen separación o usan una superficie contextual sin impedir selección.
+- 24x24 CSS px minimum; 44x44 in kid mode.
+- Alternative to drag for reordering.
+- Alternative to hover for tooltips/information.
+- Cancellation or undo for accidental activations when reasonable.
+- Touchable words maintain separation or use a contextual surface without preventing selection.
 
-## Movimiento
+## Motion
 
-- `prefers-reduced-motion` se respeta en primer render.
-- Ajuste propio puede reducir más, nunca forzar movimiento contra preferencia del sistema.
-- Mano/auto-scroll saltan sin animación cuando se reduce.
-- Nada parpadea por encima del umbral seguro.
-- Reproducción de audio no inicia inesperadamente, salvo lectura automática elegida.
+- `prefers-reduced-motion` respected on first render.
+- Inherent adjustment may reduce motion further, never force movement against system preference.
+- Hand/auto-scroll jump without animation when reduced.
+- Nothing flashes above the safe threshold.
+- Audio playback does not start unexpectedly, except for chosen auto-read.
 
-## Formularios Admin
+## Admin forms
 
-- Etiquetas persistentes; placeholder no reemplaza label.
-- Requisitos y formato se explican antes del error.
-- Resumen de errores al enviar; foco al resumen; enlaces a campos.
-- Autoguardado no reemplaza botón/estado explícito cuando hay conflicto.
-- Editor bilingüe usa grupos con idioma y unidad relacionada.
+- Persistent labels; placeholder does not replace label.
+- Requirements and format are explained before errors.
+- Error summary on submit; focus to summary; links to fields.
+- Autosave does not replace an explicit button/state when there is a conflict.
+- Bilingual editor uses groups with language and related unit.
 
-## Modo infantil
+## Kid mode
 
-- Navegación reducida y salida segura.
-- Controles 44px y espacio entre acciones.
-- Mensajes cortos con recuperación visible.
-- No pide PII ni presenta login infantil.
-- Ilustración no desplaza controles esenciales.
+- Reduced navigation and safe exit.
+- 44px controls and spacing between actions.
+- Short messages with visible recovery.
+- Does not request PII or present a child login.
+- Illustration does not displace essential controls.
 
-## Auditoría por pantalla
+## Per-screen audit
 
-Cada pantalla debe probar:
+Each screen must test:
 
-1. teclado completo;
-2. foco visible y orden lógico;
-3. nombre/rol/estado;
+1. full keyboard;
+2. visible focus and logical order;
+3. name/role/state;
 4. zoom/reflow;
-5. contraste;
-6. error/estado async;
+5. contrast;
+6. error/async state;
 7. reduced motion;
-8. tacto cuando aplica.
+8. touch where applicable.
 
-## Matriz WCAG de alto nivel
+## High-level WCAG matrix
 
-| Área | Criterios principales | Diseño |
+| Area | Main criteria | Design |
 |---|---|---|
-| Perceptible | texto alternativo, contraste, reflow, audio/texto | especificado |
-| Operable | teclado, foco, objetivos, gestos, movimiento | especificado |
-| Comprensible | etiquetas, errores, consistencia | especificado |
-| Robusto | semántica, nombre/rol/valor, estados | especificado |
+| Perceivable | alt text, contrast, reflow, audio/text | specified |
+| Operable | keyboard, focus, targets, gestures, motion | specified |
+| Understandable | labels, errors, consistency | specified |
+| Robust | semantics, name/role/value, states | specified |
 
-## Resultado
+## Outcome
 
-- Teclado/foco por patrón: PASS.
-- Lector de pantalla y estados: PASS.
-- Zoom, orientación, safe areas y teclado virtual: PASS.
-- Reduced motion y mano opcional: PASS.
-- Objetivos táctiles infantiles: PASS.
+- Keyboard/focus by pattern: PASS.
+- Screen reader and states: PASS.
+- Zoom, orientation, safe areas, and virtual keyboard: PASS.
+- Reduced motion and optional hand: PASS.
+- Child touch targets: PASS.

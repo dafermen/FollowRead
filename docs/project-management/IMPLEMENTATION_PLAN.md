@@ -1,40 +1,39 @@
-# Plan de implementación
+# Implementation Plan
 
-## Estrategia
+## Strategy
 
-FollowRead avanzará por fases con cortes verticales verificables. Cada fase deberá producir un
-resultado demostrable, no sólo archivos aislados.
+FollowRead will advance in phases with verifiable vertical cutoffs. Each phase must produce a demonstrable outcome, not just isolated files.
 
-## Orden
+## Order
 
-1. Cerrar producto, riesgos, requisitos y estrategias en Fase 0.
-2. Diseñar flujos y sistema visual accesible en Fase 1.
-3. Crear monorepo, entornos y controles de calidad en Fase 2.
-4. Construir API y datos antes de depender de ellos desde interfaces finales.
-5. Proteger identidad y permisos antes de Admin publicable.
-6. Implementar Admin y flujo editorial.
-7. Integrar Polly mediante adaptadores y trabajos.
-8. Desarrollar Reader Engine con fixtures deterministas.
-9. Integrar Reader web/PWA.
-10. Agregar offline antes de empaquetar móviles.
-11. Incorporar Capacitor y después capacidades educativas restantes.
-12. Endurecer, automatizar despliegues y completar documentación.
+1. Close product, risks, requirements, and strategies in Phase 0.
+2. Design accessible flows and visual system in Phase 1.
+3. Create monorepo, environments, and quality controls in Phase 2.
+4. Build API and data before depending on them from end interfaces.
+5. Protect identity and permissions before a publishable Admin.
+6. Implement Admin and editorial flow.
+7. Integrate Polly via adapters and jobs.
+8. Develop Reader Engine with deterministic fixtures.
+9. Integrate Reader web/PWA.
+10. Add offline support before packaging mobile apps.
+11. Incorporate Capacitor and then remaining educational capabilities.
+12. Harden, automate deployments, and complete documentation.
 
-## Corte de entrega recomendado
+## Recommended delivery cutoff
 
-El primer demo técnico completo debe incluir un cuento bilingüe que recorra:
+The first complete technical demo should include a bilingual story that goes through:
 
 ```text
 Admin -> procesamiento falso/real controlado -> revisión -> publicación
 -> catálogo -> descarga -> reproducción sincronizada -> progreso offline
 ```
 
-Ese corte valida los mayores riesgos sin construir todo el catálogo de funcionalidades.
+That cutoff validates the biggest risks without building the entire feature catalog.
 
-## Control de cambios
+## Change control
 
-- Una dependencia nueva requiere necesidad, alternativas y consecuencia documentadas.
-- Un cambio de límite arquitectónico requiere decisión.
-- Un TODO requiere tarea o problema conocido.
-- Un requisito nuevo debe entrar en trazabilidad antes de implementación.
-- Una fase no hereda silenciosamente deuda crítica.
+- A new dependency requires documented need, alternatives, and consequence.
+- An architectural boundary change requires a decision.
+- A TODO requires a task or known issue.
+- A new requirement must enter traceability before implementation.
+- A phase does not silently inherit critical debt.

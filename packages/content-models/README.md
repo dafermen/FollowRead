@@ -1,3 +1,3 @@
 # @followread/content-models
 
-Modelos y contratos del catálogo y de los paquetes de contenido.
+Models and contracts for the catalog and content packages.

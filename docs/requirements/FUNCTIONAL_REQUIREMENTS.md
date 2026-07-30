@@ -1,106 +1,106 @@
-# Requisitos funcionales
+# Functional Requirements
 
-**Estado del documento:** Validado para Fase 0 - FR-PH00-TASK-005 COMPLETED.  
-**Estados de requisitos:** `PROPOSED`, `APPROVED`, `DEFERRED`, `REMOVED`.
+**Document status:** Validated for Phase 0 - FR-PH00-TASK-005 COMPLETED.  
+**Requirement states:** `PROPOSED`, `APPROVED`, `DEFERRED`, `REMOVED`.
 
-`MVP` indica implementación en el corte vertical. `Contract` indica que el contrato debe permitirlo,
-pero sólo se implementa primero la variante necesaria.
+`MVP` indicates implementation in the vertical cut. `Contract` indicates the contract must allow it,
+but only the necessary variant is implemented first.
 
-## Contenido y publicación
+## Content and publishing
 
-| ID | Requisito | Prioridad | MVP | Fuente | Verificación |
+| ID | Requirement | Priority | MVP | Source | Verification |
 |---|---|---|---|---|---|
-| FR-CONTENT-001 | El sistema soportará `story`, `article`, `book` y `lesson` | Must | Contract | Prompt §8; FR-DEC-007 | Crear/consultar `story`; validar enum completo |
-| FR-CONTENT-002 | Un contenido podrá tener representaciones en inglés, español o ambos | Must | Yes | Prompt §2/8 | Consultar idiomas independientemente |
-| FR-CONTENT-003 | El contenido tendrá audiencia y nivel de lectura | Must | Yes | Prompt §8 | Validar valores permitidos |
-| FR-CONTENT-004 | Cada versión tendrá ID, número, estado, fechas, checksum, URL y compatibilidad | Must | Yes | Prompt §7 | Serializar contrato completo |
-| FR-CONTENT-005 | Las transiciones seguirán una máquina de estados validada | Must | Yes | Prompt §13 | Aceptar válidas y rechazar inválidas |
-| FR-CONTENT-006 | Toda transición registrará actor, fecha y comentario opcional | Must | Yes | Prompt §13 | Revisar auditoría persistida |
-| FR-CONTENT-007 | Una corrección publicada creará una nueva versión | Must | Yes | Prompt §6/7 | Verificar inmutabilidad |
+| FR-CONTENT-001 | The system will support `story`, `article`, `book` and `lesson` | Must | Contract | Prompt §8; FR-DEC-007 | Create/query `story`; validate full enum |
+| FR-CONTENT-002 | A content item may have representations in English, Spanish or both | Must | Yes | Prompt §2/8 | Query languages independently |
+| FR-CONTENT-003 | Content will have audience and reading level | Must | Yes | Prompt §8 | Validate allowed values |
+| FR-CONTENT-004 | Each version will have ID, number, state, dates, checksum, URL and compatibility | Must | Yes | Prompt §7 | Serialize full contract |
+| FR-CONTENT-005 | Transitions will follow a validated state machine | Must | Yes | Prompt §13 | Accept valid and reject invalid |
+| FR-CONTENT-006 | Every transition will record actor, date and optional comment | Must | Yes | Prompt §13 | Review persisted audit |
+| FR-CONTENT-007 | A published correction will create a new version | Must | Yes | Prompt §6/7 | Verify immutability |
 
 ## FollowRead Admin
 
-| ID | Requisito | Prioridad | MVP | Fuente | Verificación |
+| ID | Requirement | Priority | MVP | Source | Verification |
 |---|---|---|---|---|---|
-| FR-ADMIN-001 | Un administrador autorizado podrá iniciar y cerrar sesión | Must | Yes | Prompt §3.1/4 | Éxito, credencial inválida y logout |
-| FR-ADMIN-002 | Un editor podrá crear y editar contenido, capítulos y párrafos | Must | Yes | Prompt §3.1 | CRUD con validaciones |
-| FR-ADMIN-003 | Un editor podrá asociar texto y traducción por unidad editorial | Must | Yes | Prompt §3.1; FR-DEC-008 | Guardar y recuperar par bilingüe |
-| FR-ADMIN-004 | Un editor podrá asignar audiencia, nivel, categorías y voces | Must | Yes | Prompt §3.1/8/12 | Persistencia y valores inválidos |
-| FR-ADMIN-005 | Un editor podrá subir portada e ilustraciones | Should | Yes | Prompt §3.1 | Tipo, tamaño y error |
-| FR-ADMIN-006 | El editor tendrá borrador, autoguardado y recuperación | Must | Yes | Prompt Fase 5 | Simular salida y recuperación |
-| FR-ADMIN-007 | Un usuario autorizado podrá solicitar procesamiento de audio | Must | Yes | Prompt §3.1/12 | Crear trabajo trazable |
-| FR-ADMIN-008 | Un revisor podrá previsualizar texto, audio y sincronización | Must | Yes | Prompt §3.1/12 | Vista equivalente a Reader |
-| FR-ADMIN-009 | Un publicador podrá aprobar, publicar, despublicar y archivar | Must | Yes | Prompt §3.1/13 | Permisos y transiciones |
-| FR-ADMIN-010 | Un operador podrá consultar errores y reintentar trabajos | Must | Yes | Prompt §3.1/12 | Error visible y reintento idempotente |
-| FR-ADMIN-011 | El historial mostrará versiones y cambios auditados | Should | Yes | Prompt §3.1 | Consulta cronológica |
+| FR-ADMIN-001 | An authorized administrator will be able to sign in and sign out | Must | Yes | Prompt §3.1/4 | Success, invalid credential and logout |
+| FR-ADMIN-002 | An editor will be able to create and edit content, chapters and paragraphs | Must | Yes | Prompt §3.1 | CRUD with validations |
+| FR-ADMIN-003 | An editor will be able to associate text and translation per editorial unit | Must | Yes | Prompt §3.1; FR-DEC-008 | Save and retrieve bilingual pair |
+| FR-ADMIN-004 | An editor will be able to assign audience, level, categories and voices | Must | Yes | Prompt §3.1/8/12 | Persistence and invalid values |
+| FR-ADMIN-005 | An editor will be able to upload cover and illustrations | Should | Yes | Prompt §3.1 | Type, size and error |
+| FR-ADMIN-006 | The editor will have draft, autosave and recovery | Must | Yes | Prompt Phase 5 | Simulate exit and recovery |
+| FR-ADMIN-007 | An authorized user will be able to request audio processing | Must | Yes | Prompt §3.1/12 | Create traceable job |
+| FR-ADMIN-008 | A reviewer will be able to preview text, audio and synchronization | Must | Yes | Prompt §3.1/12 | View equivalent to Reader |
+| FR-ADMIN-009 | A publisher will be able to approve, publish, unpublish and archive | Must | Yes | Prompt §3.1/13 | Permissions and transitions |
+| FR-ADMIN-010 | An operator will be able to query errors and retry jobs | Must | Yes | Prompt §3.1/12 | Visible error and idempotent retry |
+| FR-ADMIN-011 | History will show versions and audited changes | Should | Yes | Prompt §3.1 | Chronological query |
 
-## Audio y procesamiento
+## Audio and processing
 
-| ID | Requisito | Prioridad | MVP | Fuente | Verificación |
+| ID | Requirement | Priority | MVP | Source | Verification |
 |---|---|---|---|---|---|
-| FR-AUDIO-001 | API procesará mediante servicios independientes de HTTP | Must | Yes | Prompt §12; FR-DEC-004 | Regla de dependencias |
-| FR-AUDIO-002 | El backend dividirá texto respetando límites del proveedor | Must | Yes | Prompt §12 | Longitud, Unicode y límites |
-| FR-AUDIO-003 | El sistema generará audio y Speech Marks para la misma versión | Must | Yes | Prompt §12 | IDs/metadatos coinciden |
-| FR-AUDIO-004 | El parser normalizará Speech Marks a un contrato interno | Must | Yes | Prompt §10/12 | Fixtures conocidos |
-| FR-AUDIO-005 | El procesamiento validará correspondencia texto-marcas | Must | Yes | Prompt §12 | Detectar omisiones, duplicados y orden |
-| FR-AUDIO-006 | Errores parciales, cancelación y reintentos serán explícitos | Must | Yes | Prompt §12 | Pruebas por estado |
-| FR-AUDIO-007 | Admin verá progreso y costo estimado | Should | Yes | Prompt Fase 6 | Presentación con adaptador falso |
+| FR-AUDIO-001 | API will process through HTTP-decoupled independent services | Must | Yes | Prompt §12; FR-DEC-004 | Dependency rule |
+| FR-AUDIO-002 | The backend will split text respecting provider limits | Must | Yes | Prompt §12 | Length, Unicode and limits |
+| FR-AUDIO-003 | The system will generate audio and Speech Marks for the same version | Must | Yes | Prompt §12 | IDs/metadata match |
+| FR-AUDIO-004 | The parser will normalize Speech Marks to an internal contract | Must | Yes | Prompt §10/12 | Known fixtures |
+| FR-AUDIO-005 | Processing will validate text-marks correspondence | Must | Yes | Prompt §12 | Detect omissions, duplicates and order |
+| FR-AUDIO-006 | Partial errors, cancellation and retries will be explicit | Must | Yes | Prompt §12 | Tests by state |
+| FR-AUDIO-007 | Admin will see progress and estimated cost | Should | Yes | Prompt Phase 6 | Presentation with fake adapter |
 
-## FollowRead Reader y Reader Engine
+## FollowRead Reader and Reader Engine
 
-| ID | Requisito | Prioridad | MVP | Fuente | Verificación |
+| ID | Requirement | Priority | MVP | Source | Verification |
 |---|---|---|---|---|---|
-| FR-READER-001 | Reader mostrará biblioteca, categorías, búsqueda y filtros | Must | Yes | Prompt §3.2 | Flujos con catálogo |
-| FR-READER-002 | Reader mostrará detalles, idiomas, nivel y disponibilidad offline | Must | Yes | Prompt §3.2 | Vista por contenido |
-| FR-READER-003 | Reader reproducirá audio de la versión seleccionada | Must | Yes | Prompt §2/3.2 | Controles, recurso ausente y error |
-| FR-READER-004 | Reader Engine calculará la palabra activa por tiempo | Must | Yes | Prompt §10 | Límites temporales |
-| FR-READER-005 | La interfaz resaltará la palabra activa | Must | Yes | Prompt §2/10 | Componente sincronizado |
-| FR-READER-006 | Una mano SVG opcional señalará sin tapar texto | Must | Yes | Prompt §11 | Líneas, scroll, resize y reduced motion |
-| FR-READER-007 | El usuario podrá pausar, reanudar, avanzar, retroceder y repetir | Must | Yes | Prompt §2/10 | Controles y límites |
-| FR-READER-008 | El usuario podrá cambiar velocidad | Must | Yes | Prompt §2/9/10 | Rango y persistencia |
-| FR-READER-009 | Reader guardará y recuperará progreso | Must | Yes | Prompt §2/10 | Cierre, reanudación y fallo |
-| FR-READER-010 | Reader ofrecerá favoritos, historial y configuración | Should | Yes | Prompt §3.2 | Persistencia local/remota |
-| FR-READER-011 | Reader adaptará presentación a modo infantil o adulto | Must | Yes | Prompt §9 | Escenarios de ambos modos |
-| FR-READER-012 | Reader soportará español, inglés y aprender inglés | Must | Yes | Prompt §9 | Contenido y controles por modo |
-| FR-READER-013 | Aprender inglés permitirá repetir palabra y oración | Must | Yes | Prompt §9.3 | Precisión de segmentos |
-| FR-READER-014 | Aprender inglés permitirá traducción y vocabulario | Should | Yes | Prompt §9.3; FR-DEC-008 | Flujo editorial y offline |
-| FR-READER-015 | El usuario podrá ocultar mano, reducir movimiento y ajustar texto | Must | Yes | Prompt §9/11/22 | Preferencias aplicadas |
+| FR-READER-001 | Reader will show library, categories, search and filters | Must | Yes | Prompt §3.2 | Flows with catalog |
+| FR-READER-002 | Reader will show details, languages, level and offline availability | Must | Yes | Prompt §3.2 | View per content |
+| FR-READER-003 | Reader will play audio of the selected version | Must | Yes | Prompt §2/3.2 | Controls, missing resource and error |
+| FR-READER-004 | Reader Engine will compute the active word by time | Must | Yes | Prompt §10 | Time limits |
+| FR-READER-005 | The interface will highlight the active word | Must | Yes | Prompt §2/10 | Synchronized component |
+| FR-READER-006 | An optional SVG hand will point without covering text | Must | Yes | Prompt §11 | Lines, scroll, resize and reduced motion |
+| FR-READER-007 | The user will be able to pause, resume, skip forward, back and repeat | Must | Yes | Prompt §2/10 | Controls and limits |
+| FR-READER-008 | The user will be able to change speed | Must | Yes | Prompt §2/9/10 | Range and persistence |
+| FR-READER-009 | Reader will save and restore progress | Must | Yes | Prompt §2/10 | Close, resume and failure |
+| FR-READER-010 | Reader will offer favorites, history and settings | Should | Yes | Prompt §3.2 | Local/remote persistence |
+| FR-READER-011 | Reader will adapt presentation to child or adult mode | Must | Yes | Prompt §9 | Scenarios for both modes |
+| FR-READER-012 | Reader will support Spanish, English and learn-English mode | Must | Yes | Prompt §9 | Content and controls per mode |
+| FR-READER-013 | Learn-English will allow repeating word and sentence | Must | Yes | Prompt §9.3 | Segment precision |
+| FR-READER-014 | Learn-English will allow translation and vocabulary | Should | Yes | Prompt §9.3; FR-DEC-008 | Editorial flow and offline |
+| FR-READER-015 | The user will be able to hide the hand, reduce motion and adjust text | Must | Yes | Prompt §9/11/22 | Preferences applied |
 
-## Offline y sincronización
+## Offline and synchronization
 
-| ID | Requisito | Prioridad | MVP | Fuente | Verificación |
+| ID | Requirement | Priority | MVP | Source | Verification |
 |---|---|---|---|---|---|
-| FR-OFFLINE-001 | Reader incluirá catálogo y contenido inicial en el build | Must | Yes | Prompt §6/7 | Primer inicio sin red |
-| FR-OFFLINE-002 | Reader consultará catálogo remoto y comparará versiones | Must | Yes | Prompt §7 | Nuevo, igual e incompatible |
-| FR-OFFLINE-003 | Reader descargará sólo contenido nuevo o modificado | Must | Yes | Prompt §7 | Inspección de solicitudes |
-| FR-OFFLINE-004 | Reader validará checksum antes de activar una descarga | Must | Yes | Prompt §7 | Paquete válido y corrupto |
-| FR-OFFLINE-005 | Una actualización fallida conservará la versión local válida | Must | Yes | Prompt §7 | Interrupción simulada |
-| FR-OFFLINE-006 | Reader permitirá eliminar descargas sin borrar progreso remoto | Should | Yes | Prompt Fase 9 | Flujo de eliminación |
-| FR-OFFLINE-007 | Cambios offline se sincronizarán al recuperar conexión | Must | Yes | Prompt Fase 9 | Cola idempotente y conflicto |
-| FR-OFFLINE-008 | Reader comunicará conexión, descarga y sincronización | Must | Yes | Prompt §23 | Estados accesibles |
+| FR-OFFLINE-001 | Reader will include catalog and initial content in the build | Must | Yes | Prompt §6/7 | First start without network |
+| FR-OFFLINE-002 | Reader will query remote catalog and compare versions | Must | Yes | Prompt §7 | New, same and incompatible |
+| FR-OFFLINE-003 | Reader will download only new or modified content | Must | Yes | Prompt §7 | Inspection of requests |
+| FR-OFFLINE-004 | Reader will validate checksum before activating a download | Must | Yes | Prompt §7 | Valid and corrupt package |
+| FR-OFFLINE-005 | A failed update will keep the valid local version | Must | Yes | Prompt §7 | Simulated interruption |
+| FR-OFFLINE-006 | Reader will allow removing downloads without deleting remote progress | Should | Yes | Prompt Phase 9 | Deletion flow |
+| FR-OFFLINE-007 | Offline changes will synchronize when connection is restored | Must | Yes | Prompt Phase 9 | Idempotent queue and conflict |
+| FR-OFFLINE-008 | Reader will report connection, download and sync status | Must | Yes | Prompt §23 | Accessible states |
 
-## API, identidad y datos de usuario
+## API, identity and user data
 
-| ID | Requisito | Prioridad | MVP | Fuente | Verificación |
+| ID | Requirement | Priority | MVP | Source | Verification |
 |---|---|---|---|---|---|
-| FR-API-001 | API autenticará usuarios y emitirá sesiones/tokens seguros | Must | Yes | Prompt §3.3/Fase 4 | API y seguridad |
-| FR-API-002 | API autorizará acciones por rol y permiso | Must | Yes | Prompt §3.3/Fase 4 | Matriz de permisos |
-| FR-API-003 | API publicará catálogo y paquetes compatibles | Must | Yes | Prompt §6/7 | Contratos y compatibilidad |
-| FR-API-004 | API almacenará progreso, favoritos y vocabulario | Must | Yes | Prompt §3.3 | CRUD con propiedad |
-| FR-API-005 | API registrará auditoría y errores operativos | Must | Yes | Prompt §3.3 | Eventos consultables |
-| FR-API-006 | API expondrá health checks y OpenAPI | Must | Yes | Prompt Fase 3 | Endpoints y esquema |
-| FR-API-007 | API soportará sincronización idempotente | Must | Yes | Prompt §3.3/Fase 9 | Reenvío sin duplicados |
+| FR-API-001 | API will authenticate users and issue secure sessions/tokens | Must | Yes | Prompt §3.3/Phase 4 | API and security |
+| FR-API-002 | API will authorize actions by role and permission | Must | Yes | Prompt §3.3/Phase 4 | Permission matrix |
+| FR-API-003 | API will publish catalog and compatible packages | Must | Yes | Prompt §6/7 | Contracts and compatibility |
+| FR-API-004 | API will store progress, favorites and vocabulary | Must | Yes | Prompt §3.3 | CRUD with ownership |
+| FR-API-005 | API will record audit and operational errors | Must | Yes | Prompt §3.3 | Queryable events |
+| FR-API-006 | API will expose health checks and OpenAPI | Must | Yes | Prompt Phase 3 | Endpoints and schema |
+| FR-API-007 | API will support idempotent synchronization | Must | Yes | Prompt §3.3/Phase 9 | Resend without duplicates |
 
-## Dependencias y decisiones
+## Dependencies and decisions
 
-- FR-READER-014 usa contenido editorial según FR-DEC-008.
-- El modo infantil cumple FR-DEC-009 y no crea cuentas personales de menores.
-- Notas libres se aplazan según FR-DEC-010.
-- Los requisitos permanecen `PROPOSED` hasta la revisión integral de FR-PH00-TASK-012.
+- FR-READER-014 uses editorial content according to FR-DEC-008.
+- Child mode complies with FR-DEC-009 and does not create personal accounts for minors.
+- Free notes are deferred according to FR-DEC-010.
+- Requirements remain `PROPOSED` until the comprehensive review of FR-PH00-TASK-012.
 
-## Validación
+## Validation
 
-- IDs únicos: PASS.
-- Cada requisito tiene prioridad, alcance MVP, fuente y verificación: PASS.
-- Estados, versiones, integridad, progreso y errores están cubiertos: PASS.
-- Ningún requisito autoriza llamadas frontend a AWS: PASS.
+- Unique IDs: PASS.
+- Every requirement has priority, MVP scope, source and verification: PASS.
+- States, versions, integrity, progress and errors are covered: PASS.
+- No requirement authorizes frontend calls to AWS: PASS.

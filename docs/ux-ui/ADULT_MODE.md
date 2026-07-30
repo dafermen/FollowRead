@@ -1,42 +1,42 @@
-# Modo adulto
+# Adult Mode
 
-**Estado:** Validado para Fase 1
+**Status:** Validated for Phase 1
 
-## Propósito
+## Purpose
 
-Ofrecer lectura sobria, configurable y cómoda para sesiones largas, sin eliminar las ayudas técnicas.
+Provide sober, configurable, and comfortable reading for long sessions, without removing assistive technologies.
 
 ## Defaults
 
-- texto `text-lg`, configurable;
-- mano oculta;
-- resaltado de palabra activado pero ajustable;
-- navegación completa;
-- tema claro/oscuro según sistema;
-- favoritos, historial y progreso visibles.
+- text `text-lg`, configurable;
+- hidden hand;
+- word highlighting enabled but adjustable;
+- full navigation;
+- light/dark theme according to system;
+- bookmarks, history, and progress visible.
 
-## Lector
+## Reader
 
-- ancho 45-75ch;
-- controles persistentes pero discretos;
-- unidad palabra por defecto; oración/párrafo como roadmap configurable;
-- traducción sólo cuando el contenido/modo la requiere;
-- reanudación prioritaria desde Inicio/Historial.
+- width 45–75 ch;
+- persistent but discreet controls;
+- default unit word; sentence/paragraph as configurable roadmap;
+- translation only when the content/mode requires it;
+- resumption prioritized from Home/History.
 
-## Fuera del MVP
+## Out of MVP
 
-- notas libres y marcadores enriquecidos según FR-DEC-010.
-- El sistema no muestra controles de funciones aplazadas como si funcionaran.
+- free notes and enriched bookmarks according to FR-DEC-010.
+- The system does not display controls for deferred functions as if they worked.
 
-## Accesibilidad
+## Accessibility
 
 - zoom/reflow 400%;
-- teclado completo;
-- lector de pantalla;
-- contraste claro/oscuro;
-- mano y movimiento independientes.
+- full keyboard;
+- screen reader;
+- clear/dark contrast;
+- hand and motion independent.
 
-## Validación
+## Validation
 
-- FR-PERSONA-003 y FR-US-ADULT-001 cubiertos: PASS.
-- Sesiones largas, tema, mano opcional y progreso: PASS.
+- FR-PERSONA-003 and FR-US-ADULT-001 covered: PASS.
+- Long sessions, theme, optional hand, and progress: PASS.

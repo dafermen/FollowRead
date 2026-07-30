@@ -1,45 +1,41 @@
-# Arquitectura de modo offline
+# Offline Mode Architecture
 
-## Flujo de contenido
+## Content Flow
 
-1. La API serializa el paquete Reader con orden y separadores canónicos.
-2. Publicación y siembra guardan `sha256:<hex>` sobre esos bytes exactos.
-3. Reader combina catálogo remoto con registros activos de IndexedDB.
-4. Una descarga se valida completamente antes de una escritura atómica.
-5. Una actualización fallida deja intacta la versión anterior.
+1. The API serializes the Reader package with canonical order and separators.
+2. Publishing and seeding store `sha256:<hex>` about those exact bytes.
+3. Reader merges the remote catalog with active IndexedDB records.
+4. A download is fully validated before an atomic write.
+5. A failed update leaves the previous version intact.
 
-`localStorage` no contiene paquetes. IndexedDB almacena texto, marcas, metadatos y operaciones; el
-Cache Storage conserva el shell y portadas recuperables.
+`localStorage` does not contain packages. IndexedDB stores text, marks, metadata, and operations; Cache Storage holds the shell and retrievable covers.
 
-## Estados visibles
+## Visible States
 
-- `remote`: disponible en línea y descargable;
-- `downloaded`: listo sin conexión;
-- `update_available`: existe una versión o checksum distinto;
-- `local_only`: el paquete continúa local aunque desaparezca del catálogo;
-- `incompatible`: requiere una versión posterior de FollowRead;
-- `failed`: reservado para una descarga que necesita recuperación.
+- `remote`: online and downloadable;
+- `downloaded`: offline-ready;
+- `update_available`: a different version or checksum exists;
+- `local_only`: the package remains local even if it disappears from the catalog;
+- `incompatible`: requires a newer version of FollowRead;
+- `failed`: reserved for a download that needs recovery.
 
-La pantalla `/downloads` informa cantidad, espacio, origen incluido/descargado, actualización y
-eliminación. Los indicadores del shell y del lector anuncian conexión y sincronización con texto.
+The `/downloads` screen reports count, space, origin included/downloaded, update, and deletion. Shell and reader indicators announce connection and text synchronization.
 
-## Integridad y almacenamiento
+## Integrity and Storage
 
-- SHA-256 se calcula con Web Crypto sobre el texto UTF-8 exacto.
-- Menos de 100 MB: descarga normal.
-- Desde 100 MB: confirmación antes de guardar.
-- Más de 250 MB: rechazo.
-- Una estimación de cuota insuficiente también rechaza sin reemplazar el registro activo.
+- SHA-256 is computed with Web Crypto over the exact UTF-8 text.
+- Less than 100 MB: normal download.
+- From 100 MB: confirmation before saving.
+- More than 250 MB: rejection.
+- An estimated insufficient quota also rejects without replacing the active record.
 
-## Progreso
+## Progress
 
-Reader agrupa el progreso pendiente por contenido. `POST /reader/sync` acepta hasta 100 operaciones,
-valida contenido y anclaje, confirma reenvíos y nunca aplica una posición anterior a la registrada.
-El identificador local del dispositivo es aleatorio y no contiene PII.
+Reader groups pending progress by content. `POST /reader/sync` accepts up to 100 operations, validates content and anchoring, confirms replays, and never applies a position earlier than the one recorded. The device local identifier is random and does not contain PII.
 
-## Operación local
+## Local Operation
 
-Después de publicar o modificar el cuento demo:
+After publishing or modifying the demo story:
 
 ```powershell
 pnpm demo:seed
@@ -47,4 +43,4 @@ pnpm dev
 pnpm offline:bootstrap
 ```
 
-El último comando exige que la API local esté activa y falla si algún checksum no coincide.
+The last command requires the local API to be active and fails if any checksum does not match.

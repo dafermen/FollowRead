@@ -1,35 +1,35 @@
-# Revisión de Fase 11 - Modo aprender inglés
+# Phase 11 Review - English Learning Mode
 
-**Fecha:** 2026-07-26
-**Resultado:** PASS
+**Date:** 2026-07-26
+**Result:** PASS
 
-## Cobertura del prompt maestro
+## Master prompt coverage
 
-| Actividad | Evidencia | Estado |
+| Activity | Evidence | Status |
 |---|---|---|
-| Traducción visible u oculta | Toggle y párrafos editoriales pareados | PASS |
-| Repetición de palabras | Control global y panel contextual | PASS |
-| Repetición de oraciones | Límites por puntuación y reproducción aislada | PASS |
-| Cambio de velocidad | 0.5x a 2x, 0.75x por defecto | PASS |
-| Vocabulario | Guardado, búsqueda, filtros y eliminación | PASS |
-| Palabras favoritas | Estrella persistente y filtro | PASS |
-| Historial de palabras | Últimas 100, consultas y limpieza | PASS |
-| Significado contextual | Equivalente del párrafo bilingüe | PASS |
-| Ejemplos | Oración original y traducción editorial | PASS |
-| Seguimiento de progreso | Exploradas, guardadas, aprendiendo y dominadas | PASS |
-| Pruebas | Dominio, storage, React, Chrome y móvil | PASS |
-| Sin dependencia esencial de IA | Derivación local desde paquete publicado | PASS |
+| Visible or hidden translation | Toggle and paired editorial paragraphs | PASS |
+| Word repetition | Global control and contextual panel | PASS |
+| Sentence repetition | Limits by punctuation and isolated playback | PASS |
+| Speed change | 0.5x to 2x, 0.75x default | PASS |
+| Vocabulary | Save, search, filters and deletion | PASS |
+| Favorite words | Persistent star and filter | PASS |
+| Word history | Last 100, queries and clearing | PASS |
+| Contextual meaning | Bilingual paragraph equivalent | PASS |
+| Examples | Original sentence and editorial translation | PASS |
+| Progress tracking | Explored, saved, learning and mastered | PASS |
+| Tests | Mastery, storage, React, Chrome and mobile | PASS |
+| No essential AI dependency | Local derivation from published package | PASS |
 
-## Experiencia entregada
+## Delivered experience
 
-- toolbar de aprendizaje visible dentro del lector;
-- traducción editorial progresiva sin abandonar el texto;
-- panel contextual con foco administrado;
-- vocabulario rediseñado como tablero educativo;
-- favoritos, estados, repasos, búsqueda e historial;
-- comportamiento responsive compartido por web/PWA/Capacitor.
+- learning toolbar visible inside the reader;
+- progressive editorial translation without leaving the text;
+- contextual panel with managed focus;
+- vocabulary redesigned as an educational dashboard;
+- favorites, states, reviews, search and history;
+- responsive behavior shared across web/PWA/Capacitor.
 
-## Decisión
+## Decision
 
-La Fase 11 queda cerrada. La siguiente fase es **Fase 12 - Calidad, seguridad y rendimiento**,
-confirmada en la página 24 del prompt maestro.
+Phase 11 is closed. The next phase is **Phase 12 - Quality, security and performance**,
+confirmed on page 24 of the master prompt.

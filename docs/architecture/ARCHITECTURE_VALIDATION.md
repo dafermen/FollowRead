@@ -1,90 +1,87 @@
-# Validación de arquitectura inicial
+# Initial Architecture Validation
 
-**Estado:** PASS  
-**Tarea responsable:** FR-PH00-TASK-009 - COMPLETED  
-**Fecha:** 2026-07-24
+**Status:** PASS  
+**Responsible task:** FR-PH00-TASK-009 - COMPLETED  
+**Date:** 2026-07-24
 
-## Matriz de responsabilidades
+## Responsibility matrix
 
-| Componente | Responsabilidad | Dependencias permitidas | Dependencias prohibidas |
+| Component | Responsibility | Allowed dependencies | Prohibited dependencies |
 |---|---|---|---|
-| Admin web | Flujo editorial y previsualización | API, shared UI/types | AWS SDK, DB, Reader móvil |
-| Reader | Catálogo, lectura, preferencias, offline | API, Reader Engine, almacenamiento local | AWS SDK, DB, Admin |
-| API routers | HTTP, autenticación y traducción de errores | Servicios de aplicación | SQLAlchemy/AWS directos |
-| Servicios API | Casos de uso y transacciones | Dominio, puertos | Componentes frontend |
-| Dominio API | Estados y reglas | Tipos propios | FastAPI, SQLAlchemy, AWS |
-| Adaptadores API | SQLite/SQLAlchemy, Polly, S3, cola | SDKs/infraestructura | UI |
-| Reader Engine | Tiempo, segmentos, controles y progreso lógico | Tipos puros | React, DOM, Capacitor, red, AWS |
-| Shared types/models | Contratos estables | Ninguna app concreta | Lógica privilegiada |
+| Admin web | Editorial flow and preview | API, shared UI/types | AWS SDK, DB, Mobile Reader |
+| Reader | Catalog, reading, preferences, offline | API, Reader Engine, local storage | AWS SDK, DB, Admin |
+| API routers | HTTP, authentication and error translation | Application services | Direct SQLAlchemy/AWS |
+| API services | Use cases and transactions | Domain, ports | Frontend components |
+| API domain | States and rules | Its own types | FastAPI, SQLAlchemy, AWS |
+| API adapters | SQLite/SQLAlchemy, Polly, S3, queue | SDKs/infrastructure | UI |
+| Reader Engine | Timing, segments, controls and logical progress | Pure types | React, DOM, Capacitor, network, AWS |
+| Shared types/models | Stable contracts | No concrete app | Privileged logic |
 
-## Componentes de infraestructura
+## Infrastructure components
 
-- **SQLite:** fuente autoritativa del MVP para contenido, identidades, trabajos, auditoría y datos
-  remotos; sólo la API abre el archivo.
-- **PostgreSQL futuro:** sustituirá el adaptador cuando haya una necesidad operativa y una migración
-  probada, sin cambiar dominio ni routers.
-- **S3:** objetos grandes e inmutables; nunca fuente única de relaciones de negocio.
-- **Polly:** proveedor detrás de `PollyService`; falso durante automatización.
-- **Almacenamiento local:** catálogo, paquetes, preferencias y operaciones pendientes.
-- **Redis/Celery futuro:** implementa el puerto de ejecución de trabajos; no cambia routers ni dominio.
+- **SQLite:** authoritative source for the MVP for content, identities, jobs, audit, and remote data; only the API opens the file.
+- **Future PostgreSQL:** will replace the adapter when there is an operational need and a proven migration, without changing the domain or routers.
+- **S3:** large immutable objects; never the single source of business relationships.
+- **Polly:** provider behind `PollyService`; mocked during automation.
+- **Local storage:** catalog, packages, preferences and pending operations.
+- **Future Redis/Celery:** implements the job execution port; does not change routers or domain.
 
 ## Walkthroughs
 
-### Publicación
+### Publishing
 
-Admin -> API router -> autorización -> servicio -> máquina de estados -> trabajo -> adaptadores
-Polly/S3 -> validación -> revisión -> publicación -> catálogo.
+Admin -> API router -> authorization -> service -> state machine -> job -> adapters
+Polly/S3 -> validation -> review -> publication -> catalog.
 
-**Resultado:** PASS. No existe llamada directa Admin/AWS ni salto de estado.
+**Result:** PASS. There is no direct Admin/AWS call nor state jump.
 
-### Reproducción
+### Playback
 
-Reader -> paquete validado -> adaptador de audio -> Reader Engine -> posición lógica -> adaptador UI
-DOM/mano -> guardado local/API.
+Reader -> validated package -> audio adapter -> Reader Engine -> logical position -> UI adapter
+DOM/hand -> local save/API.
 
-**Resultado:** PASS. Reader Engine permanece puro y la posición visual queda en Reader.
+**Result:** PASS. Reader Engine remains pure and the visual position stays in the Reader.
 
-### Offline y actualización
+### Offline and update
 
-Reader -> catálogo remoto -> descarga temporal -> checksum/compatibilidad -> activación atómica ->
-catálogo local -> operación pendiente -> API idempotente.
+Reader -> remote catalog -> temporary download -> checksum/compatibility -> atomic activation ->
+local catalog -> pending operation -> idempotent API.
 
-**Resultado:** PASS. Una falla conserva paquete previo y progreso local.
+**Result:** PASS. A failure preserves the previous package and local progress.
 
-### Recuperación de procesamiento
+### Processing recovery
 
-Admin -> detalle de trabajo -> API -> autorización/costo/idempotencia -> ejecutor -> adaptadores ->
-auditoría/correlation ID.
+Admin -> job detail -> API -> authorization/cost/idempotence -> runner -> adapters ->
+audit/correlation ID.
 
-**Resultado:** PASS. Un reintento no depende del controlador HTTP ni duplica silenciosamente.
+**Result:** PASS. A retry does not depend on the HTTP controller nor silently duplicate.
 
-## Reglas arquitectónicas verificables
+## Verifiable architectural rules
 
-1. `reader-engine` no importa React, DOM, Capacitor ni red.
-2. Routers API no importan SDK AWS.
-3. Frontends no contienen variables secretas ni clientes AWS.
-4. Admin no forma parte del build Capacitor.
-5. Los paquetes publicados son inmutables.
-6. La cola se consume mediante una interfaz reemplazable.
-7. Los contratos de catálogo/paquete tienen versión.
-8. Escrituras offline usan IDs idempotentes.
+1. `reader-engine` does not import React, DOM, Capacitor or network.
+2. API routers do not import AWS SDK.
+3. Frontends do not contain secret variables or AWS clients.
+4. Admin is not part of the Capacitor build.
+5. Published packages are immutable.
+6. The queue is consumed via a replaceable interface.
+7. Catalog/package contracts are versioned.
+8. Offline writes use idempotent IDs.
 
-Estas reglas se convertirán en pruebas arquitectónicas/CI en Fase 2 o en la fase que cree el
-componente.
+These rules will become architectural/CI tests in Phase 2 or in the phase that creates the component.
 
-## Decisiones cubiertas
+## Covered decisions
 
-- FR-DEC-001: separación de aplicaciones.
-- FR-DEC-002: doble catálogo.
-- FR-DEC-003: Reader Engine puro.
-- FR-DEC-004: AWS detrás de API.
-- FR-DEC-007/008/009/010: alcance y datos.
+- FR-DEC-001: separation of applications.
+- FR-DEC-002: dual catalog.
+- FR-DEC-003: pure Reader Engine.
+- FR-DEC-004: AWS behind the API.
+- FR-DEC-007/008/009/010: scope and data.
 
-## Riesgos residuales
+## Residual risks
 
-- elección de gestor de monorepo y almacenamiento local;
-- proveedor de identidad;
-- implementación inicial del ejecutor de trabajos;
-- estrategia concreta de URLs/entrega S3.
+- choice of monorepo manager and local storage;
+- identity provider;
+- initial implementation of the job runner;
+- concrete strategy for S3 URLs/delivery.
 
-Son decisiones de fases posteriores y no alteran los límites validados.
+These are later-phase decisions and do not change the validated boundaries.

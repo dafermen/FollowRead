@@ -1,29 +1,27 @@
-# Convenciones del workspace
+# Workspace conventions
 
-## Límites
+## Boundaries
 
-- `apps/admin-web` y `apps/reader` son aplicaciones React independientes.
-- `apps/api` es una aplicación Python y no pertenece al workspace pnpm.
-- Los paquetes de `packages/` no importan código desde `apps/`.
-- `reader-engine`, `shared-types` y `content-models` no dependen de React ni del DOM.
-- `shared-ui` contiene primitivas, no pantallas ni permisos propios de Admin.
-- Credenciales y SDK de AWS sólo pueden aparecer en adaptadores de `apps/api`.
+- `apps/admin-web` and `apps/reader` are independent React applications.
+- `apps/api` is a Python application and does not belong to the pnpm workspace.
+- Packages in `packages/` do not import code from `apps/`.
+- `reader-engine`, `shared-types`, and `content-models` do not depend on React or the DOM.
+- `shared-ui` contains primitives, not screens or Admin-specific permissions.
+- AWS credentials and SDK may only appear in adapters of `apps/api`.
 
 ## TypeScript
 
-Todos los paquetes extienden `tsconfig.base.json`. La configuración común activa `strict`,
-`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes` y comprobaciones de retorno y control de
-flujo. Los paquetes publican ESM desde `dist/` y sus imports internos incluyen extensión `.js` para
-ser válidos después de compilar.
+All packages extend `tsconfig.base.json`. The common configuration enables `strict`,
+`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, and return and control-flow checks. Packages publish ESM from `dist/` and their internal imports include the extension `.js` to be valid after compilation.
 
-## Dependencias
+## Dependencies
 
-- Las dependencias internas usan `workspace:*`.
-- Las versiones externas se fijan en los manifiestos o en el catálogo raíz.
-- No se añade un paquete sin uso inmediato y una tarea asociada.
-- Un orquestador adicional requiere una decisión arquitectónica basada en evidencia.
+- Internal dependencies use `workspace:*`.
+- External versions are pinned in manifests or in the root catalog.
+- Do not add a package without immediate use and an associated task.
+- Any additional orchestrator requires an architectural decision based on evidence.
 
-## Comandos
+## Commands
 
-Los scripts raíz recorren sólo los proyectos que implementan el comando solicitado. La puerta
-completa se consolidará en FR-PH02-TASK-005 y FR-PH02-TASK-009.
+Root scripts iterate only over projects that implement the requested command. The full gate
+will be consolidated in FR-PH02-TASK-005 and FR-PH02-TASK-009.

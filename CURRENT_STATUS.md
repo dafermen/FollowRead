@@ -1,114 +1,120 @@
-# Estado actual de FollowRead
+# Current status of FollowRead
 
-**Actualizado:** 2026-07-30
-**Fase:** 13 - CI/CD y despliegue  
-**Estado:** IN_PROGRESS - implementación terminada, validaciones externas pendientes  
-**Base anterior:** `9ce61e5` - cierre de Fase 12
-**Implementación de Fase 13:** `f18762b`
-**Estructura documental y gate predespliegue:** `6346673`
-**Voz OpenAI y seguimiento estable:** `f0777da`
-**Caché persistente de audio:** `ecc5c1f`
-**Reparación de audio publicado:** `232b6a0`
-**Cambio bilingüe con marcas OpenAI:** `5d68a06`
-**Ilustraciones por capítulo:** `010bcae`
-**Resaltado estable del Reader:** `6266a14`
-**Indicador de lectura claro:** `a9e3f62`
-**Catálogo demo completo:** `5fdd785`
-**Audio natural del catálogo completo:** `d838334`
+**Updated:** 2026-07-30
+**Phase:** 13 - CI/CD and deployment  
+**Status:** IN_PROGRESS - implementation finished, external validations pending  
+**Previous base:** `9ce61e5` - close of Phase 12
+**Phase 13 implementation:** `f18762b`
+**Documentation structure and pre-deploy gate:** `6346673`
+**OpenAI voice and stable tracking:** `f0777da`
+**Persistent audio cache:** `ecc5c1f`
+**Published audio fix:** `232b6a0`
+**Bilingual change with OpenAI marks:** `5d68a06`
+**Chapter illustrations:** `010bcae`
+**Stable Reader highlighting:** `6266a14`
+**Clear reading indicator:** `a9e3f62`
+**Complete demo catalog:** `5fdd785`
+**Natural audio for complete catalog:** `d838334`
 
-## Qué está terminado
+## What is finished
 
-- Fases 0 a 12 cerradas y documentadas.
-- Admin editorial completo: acceso, dashboard, catálogo, editor, recursos, procesamiento, revisión y
-  publicación.
-- Reader web/PWA/Android/iOS: biblioteca, cuento bilingüe, audio local, sincronización por palabra,
-  descargas, offline, progreso, vocabulario y modo aprender inglés.
-- API FastAPI con SQLite, migraciones, seguridad, observabilidad, métricas y 111 pruebas.
-- Calidad transversal: errores globales, GZip, caching, lazy loading, auditoría de accesibilidad,
-  carga, dependencia y regresión.
-- Fase 13 implementada localmente: Dockerfiles, Compose, backup/restore, smoke test, CI ampliado,
-  releases SemVer/GHCR, release notes y rollback de artefactos.
-- Documentación canónica completada con arquitectura, API, desarrollo, pruebas, despliegue,
-  operaciones, seguridad, troubleshooting, ADR, contribución, changelog y plantillas GitHub.
-- Matriz obligatoria de trece categorías de pruebas previas al despliegue documentada y validable.
-- El repositorio público `dafermen/FollowRead` fue autorizado y el código original se publica bajo
-  licencia MIT. `.env`, SQLite, logs, caches y artefactos locales permanecen excluidos.
-- Reader evita reproducir antes de que la línea de tiempo del cuento/idioma activo esté cargada.
-- La API dispone de un adaptador OpenAI TTS opcional, alineación de palabra con `whisper-1`,
-  publicación segura de MP3 y regeneración idempotente sobre SQLite.
-- Reader reproduce el audio editorial cuando existe, mantiene el resaltado siempre hacia delante y
-  muestra una mano `👆` debajo de la palabra activa.
-- Admin y Reader documentan online el archivo `apps/api/.env`, `OPENAI_API_KEY`, las voces
-  recomendadas y la prohibición de exponer el secreto en variables `VITE_*`.
-- SQLite guarda una huella del texto, idioma, voz y modelos para reutilizar el MP3 sin volver a
-  llamar al proveedor. Cambios de contenido/configuración o un archivo ausente invalidan la caché.
-- Las pruebas administrativas fuerzan el adaptador local simulado y no pueden heredar una clave
-  OpenAI desde `.env`.
-- El cuento publicado dispone de narración OpenAI real en español (`marin`) e inglés (`cedar`), con
-  MP3 servidos por la API y 73/74 marcas temporales respectivamente.
-- La publicación recalcula su checksum después de generar audio y el Reader reemplaza un bootstrap
-  incluido obsoleto sin alterar paquetes descargados por el usuario.
-- El service worker obtiene el manifiesto offline con prioridad de red y una versión nueva de sus
-  cachés para no conservar paquetes editoriales antiguos.
-- El cambio ES/EN tolera pequeñas superposiciones de timestamps externos y la API normaliza esas
-  marcas antes de publicarlas o reutilizarlas desde caché.
-- El paquete Reader admite una ilustración opcional por capítulo; cuando falta, la interfaz
-  reutiliza la portada del cuento.
-- **El zorro y la luna** incluye una ilustración original adicional para el capítulo 2, disponible
-  también en ambos idiomas y en el paquete offline.
-- La palabra activa conserva el mismo flujo tipográfico durante la narración y la mano permanece
-  superpuesta sin alterar el ancho o alto del renglón.
-- El desplazamiento automático sólo centra la lectura cuando la palabra activa queda fuera de la
-  ventana visible, evitando movimientos continuos mientras el usuario lee el mismo bloque.
-- El catálogo demo contiene cuatro lecturas bilingües publicadas con dos capítulos cada una:
-  **El zorro y la luna**, **The River Between Us**, **El jardín secreto** y
-  **La casa de los sonidos**.
-- Las tres lecturas nuevas tienen portadas originales y el bootstrap offline incluye los cuatro
-  paquetes completos.
-- `pnpm demo:seed` prepara todo el catálogo idempotentemente. Con OpenAI configurado asegura la
-  narración real en español (`marin`) e inglés (`cedar`) y reutiliza los MP3 ya generados.
-- Admin muestra las cuatro lecturas como publicadas y permite abrir cada una directamente en
+- Phases 0 to 12 closed and documented.
+- Complete editorial admin: access, dashboard, catalog, editor, assets, processing, review and
+  publication.
+- Web/PWA/Android/iOS Reader: library, bilingual story, local audio, word-level sync,
+  downloads, offline, progress, vocabulary and English learning mode.
+- FastAPI API with SQLite, migrations, security, observability, metrics and 111 tests.
+- Cross-cutting quality: global errors, GZip, caching, lazy loading, accessibility audit,
+  load, dependency and regression.
+- Phase 13 implemented locally: Dockerfiles, Compose, backup/restore, smoke test, expanded CI,
+  SemVer/GHCR releases, release notes and artifact rollback.
+- Canonical documentation completed with architecture, API, development, testing, deployment,
+  operations, security, troubleshooting, ADR, contribution, changelog and GitHub templates.
+- Mandatory matrix of thirteen categories of pre-deployment tests documented and verifiable.
+- The public repository `dafermen/FollowRead` was authorized and the original code is published under
+  the MIT license. `.env`, SQLite, logs, caches and local artifacts remain excluded.
+- The repository documentation, contribution templates, continuity files and original project
+  prompt are available in American English.
+- The public README includes a reproducible product tour with four verified screenshots of Reader
+  and Admin. `pnpm screenshots:readme` refreshes them while the services are active.
+- Reader avoids playing before the timeline for the active story/language is loaded.
+- The API has an optional OpenAI TTS adapter, word alignment with `whisper-1`,
+  safe MP3 publication and idempotent regeneration on SQLite.
+- Reader plays editorial audio when present, keeps highlighting always forward and
+  shows a hand `👆` beneath the active word.
+- Admin and Reader document online the file `apps/api/.env`, `OPENAI_API_KEY`, the recommended voices
+  and the prohibition against exposing the secret in `VITE_*` variables.
+- SQLite stores a fingerprint of the text, language, voice and models to reuse the MP3 without calling
+  the provider again. Content/configuration changes or a missing file invalidate the cache.
+- Admin tests force the simulated local adapter and cannot inherit an OpenAI key from `.env`.
+- The published story has real OpenAI narration in Spanish (`marin`) and English (`cedar`), with
+  MP3s served by the API and 73/74 timestamps respectively.
+- Publication recalculates its checksum after generating audio and the Reader replaces an included
+  obsolete bootstrap without altering packages downloaded by the user.
+- The service worker fetches the offline manifest with network priority and a new version of its
+  caches so editorial packages are not retained.
+- The ES/EN change tolerates small overlaps of external timestamps and the API normalizes those
+  marks before publishing them or reusing them from cache.
+- The Reader package supports an optional illustration per chapter; when absent, the interface
+  reuses the story cover.
+- El zorro y la luna includes an additional original illustration for chapter 2, available
+  in both languages and in the offline package.
+- The active word preserves the same typographic flow during narration and the hand remains
+  overlaid without altering the line's width or height.
+- Auto-scrolling only centers the reading when the active word is outside the
+  visible window, avoiding continuous movement while the user reads the same block.
+- The demo catalog contains four bilingual published readings with two chapters each:
+  El zorro y la luna, The River Between Us, El jardín secreto and
+  La casa de los sonidos.
+- The three new readings have original covers and the offline bootstrap includes all four
+  complete packages.
+- `pnpm demo:seed` prepares the entire catalog idempotently. With OpenAI configured it ensures
+  real narration in Spanish (`marin`) and English (`cedar`) and reuses already generated MP3s.
+- Admin shows the four readings as published and allows opening each one directly in
   Reader.
 
-## Última validación local
+## Last local validation
 
-- `pnpm docs:validate`: PASS el 2026-07-29.
-- `pnpm migrate`: PASS; SQLite quedó en la revisión `20260729_0003`.
-- `pnpm check`: PASS el 2026-07-29 con 111 pruebas API, 42 Reader y 14 Admin.
-- `pnpm reader:e2e`: PASS; Chrome abrió las cuatro lecturas en ES/EN y confirmó la ilustración
-  específica del capítulo 2.
-- `pnpm quality:regression`: PASS el 2026-07-28 con servicios activos.
-- `pnpm deploy:smoke`: PASS contra API, Admin y Reader locales.
-- 103 pruebas API, pruebas web, builds, seguridad, accesibilidad, offline, móvil, aprendizaje,
-  presupuestos y carga: PASS.
-- Admin 5173, Reader 5174 y API 8000 quedaron activos después de la validación.
+- `pnpm check`: PASS on 2026-07-30 after the English documentation migration, with
+  documentation/workflow/deployment/mobile validation, formatting, lint, types, 111 API tests,
+  42 Reader tests, 14 Admin tests, shared-package tests and production builds.
+- `pnpm docs:validate`: PASS on 2026-07-29.
+- `pnpm migrate`: PASS; SQLite remained at revision `20260729_0003`.
+- `pnpm check`: PASS on 2026-07-29 with 111 API tests, 42 Reader and 14 Admin.
+- `pnpm reader:e2e`: PASS; Chrome opened the four readings in ES/EN and confirmed the chapter 2
+  specific illustration.
+- `pnpm quality:regression`: PASS on 2026-07-28 with services active.
+- `pnpm deploy:smoke`: PASS against local API, Admin and Reader.
+- 103 API tests, web tests, builds, security, accessibility, offline, mobile, learning,
+  budgets and load: PASS.
+- Admin 5173, Reader 5174 and API 8000 remained active after validation.
 
-## Validaciones pendientes
+## Pending validations
 
-1. Ejecutar `docker build` y `pnpm deploy:local` en una máquina con Docker. Docker no está instalado
-   en este equipo.
-2. Confirmar la primera ejecución real de `ci.yml` en GitHub y corregir cualquier diferencia del
-   runner remoto. `release.yml` se validará al crear el primer tag SemVer autorizado.
-3. Elegir proveedor, dominios y almacenamiento de backups antes de development/staging/production.
-4. Ejecutar smoke, migración y rollback en staging.
-5. Validar iOS físico con macOS/Xcode antes de TestFlight.
-6. Completar propiedades/invariantes, mutation testing, fuzzing, contratos formales y pruebas de
-   resiliencia; registrar aceptación del artefacto candidato.
-7. Confirmar auditivamente en el navegador la calidad y sincronización del MP3 real ya generado.
-   La validación técnica HTTP, las marcas temporales y la reutilización con costo cero están
-   completadas.
+1. Run `docker build` and `pnpm deploy:local` on a machine with Docker. Docker is not installed
+   on this machine.
+2. Correct the Python dependency-audit setup in `ci.yml` after explicit owner approval. The first
+   real GitHub run completed every preceding job and failed only because the workflow-created
+   environment retained vulnerable `pip 25.0.1`. `release.yml` will be validated when the first
+   authorized SemVer tag is created.
+3. Choose provider, domains and backup storage before development/staging/production.
+4. Run smoke, migration and rollback in staging.
+5. Validate physical iOS with macOS/Xcode before TestFlight.
+6. Complete properties/invariants, mutation testing, fuzzing, formal contracts and resilience tests;
+   record acceptance of the candidate artifact.
+7. Confirm audibly in the browser the quality and synchronization of the real MP3 already generated.
+   HTTP technical validation, timestamps and reuse with zero cost are completed.
 
-## Próxima acción exacta
+## Exact next action
 
-Hacer una recarga completa del Reader (`Ctrl+Shift+R`), abrir `/library` y revisar las cuatro
-lecturas terminadas. Reproducir al menos una lectura nueva en ES/EN para confirmar auditivamente la
-voz y sincronización ya verificadas por pruebas automatizadas.
-Después continuar las brechas de `docs/testing/PRE_DEPLOYMENT_TESTS.md` y los gates de
-Docker/CI/staging.
-No iniciar Fase 14 ni marcar Fase 13 `COMPLETED` antes de cerrar toda la matriz o aprobar
-excepciones explícitas.
+Approve and apply the narrow CI correction that upgrades the workflow's packaging tools before
+the Python dependency audit, then confirm the rerun on GitHub.
+After that, continue closing the gaps in `docs/testing/PRE_DEPLOYMENT_TESTS.md` and the
+Docker/staging gates.
+Do not start Phase 14 or mark Phase 13 `COMPLETED` before closing the entire matrix or approving
+explicit exceptions.
 
-## Comandos útiles
+## Useful commands
 
 ```powershell
 pnpm dev
@@ -121,5 +127,5 @@ pnpm deploy:local
 pnpm deploy:smoke
 ```
 
-La fuente detallada está en `docs/project-management/PROJECT_STATUS.md`,
-`docs/project-management/NEXT_STEPS.md` y `docs/deployment/`.
+The detailed source is in `docs/project-management/PROJECT_STATUS.md`,
+`docs/project-management/NEXT_STEPS.md` and `docs/deployment/`.

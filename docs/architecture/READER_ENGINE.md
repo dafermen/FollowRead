@@ -1,65 +1,65 @@
-# Arquitectura del Reader Engine
+# Reader Engine Architecture
 
-## Propósito y límite
+## Purpose and scope
 
-`@followread/reader-engine` convierte una línea de tiempo publicada en estado de lectura. No conoce
-React, HTML, almacenamiento, red ni proveedores de audio. La aplicación Reader decide cómo dibujar
-ese estado y cómo persistir el progreso.
+`@followread/reader-engine` converts a published timeline into a readable state. It does not know
+about React, HTML, storage, network, or audio providers. The Reader application decides how to render
+that state and how to persist progress.
 
-## Entrada
+## Input
 
-La API expone `GET /catalog/{slug}/reader-package` con:
+The API exposes `GET /catalog/{slug}/reader-package` with:
 
-- publicación activa y versión;
-- traducciones, capítulos y párrafos ordenados;
-- ilustración principal y descripción alternativa;
-- ilustración y texto alternativo opcionales por capítulo, con fallback a la principal;
-- URI, duración, voz y tipo de audio;
-- Speech Marks ordenados con tiempo, caracteres, párrafo y capítulo.
+- active publication and version;
+- translations, chapters, and ordered paragraphs;
+- main illustration and alternative description;
+- optional illustration and alternative text per chapter, falling back to the main one;
+- URI, duration, voice, and audio type;
+- Speech Marks ordered with time, characters, paragraph, and chapter.
 
-El servicio rechaza publicaciones incompletas para evitar que el Reader intente corregir paquetes
-inválidos.
+The service rejects incomplete publications to prevent the Reader from attempting to correct invalid
+packages.
 
-## Estado y operaciones
+## State and operations
 
-El motor mantiene un estado inmutable observable con `status`, tiempo, duración, tasa, palabra,
-capítulo, revisión de layout y error. Sus operaciones son:
+The engine maintains an immutable observable state with `status`, time, duration, rate, word,
+chapter, layout revision, and error. Its operations are:
 
-- `load`, `play`, `pause`, `toggle` y `tick`;
-- `seek`, `skip` y `repeatActiveWord`;
-- `setPlaybackRate` entre 0.5× y 2×;
+- `load`, `play`, `pause`, `toggle`, and `tick`;
+- `seek`, `skip`, and `repeatActiveWord`;
+- `setPlaybackRate` between 0.5× and 2×;
 - `changeChapter`;
-- `handleViewportChange`, `handleInterruption` y `handleAudioLoss`;
-- `getProgress` para posición y anclas estables.
+- `handleViewportChange`, `handleInterruption`, and `handleAudioLoss`;
+- `getProgress` for stable positioning and anchors.
 
-La palabra activa se localiza por búsqueda binaria sobre marcas ordenadas, con costo O(log n).
-Durante un espacio sin marca no se resalta ninguna palabra. Llegar a la duración total cambia el
-estado a `ended`; volver a reproducir reinicia desde cero.
+The active word is located by binary search over ordered marks, with cost O(log n).
+During a gap without a mark no word is highlighted. Reaching total duration changes the
+state to `ended`; replaying restarts from zero.
 
-## Integración web
+## Web integration
 
-El Reader crea una instancia por pantalla, se suscribe a sus cambios y usa un reloj de 100 ms para
-el demostrador local. La palabra activa recibe resaltado, una mano indicadora y auto-scroll. El
-progreso se guarda por `slug` e idioma en `localStorage`; no contiene identidad ni datos sensibles.
-La imagen visible se resuelve desde el capítulo activo y reutiliza la portada cuando el campo
-específico es nulo. Las descargas offline incluyen todos los recursos visuales referenciados.
+The Reader creates one instance per screen, subscribes to its changes, and uses a 100 ms clock for
+the local demonstrator. The active word receives highlighting, a pointing hand, and auto-scroll. Progress
+is saved by `slug` and language in `localStorage`; it does not contain identity or sensitive data.
+The visible image is resolved from the active chapter and reuses the cover when the chapter-specific field
+is null. Offline downloads include all referenced visual resources.
 
-Un cambio de tamaño u orientación incrementa la revisión de layout y vuelve a centrar la palabra.
-Perder el foco pausa la lectura. La pérdida de una fuente de audio se representa como error y no
-como silencio indefinido.
+A resize or orientation change increments the layout revision and recenters the word.
+Losing focus pauses reading. Loss of an audio source is represented as an error and not
+as indefinite silence.
 
-## Audio del MVP
+## MVP audio
 
-`pnpm demo:seed` respeta el proveedor configurado. Con `FOLLOWREAD_POLLY_PROVIDER=fake` produce
-duraciones y Speech Marks deterministas, por lo que permite demostrar la sincronización sin API
-key, AWS, red ni costo; ese archivo no es narración audible real. Con
-`FOLLOWREAD_POLLY_PROVIDER=openai` genera MP3 audibles y marcas alineadas, guarda su huella en
-SQLite y reutiliza los archivos mientras el texto y la configuración no cambien. El motor conserva
-el mismo contrato en ambos modos.
+`pnpm demo:seed` respects the configured provider. With `FOLLOWREAD_POLLY_PROVIDER=fake` it produces
+deterministic durations and Speech Marks, allowing demonstration of synchronization without an API
+key, AWS, network, or cost; that file is not real audible narration. With
+`FOLLOWREAD_POLLY_PROVIDER=openai` it generates audible MP3s and aligned marks, stores their fingerprint in
+SQLite, and reuses the files while the text and configuration do not change. The engine preserves
+the same contract in both modes.
 
-## Verificación
+## Verification
 
-- pruebas unitarias del motor para validación, búsqueda, controles, progreso e interrupciones;
-- pruebas API para paquete completo, faltantes y referencias inválidas;
-- pruebas del Reader para biblioteca, error, controles, idioma y recuperación;
-- TypeScript strict, mypy, Ruff, ESLint, cobertura y builds en la puerta `pnpm check`.
+- unit tests of the engine for validation, search, controls, progress, and interruptions;
+- API tests for complete package, missing items, and invalid references;
+- Reader tests for library, error, controls, language, and recovery;
+- TypeScript strict, mypy, Ruff, ESLint, coverage, and builds at the `pnpm check` gate.

@@ -1,15 +1,15 @@
-# Versionado y releases
+# Versioning and releases
 
-## Fuente de versión
+## Source of version
 
-Las releases usan SemVer mediante tags `vMAJOR.MINOR.PATCH`. El contenido editorial conserva su
-propio versionado y no obliga a publicar otra aplicación.
+Releases use SemVer via tags `vMAJOR.MINOR.PATCH`. Editorial content keeps its
+own versioning and does not require publishing another app.
 
-- `PATCH`: corrección compatible;
-- `MINOR`: funcionalidad compatible;
-- `MAJOR`: cambio incompatible de contratos o datos.
+- `PATCH`: compatible bugfix;
+- `MINOR`: compatible functionality;
+- `MAJOR`: incompatible change to contracts or data.
 
-## Preparación
+## Preparation
 
 ```powershell
 pnpm quality:regression
@@ -18,30 +18,29 @@ git tag -a v0.1.0 -m "FollowRead v0.1.0"
 git push origin v0.1.0
 ```
 
-Antes del tag, el repositorio GitHub debe tener:
+Before the tag, the GitHub repository must have:
 
-- variable `FOLLOWREAD_API_BASE_URL` con URL HTTPS pública;
-- GitHub Environment `release` con aprobación;
-- permisos de Actions para publicar paquetes y releases;
-- protección de `main`.
+- variable `FOLLOWREAD_API_BASE_URL` with a public HTTPS URL;
+- GitHub Environment `release` with approval;
+- Actions permissions to publish packages and releases;
+- protection of `main`.
 
-## Automatización
+## Automation
 
-`.github/workflows/release.yml` vuelve a ejecutar calidad, seguridad y definición de despliegue;
-construye tres imágenes, publica tags inmutables en GHCR, empaqueta los dos builds web y crea una
-GitHub Release con notas generadas. `workflow_dispatch` sólo valida un candidato y no publica.
+`.github/workflows/release.yml` re-runs quality, security and deployment definition;
+builds three images, publishes immutable tags to GHCR, packages the two web builds and creates a
+GitHub Release with generated notes. `workflow_dispatch` only validates a candidate and does not publish.
 
-`.github/workflows/deployment-smoke.yml` valida URLs reales bajo los GitHub Environments
-development, staging o production.
+`.github/workflows/deployment-smoke.yml` validates real URLs under the GitHub Environments
+development, staging or production.
 
-## Artefactos
+## Artifacts
 
 - `followread-admin.tar.gz`;
 - `followread-reader.tar.gz`;
-- imágenes `api`, `admin` y `reader` en GHCR;
+- images `api`, `admin` and `reader` on GHCR;
 - `release-notes.md`;
-- checksums/digests provistos por GitHub Actions y el registry.
+- checksums/digests provided by GitHub Actions and the registry.
 
-Android/iOS conservan el proceso independiente de `MOBILE_RELEASES.md`; las firmas nunca pasan por
-este workflow genérico.
-
+Android/iOS keep the independent process of `MOBILE_RELEASES.md`; signing never goes through
+this generic workflow.

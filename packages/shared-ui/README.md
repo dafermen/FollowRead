@@ -1,3 +1,3 @@
 # @followread/shared-ui
 
-Primitivas visuales accesibles compartidas por Admin y Reader. No contiene pantallas completas.
+Accessible visual primitives shared by Admin and Reader. Does not contain complete screens.

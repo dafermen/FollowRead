@@ -1,42 +1,42 @@
-# Arquitectura
+# Architecture
 
-Este documento es la entrada canónica a la arquitectura de FollowRead. Los detalles viven en
-`docs/architecture/` y no se duplican aquí.
+This document is the canonical entry point to FollowRead's architecture. Details live in
+`docs/architecture/` and are not duplicated here.
 
-## Vista general
+## Overview
 
-FollowRead es un monorepo con tres aplicaciones:
+FollowRead is a monorepo with three applications:
 
-- `apps/admin-web`: administración editorial en React/Vite;
-- `apps/reader`: lector React/Vite, PWA y base Capacitor para Android/iOS;
-- `apps/api`: API FastAPI con SQLAlchemy, Alembic y SQLite para el MVP.
+- `apps/admin-web`: editorial administration in React/Vite;
+- `apps/reader`: React/Vite reader, PWA and Capacitor base for Android/iOS;
+- `apps/api`: FastAPI API with SQLAlchemy, Alembic and SQLite for the MVP.
 
-Los contratos y componentes reutilizables están en `packages/`. La infraestructura opcional de
-empaquetado y despliegue está en `infrastructure/`.
+Contracts and reusable components live in `packages/`. Optional packaging and deployment
+infrastructure is in `infrastructure/`.
 
-## Principios vigentes
+## Governing principles
 
-- Admin, Reader y API se despliegan como artefactos separados.
-- Reader Engine no depende de React, DOM ni infraestructura.
-- SQLite es la base autoritativa del MVP.
-- AWS y Amazon Polly sólo pueden aparecer detrás de adaptadores de la API; el proveedor local
-  `fake` debe seguir funcionando sin credenciales.
-- Docker es opcional para desarrollo y obligatorio sólo cuando se valide el empaquetado.
-- No se almacenan cuentas personales ni PII de menores.
+- Admin, Reader and API are deployed as separate artifacts.
+- Reader Engine does not depend on React, the DOM, or infrastructure.
+- SQLite is the authoritative store for the MVP.
+- AWS and Amazon Polly may only appear behind API adapters; the local `fake` provider must
+  continue to work without credentials.
+- Docker is optional for development and required only when packaging is validated.
+- No personal accounts or PII of minors are stored.
 
-## Fuentes detalladas
+## Detailed sources
 
-- [Contexto del sistema](architecture/SYSTEM_CONTEXT.md)
-- [Arquitectura inicial](architecture/INITIAL_ARCHITECTURE.md)
-- [Modelo de datos](architecture/DATA_MODEL.md)
+- [System context](architecture/SYSTEM_CONTEXT.md)
+- [Initial architecture](architecture/INITIAL_ARCHITECTURE.md)
+- [Data model](architecture/DATA_MODEL.md)
 - [Reader Engine](architecture/READER_ENGINE.md)
-- [Modo offline](architecture/OFFLINE_MODE.md)
-- [Observabilidad](architecture/OBSERVABILITY.md)
-- [Modelo de amenazas](architecture/THREAT_MODEL.md)
-- [Registro de decisiones](project-management/DECISIONS.md)
+- [Offline mode](architecture/OFFLINE_MODE.md)
+- [Observability](architecture/OBSERVABILITY.md)
+- [Threat model](architecture/THREAT_MODEL.md)
+- [Decision log](project-management/DECISIONS.md)
 - [ADR](adr/README.md)
 
-## Regla de cambio
+## Change rule
 
-Un cambio de límites, persistencia, seguridad, proveedores o despliegue requiere actualizar el
-documento detallado correspondiente y registrar una decisión o ADR antes de considerarse cerrado.
+A change to boundaries, persistence, security, providers or deployment requires updating the
+corresponding detailed document and recording a decision or ADR before it is considered closed.

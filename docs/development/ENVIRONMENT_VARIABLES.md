@@ -1,62 +1,62 @@
-# Variables de entorno
+# Environment Variables
 
-## Reglas
+## Rules
 
-- Los archivos `.env` reales están ignorados y nunca se versionan.
-- Los nombres `VITE_*` son públicos porque Vite los incluye en el navegador; nunca contienen
-  credenciales, tokens ni claves.
-- Las variables `FOLLOWREAD_*` pertenecen a la API.
-- `OPENAI_API_KEY` es un secreto exclusivo de la API y sólo se guarda en `apps/api/.env` durante
-  desarrollo local.
-- Credenciales AWS futuras sólo serán leídas por adaptadores de la API y no aparecerán en ejemplos
-  con valores reales.
-- Tests configuran valores aislados y no leen secretos de la máquina.
+- Real `.env` files are ignored and never versioned.
+- `VITE_*` names are public because Vite includes them in the browser; they never contain
+  credentials, tokens, or keys.
+- `FOLLOWREAD_*` variables belong to the API.
+- `OPENAI_API_KEY` is an API-only secret and is only stored in `apps/api/.env` during
+  local development.
+- Future AWS credentials will only be read by API adapters and will not appear in examples
+  with real values.
+- Tests configure isolated values and do not read secrets from the machine.
 
-## Catálogo inicial
+## Initial catalog
 
-| Variable | Aplicación | Requerida | Valor local | Validación |
+| Variable | Application | Required | Local value | Validation |
 |---|---|---:|---|---|
-| `VITE_APP_ENV` | Admin/Reader | Sí | `development` | `development`, `test` o `production` |
-| `VITE_API_BASE_URL` | Admin/Reader | Sí | `http://localhost:8000` | URL absoluta HTTP(S) |
-| `FOLLOWREAD_ENVIRONMENT` | API | No | `development` | `development`, `test` o `production` |
-| `FOLLOWREAD_APP_NAME` | API | No | `FollowRead API` | texto no vacío |
-| `FOLLOWREAD_API_PREFIX` | API | No | vacío | vacío o ruta que comienza con `/` |
-| `FOLLOWREAD_DATABASE_URL` | API | No | `sqlite:///./var/followread.db` | DSN SQLite |
-| `FOLLOWREAD_ALLOWED_ORIGINS` | API | No | web local + orígenes Capacitor | lista JSON de orígenes exactos |
-| `FOLLOWREAD_POLLY_PROVIDER` | API | No | `fake` | `fake`, `aws` u `openai` |
-| `FOLLOWREAD_AUDIO_OUTPUT_DIR` | API | No | `./var/audio` | directorio local fuera de Git |
-| `FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR` | API | No | `./var/illustrations` | directorio local fuera de Git |
-| `FOLLOWREAD_MAXIMUM_PROCESSING_COST` | API | No | `1.00` | decimal mayor o igual a cero |
-| `FOLLOWREAD_POLLY_CHUNK_CHARACTERS` | API | No | `1500` | entero entre 100 y 3000 |
-| `OPENAI_API_KEY` | API | con proveedor OpenAI | ausente | secreto válido, nunca `VITE_*` |
-| `FOLLOWREAD_OPENAI_TTS_MODEL` | API | No | `gpt-4o-mini-tts-2025-12-15` | modelo TTS disponible |
-| `FOLLOWREAD_OPENAI_ALIGNMENT_MODEL` | API | No | `whisper-1` | modelo con timestamps de palabra |
-| `FOLLOWREAD_IMAGE_NAMESPACE` | Compose | No | `followread` | namespace OCI sin credenciales |
-| `FOLLOWREAD_IMAGE_VERSION` | Compose | No | `local` | tag SemVer en entornos compartidos |
-| `FOLLOWREAD_DATA_VOLUME` | Compose | No | `followread-data` | nombre de volumen explícito |
-| `FOLLOWREAD_DEPLOY_APPROVED` | Script local | staging/production | ausente | debe ser `YES` |
+| `VITE_APP_ENV` | Admin/Reader | Yes | `development` | `development`, `test` or `production` |
+| `VITE_API_BASE_URL` | Admin/Reader | Yes | `http://localhost:8000` | Absolute HTTP(S) URL |
+| `FOLLOWREAD_ENVIRONMENT` | API | No | `development` | `development`, `test` or `production` |
+| `FOLLOWREAD_APP_NAME` | API | No | `FollowRead API` | non-empty text |
+| `FOLLOWREAD_API_PREFIX` | API | No | empty | empty or a path that begins with `/` |
+| `FOLLOWREAD_DATABASE_URL` | API | No | `sqlite:///./var/followread.db` | SQLite DSN |
+| `FOLLOWREAD_ALLOWED_ORIGINS` | API | No | local web + Capacitor origins | JSON list of exact origins |
+| `FOLLOWREAD_POLLY_PROVIDER` | API | No | `fake` | `fake`, `aws` or `openai` |
+| `FOLLOWREAD_AUDIO_OUTPUT_DIR` | API | No | `./var/audio` | local directory outside Git |
+| `FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR` | API | No | `./var/illustrations` | local directory outside Git |
+| `FOLLOWREAD_MAXIMUM_PROCESSING_COST` | API | No | `1.00` | decimal greater than or equal to zero |
+| `FOLLOWREAD_POLLY_CHUNK_CHARACTERS` | API | No | `1500` | integer between 100 and 3000 |
+| `OPENAI_API_KEY` | API | with OpenAI provider | absent | valid secret, never `VITE_*` |
+| `FOLLOWREAD_OPENAI_TTS_MODEL` | API | No | `gpt-4o-mini-tts-2025-12-15` | available TTS model |
+| `FOLLOWREAD_OPENAI_ALIGNMENT_MODEL` | API | No | `whisper-1` | model with word timestamps |
+| `FOLLOWREAD_IMAGE_NAMESPACE` | Compose | No | `followread` | OCI namespace without credentials |
+| `FOLLOWREAD_IMAGE_VERSION` | Compose | No | `local` | SemVer tag in shared environments |
+| `FOLLOWREAD_DATA_VOLUME` | Compose | No | `followread-data` | explicit volume name |
+| `FOLLOWREAD_DEPLOY_APPROVED` | Local script | staging/production | absent | must be `YES` |
 
-En móvil, `VITE_API_BASE_URL` se fija al compilar y debe ser HTTPS/alcanzable desde el dispositivo.
-Para el emulador Android local puede usarse temporalmente `http://10.0.2.2:8000`. Los orígenes
-nativos predeterminados son `capacitor://localhost` (iOS) y `https://localhost` (Android).
+On mobile, `VITE_API_BASE_URL` is fixed at compile time and must be HTTPS/reachable from the device.
+For the local Android emulator you can temporarily use `http://10.0.2.2:8000`. Default native origins are
+`capacitor://localhost` (iOS) and `https://localhost` (Android).
 
-## Audio local, OpenAI y AWS opcional
+## Local audio, OpenAI and optional AWS
 
-El MVP usa `FOLLOWREAD_POLLY_PROVIDER=fake`: genera audio determinista y Speech Marks sin red,
-cuenta ni costo. `FOLLOWREAD_POLLY_PROVIDER=aws` activa el límite real de Amazon Polly en la API y
-requiere que el entorno de despliegue proporcione el SDK `boto3` y credenciales mediante la cadena
-estándar de AWS. Las credenciales nunca se agregan al archivo `.env.example`, al navegador ni a Git.
+The MVP uses `FOLLOWREAD_POLLY_PROVIDER=fake`: it generates deterministic audio and Speech Marks without network,
+account, or cost. `FOLLOWREAD_POLLY_PROVIDER=aws` enables the real Amazon Polly limit on the API and
+requires the deployment environment to provide the `boto3` SDK and credentials via the standard
+AWS chain. Credentials are never added to the `.env.example` file, the browser, or Git.
 
-Para OpenAI, copia `apps/api/.env.example` como `apps/api/.env`, cambia el proveedor a `openai` y
-completa `OPENAI_API_KEY`. La API usa TTS para el audio y alineación de palabra para el resaltado.
-El Reader recibe sólo el MP3 publicado y muestra que la voz es generada por IA.
+For OpenAI, copy `apps/api/.env.example` to `apps/api/.env`, change the provider to `openai`, and
+fill in `OPENAI_API_KEY`. The API uses TTS for audio and word alignment for highlighting.
+The Reader receives only the published MP3 and displays that the voice is AI-generated.
 
-SQLite no requiere credenciales. La base y el audio local quedan fuera de Git. Producción usará un
-gestor de secretos para cualquier valor sensible, no archivos `.env` versionados.
+SQLite does not require credentials. The database and local audio are kept out of Git. Production will use a
+secret manager for any sensitive value, not versioned `.env` files.
 
 ## GitHub Actions
 
-`FOLLOWREAD_API_BASE_URL` es una **Repository Variable**, no un secreto, porque su valor termina en
-el JavaScript público. Producción debe usar HTTPS. `GITHUB_TOKEN` es efímero y se limita por job a
-contenido/paquetes. Credenciales de proveedor, SSH, tiendas o firma no están definidas hasta elegir
-plataforma; deberán almacenarse como secretos de un GitHub Environment protegido.
+`FOLLOWREAD_API_BASE_URL` is a **Repository Variable**, not a secret, because its value ends up in
+public JavaScript. Production must use HTTPS. `GITHUB_TOKEN` is ephemeral and limited per job to
+content/packages. Provider credentials, SSH, stores, or signing are not defined until a platform is chosen;
+they should be stored as secrets in a protected GitHub Environment.

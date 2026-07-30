@@ -1,38 +1,38 @@
-# Evidencia de pruebas - Fase 11
+# Test Evidence - Phase 11
 
-## Cobertura automatizada
+## Automated coverage
 
-| Capa | Evidencia |
+| Layer | Evidence |
 |---|---|
-| Dominio | Alineación contextual, progreso y filtros en `learningDomain.test.ts` |
-| Persistencia | Vocabulario, favoritos, revisiones e historial en `readerStorage.test.ts` |
-| Integración React | Traducción, selección, contexto, guardado, favorito y foco en `App.test.tsx` |
-| Navegador real | `pnpm reader:learning-e2e` |
-| Regresión Reader | `pnpm --filter @followread/reader test:coverage` |
-| Puerta integral | `pnpm check` |
+| Domain | Contextual alignment, progress and filters in `learningDomain.test.ts` |
+| Persistence | Vocabulary, favorites, reviews and history in `readerStorage.test.ts` |
+| React Integration | Translation, selection, context, saving, favorite and focus in `App.test.tsx` |
+| Real browser | `pnpm reader:learning-e2e` |
+| Reader regression | `pnpm --filter @followread/reader test:coverage` |
+| Gate end-to-end | `pnpm check` |
 
-## Recorrido Chrome
+## Chrome walkthrough
 
-`scripts/verify-learning-e2e.mjs` comprueba en un navegador real:
+`scripts/verify-learning-e2e.mjs` checks in a real browser:
 
-1. activa modo aprendizaje con inglés y velocidad 0.75x;
-2. abre el cuento publicado;
-3. muestra y oculta la traducción editorial;
-4. selecciona `watched` y obtiene `miraba` con ambos ejemplos;
-5. guarda y marca la palabra como favorita;
-6. confirma vocabulario e historial en `localStorage`;
-7. abre Mi vocabulario, aplica el filtro Favoritas y conserva la consulta;
-8. repite el recorrido visual a 390 × 844 sin overflow horizontal.
+1. enable learning mode with English and speed 0.75x;
+2. open the published story;
+3. show and hide the editorial translation;
+4. select `watched` and get `miraba` with both examples;
+5. save and mark the word as favorite;
+6. confirm vocabulary and history in `localStorage`;
+7. open My Vocabulary, apply the Favorites filter and preserve the query;
+8. repeat the visual walkthrough at 390 × 844 without horizontal overflow.
 
-Las capturas de diagnóstico se generan en `var/e2e/` y no se versionan:
+Diagnostic screenshots are generated in `var/e2e/` and are not versioned:
 
 - `phase11-learning-reader-desktop.png`;
 - `phase11-vocabulary-desktop.png`;
 - `phase11-vocabulary-mobile.png`.
 
-## Resultado
+## Result
 
-- 9 archivos de prueba Reader aprobados.
-- 36 pruebas Reader aprobadas antes de la puerta final.
-- La experiencia funciona sin API de inteligencia artificial.
-- La información educativa sigue disponible cuando el paquete ya está descargado.
+- 9 Reader test files approved.
+- 36 Reader tests approved before the final gate.
+- The experience works without an AI API.
+- Educational information remains available once the package is already downloaded.

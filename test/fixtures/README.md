@@ -1,13 +1,13 @@
-# Fixtures compartidas
+# Shared fixtures
 
-Esta carpeta está reservada para fixtures usadas por más de una aplicación o paquete.
+This folder is reserved for fixtures used by more than one application or package.
 
-Cada fixture debe documentar:
+Each fixture must document:
 
-- propósito y suites consumidoras;
-- procedencia y licencia;
-- si contiene datos sintéticos;
-- checksum o versión cuando corresponda;
-- procedimiento de actualización.
+- purpose and consuming test suites;
+- provenance and license;
+- whether it contains synthetic data;
+- checksum or version when applicable;
+- update procedure.
 
-No incluir datos personales, secretos, tokens, bases SQLite reales ni contenido sin permiso.
+Do not include personal data, secrets, tokens, real SQLite databases, or content without permission.

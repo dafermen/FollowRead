@@ -1,109 +1,109 @@
-# Estrategia de pruebas
+# Test strategy
 
-**Estado:** Validada para Fase 0 - FR-PH00-TASK-011 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-011 COMPLETED.
 
-## Objetivos
+## Goals
 
-- detectar errores cerca de la capa que los origina;
-- probar Reader Engine de forma determinista;
-- validar contratos entre contenido, audio y clientes;
-- demostrar offline, accesibilidad y permisos;
-- evitar dependencia y costo de servicios externos en automatización.
+- detect bugs close to the layer that causes them;
+- test the Reader Engine deterministically;
+- validate contracts between content, audio, and clients;
+- demonstrate offline, accessibility, and permissions;
+- avoid dependency on and cost of external services in automation.
 
-## Niveles
+## Levels
 
-| Nivel | Alcance |
+| Level | Scope |
 |---|---|
-| Unitarias | Dominio, estado, parser, checksums, progreso, utilidades |
-| Componentes | UI, formularios, lector, estados y accesibilidad |
-| API | Validación, auth, permisos, errores, repositorios |
-| Integración | SQLite real, almacenamiento falso, contratos y transacciones |
-| E2E | Publicación, lectura, offline, reanudación y aprendizaje |
-| Arquitectura | Límites de dependencias y ausencia de AWS/React donde no corresponde |
-| Seguridad | Entradas maliciosas, IDOR, sesiones, secretos y permisos |
-| Rendimiento | Catálogo, palabra activa, scroll, audio y endpoints críticos |
+| Unit | Domain, state, parser, checksums, progress, utilities |
+| Components | UI, forms, reader, states and accessibility |
+| API | Validation, auth, permissions, errors, repositories |
+| Integration | Real SQLite, fake storage, contracts and transactions |
+| E2E | Publishing, reading, offline, resumption and learning |
+| Architecture | Dependency boundaries and absence of AWS/React where not appropriate |
+| Security | Malicious inputs, IDOR, sessions, secrets and permissions |
+| Performance | Catalog, active word, scrolling, audio and critical endpoints |
 
-## Pirámide y herramientas previstas
+## Pyramid and planned tools
 
-- Vitest y React Testing Library para TypeScript/React.
-- Pytest para API y dominio Python.
-- Playwright para flujos web/PWA y accesibilidad automatizable.
-- Mocks, fixtures y adaptadores falsos para Polly y S3.
-- SQLite real en archivo temporal para integración; no simular transacciones ni restricciones.
-- Las consultas deben mantenerse compatibles con SQLAlchemy portable para una migración futura a
-  PostgreSQL, que añadirá una matriz de integración propia cuando se decida.
+- Vitest and React Testing Library for TypeScript/React.
+- Pytest for Python API and domain.
+- Playwright for web/PWA flows and automatable accessibility.
+- Mocks, fixtures and fake adapters for Polly and S3.
+- Real SQLite in a temporary file for integration; do not simulate transactions or constraints.
+- Queries should remain compatible with portable SQLAlchemy for a future migration to
+  PostgreSQL, which will add its own integration matrix when decided.
 
-La selección final se confirma en Fase 2; no se agrega otra librería sin justificación.
+Final selection will be confirmed in Phase 2; do not add another library without justification.
 
-## Casos críticos
+## Critical cases
 
-- tiempo antes, durante y después de marcas;
-- límites exactos y marcas inválidas;
-- salto de línea, resize, orientación y auto-scroll;
-- pausa, reanudación, velocidad y repetición;
-- progreso local/remoto y conflicto;
-- audio faltante o interrumpido;
-- descarga cortada, checksum inválido y rollback;
-- actualización compatible/incompatible;
-- login inválido y permiso insuficiente;
-- transición o publicación inválida;
-- navegación sólo teclado, foco y reducción de movimiento.
+- time before, during and after marks;
+- exact boundaries and invalid marks;
+- line break, resize, orientation and auto-scroll;
+- pause, resume, speed and repeat;
+- local/remote progress and conflict;
+- missing or interrupted audio;
+- cut download, invalid checksum and rollback;
+- compatible/incompatible update;
+- invalid login and insufficient permission;
+- invalid transition or publishing;
+- keyboard-only navigation, focus and reduced motion.
 
-## Datos de prueba
+## Test data
 
-- contenido mínimo en inglés y español;
-- signos, contracciones, Unicode y párrafos largos;
-- paquetes compatibles, corruptos e incompletos;
-- secuencias de Speech Marks conocidas;
-- usuarios por rol;
-- relojes y red controlables.
+- minimal content in English and Spanish;
+- punctuation, contractions, Unicode and long paragraphs;
+- compatible, corrupted and incomplete packages;
+- known Speech Marks sequences;
+- users by role;
+- controllable clocks and network.
 
-## Puertas de calidad
+## Quality gates
 
-Una tarea no termina si:
+A task is not done if:
 
-- falla una prueba relacionada;
-- no existe prueba para un criterio crítico;
-- se omite una prueba por inestabilidad sin registrar problema;
-- depende de AWS real;
-- la documentación de ejecución no está actualizada.
+- a related test fails;
+- there is no test for a critical criterion;
+- a test is omitted due to instability without a recorded issue;
+- it depends on real AWS;
+- the execution documentation is not up to date.
 
-Antes de cualquier despliegue externo también aplica la matriz de trece categorías de
-`PRE_DEPLOYMENT_TESTS.md`. Una fila parcial o no implementada bloquea la entrega salvo excepción
-formal, fechada y aprobada.
+Before any external deployment the thirteen-category matrix of
+`PRE_DEPLOYMENT_TESTS.md` also applies. A partial or unimplemented row blocks delivery except for a formal,
+dated and approved exception.
 
-## Estrategia de accesibilidad
+## Accessibility strategy
 
-Automatización detectará semántica, nombres y algunos contrastes. La validación manual cubrirá orden de
-foco, lector de pantalla, zoom, reflow, movimiento, comprensión y objetivos táctiles.
+Automation will detect semantics, names and some contrasts. Manual validation will cover focus order,
+screen reader, zoom, reflow, motion, comprehension and touch targets.
 
-## Cobertura de riesgos
+## Risk coverage
 
-| Riesgo | Nivel principal | Evidencia requerida |
+| Risk | Primary level | Required evidence |
 |---|---|---|
-| FR-RISK-001 alcance excesivo | Revisión de aceptación | Demo vertical y matriz MVP |
-| FR-RISK-002 privacidad infantil | Seguridad/E2E | Inventario sin PII y flujo local |
-| FR-RISK-003 marcas desalineadas | Unit/integración/E2E | Fixtures, límites y previsualización |
-| FR-RISK-004 costos AWS | Unit/integración | Estimación/límite con adaptador falso |
-| FR-RISK-005 descarga dañada | Integración/E2E | Interrupción, checksum y rollback |
-| FR-RISK-006 mano/movimiento | Componente/manual/a11y | Líneas, zoom, reduced motion |
-| FR-RISK-007 docs obsoletas | Validación documental | IDs, enlaces, estados y trazabilidad |
-| FR-RISK-008 sin Git | Fase 2 | Repositorio/historial antes de código |
+| FR-RISK-001 excessive scope | Acceptance review | Vertical demo and MVP matrix |
+| FR-RISK-002 child privacy | Security/E2E | Inventory without PII and local flow |
+| FR-RISK-003 misaligned marks | Unit/integration/E2E | Fixtures, boundaries and preview |
+| FR-RISK-004 AWS costs | Unit/integration | Estimate/limit with fake adapter |
+| FR-RISK-005 damaged download | Integration/E2E | Interruption, checksum and rollback |
+| FR-RISK-006 hand/motion | Component/manual/a11y | Lines, zoom, reduced motion |
+| FR-RISK-007 stale docs | Documentary validation | IDs, links, states and traceability |
+| FR-RISK-008 no Git | Phase 2 | Repository/history before code |
 
-## Puertas por cambio
+## Change gates
 
-1. Formato/lint.
-2. Type-check o análisis Python.
-3. Unitarias afectadas.
-4. Integración cuando cambia contrato/datos.
-5. Componentes/accesibilidad cuando cambia UI.
-6. E2E para flujos críticos.
-7. Build reproducible.
-8. Documentación y trazabilidad.
+1. Format/lint.
+2. Type-check or Python analysis.
+3. Affected unit tests.
+4. Integration when contract/data changes.
+5. Components/accessibility when UI changes.
+6. E2E for critical flows.
+7. Reproducible build.
+8. Documentation and traceability.
 
-## Resultado de validación
+## Validation outcome
 
-- Cada riesgo tiene nivel y evidencia: PASS.
-- AWS real está prohibido en automatización: PASS.
-- Casos críticos del prompt están cubiertos: PASS.
-- Fallo de una puerta impide completar la tarea: PASS.
+- Each risk has level and evidence: PASS.
+- Real AWS is forbidden in automation: PASS.
+- Prompt critical cases are covered: PASS.
+- Failure of a gate prevents completing the task: PASS.

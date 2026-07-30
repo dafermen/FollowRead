@@ -1,27 +1,24 @@
-# Despliegue con contenedores
+# Container Deployment
 
-## Alcance
+## Scope
 
-FollowRead puede desplegar API, Admin y Reader como tres imágenes separadas. Docker es una opción
-de empaquetado y no se necesita para desarrollar. SQLite sigue siendo la fuente autoritativa del
-MVP y vive en el volumen `followread-data`.
+FollowRead can deploy API, Admin, and Reader as three separate images. Docker is an optional packaging method and is not required for development. SQLite remains the authoritative data source for the MVP and lives in the volume `followread-data`.
 
-## Imágenes
+## Images
 
-| Imagen | Base | Puerto | Persistencia |
+| Image | Base | Port | Persistence |
 |---|---|---:|---|
 | API | `python:3.12.13-slim-bookworm` | 8000 | `/data` |
-| Admin | `nginx:1.28.3-alpine3.23` | 8080 | ninguna |
-| Reader | `nginx:1.28.3-alpine3.23` | 8080 | ninguna |
+| Admin | `nginx:1.28.3-alpine3.23` | 8080 | none |
+| Reader | `nginx:1.28.3-alpine3.23` | 8080 | none |
 
-Los builds web usan `node:24.18.0-bookworm-slim` y pnpm 11.9.0. Admin/Reader reciben
-`VITE_API_BASE_URL` al compilar; por ello un cambio de endpoint exige reconstruir esos dos
-artefactos, nunca insertar secretos.
+Web builds use `node:24.18.0-bookworm-slim` and pnpm 11.9.0. Admin/Reader receive
+`VITE_API_BASE_URL` at build time; therefore a change of endpoint requires rebuilding those two
+artifacts, never injecting secrets.
 
-## Desarrollo local con Docker
+## Local development with Docker
 
-Docker Desktop/Engine es opcional y actualmente no está instalado en la estación Windows del
-proyecto.
+Docker Desktop/Engine is optional and is currently not installed on the project's Windows workstation.
 
 ```powershell
 pnpm deploy:validate
@@ -29,15 +26,15 @@ pnpm deploy:local
 pnpm deploy:smoke
 ```
 
-`deploy:local` usa `infrastructure/deployment/local.example.env`, construye imágenes, ejecuta
-Alembic antes de la API y espera los health checks. Los puertos continúan siendo 8000, 5173 y 5174.
+`deploy:local` uses `infrastructure/deployment/local.example.env`, builds images, runs
+Alembic before the API, and waits for health checks. Ports remain 8000, 5173, and 5174.
 
-## Entornos compartidos
+## Shared environments
 
-1. Copiar el ejemplo a un archivo fuera de Git.
-2. Definir dominios HTTPS, orígenes exactos, namespace OCI y tag SemVer.
-3. Crear el volumen persistente y un backup probado.
-4. Ejecutar con aprobación:
+1. Copy the example to a file outside Git.
+2. Define HTTPS domains, exact origins, OCI namespace, and SemVer tag.
+3. Create the persistent volume and a tested backup.
+4. Run with approval:
 
 ```powershell
 $env:FOLLOWREAD_DEPLOY_APPROVED = "YES"
@@ -45,24 +42,23 @@ node scripts/deploy-compose.mjs --environment staging --env-file C:\secure\follo
 pnpm deploy:smoke
 ```
 
-Producción necesita además proxy TLS/CDN, acceso restringido a `/metrics`, backup programado,
-retención, alertas y aprobación del GitHub Environment. Ningún proveedor concreto se supone en el
-repositorio.
+Production also requires a TLS/CDN proxy, restricted access to `/metrics`, scheduled
+backups, retention, alerts, and approval from the GitHub Environment. No specific provider is
+assumed in the repository.
 
-## Controles
+## Controls
 
-- imágenes de versión explícita;
-- procesos sin privilegios y `cap_drop: ALL`;
-- filesystem de sólo lectura y `/tmp` efímero;
-- migración terminada antes de iniciar API;
-- health checks para los tres servicios;
-- HTML sin caché, assets con caché inmutable;
-- volumen único de datos, fuera de la imagen;
-- credenciales ausentes de Dockerfiles, Compose y ejemplos.
+- images pinned to explicit versions;
+- unprivileged processes and `cap_drop: ALL`;
+- read-only filesystem and ephemeral `/tmp`;
+- migration completed before starting the API;
+- health checks for all three services;
+- cacheless HTML, assets with immutable cache;
+- single data volume, outside the image;
+- credentials absent from Dockerfiles, Compose, and examples.
 
-## Limitación actual
+## Current limitation
 
-La definición pasa validación estática y CI está preparada para construirla. La prueba local real de
-`docker build/compose` permanece pendiente porque Docker no está instalado; la publicación externa
-también requiere remote GitHub, dominios y proveedor elegidos por el propietario.
-
+The definition passes static validation and CI is set up to build it. The real local test of
+`docker build/compose` remains pending because Docker is not installed; external publishing
+also requires remote GitHub, domains, and a provider chosen by the owner.

@@ -1,58 +1,58 @@
-# Modo aprender inglés
+# English learning mode
 
-**Estado:** Implementado y verificado en Fase 11
+**Status:** Implemented and verified in Phase 11
 
-## Propósito
+## Purpose
 
-Relacionar sonido, escritura y significado sin sacar al estudiante de la lectura.
+Link sound, spelling, and meaning without taking the learner out of reading.
 
 ## Defaults
 
-- inglés como texto principal con `lang="en"`;
-- traducción editorial oculta/colapsada inicialmente;
-- velocidad 0.85x sugerida, modificable;
-- palabra y oración repetibles;
-- vocabulario contextual accesible;
-- mano opcional.
+- English as the primary text with `lang="en"`;
+- editorial translation hidden/collapsed initially;
+- suggested speed 0.85x, adjustable;
+- repeatable word and sentence;
+- contextual vocabulary accessible;
+- optional hand indicator.
 
-## Interacción de palabra
+## Word interaction
 
-1. Seleccionar palabra sin cambiar progreso.
-2. Mostrar panel contextual con pronunciación, traducción y ejemplo editorial.
-3. Reproducir palabra.
-4. Guardar/quitar vocabulario con estado local/sync.
-5. Cerrar y devolver foco a la palabra.
+1. Select word without changing progress.
+2. Show contextual panel with pronunciation, translation, and editorial example.
+3. Play word audio.
+4. Save/remove vocabulary with local/sync state.
+5. Close and return focus to the word.
 
-## Repetición de oración
+## Sentence repetition
 
-- usa límites canónicos;
-- anuncia "Repetir oración";
-- respeta velocidad;
-- vuelve a reproducción normal cuando el usuario lo elige;
-- no crea bucle inesperado.
+- uses canonical boundaries;
+- announces "Repeat sentence";
+- respects speed;
+- returns to normal playback when the user chooses;
+- does not create unexpected loops.
 
-## Densidad progresiva
+## Progressive density
 
-Reproducir/pausar, velocidad y repetir son visibles. Traducción, detalles y vocabulario aparecen en
-panel contextual; así se resuelve FR-UXF-001 sin esconder funciones.
+Play/pause, speed, and repeat are visible. Translation, details, and vocabulary appear in
+the contextual panel; this addresses FR-UXF-001 without hiding features.
 
-## Offline y contenido
+## Offline and content
 
-- traducción/significado esencial está en el paquete según FR-DEC-008;
-- audio de palabra puede usar segmentos incluidos;
-- si falta un recurso, el texto sigue disponible y se explica.
+- essential translation/meaning is in the package per FR-DEC-008;
+- word audio can use included segments;
+- if a resource is missing, the text remains available and is explained.
 
-## Accesibilidad
+## Accessibility
 
-- idiomas marcados por fragmento;
-- palabra interactiva operable con teclado/tacto;
-- panel devuelve foco;
-- pronunciación no es la única representación;
-- no anunciar todas las palabras durante reproducción.
+- languages marked by snippet;
+- interactive word operable by keyboard/touch;
+- panel returns focus;
+- pronunciation is not the only representation;
+- do not announce all words during playback.
 
-## Validación
+## Validation
 
-- FR-PERSONA-002 y FR-US-READER-007/008 cubiertos: PASS.
-- Traducción, repetición, velocidad y vocabulario: PASS.
-- Favoritos, historial, significado, ejemplos y progreso local: PASS.
-- Evidencia: `../testing/PHASE_11_LEARNING.md`.
+- FR-PERSONA-002 and FR-US-READER-007/008 covered: PASS.
+- Translation, repetition, speed, and vocabulary: PASS.
+- Favorites, history, meaning, examples, and local progress: PASS.
+- Evidence: `../testing/PHASE_11_LEARNING.md`.

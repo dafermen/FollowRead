@@ -1,24 +1,24 @@
-# Journeys de usuario
+# User journeys
 
-**Estado:** Validado para Fase 1
+**Status:** Validated for Phase 1
 
-| Journey | Descubrir | Preparar | Acción central | Recuperación | Resultado |
+| Journey | Discover | Prepare | Core action | Recovery | Outcome |
 |---|---|---|---|---|---|
-| Infantil acompañado | tutor elige cuento | modo/tamaño/movimiento | reproducir y seguir | leer texto/reintentar | progreso local |
-| Estudiante inglés | filtra nivel/idioma | traducción/velocidad | repetir y guardar palabra | recurso faltante/offline | vocabulario/contexto |
-| Adulto | continúa/historial | tema/tamaño/mano | sesión larga | sync pendiente | posición conservada |
-| Editor | lista/crear | metadatos/estructura | editar/autoguardar | conflicto/borrador | listo para procesar |
-| Revisor/publicador | cola revisión | checklist/preview | aprobar/rechazar/publicar | defecto/permiso | versión auditada |
-| Operador | dashboard/error | diagnóstico/costo | reintentar idempotente | proveedor/límite | evidencia/recuperación |
+| Accompanied child | guardian chooses story | mode/size/motion | play and follow along | read text/retry | local progress |
+| English learner | filter by level/language | translation/speed | repeat and save word | missing resource/offline | vocabulary/context |
+| Adult | resume/history | topic/size/hand | long session | pending sync | position preserved |
+| Editor | list/create | metadata/structure | edit/autosave | conflict/draft | ready for processing |
+| Reviewer/publisher | review queue | checklist/preview | approve/reject/publish | defect/permission | audited version |
+| Operator | dashboard/error | diagnosis/cost | idempotent retry | provider/limit | evidence/recovery |
 
-## Emociones y confianza
+## Emotions and confidence
 
-- Antes: claridad sobre disponibilidad, idioma y nivel.
-- Durante: estado visible sin interrupciones.
-- Error: certeza sobre qué se conservó.
-- Después: confirmación real, no confundir local con sincronizado.
+- Before: clarity about availability, language, and level.
+- During: visible status without interruptions.
+- Error: certainty about what was preserved.
+- After: real confirmation; do not confuse local with synced.
 
-## Validación
+## Validation
 
-- Beneficiarios y usuarios habilitadores cubiertos: PASS.
-- Error y recuperación incluidos en cada journey: PASS.
+- Beneficiaries and enabling users covered: PASS.
+- Error and recovery included in each journey: PASS.

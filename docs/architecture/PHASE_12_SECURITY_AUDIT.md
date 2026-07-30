@@ -1,29 +1,26 @@
-# Auditoría de seguridad de Fase 12
+# Phase 12 Security Audit
 
-**Fecha:** 2026-07-26
-**Resultado:** PASS
+**Date:** 2026-07-26
+**Result:** PASS
 
-## Controles verificados
+## Verified controls
 
-- errores inesperados devuelven un contrato estable y un `request_id`, sin detalles internos;
-- logs y métricas usan rutas normalizadas y no incluyen query strings, cuerpos, cookies ni tokens;
-- autenticación, administración, sincronización y operaciones no GET usan `Cache-Control: no-store`;
-- catálogo público usa caché corta y los paquetes soportan `ETag`/`If-None-Match`;
-- la API entrega `nosniff`, denegación de frames, referrer restrictivo, permissions policy y
+- unexpected errors return a stable contract and a `request_id`, without internal details;
+- logs and metrics use normalized paths and do not include query strings, bodies, cookies, or tokens;
+- authentication, administration, synchronization and non-GET operations use `Cache-Control: no-store`;
+- public catalog uses short cache and packages support `ETag`/`If-None-Match`;
+- the API delivers `nosniff`, frame denial, restrictive referrer, permissions policy and
   resource policy;
-- CORS conserva orígenes explícitos, credenciales y métodos limitados;
-- GZip sólo comprime respuestas suficientemente grandes;
-- la barrera frontend no imprime el mensaje privado del error en el reporte estructurado;
-- SQLite continúa siendo propiedad exclusiva de la API.
+- CORS preserves explicit origins, credentials and limited methods;
+- GZip compresses only sufficiently large responses;
+- the frontend gate does not print the private error message in the structured report;
+- SQLite remains exclusively owned by the API.
 
-## Dependencias
+## Dependencies
 
-La primera ejecución encontró 17 avisos JavaScript transitivos en herramientas de desarrollo de
-Capacitor y seis avisos en el `pip` del entorno. Se aplicaron overrides mínimos y verificables para
-`tar`, `minimatch`, `brace-expansion` y `uuid`; `pip` se fija en una versión corregida durante el
-setup. La generación de assets móviles siguió funcionando después del cambio.
+The first run found 17 transitive JavaScript advisories in Capacitor developer tools and six advisories in the environment `pip`. Minimal and verifiable overrides were applied for `tar`, `minimatch`, `brace-expansion` and `uuid`; `pip` is pinned to a fixed version during setup. Mobile asset generation continued to work after the change.
 
-Resultados finales:
+Final results:
 
 ```text
 pnpm audit --audit-level moderate
@@ -33,14 +30,13 @@ pnpm security:audit:python
 No known vulnerabilities found
 ```
 
-`pip-audit` omite el paquete editable local `followread-api` porque no está publicado en PyPI; sí
-audita todas sus dependencias instaladas.
+`pip-audit` skips the local editable package `followread-api` because it is not published on PyPI; it does audit all of its installed dependencies.
 
-## Comando reproducible
+## Reproducible command
 
 ```powershell
 pnpm security:audit
 ```
 
-La auditoría consulta bases externas y debe ejecutarse periódicamente y en CI. Un resultado futuro
-no debe silenciarse mediante excepciones sin fecha, responsable y mitigación.
+The audit queries external databases and should be run periodically and in CI. A future result
+must not be silenced by undated exceptions without an owner and mitigation.

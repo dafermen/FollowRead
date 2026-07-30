@@ -1,142 +1,142 @@
-# Alcance del proyecto
+# Project scope
 
-**Estado:** Aprobado para Fase 0  
-**Tarea responsable:** FR-PH00-TASK-004 - COMPLETED  
-**Fecha:** 2026-07-24
+**Status:** Approved for Phase 0  
+**Responsible task:** FR-PH00-TASK-004 - COMPLETED  
+**Date:** 2026-07-24
 
-## Alcance total
+## Overall scope
 
-FollowRead comprende Admin web, Reader web/PWA/móvil, API, Reader Engine, procesamiento de audio,
-contenido versionado, offline, progreso, favoritos, vocabulario, accesibilidad, seguridad, pruebas y
-operación. El roadmap completo se ejecuta por fases; no todo pertenece al MVP.
+FollowRead comprises Web Admin, Web/PWA/mobile Reader, API, Reader Engine, audio processing,
+versioned content, offline, progress, favorites, vocabulary, accessibility, security, testing and
+operation. The full roadmap is executed in phases; not everything belongs to the MVP.
 
-## MVP: corte vertical web
+## MVP: vertical web cut
 
-El MVP es una demostración web/PWA completa del flujo principal. Debe validar sincronización,
-publicación y offline antes de ampliar tipos, plataformas o datos personales.
+The MVP is a complete web/PWA demonstration of the main flow. It must validate synchronization,
+publication and offline before expanding types, platforms or personal data.
 
 ### Admin MVP
 
-- autenticación de usuarios editoriales;
-- creación de un `story` bilingüe con capítulos y párrafos;
-- audiencia, nivel, categoría, portada y voces;
-- borrador/autoguardado y validaciones;
-- procesamiento, revisión, aprobación y publicación;
-- historial, error y reintento esencial.
+- editorial user authentication;
+- creation of a bilingual `story` with chapters and paragraphs;
+- audience, level, category, cover and voices;
+- draft/autosave and validations;
+- processing, review, approval and publication;
+- history, error and essential retry.
 
 ### API MVP
 
-- identidad, permisos y auditoría necesarios para Admin;
-- contenido, traducciones, versiones y estados;
-- catálogo público compatible;
-- progreso, favoritos y vocabulario básicos;
-- adaptadores Polly/S3 con falsos en automatización;
-- health checks y OpenAPI.
+- identity, permissions and auditing needed for Admin;
+- content, translations, versions and states;
+- compatible public catalog;
+- basic progress, favorites and vocabulary;
+- Polly/S3 adapters with fakes in automation;
+- health checks and OpenAPI.
 
 ### Reader MVP
 
-- web responsive y PWA; no binarios móviles;
-- catálogo incluido más catálogo remoto;
-- biblioteca, detalle y lector para contenido de demostración;
-- reproducción, palabra activa, resaltado, mano SVG opcional y auto-scroll;
-- pausa, continuación, retroceso, repetición y velocidad;
-- modos infantil, adulto, español, inglés y aprender inglés como configuraciones;
-- progreso local y sincronizable;
-- paquete descargable con checksum y recuperación;
-- teclado, semántica, contraste y reducción de movimiento.
+- responsive web and PWA; no mobile binaries;
+- included catalog plus remote catalog;
+- library, detail and reader for demonstration content;
+- playback, active word, highlighting, optional SVG hand and auto-scroll;
+- pause, resume, rewind, repeat and speed;
+- child, adult, Spanish, English and learn-English as settings;
+- local and synchronizable progress;
+- downloadable package with checksum and recovery;
+- keyboard, semantics, contrast and reduced motion.
 
-### Contenido MVP
+### Content MVP
 
-- un cuento bilingüe principal y fixtures pequeños;
-- traducciones y vocabulario creados editorialmente;
-- derechos de texto, traducción, imagen y audio documentados;
-- `story` implementado primero; otros tipos permanecen en el contrato del producto.
+- one main bilingual story and small fixtures;
+- translations and vocabulary created editorially;
+- documentation of text, translation, image and audio rights;
+- `story` implemented first; other types remain in the product contract.
 
-### Demostración de aceptación
+### Acceptance demonstration
 
 ```text
-crear -> procesar -> revisar -> publicar -> descubrir -> descargar
--> reproducir sincronizado -> guardar progreso -> continuar offline
+create -> process -> review -> publish -> discover -> download
+-> synchronized playback -> save progress -> continue offline
 ```
 
-## Después del MVP, dentro del roadmap
+## After the MVP, within the roadmap
 
-- aplicaciones Android e iOS;
-- libros, artículos y lecciones con experiencias específicas;
-- notas libres y marcadores avanzados;
-- analítica educativa compatible con privacidad;
-- más idiomas;
-- procesamiento distribuido con Redis/Celery o equivalente;
-- recuperación de contraseña y administración avanzada;
-- optimizaciones de escala y costos.
+- Android and iOS applications;
+- books, articles and lessons with specific experiences;
+- free notes and advanced bookmarks;
+- educational analytics compatible with privacy;
+- more languages;
+- distributed processing with Redis/Celery or equivalent;
+- password recovery and advanced administration;
+- scale and cost optimizations.
 
-## Fuera del MVP, pero compatibles con la arquitectura
+## Out of MVP, but architecture-compatible
 
-- cuentas personales de menores y portal de tutores;
-- traducción automática o diccionario externo;
-- monetización;
-- notas libres;
-- Android e iOS;
-- procesamiento distribuido.
+- child personal accounts and guardian portal;
+- machine translation or external dictionary;
+- monetization;
+- free notes;
+- Android and iOS;
+- distributed processing.
 
-## Fuera de alcance salvo nueva decisión
+## Out of scope unless new decision
 
-- red social, chat o comentarios públicos;
-- transmisión en vivo;
-- DRM complejo;
-- diagnóstico médico, terapia o evaluación académica certificada;
-- IA como dependencia de una función esencial;
-- llamadas directas de frontends a AWS;
-- un tipo `document` independiente sin comportamiento diferenciador.
+- social network, chat or public comments;
+- live streaming;
+- complex DRM;
+- medical diagnosis, therapy or certified academic assessment;
+- AI as a dependency of an essential feature;
+- direct frontend calls to AWS;
+- an independent `document` type without differentiating behavior.
 
-## Límites por componente
+## Limits by component
 
-| Componente | Hace | No hace |
+| Component | Does | Does not |
 |---|---|---|
-| Admin | Edita, procesa, revisa y publica | No se empaqueta en móvil ni llama AWS |
-| Reader | Descubre, descarga y reproduce | No edita ni publica |
-| API | Autoriza, valida y coordina | No presenta UI ni expone secretos |
-| Reader Engine | Resuelve reproducción y temporización | No depende de React, DOM, AWS o red |
-| Paquetes compartidos | Contratos y piezas reutilizables | No mezclan reglas específicas de apps |
+| Admin | Edit, process, review and publish | Not packaged into mobile nor call AWS |
+| Reader | Discover, download and play | Does not edit or publish |
+| API | Authorize, validate and coordinate | Does not present UI nor expose secrets |
+| Reader Engine | Resolve playback and timing | Does not depend on React, DOM, AWS or network |
+| Shared packages | Contracts and reusable pieces | Do not mix app-specific rules |
 
-## Restricciones
+## Constraints
 
-- tecnologías principales fijadas por el prompt;
-- contenido actualizado sin rebuild;
-- Admin nunca se empaqueta con Reader;
-- pruebas AWS con mocks o adaptadores falsos;
-- secretos fuera del repositorio;
-- soporte razonable de navegadores modernos, Android e iOS;
-- arquitectura preparada para procesamiento asíncrono futuro.
+- main technologies fixed by the prompt;
+- content updated without rebuild;
+- Admin is never packaged with Reader;
+- AWS tests with mocks or fake adapters;
+- secrets kept out of the repository;
+- reasonable support for modern browsers, Android and iOS;
+- architecture prepared for future asynchronous processing.
 
-## Supuestos
+## Assumptions
 
-- existe una persona responsable de contenido y otra capaz de aprobarlo;
-- el contenido tiene derechos de reproducción, traducción, imágenes y audio;
-- el backend está disponible al descargar o sincronizar, no al leer material local;
-- la temporización pertenece a la versión exacta del texto;
-- perfiles locales permiten probar Reader sin exigir cuenta.
+- there is one person responsible for content and another capable of approving it;
+- content has rights for reproduction, translation, images and audio;
+- the backend is available when downloading or syncing, not when reading local material;
+- timing belongs to the exact version of the text;
+- local profiles allow testing the Reader without requiring an account.
 
-## Dependencias externas
+## External dependencies
 
 - Amazon Polly;
 - Amazon S3;
-- SQLite incluido en Python para el MVP;
-- PostgreSQL sólo como evolución futura cuando escala, concurrencia o despliegue lo requieran;
-- tiendas Apple y Google en Fase 10+;
-- proveedor de hosting y observabilidad por definir.
+- SQLite included in Python for the MVP;
+- PostgreSQL only as a future evolution when scale, concurrency or deployment require it;
+- Apple and Google stores in Phase 10+;
+- hosting and observability provider to be defined.
 
-## Decisiones de alcance
+## Scope decisions
 
-- `document` se representa como `article` hasta que exista un caso diferenciador.
-- El MVP no crea cuentas personales de menores.
-- Traducciones y significados esenciales son editoriales.
-- Favoritos y posición están en MVP; notas libres quedan después.
-- SQLite es la base autoritativa del MVP y elimina la dependencia de Docker/PostgreSQL.
+- `document` is represented as `article` until there is a differentiating case.
+- The MVP does not create child personal accounts.
+- Essential translations and meanings are editorial.
+- Favorites and position are in the MVP; free notes remain later.
+- SQLite is the authoritative base of the MVP and removes the dependency on Docker/PostgreSQL.
 
-## Validación
+## Validation
 
-- MVP, roadmap y fuera de alcance están separados: PASS.
-- Admin, Reader, API y Reader Engine tienen límites: PASS.
-- Tipos de contenido iniciales están resueltos: PASS.
-- Restricciones, supuestos y dependencias están explícitos: PASS.
+- MVP, roadmap and out-of-scope are separated: PASS.
+- Admin, Reader, API and Reader Engine have boundaries: PASS.
+- Initial content types are resolved: PASS.
+- Constraints, assumptions and dependencies are explicit: PASS.

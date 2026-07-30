@@ -1,48 +1,46 @@
-# Modelo inicial de amenazas
+# Initial Threat Model
 
-**Estado:** Validado para Fase 0  
-**Tarea responsable:** FR-PH00-TASK-006 - COMPLETED
+**Status:** Validated for Phase 0  
+**Responsible task:** FR-PH00-TASK-006 - COMPLETED
 
-## Método
+## Method
 
-Análisis STRIDE ligero sobre límites de confianza. Se refinará cuando existan diagramas de despliegue,
-endpoints y almacenamiento concretos.
+Lightweight STRIDE analysis over trust boundaries. It will be refined when concrete deployment diagrams, endpoints, and storage exist.
 
-## Límites
+## Boundaries
 
-1. Navegador/dispositivo -> Admin o Reader.
-2. Admin/Reader -> API pública.
-3. API -> archivo SQLite local.
-4. API/worker -> Polly y S3.
-5. Reader -> almacenamiento local modificable.
-6. Pipeline de build -> artefactos desplegados.
+1. Browser/device -> Admin or Reader.
+2. Admin/Reader -> Public API.
+3. API -> local SQLite file.
+4. API/worker -> Polly and S3.
+5. Reader -> modifiable local storage.
+6. Build pipeline -> deployed artifacts.
 
-## Amenazas y controles
+## Threats and controls
 
-| ID | Categoría | Escenario | Impacto | Control requerido | Prueba |
+| ID | Category | Scenario | Impact | Required control | Test |
 |---|---|---|---|---|---|
-| FR-THREAT-001 | Spoofing | Sesión Admin robada | Publicación no autorizada | TLS, TTL, revocación, hash seguro | Seguridad |
-| FR-THREAT-002 | Tampering | Paquete local alterado | Texto/audio incorrecto | Checksum/manifiesto/inmutabilidad | E2E corrupto |
-| FR-THREAT-003 | Repudiation | Usuario niega publicación | Pérdida de trazabilidad | Auditoría actor/fecha/resultado | Integración |
-| FR-THREAT-004 | Information disclosure | Secreto AWS en bundle/log | Compromiso cloud | Backend only, redacción, escaneo | Build/security |
-| FR-THREAT-005 | Denial of service | Abuso de Polly | Costo/indisponibilidad | Permiso, cuota, límite, cola | Adaptador falso |
-| FR-THREAT-006 | Elevation | Reviewer publica sin permiso | Contenido inválido | Autorización servidor | Matriz de permisos |
-| FR-THREAT-007 | IDOR | Lee progreso/vocabulario ajeno | Privacidad | Propiedad por recurso | API negativa |
-| FR-THREAT-008 | Injection | Texto/metadatos maliciosos | Datos/cliente | Validación, parametrización, escape | Negativas |
-| FR-THREAT-009 | Supply chain | Dependencia comprometida | Build/usuarios | Lockfile, review, escaneo | CI |
-| FR-THREAT-010 | Privacy | Telemetría identifica menor | Riesgo legal/daño | FR-DEC-009 y DATA_POLICY | Inventario |
-| FR-THREAT-011 | Replay | Reenvío duplica trabajo | Costo/estado incoherente | Clave idempotente | Integración |
-| FR-THREAT-012 | Tampering | Transición de estado salteada | Publicación defectuosa | Máquina de estados servidor | Unit/API |
+| FR-THREAT-001 | Spoofing | Admin session stolen | Unauthorized publishing | TLS, TTL, revocation, secure hashing | Security |
+| FR-THREAT-002 | Tampering | Local package altered | Incorrect text/audio | Checksum/manifest/immutability | Corrupt E2E |
+| FR-THREAT-003 | Repudiation | User denies publishing | Loss of traceability | Actor/date/result auditing | Integration |
+| FR-THREAT-004 | Information disclosure | AWS secret in bundle/log | Cloud compromise | Backend only, redaction, scanning | Build/security |
+| FR-THREAT-005 | Denial of service | Polly abuse | Cost/unavailability | Permission, quota, rate limit, queue | Fake adapter |
+| FR-THREAT-006 | Elevation | Reviewer publishes without permission | Invalid content | Server-side authorization | Permission matrix |
+| FR-THREAT-007 | IDOR | Reads others' progress/vocabulary | Privacy | Ownership per resource | Negative API tests |
+| FR-THREAT-008 | Injection | Malicious text/metadata | Data/client harm | Validation, parameterization, escaping | Negative tests |
+| FR-THREAT-009 | Supply chain | Compromised dependency | Build/users affected | Lockfile, review, scanning | CI |
+| FR-THREAT-010 | Privacy | Telemetry identifies a minor | Legal risk/harm | FR-DEC-009 and DATA_POLICY | Inventory |
+| FR-THREAT-011 | Replay | Re-sending duplicates work | Cost/inconsistent state | Idempotency key | Integration |
+| FR-THREAT-012 | Tampering | State transition skipped | Defective publishing | Server state machine | Unit/API |
 
-## Severidad prioritaria
+## Priority severity
 
-Critical/High antes de producción: secretos, autorización de publicación, PII infantil, IDOR, abuso de
-procesamiento e integridad de paquetes.
+Critical/High before production: secrets, publish authorization, child PII, IDOR, processing abuse, and package integrity.
 
-## Criterios de salida futuros
+## Future exit criteria
 
-- Ninguna amenaza High sin control y prueba asignada.
-- Matriz rol-permiso revisada.
-- Inventario de datos coincide con modelos.
-- Escaneo de secretos/dependencias en CI.
-- Respuesta a incidentes y rotación de secretos documentadas.
+- No High threats without an assigned control and test.
+- Role-permission matrix reviewed.
+- Data inventory matches models.
+- Secrets/dependency scanning in CI.
+- Incident response and secret rotation documented.

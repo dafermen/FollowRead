@@ -1,47 +1,46 @@
-# Modo infantil
+# Children Mode
 
-**Estado:** Validado para Fase 1
+**Status:** Validated for Phase 1
 
-## Propósito
+## Purpose
 
-Reducir carga cognitiva y activaciones accidentales sin ocultar controles esenciales ni crear una
-cuenta infantil.
+Reduce cognitive load and accidental activations without hiding essential controls or creating a child account.
 
 ## Defaults
 
-- texto `text-xl` o mayor;
-- objetivos de 44x44px;
-- mano visible salvo reduced motion;
-- una acción principal y máximo de acciones secundarias visibles;
-- navegación reducida;
-- lectura automática sólo si adulto/lector la eligió;
-- progreso local automático.
+- text `text-xl` or larger;
+- targets 44x44px;
+- visible hand except when reduced motion;
+- one primary action and at most one visible secondary action;
+- reduced navigation;
+- autoplay only if chosen by an adult/reader;
+- automatic local progress.
 
-## Lector
+## Reader
 
-- ilustración no desplaza texto/controles;
-- reproducir/pausar, repetir y salir siempre visibles;
-- opciones avanzadas dentro de Ajustes;
-- salida confirmable pero nunca inaccesible;
-- error usa frase corta: problema, conservación, acción.
+- illustration does not displace text/controls;
+- play/pause, replay, and exit always visible;
+- advanced options inside Settings;
+- exit can be confirmed but never inaccessible;
+- error uses a short phrase: issue, preservation, action.
 
-## Privacidad y seguridad
+## Privacy and security
 
-- sin email, nombre legal, edad, escuela o ubicación;
-- perfil local/supervisado;
-- Admin nunca enlazado;
-- no analítica identificable;
-- FR-DEC-009 es obligatoria.
+- no email, legal name, age, school, or location;
+- local/supervised profile;
+- Admin never linked;
+- no identifiable analytics;
+- FR-DEC-009 is mandatory.
 
-## Accesibilidad
+## Accessibility
 
-- color no exclusivo;
-- mano decorativa y ocultable;
-- reduced motion prevalece;
-- teclado/lector de pantalla siguen disponibles;
-- contenido completo si falla audio.
+- color not exclusive;
+- decorative hand that can be hidden;
+- reduced motion takes precedence;
+- keyboard/screen reader remain available;
+- full content if audio fails.
 
-## Validación
+## Validation
 
-- FR-PERSONA-001/004 y FR-US-CHILD-001/TUTOR-001 cubiertos: PASS.
-- 44px, salida segura y privacidad: PASS.
+- FR-PERSONA-001/004 and FR-US-CHILD-001/TUTOR-001 covered: PASS.
+- 44px, safe exit, and privacy: PASS.

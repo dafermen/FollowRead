@@ -1,32 +1,31 @@
-# Despliegue
+# Deployment
 
-Esta es la entrada canónica para empaquetar, validar y desplegar FollowRead.
+This is the canonical entry for packaging, validating, and deploying FollowRead.
 
-## Política
+## Policy
 
-- `pnpm dev` es la ruta normal de desarrollo y no requiere Docker.
-- Todo despliegue externo requiere que las trece categorías de `docs/TESTING.md` estén en `PASS` o
-  tengan una excepción `WAIVED` aprobada.
-- Ningún artefacto puede contener SQLite, `.env`, tokens, certificados o credenciales.
-- Las migraciones requieren backup verificado, readiness, smoke test y plan de rollback.
-- Production requiere aprobación explícita del propietario.
+- `pnpm dev` is the normal development path and does not require Docker.
+- Any external deployment requires that the thirteen categories in `docs/TESTING.md` are `PASS` or have an approved `WAIVED` exception.
+- No artifact may contain SQLite, `.env`, tokens, certificates, or credentials.
+- Migrations require verified backup, readiness, smoke test, and rollback plan.
+- Production requires explicit owner approval.
 
-## Secuencia mínima
+## Minimal sequence
 
-1. Identificar commit y versión inmutables.
-2. Completar el acta de pruebas previas al despliegue.
-3. Construir API, Admin y Reader.
-4. Crear y verificar backup.
-5. Ejecutar migraciones.
-6. Desplegar artefactos.
-7. Ejecutar readiness y smoke tests.
-8. Registrar resultado y conservar rollback probado.
+1. Identify immutable commit and version.
+2. Complete the pre-deployment test minutes.
+3. Build API, Admin, and Reader.
+4. Create and verify backup.
+5. Run migrations.
+6. Deploy artifacts.
+7. Run readiness and smoke tests.
+8. Record result and retain tested rollback.
 
-## Fuentes detalladas
+## Detailed sources
 
-- [Estrategia de despliegue](deployment/DEPLOYMENT_STRATEGY.md)
-- [Contenedores](deployment/CONTAINER_DEPLOYMENT.md)
-- [Proceso de release](deployment/RELEASE_PROCESS.md)
-- [Backup y rollback](deployment/BACKUP_AND_ROLLBACK.md)
-- [Releases móviles](deployment/MOBILE_RELEASES.md)
-- [Pruebas previas al despliegue](testing/PRE_DEPLOYMENT_TESTS.md)
+- [Deployment strategy](deployment/DEPLOYMENT_STRATEGY.md)
+- [Containers](deployment/CONTAINER_DEPLOYMENT.md)
+- [Release process](deployment/RELEASE_PROCESS.md)
+- [Backup and rollback](deployment/BACKUP_AND_ROLLBACK.md)
+- [Mobile releases](deployment/MOBILE_RELEASES.md)
+- [Pre-deployment tests](testing/PRE_DEPLOYMENT_TESTS.md)

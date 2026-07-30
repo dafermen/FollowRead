@@ -1,58 +1,58 @@
-# Revisión de Fase 13 - CI/CD y despliegue
+# Phase 13 Review - CI/CD and Deployment
 
-**Fecha:** 2026-07-26
-**Estado:** READY_FOR_EXTERNAL_VALIDATION
+**Date:** 2026-07-26
+**Status:** READY_FOR_EXTERNAL_VALIDATION
 
-## Resultado implementado
+## Implemented outcome
 
-La automatización reproducible está terminada sin elegir proveedor ni introducir Docker como
-requisito de desarrollo. API, Admin y Reader tienen imágenes separadas, Compose coordina migración
-y salud, CI construye los artefactos y un tag SemVer puede publicar GHCR y GitHub Release.
+Reproducible automation is finished without selecting a provider or introducing Docker as a
+development requirement. API, Admin, and Reader have separate images, Compose coordinates migration
+and health, CI builds the artifacts, and a SemVer tag can publish to GHCR and a GitHub Release.
 
-## Cobertura del prompt maestro
+## Master prompt coverage
 
-| Actividad | Evidencia | Estado |
+| Activity | Evidence | Status |
 |---|---|---|
-| GitHub Actions | CI, release y smoke por entorno | IMPLEMENTED |
-| lint, type-check, tests, build | `pnpm ci` y workflow base | PASS_LOCAL |
-| Docker | tres Dockerfiles y Compose seguro | STATIC_PASS |
-| despliegue web/API | imágenes OCI, Nginx, Compose y health checks | IMPLEMENTED |
-| migraciones | servicio Alembic previo a API | IMPLEMENTED |
-| versionado/release notes | tags SemVer y generador reproducible | IMPLEMENTED |
-| rollback | cambio de tag sin downgrade automático de datos | IMPLEMENTED |
-| secretos/entornos | ejemplos sin secretos y GitHub Environments | IMPLEMENTED |
-| documentación | cuatro guías, README, AGENTS y estado actual | IMPLEMENTED |
+| GitHub Actions | CI, release and smoke per environment | IMPLEMENTED |
+| lint, type-check, tests, build | `pnpm ci` and base workflow | PASS_LOCAL |
+| Docker | three Dockerfiles and secure Compose | STATIC_PASS |
+| web/API deployment | OCI images, Nginx, Compose and health checks | IMPLEMENTED |
+| migrations | Alembic service prior to API | IMPLEMENTED |
+| versioning/release notes | SemVer tags and reproducible generator | IMPLEMENTED |
+| rollback | tag change without automatic data downgrade | IMPLEMENTED |
+| secrets/environments | examples without secrets and GitHub Environments | IMPLEMENTED |
+| documentation | four guides, README, AGENTS and current status | IMPLEMENTED |
 
-## Evidencia local cerrada
+## Closed local evidence
 
-- `pnpm check`: validadores de CI/despliegue/móvil, formato, lint, tipos, 103 pruebas API, pruebas
-  web y builds completos en verde.
-- `pnpm quality:regression`: seguridad, recorridos Reader, offline, móvil, aprendizaje,
-  accesibilidad, presupuestos y carga en verde.
-- `pnpm deploy:smoke`: API, Admin y Reader locales respondieron correctamente.
-- Backup y restore SQLite pasaron dos pruebas dedicadas, incluida integridad y liberación explícita
-  de conexiones en Windows.
+- `pnpm check`: CI/deployment/mobile validators, formatting, lint, types, 103 API tests, web tests,
+  and full builds all green.
+- `pnpm quality:regression`: security, Reader walkthroughs, offline, mobile, learning,
+  accessibility, budgets and load all green.
+- `pnpm deploy:smoke`: local API, Admin and Reader responded correctly.
+- SQLite backup and restore passed two dedicated tests, including integrity and explicit
+  release of connections on Windows.
 
-FR-PH13-TASK-011 queda `COMPLETED`. Esta evidencia no sustituye la ejecución real de contenedores,
-workflows remotos ni staging.
+FR-PH13-TASK-011 remains `COMPLETED`. This evidence does not replace actual execution of containers,
+remote workflows, or staging.
 
-## Gates que impiden el cierre
+## Gates preventing closure
 
-1. Docker no está instalado en la estación actual; falta construir y arrancar las tres imágenes.
-2. El repositorio público `dafermen/FollowRead` ya existe; falta confirmar los workflows en sus
-   runners reales.
-3. No se eligieron proveedor, dominios ni almacén de backups; staging/production no pueden
-   desplegarse responsablemente.
-4. La matriz predespliegue identifica brechas en aceptación, propiedades/invariantes, mutation
-   testing, fuzzing, contratos y resiliencia.
+1. Docker is not installed on the current workstation; building and running the three images is missing.
+2. The public repository `dafermen/FollowRead` already exists; confirming the workflows on its
+   real runners is still missing.
+3. Provider, domains, and backup storage were not chosen; staging/production cannot
+   be deployed responsibly.
+4. The predeployment matrix identifies gaps in acceptance, properties/invariants, mutation
+   testing, fuzzing, contracts, and resilience.
 
-Estos gates pueden revelar defectos de runtime, por lo que la fase no se marca `COMPLETED`.
+These gates can reveal runtime defects, so the phase is not marked `COMPLETED`.
 
-## Criterio para cerrar
+## Criteria to close
 
-- `docker build` pasa para API/Admin/Reader;
-- `pnpm deploy:local` y `pnpm deploy:smoke` pasan;
-- `ci.yml` pasa en GitHub;
-- un despliegue de development o staging demuestra migración, backup, smoke y rollback;
-- `CURRENT_STATUS.md` registra la evidencia y el commit.
-- las trece categorías predespliegue están en `PASS` o `WAIVED` explícitamente aprobado.
+- `docker build` passes for API/Admin/Reader;
+- `pnpm deploy:local` and `pnpm deploy:smoke` pass;
+- `ci.yml` passes on GitHub;
+- a development or staging deployment demonstrates migration, backup, smoke and rollback;
+- `CURRENT_STATUS.md` records the evidence and the commit.
+- the thirteen predeployment categories are in `PASS` or `WAIVED` explicitly approved.

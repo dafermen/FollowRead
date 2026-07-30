@@ -1,8 +1,8 @@
-# Contrato de errores de la API
+# API Error Contract
 
-## Formato
+## Format
 
-Los errores de negocio esperados usan siempre este contenedor:
+Expected business errors always use this container:
 
 ```json
 {
@@ -16,24 +16,24 @@ Los errores de negocio esperados usan siempre este contenedor:
 }
 ```
 
-- `code` es estable y está destinado a decisiones del cliente.
-- `message` es una descripción segura para personas; no debe usarse como identificador.
-- `details` contiene campos seguros y accionables, nunca trazas, secretos ni datos personales.
+- `code` is stable and intended for client decisions.
+- `message` is a safe description for humans; it must not be used as an identifier.
+- `details` contains safe and actionable fields, never traces, secrets, or personal data.
 
-## Catálogo vigente
+## Current catalog
 
-| Código | HTTP | Significado |
+| Code | HTTP | Meaning |
 |---|---:|---|
-| `catalog.invalid_query` | 422 | Paginación, categoría o slug no cumplen el contrato |
-| `content.not_found` | 404 | El contenido no existe o no está disponible públicamente |
+| `catalog.invalid_query` | 422 | Pagination, category, or slug do not meet the contract |
+| `content.not_found` | 404 | The content does not exist or is not publicly available |
 
-FastAPI conserva sus errores estructurales de validación para parámetros que no pueden convertirse
-al tipo declarado. Los servicios generan los códigos anteriores para reglas semánticas.
+FastAPI retains its structural validation errors for parameters that cannot be converted
+to the declared type. Services produce the above codes for semantic rules.
 
-## Reglas
+## Rules
 
-1. Una ruta no inventa códigos: traduce un `DomainError` registrado.
-2. El mismo fallo de negocio conserva código y estado HTTP entre endpoints.
-3. Contenido borrador, inactivo o incompleto se comporta como no encontrado en la API pública.
-4. Errores inesperados no se convierten en `DomainError`; la observabilidad de Fase 3 registra un
-   identificador de solicitud sin devolver detalles internos.
+1. A route does not invent codes: it maps a registered `DomainError`.
+2. The same business failure retains code and HTTP status across endpoints.
+3. Draft, inactive, or incomplete content behaves as not found in the public API.
+4. Unexpected errors are not converted into `DomainError`; Phase 3 observability logs a
+   request identifier without returning internal details.

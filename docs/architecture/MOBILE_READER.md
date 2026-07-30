@@ -1,83 +1,64 @@
-# Arquitectura móvil del Reader
+# Mobile architecture of the Reader
 
-**Estado:** Implementada en Fase 10
-**Aplicación:** `apps/reader`
-**Identificador:** `com.followread.reader`
+**Status:** Implemented in Phase 10
+**App:** `apps/reader`
+**Identifier:** `com.followread.reader`
 
-## Frontera
+## Boundary
 
-Capacitor empaqueta únicamente `apps/reader/dist`. FollowRead Admin no es una dependencia, una ruta
-ni un recurso del proyecto nativo. Reader Engine tampoco conoce Capacitor: los plugins viven en el
-adaptador de interfaz `mobileRuntime.ts`.
+Capacitor packages only `apps/reader/dist`. FollowRead Admin is not a dependency, a route, or a resource of the native project. Reader Engine also does not know about Capacitor: plugins live in the interface adapter `mobileRuntime.ts`.
 
-## Plataformas y versiones
+## Platforms and versions
 
-| Elemento | Versión/objetivo |
+| Item | Version/target |
 |---|---|
 | Capacitor Core/CLI/Android/iOS | 8.4.2 |
-| Android mínimo | API 24 |
+| Minimum Android | API 24 |
 | Android compile/target | API 36 |
 | Java | 21 |
-| iOS mínimo | 15.0 |
-| Gestión iOS | Swift Package Manager |
+| Minimum iOS | 15.0 |
+| iOS management | Swift Package Manager |
 
-`capacitor.config.ts` define nombre, identificador, `webDir`, color de fondo, splash y barra de
-estado. `android/` e `ios/` se versionan; los bundles web copiados y resultados de compilación se
-regeneran y permanecen ignorados.
+`capacitor.config.ts` defines name, identifier, `webDir`, background color, splash and status bar. `android/` and `ios/` are versioned; the copied web bundles and build outputs are regenerated and remain ignored.
 
-## Capacidades nativas
+## Native capabilities
 
-| Necesidad | Solución | Permiso |
+| Need | Solution | Permission |
 |---|---|---|
-| Conectividad | `@capacitor/network` y fallback de navegador | `ACCESS_NETWORK_STATE` fusionado por el plugin |
-| Primer/segundo plano | `@capacitor/app` | ninguno |
-| Splash | `@capacitor/splash-screen` | ninguno |
-| Barra de estado | `@capacitor/status-bar` | ninguno |
-| Contenido offline | IndexedDB del WebView | ninguno |
-| Preferencias/progreso | `localStorage` del WebView | ninguno |
+| Connectivity | `@capacitor/network` and browser fallback | `ACCESS_NETWORK_STATE` merged by the plugin |
+| Foreground/background | `@capacitor/app` | none |
+| Splash | `@capacitor/splash-screen` | none |
+| Status bar | `@capacitor/status-bar` | none |
+| Offline content | WebView IndexedDB | none |
+| Preferences/progress | WebView `localStorage` | none |
 
-Android declara `INTERNET`; no solicita cámara, micrófono, ubicación ni acceso general a archivos.
-iOS tampoco declara descripciones de permisos sensibles.
+Android declares `INTERNET`; it does not request camera, microphone, location, or general file access. iOS also does not declare descriptions for sensitive permissions.
 
-## Ciclo de vida y red
+## Lifecycle and network
 
-`mobileRuntime.ts` publica un estado común de conectividad. Al recuperar red o regresar al primer
-plano, Reader intenta enviar la cola idempotente de progreso. Al ir a segundo plano, la lectura y la
-voz del dispositivo se pausan; al volver, el layout se recalcula.
+`mobileRuntime.ts` publishes a shared connectivity state. When network is restored or the app returns to the foreground, Reader attempts to send the idempotent progress queue. When going to the background, reading and device voice are paused; on return, the layout is recalculated.
 
-## Almacenamiento
+## Storage
 
-La base offline continúa en IndexedDB porque conserva el mismo origen nativo entre lanzamientos,
-funciona sin permisos de archivos y ya aplica checksums y activación atómica. Preferencias,
-favoritos, historial y progreso no sensible permanecen en `localStorage`. Si en el futuro se guardan
-secretos o datos personales, deben migrar a almacenamiento cifrado nativo mediante otra decisión.
+The offline database remains in IndexedDB because it preserves the same native origin across releases, works without file permissions, and already applies checksums and atomic activation. Preferences, favorites, history, and non-sensitive progress remain in `localStorage`. If secrets or personal data are stored in the future, they must migrate to native encrypted storage by a separate decision.
 
-## Audio en segundo plano
+## Background audio
 
-No se habilita audio en segundo plano. La narración actual usa Web Speech, depende de una voz local y
-se pausa deliberadamente cuando la app deja de estar activa. Declarar `UIBackgroundModes` o un
-servicio Android sugeriría reproducción continua que el MVP no puede garantizar. Cuando exista
-audio nativo continuo se revisarán controles de pantalla bloqueada, foco de audio, interrupciones,
-privacidad, batería y permisos.
+Background audio is not enabled. The current narration uses Web Speech, depends on a local voice, and is deliberately paused when the app stops being active. Declaring `UIBackgroundModes` or an Android service would imply continuous playback that the MVP cannot guarantee. When continuous native audio exists, lock-screen controls, audio focus, interruptions, privacy, battery, and permissions will be reviewed.
 
-## Red y entornos
+## Network and environments
 
-El bundle recibe `VITE_API_BASE_URL` durante el build. En dispositivo debe ser una URL HTTPS
-alcanzable; `localhost` sólo apunta al propio dispositivo. Para un emulador Android local puede
-usarse `http://10.0.2.2:8000` durante desarrollo. La API admite los orígenes nativos
-`capacitor://localhost` (iOS) y `https://localhost` (Android).
+The bundle receives `VITE_API_BASE_URL` during the build. On device it must be an accessible HTTPS URL; `localhost` only points to the device itself. For a local Android emulator you can use `http://10.0.2.2:8000` during development. The API supports the native origins `capacitor://localhost` (iOS) and `https://localhost` (Android).
 
-## Safe areas y orientación
+## Safe areas and orientation
 
-El viewport usa `viewport-fit=cover`. Shell, cabecera de lectura, contenido y controles aplican
-`env(safe-area-inset-*)`. Android e iOS aceptan vertical y horizontal. Reader Engine conserva tiempo,
-palabra y capítulo; un cambio de orientación sólo incrementa la revisión de layout.
+The viewport uses `viewport-fit=cover`. Shell, reading header, content, and controls apply `env(safe-area-inset-*)`. Android and iOS accept portrait and landscape. Reader Engine preserves time, word, and chapter; an orientation change only increments the layout revision.
 
-## Recursos
+## Assets
 
-Fuentes en `apps/reader/assets`:
+Fonts in `apps/reader/assets`:
 
-- iconos de 1024 × 1024;
-- splash claro y oscuro de 2732 × 2732.
+- 1024 × 1024 icons;
+- light and dark splash of 2732 × 2732.
 
-`pnpm mobile:assets` regenera únicamente Android e iOS para no modificar el manifest PWA existente.
+`pnpm mobile:assets` regenerates only Android and iOS so as not to modify the existing PWA manifest.

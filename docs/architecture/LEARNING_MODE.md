@@ -1,76 +1,76 @@
-# Arquitectura del modo aprender inglés
+# Architecture of the Learn Mode
 
-**Estado:** Implementado en Fase 11
-**Aplicación:** `apps/reader`
+**Status:** Implemented in Phase 11
+**App:** `apps/reader`
 
-## Propósito
+## Purpose
 
-El modo aprendizaje relaciona palabra, audio y significado sin abandonar el cuento. Funciona en
-web, PWA, Android e iOS porque vive dentro del Reader compartido y no usa plugins nativos.
+The learning mode links word, audio, and meaning without leaving the story. It works on
+web, PWA, Android, and iOS because it lives inside the shared Reader and does not use native plugins.
 
-## Fuente editorial
+## Editorial source
 
-Las ayudas esenciales se construyen desde el paquete bilingüe publicado:
+The essential aids are built from the published bilingual package:
 
-1. `stable_key` relaciona el párrafo inglés con su traducción española.
-2. Las Speech Marks identifican la palabra seleccionada y su posición relativa.
-3. `learningDomain.ts` obtiene el equivalente editorial determinista.
-4. El párrafo original y el traducido se usan como ejemplo contextual.
+1. `stable_key` links the English paragraph with its Spanish translation.
+2. The Speech Marks identify the selected word and its relative position.
+3. `learningDomain.ts` obtains the deterministic editorial equivalent.
+4. The original and translated paragraph are used as contextual examples.
 
-La repetición no supone que un párrafo sea una oración: `sentenceMarksFor` recorre las marcas hasta
-la puntuación terminal anterior y posterior. La voz del dispositivo reproduce únicamente esas
-marcas o la palabra elegida y conserva la velocidad actual.
+Repetition does not assume that a paragraph is a single sentence: `sentenceMarksFor` walks the marks until
+the previous and next terminal punctuation. The device voice plays only those
+marks or the chosen word and preserves the current speed.
 
-La alineación relativa es un fallback de MVP, no un diccionario universal. Si no existe un párrafo
-pareado, la interfaz informa que el apoyo no está disponible. Ninguna función esencial llama a
-OpenAI, un traductor automático o un diccionario externo.
+Relative alignment is an MVP fallback, not a universal dictionary. If there is no paired paragraph,
+the interface reports that the aid is not available. No essential function calls
+OpenAI, a machine translator, or an external dictionary.
 
-## Componentes
+## Components
 
-| Archivo | Responsabilidad |
+| File | Responsibility |
 |---|---|
-| `learningDomain.ts` | Construye la ficha contextual, filtra vocabulario y resume progreso |
-| `StoryReaderPage.tsx` | Traducción visible/oculta, selección, repetición y panel contextual |
-| `readerStorage.ts` | Preferencias, vocabulario, favoritos, historial y estados de estudio |
-| `ReaderApp.tsx` | Panel de vocabulario, búsqueda, filtros, métricas y actividad reciente |
-| `styles.css` | Presentación responsive y accesible compartida por web y móvil |
+| `learningDomain.ts` | Builds the contextual card, filters vocabulary and summarizes progress |
+| `StoryReaderPage.tsx` | Visible/hidden translation, selection, repetition and contextual panel |
+| `readerStorage.ts` | Preferences, vocabulary, favorites, history and study states |
+| `ReaderApp.tsx` | Vocabulary panel, search, filters, metrics and recent activity |
+| `styles.css` | Responsive and accessible presentation shared by web and mobile |
 
-## Persistencia local
+## Local persistence
 
-El MVP conserva únicamente decisiones de lectura no sensibles:
+The MVP preserves only non-sensitive reading decisions:
 
-- `followread-reader-vocabulary-v1`: palabra, traducción, contexto, favorito, estado y repasos;
-- `followread-reader-learning-history-v1`: últimas 100 palabras exploradas y número de consultas;
-- `followread-reader-preferences-v1`: modo, idioma, velocidad y traducción inicialmente visible.
+- `followread-reader-vocabulary-v1`: word, translation, context, favorite, state and reviews;
+- `followread-reader-learning-history-v1`: last 100 explored words and query count;
+- `followread-reader-preferences-v1`: mode, language, speed and initially visible translation.
 
-No se guardan nombre, correo, edad ni identidad infantil. Los lectores antiguos se normalizan con
-valores seguros cuando todavía no contienen los campos de Fase 11.
+Name, email, age or child identity are not stored. Legacy readers are normalized to
+safe values when they do not yet contain the Phase 11 fields.
 
-## Progreso
+## Progress
 
-Cada palabra guardada puede estar `new`, `learning` o `mastered`. El resumen muestra:
+Each saved word can be `new`, `learning` or `mastered`. The summary shows:
 
-- palabras únicas exploradas;
-- guardadas;
-- aprendiendo;
-- dominadas;
-- favoritas;
-- avance frente a una meta local de cinco exploraciones.
+- unique words explored;
+- saved;
+- learning;
+- mastered;
+- favorites;
+- progress against a local goal of five explorations.
 
-La métrica es una ayuda privada del dispositivo, no una evaluación académica ni analítica remota.
+The metric is a private device aid, not an academic assessment or remote analytics.
 
-## Accesibilidad
+## Accessibility
 
-- texto y ejemplos incluyen el atributo `lang`;
-- palabras son botones operables con teclado y tacto;
-- el panel usa nombre accesible, cierra con `Escape` y devuelve foco a la palabra;
-- favoritos y filtros exponen `aria-pressed`;
-- estados no dependen únicamente de color;
-- velocidad, traducción y repetición permanecen disponibles sin audio;
-- el reflow móvil evita desplazamiento horizontal.
+- text and examples include the attribute `lang`;
+- words are buttons operable by keyboard and touch;
+- the panel uses an accessible name, closes with `Escape` and returns focus to the word;
+- favorites and filters expose `aria-pressed`;
+- states do not rely on color alone;
+- speed, translation and repetition remain available without audio;
+- mobile reflow avoids horizontal scrolling.
 
-## Límites y extensión
+## Limits and extension
 
-Para ofrecer acepciones lingüísticas complejas, el contrato editorial futuro debe publicar
-alineaciones o glosarios revisados. Esa extensión debe seguir siendo opcional y versionada. No se
-debe reemplazar el fallback determinista por IA como dependencia silenciosa.
+To provide complex linguistic senses, the future editorial contract must publish
+revised alignments or glossaries. That extension should remain optional and versioned. The deterministic fallback
+must not be replaced by AI as a silent dependency.

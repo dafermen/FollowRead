@@ -1,134 +1,134 @@
-# Visión del producto
+# Product Vision
 
-**Estado:** Validada para continuar la Fase 0  
-**Tarea responsable:** FR-PH00-TASK-002 - COMPLETED  
-**Fecha de validación:** 2026-07-24
+**Status:** Validated to proceed with Phase 0  
+**Responsible task:** FR-PH00-TASK-002 - COMPLETED  
+**Validation date:** 2026-07-24
 
-## Visión
+## Vision
 
-FollowRead será una plataforma de lectura acompañada que permite a personas de distintas edades
-seguir visualmente un texto mientras lo escuchan, controlar su ritmo, conservar su progreso y
-continuar con contenido descargado cuando no tienen conexión.
+FollowRead will be a supported reading platform that allows people of different ages
+to visually follow text while listening, control their pace, preserve their progress, and
+continue with downloaded content when they are offline.
 
-El sistema también permitirá que un equipo editorial prepare y publique contenido bilingüe
-sincronizado sin exigir una nueva versión de la aplicación Reader.
+The system will also allow an editorial team to prepare and publish synchronized bilingual content
+without requiring a new version of the Reader app.
 
-## Problema
+## Problem
 
-El audio tradicional y el texto digital suelen vivir separados. Para lectores principiantes, estudiantes
-de inglés y personas que necesitan apoyo visual, esa separación dificulta identificar qué palabra se
-pronuncia, repetir una unidad exacta y retomar después el mismo punto. Cuando una aplicación ofrece
-sincronización, con frecuencia depende de conexión, no conserva contenido local o no permite que un
-equipo editorial publique y corrija material propio.
+Traditional audio and digital text often live separately. For beginning readers, English learners,
+and people who need visual support, that separation makes it difficult to identify which word is being
+spoken, repeat an exact unit, and resume at the same point later. When an app offers
+synchronization, it frequently depends on connectivity, does not keep content locally, or does not allow an
+editorial team to publish and correct their own material.
 
-FollowRead aborda dos problemas relacionados:
+FollowRead addresses two related problems:
 
-1. **Problema del lector:** seguir, controlar y retomar una narración requiere demasiado esfuerzo.
-2. **Problema editorial:** producir y actualizar contenido sincronizado suele estar acoplado al cliente
-   o a procesos manuales difíciles de revisar.
+1. Reader problem: following, controlling, and resuming narration requires too much effort.
+2. Editorial problem: producing and updating synchronized content is often coupled to the client
+   or to manual processes that are hard to review.
 
-## Propuesta de valor
+## Value proposition
 
-FollowRead une texto, narración, temporización y contenido versionado en una experiencia accesible:
+FollowRead unites text, narration, timing, and versioned content into an accessible experience:
 
-- resalta la palabra activa y puede señalarla con una mano animada;
-- permite pausar, repetir, retroceder y cambiar velocidad;
-- ofrece contenido en español, inglés o ambos;
-- conserva progreso confirmado y contenido descargado;
-- permite que un equipo editorial publique cambios sin actualizar la app;
-- separa una administración segura de la experiencia del lector.
+- highlights the active word and can point to it with an animated hand;
+- allows pausing, repeating, rewinding, and changing speed;
+- offers content in Spanish, English, or both;
+- preserves confirmed progress and downloaded content;
+- enables an editorial team to publish changes without updating the app;
+- separates secure administration from the reader experience.
 
-## Jerarquía de audiencias
+## Audience hierarchy
 
-La prioridad se define por la relación con el valor del producto, no por excluir grupos de edad.
+Priority is defined by relationship to product value, not by excluding age groups.
 
-### Beneficiarios primarios
+### Primary beneficiaries
 
-- lectores infantiles que necesitan una interfaz simple y apoyo visual;
-- estudiantes de inglés que necesitan repetición, traducción y vocabulario;
-- lectores adultos que prefieren narración sincronizada y controles configurables.
+- child readers who need a simple interface and visual support;
+- English learners who need repetition, translation, and vocabulary;
+- adult readers who prefer synchronized narration and configurable controls.
 
-Los tres segmentos comparten el problema central de relacionar audio y texto. Sus diferencias se
-resolverán mediante modos y preferencias, no mediante aplicaciones separadas.
+The three segments share the core problem of relating audio and text. Their differences
+will be resolved through modes and preferences, not separate applications.
 
-### Usuarios habilitadores
+### Enabling users
 
-- editores y revisores que crean y publican contenido;
-- administradores técnicos que operan el sistema.
+- editors and reviewers who create and publish content;
+- technical administrators who operate the system.
 
-### Partes interesadas de apoyo
+### Supporting stakeholders
 
-- tutores, familias o docentes que acompañan a lectores;
-- responsables de seguridad, contenido, derechos y operación.
+- tutors, families, or teachers who accompany readers;
+- those responsible for security, content, rights, and operations.
 
-La existencia de modo infantil no presupone una cuenta infantil. La relación entre lector, perfil y
-adulto responsable se decidirá en FR-PH00-TASK-003 y FR-PH00-TASK-006.
+The existence of a child mode does not imply a child account. The relationship between reader, profile, and
+responsible adult will be decided in FR-PH00-TASK-003 and FR-PH00-TASK-006.
 
-## Resultados medibles
+## Measurable outcomes
 
-Estas métricas son metas de aceptación para el producto inicial. Los umbrales técnicos más precisos se
-refinarán en FR-PH00-TASK-006 y los estudios con usuarios en FR-PH00-TASK-010.
+These metrics are acceptance goals for the initial product. More precise technical thresholds will be
+refined in FR-PH00-TASK-006 and user studies in FR-PH00-TASK-010.
 
-| ID | Resultado | Indicador y meta inicial | Método |
+| ID | Outcome | Indicator and initial target | Method |
 |---|---|---|---|
-| FR-OV-001 | Seguimiento comprensible | Al menos 90% de participantes de una prueba moderada completa reproducir, pausar y reanudar sin ayuda | Prueba de usabilidad por segmento |
-| FR-OV-002 | Sincronización verificable | 100% de checkpoints de fixtures canónicos resuelve la palabra esperada; no se muestra una palabra incorrecta fuera de las marcas | Pruebas unitarias y de integración |
-| FR-OV-003 | Continuidad de progreso | 100% de escenarios automatizados recupera el último punto confirmado o comunica una recuperación segura | Pruebas de cierre, reinicio y fallo |
-| FR-OV-004 | Lectura offline útil | 100% de los flujos críticos definidos abre, reproduce y guarda progreso con la red desactivada | Prueba E2E offline |
-| FR-OV-005 | Agilidad editorial | Una versión compatible publicada aparece en Reader sin rebuild ni reinstalación en todos los escenarios de aceptación | Prueba de publicación y actualización |
-| FR-OV-006 | Acceso a controles | 100% de controles críticos funciona con teclado y tiene nombre/estado accesible; cero violaciones críticas automatizadas | Componentes, E2E y revisión manual |
-| FR-OV-007 | Aprendizaje sin interrupción | Al menos 90% de participantes objetivo repite una unidad, cambia velocidad y guarda una palabra sin abandonar el lector | Prueba de usabilidad |
-| FR-OV-008 | Actualización resiliente | 100% de descargas corruptas o interrumpidas conserva una versión local previamente válida | Prueba E2E de fallos |
+| FR-OV-001 | Understandable tracking | At least 90% of participants in a moderated test complete play, pause, and resume without assistance | Usability test by segment |
+| FR-OV-002 | Verifiable synchronization | 100% of checkpoints of canonical fixtures resolves the expected word; no incorrect word is shown outside the marks | Unit and integration tests |
+| FR-OV-003 | Progress continuity | 100% of automated scenarios recover the last confirmed point or report a safe recovery | Shutdown, restart, and failure tests |
+| FR-OV-004 | Useful offline reading | 100% of defined critical flows open, play, and save progress with the network disabled | Offline E2E test |
+| FR-OV-005 | Editorial agility | A published compatible version appears in Reader without rebuild or reinstall in all acceptance scenarios | Publish and update test |
+| FR-OV-006 | Access to controls | 100% of critical controls work with keyboard and have accessible name/state; zero automated critical violations | Components, E2E and manual review |
+| FR-OV-007 | Uninterrupted learning | At least 90% of target participants repeat a unit, change speed, and save a word without leaving the reader | Usability test |
+| FR-OV-008 | Resilient update | 100% of corrupted or interrupted downloads preserve a previously valid local version | E2E failure test |
 
-Las metas porcentuales de usabilidad son hipótesis de piloto, no afirmaciones de producción. La Fase 1
-definirá muestra, protocolo y ajustes necesarios.
+Usability percentage targets are pilot hypotheses, not production claims. Phase 1
+will define sample, protocol, and necessary adjustments.
 
-## Señales de que la visión no se está cumpliendo
+## Signals the vision is not being met
 
-- El usuario debe buscar manualmente dónde quedó.
-- El resaltado parece seguir una palabra distinta al audio.
-- Una actualización de contenido obliga a publicar otra aplicación.
-- La pérdida de red impide abrir una descarga válida.
-- La mano o el auto-scroll dificultan la lectura.
-- Un error oculta si el progreso, borrador o paquete se conservó.
-- Una función esencial de aprendizaje deja de funcionar sin IA o conexión.
+- The user must manually search where they left off.
+- The highlight appears to follow a different word than the audio.
+- A content update forces publishing another app.
+- Network loss prevents opening a valid download.
+- The hand or auto-scroll hinders reading.
+- An error hides whether progress, draft, or package was preserved.
+- An essential learning feature stops working without AI or connectivity.
 
-## Principios del producto
+## Product principles
 
-1. La lectura tiene prioridad sobre elementos decorativos.
-2. El usuario controla audio, movimiento, mano, tamaño y traducción.
-3. El progreso no se pierde silenciosamente.
-4. El contenido descargado sigue siendo útil sin conexión.
-5. Un error explica qué ocurrió, qué se conservó y qué puede hacerse.
-6. Los menores no pueden llegar accidentalmente a administración.
-7. Publicar contenido exige revisión y una transición válida.
-8. Una función educativa esencial no depende inicialmente de inteligencia artificial.
+1. Reading has priority over decorative elements.
+2. The user controls audio, motion, hand, size, and translation.
+3. Progress is not lost silently.
+4. Downloaded content remains useful offline.
+5. An error explains what happened, what was preserved, and what can be done.
+6. Minors cannot accidentally reach administration.
+7. Publishing content requires review and a valid transition.
+8. An essential educational feature does not initially depend on artificial intelligence.
 
-## No objetivos
+## Non-goals
 
-- reemplazar un sistema escolar o clínico;
-- producir traducciones automáticas esenciales;
-- ofrecer una red social;
-- crear un editor de audio profesional;
-- soportar todos los idiomas desde el primer lanzamiento;
-- medir a menores o recopilar sus datos sin una decisión de privacidad aprobada.
+- replace a school or clinical system;
+- produce essential machine translations;
+- offer a social network;
+- create a professional audio editor;
+- support all languages at first launch;
+- measure minors or collect their data without an approved privacy decision.
 
-## Supuestos y decisiones diferidas
+## Assumptions and deferred decisions
 
-- La prioridad exacta de segmentos y perfiles se definirá en FR-PH00-TASK-003.
-- El corte de MVP y la relación entre progreso local y cuenta se definirán en FR-PH00-TASK-004.
-- El desfase máximo perceptible se cuantificará en FR-PH00-TASK-006.
-- El contenido demostrativo deberá tener derechos de uso documentados antes de distribuirse.
-- FR-DEC-OPEN-002 y FR-DEC-OPEN-003 permanecen abiertas y no se resuelven por implicación.
+- The exact priority of segments and profiles will be defined in FR-PH00-TASK-003.
+- The MVP cut and the relationship between local progress and account will be defined in FR-PH00-TASK-004.
+- The maximum perceptible offset will be quantified in FR-PH00-TASK-006.
+- Demonstration content must have documented usage rights before distribution.
+- FR-DEC-OPEN-002 and FR-DEC-OPEN-003 remain open and are not resolved by implication.
 
-## Validación de coherencia
+## Coherence validation
 
-| Criterio | Resultado |
+| Criterion | Result |
 |---|---|
-| Problema y propuesta de valor describen el mismo núcleo | PASS |
-| Audiencias lectoras comparten una necesidad y se distinguen de usuarios habilitadores | PASS |
-| Resultados tienen indicador y método de medición | PASS |
-| Contenido dinámico sin rebuild está incluido | PASS |
-| Uso offline y conservación de progreso están incluidos | PASS |
-| La visión no presupone decisiones abiertas de cuentas infantiles o traducción | PASS |
-| Alcance, requisitos e historias iniciales contienen capacidades que soportan los resultados | PASS |
+| Problem and value proposition describe the same core | PASS |
+| Reading audiences share a need and are distinct from enabling users | PASS |
+| Outcomes have indicator and measurement method | PASS |
+| Dynamic content without rebuild is included | PASS |
+| Offline use and progress preservation are included | PASS |
+| The vision does not assume open decisions on child accounts or translation | PASS |
+| Scope, requirements, and initial stories contain capabilities that support the outcomes | PASS |

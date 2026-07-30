@@ -30,19 +30,19 @@ const requiredFiles = [
 ];
 
 const requiredTestCategories = [
-  "Aceptación",
-  "Unitarias",
-  "Propiedades e invariantes",
+  "Acceptance",
+  "Unit",
+  "Properties and invariants",
   "Mutation testing",
   "Fuzzing",
-  "Integración",
-  "Contrato",
-  "Extremo a extremo",
-  "Regresión",
-  "Seguridad",
-  "Concurrencia y resiliencia",
-  "Rendimiento y recursos",
-  "Compatibilidad y despliegue",
+  "Integration",
+  "Contract",
+  "End-to-end",
+  "Regression",
+  "Security",
+  "Concurrency and resilience",
+  "Performance and resources",
+  "Compatibility and deployment",
 ];
 
 for (const relativePath of requiredFiles) {

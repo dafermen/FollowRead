@@ -1,8 +1,8 @@
-# Matriz de trazabilidad
+# Traceability Matrix
 
-**Estado:** Validado para Fase 0 - FR-PH00-TASK-008 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-008 COMPLETED.
 
-| Requirement(s) | User Story | Use Case | Implementation futura | Acceptance | Status |
+| Requirement(s) | User Story | Use Case | Future implementation | Acceptance | Status |
 |---|---|---|---|---|---|
 | FR-CONTENT-001..004 | FR-US-ADMIN-001/005 | FR-UC-001/004 | content models/API | FR-AC-010/012 | TRACED |
 | FR-CONTENT-005..007 | FR-US-ADMIN-005 | FR-UC-001 | domain state machine | FR-AC-005/012 | TRACED |
@@ -34,27 +34,27 @@
 | NFR-RECOVERY-001 | FR-US-OPS-001 | FR-UC-010 | deployment | FR-AC-023 | TRACED |
 | NFR-STORAGE-001 | FR-US-READER-004 | FR-UC-003 | package service | FR-AC-023 | TRACED |
 
-## Regla de actualización
+## Update rule
 
-Una tarea futura no puede cerrarse si su requisito no tiene historia o justificación, ubicación y
-prueba. Los rangos de la tabla son inclusivos y se validan contra los IDs definidos.
+A future task cannot be closed if its requirement lacks a story or justification, location, and
+test. Table ranges are inclusive and are validated against the defined IDs.
 
-## Trazabilidad de resultados de producto
+## Product outcome traceability
 
-| Outcome | Requisitos principales | Historia | Criterio / método | Estado |
+| Outcome | Main requirements | Story | Criterion / method | Status |
 |---|---|---|---|---|
-| FR-OV-001 | FR-READER-003, FR-READER-007 | FR-US-READER-001/002 | FR-AC-011 + prueba de usabilidad | TRACED |
+| FR-OV-001 | FR-READER-003, FR-READER-007 | FR-US-READER-001/002 | FR-AC-011 + usability testing | TRACED |
 | FR-OV-002 | FR-AUDIO-004/005, FR-READER-004/005 | FR-US-READER-001 | FR-AC-001 | TRACED |
 | FR-OV-003 | FR-READER-009, FR-API-004/007 | FR-US-READER-003 | FR-AC-003 | TRACED |
 | FR-OV-004 | FR-OFFLINE-001/005/007 | FR-US-READER-004 | FR-AC-007 | TRACED |
 | FR-OV-005 | FR-CONTENT-004/007, FR-API-003, FR-OFFLINE-002 | FR-US-ADMIN-005 | FR-AC-005/010 | TRACED |
 | FR-OV-006 | FR-READER-015, NFR-ACCESSIBILITY-001/002/003 | FR-US-READER-005 | FR-AC-008 | TRACED |
-| FR-OV-007 | FR-READER-008/013/014 | FR-US-READER-007/008 | FR-AC-011 + prueba de usabilidad | TRACED |
+| FR-OV-007 | FR-READER-008/013/014 | FR-US-READER-007/008 | FR-AC-011 + usability testing | TRACED |
 | FR-OV-008 | FR-OFFLINE-004/005 | FR-US-READER-004 | FR-AC-004 | TRACED |
 
-## Reglas de negocio
+## Business rules
 
-| Reglas | Casos principales | Criterios | Estado |
+| Rules | Main cases | Criteria | Status |
 |---|---|---|---|
 | FR-BR-001..006 | FR-UC-001 | FR-AC-005/012 | TRACED |
 | FR-BR-007..010 | FR-UC-003/004/009 | FR-AC-004/017 | TRACED |
@@ -62,10 +62,10 @@ prueba. Los rangos de la tabla son inclusivos y se validan contra los IDs defini
 | FR-BR-016..020 | FR-UC-001/005/010 | FR-AC-012/014/016 | TRACED |
 | FR-BR-021..025 | FR-UC-003/009/012 | FR-AC-017/021/023 | TRACED |
 
-## Validación
+## Validation
 
-- Requisitos funcionales cubiertos: 55 de 55.
-- Requisitos no funcionales cubiertos: 37 de 37.
-- Reglas de negocio cubiertas: 25 de 25.
-- Resultados de producto cubiertos: 8 de 8.
-- Marcadores pendientes: 0.
+- Functional requirements covered: 55 of 55.
+- Non-functional requirements covered: 37 of 37.
+- Business rules covered: 25 of 25.
+- Product outcomes covered: 8 of 8.
+- Outstanding markers: 0.

@@ -1,227 +1,170 @@
-# Registro de decisiones
+# Decision log
 
-Este archivo registra decisiones aceptadas y preguntas que todavía necesitan resolución.
+This file records accepted decisions and questions that still need resolution.
 
-## Decisiones aceptadas
+## Accepted decisions
 
-### FR-DEC-001 - Separación obligatoria de aplicaciones
+### FR-DEC-001 - Mandatory separation of applications
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** FollowRead usará un monorepo, pero Admin, Reader y API serán aplicaciones
-  independientes. Admin nunca se incluirá en el paquete Capacitor.
-- **Razón:** Evita exponer administración en dispositivos y conserva límites claros.
-- **Consecuencias:** Los elementos compartidos vivirán en paquetes explícitos; no se compartirán
-  pantallas ni lógica específica de permisos por conveniencia.
-- **Fuente:** Prompt maestro, secciones 3 y 5.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** FollowRead will use a monorepo, but Admin, Reader, and API will be independent applications. Admin will never be included in the Capacitor package.
+- **Rationale:** Avoids exposing administration on devices and preserves clear boundaries.
+- **Consequences:** Shared items will live in explicit packages; screens or permission-specific logic will not be shared for convenience.
+- **Source:** Master prompt, sections 3 and 5.
 
-### FR-DEC-002 - Contenido mediante doble catálogo
+### FR-DEC-002 - Content via dual catalog
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** Reader combinará un catálogo local incluido en el build con un catálogo remoto
-  versionado. Una actualización de contenido no requerirá un nuevo build.
-- **Razón:** Permite inicio offline y publicación dinámica.
-- **Consecuencias:** Cada paquete requiere versión, compatibilidad, checksum y descarga atómica.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Reader will combine a local catalog included in the build with a versioned remote catalog. A content update will not require a new build.
+- **Rationale:** Enables offline startup and dynamic publishing.
+- **Consequences:** Each package requires versioning, compatibility, checksum, and atomic download.
 
-### FR-DEC-003 - Reader Engine sin dependencia de interfaz
+### FR-DEC-003 - Reader Engine without UI dependency
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** La sincronización, el cálculo de palabra activa y el control de reproducción estarán
-  en `packages/reader-engine`, desacoplados de React y de componentes visuales.
-- **Razón:** Facilita pruebas deterministas y reutilización web/móvil.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Synchronization, active word calculation, and playback control will be in `packages/reader-engine`, decoupled from React and visual components.
+- **Rationale:** Facilitates deterministic testing and web/mobile reuse.
 
-### FR-DEC-004 - AWS sólo detrás de la API
+### FR-DEC-004 - AWS only behind the API
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** Polly y S3 sólo se usarán desde adaptadores del backend. Controladores HTTP,
-  frontends y paquetes compartidos no conocerán credenciales ni SDK de AWS.
-- **Razón:** Seguridad, testabilidad y capacidad de sustitución.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Polly and S3 will only be used from backend adapters. HTTP handlers, frontends, and shared packages will not know credentials or the AWS SDK.
+- **Rationale:** Security, testability, and replaceability.
 
-### FR-DEC-005 - Idioma de documentación
+### FR-DEC-005 - Documentation language
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** La documentación de producto se escribirá principalmente en español; nombres de
-  código, rutas, identificadores y contratos públicos usarán inglés.
-- **Razón:** El promotor del proyecto trabaja en español y el código debe ser accesible para una
-  audiencia técnica amplia.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Product documentation will be written primarily in Spanish; code names, routes, identifiers, and public contracts will use English.
+- **Rationale:** The project sponsor works in Spanish and the code must be accessible to a broad technical audience.
 
-### FR-DEC-006 - Jerarquía de audiencias por relación con el valor
+### FR-DEC-006 - Audience hierarchy by relation to value
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** Niños, estudiantes de inglés y adultos son segmentos beneficiarios del lector.
-  Editores, revisores y administradores son usuarios habilitadores; tutores, familias, docentes y
-  responsables de operación son partes interesadas de apoyo.
-- **Razón:** Los segmentos lectores comparten el problema de seguir audio y texto, mientras los
-  usuarios editoriales resuelven un flujo diferente que habilita ese valor.
-- **Consecuencias:** FR-PH00-TASK-003 definirá perfiles separados sin crear aplicaciones Reader
-  distintas. El modo infantil no implicará una cuenta infantil hasta resolver FR-DEC-OPEN-002.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Children, English learners, and adults are beneficiary segments of the reader. Editors, reviewers, and administrators are enabling users; tutors, families, teachers, and operations managers are supporting stakeholders.
+- **Rationale:** Reader segments share the problem of following audio and text, while editorial users solve a different flow that enables that value.
+- **Consequences:** FR-PH00-TASK-003 will define separate profiles without creating different Reader applications. Child mode will not imply a child account until FR-DEC-OPEN-002 is resolved.
 
-### FR-DEC-007 - `document` se representa como `article`
+### FR-DEC-007 - `document` is represented as `article`
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** El catálogo conserva `story`, `article`, `book` y `lesson`. Un documento se modela
-  como `article` mientras no exista comportamiento propio que justifique un quinto tipo.
-- **Razón:** Evita dos tipos indistinguibles y respeta la lista explícita del prompt.
-- **Consecuencias:** Un caso futuro puede proponer otro tipo mediante migración y decisión registrada.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** The catalog retains `story`, `article`, `book`, and `lesson`. A document is modeled as `article` while there is no intrinsic behavior justifying a fifth type.
+- **Rationale:** Avoids two indistinguishable types and respects the explicit list from the prompt.
+- **Consequences:** A future case may propose another type via migration and a recorded decision.
 
-### FR-DEC-008 - Traducciones editoriales en el MVP
+### FR-DEC-008 - Editorial translations in the MVP
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** Traducciones, significados contextuales y ejemplos esenciales se almacenan como
-  contenido editorial versionado. No dependen de IA ni de un servicio externo.
-- **Razón:** Calidad revisable, derechos claros y funcionamiento offline.
-- **Consecuencias:** Un proveedor futuro será opcional y no sustituirá contenido sin revisión.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Translations, contextual meanings, and essential examples will be stored as versioned editorial content. They will not depend on AI or an external service.
+- **Rationale:** Reviewable quality, clear rights, and offline operation.
+- **Consequences:** A future provider will be optional and will not replace content without review.
 
-### FR-DEC-009 - Sin cuentas personales de menores en el MVP
+### FR-DEC-009 - No personal accounts for minors in the MVP
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** El modo infantil usa un perfil local o supervisado; no recopila identidad, correo,
-  fecha de nacimiento ni analítica personal del menor.
-- **Razón:** Permite una experiencia infantil sin inventar un modelo legal de consentimiento.
-- **Consecuencias:** Una cuenta infantil futura exige revisión de privacidad, región, consentimiento,
-  retención y eliminación.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Child mode uses a local or supervised profile; it does not collect identity, email, date of birth, or personal analytics of the minor.
+- **Rationale:** Enables a child experience without inventing a legal consent model.
+- **Consequences:** A future child account requires review of privacy, region, consent, retention, and deletion.
 
-### FR-DEC-010 - Notas libres después del MVP
+### FR-DEC-010 - Free-form notes after the MVP
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** El MVP incluye favoritos, historial y progreso. Las notas libres y marcadores
-  enriquecidos del modo adulto quedan en el roadmap.
-- **Razón:** Reduce datos personales, sincronización y conflictos sin perder el flujo central.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** The MVP includes favorites, history, and progress. Free-form notes and enriched adult-mode bookmarks remain on the roadmap.
+- **Rationale:** Reduces personal data, synchronization, and conflicts without losing the core flow.
 
-### FR-DEC-011 - pnpm workspaces sin orquestador adicional
+### FR-DEC-011 - pnpm workspaces without an additional orchestrator
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** El monorepo JavaScript/TypeScript usará pnpm workspaces. La API conservará su
-  entorno Python mediante `pyproject.toml`. No se incorpora Nx ni Turborepo en la Fase 2.
-- **Razón:** Los workspaces cubren los límites y comandos iniciales con menos configuración y menor
-  superficie de actualización. Un orquestador podrá proponerse cuando exista evidencia de tiempos
-  de build o dependencias que lo justifiquen.
-- **Consecuencias:** Los scripts raíz coordinan aplicaciones y paquetes; las dependencias internas
-  se declaran con `workspace:*`; las versiones de Node, pnpm y Python quedan documentadas.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** The JavaScript/TypeScript monorepo will use pnpm workspaces. The API will keep its Python environment via `pyproject.toml`. Nx and Turborepo will not be included in Phase 2.
+- **Rationale:** Workspaces cover boundaries and initial commands with less configuration and a smaller update surface. An orchestrator may be proposed when there is evidence of build times or dependency issues that justify it.
+- **Consequences:** Root scripts coordinate applications and packages; internal dependencies are declared with `workspace:*`; Node, pnpm, and Python versions will be documented.
 
-### FR-DEC-012 - PostgreSQL 18.4 oficial para desarrollo local
+### FR-DEC-012 - Official PostgreSQL 18.4 for local development
 
-- **Fecha:** 2026-07-24
-- **Estado:** SUPERSEDED_BY_FR-DEC-013
-- **Decisión:** El entorno local usa la imagen oficial `postgres:18.4-alpine3.24`, con datos
-  persistidos en `/var/lib/postgresql`, puerto limitado a loopback y salud mediante `pg_isready`.
-- **Razón:** PostgreSQL 18.4 es la versión estable actual y la imagen oficial cambió en la versión 18
-  la raíz persistente recomendada a `/var/lib/postgresql`.
-- **Consecuencias:** El tag de parche se actualiza de forma deliberada; no se usa `latest`; los
-  upgrades mayores requieren plan y prueba de migración.
+- **Date:** 2026-07-24
+- **Status:** SUPERSEDED_BY_FR-DEC-013
+- **Decision:** The local environment uses the official image `postgres:18.4-alpine3.24`, with data persisted in `/var/lib/postgresql`, port limited to loopback, and health via `pg_isready`.
+- **Rationale:** PostgreSQL 18.4 is the current stable version and the official image changed the recommended persistent root to `/var/lib/postgresql` in version 18.
+- **Consequences:** The patch tag is updated deliberately; `latest` is not used; major upgrades require a plan and migration testing.
 
-### FR-DEC-013 - SQLite sustituye PostgreSQL en el MVP
+### FR-DEC-013 - SQLite replaces PostgreSQL in the MVP
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** El MVP usa SQLite como base autoritativa mediante SQLAlchemy y Alembic. No requiere
-  Docker. PostgreSQL queda fuera del MVP y podrá retomarse cuando exista capacidad operativa o una
-  necesidad demostrada de concurrencia/escala.
-- **Razón:** El propietario confirmó que no dispone de PostgreSQL para este MVP y autorizó continuar
-  con SQLite.
-- **Consecuencias:** La API es la única propietaria del archivo; tests usan archivos temporales; se
-  evitan extensiones específicas de SQLite cuando impidan portabilidad; una migración futura a
-  PostgreSQL exige decisión, exportación/importación y pruebas de integridad.
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** The MVP uses SQLite as the authoritative datastore via SQLAlchemy and Alembic. It does not require Docker. PostgreSQL is out of the MVP and may be resumed when there is operational capacity or a demonstrated need for concurrency/scale.
+- **Rationale:** The owner confirmed they do not have PostgreSQL for this MVP and authorized continuing with SQLite.
+- **Consequences:** The API is the sole owner of the file; tests use temporary files; SQLite-specific extensions will be avoided when they impede portability; a future migration to PostgreSQL requires a decision, export/import, and integrity tests.
 
-### FR-DEC-014 - Sesiones opacas revocables para el Admin MVP
+### FR-DEC-014 - Revocable opaque sessions for the Admin MVP
 
-- **Fecha:** 2026-07-24
-- **Estado:** ACCEPTED
-- **Decisión:** Las cuentas adultas/editoriales usan contraseña con Argon2id y sesiones opacas
-  aleatorias. La API persiste sólo el hash del token y lo entrega en cookie host-only `HttpOnly`,
-  `SameSite=Strict` y `Secure` en producción. No se guardan JWT, refresh tokens ni credenciales en
-  `localStorage`/`sessionStorage`.
-- **Protecciones:** expiración inactiva de 30 minutos, absoluta de 8 horas, revocación en logout,
-  rotación al autenticar/cambiar privilegios, `Cache-Control: no-store`, verificación CSRF y origen
-  para métodos inseguros, mensajes que no enumeran cuentas y límites de intentos.
-- **Alcance:** recuperación de contraseña y cuentas de menores permanecen fuera del MVP. El primer
-  superadministrador se crea mediante comando local explícito, nunca mediante credenciales seed.
-- **Razón:** simplifica revocación y evita credenciales accesibles a JavaScript. Sigue las guías
-  actuales de OWASP para Argon2id, cookies de sesión y CSRF.
-- **Referencias:** [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html),
+- **Date:** 2026-07-24
+- **Status:** ACCEPTED
+- **Decision:** Adult/editorial accounts use password with Argon2id and random opaque sessions. The API will persist only the hash of the token and deliver it in a host-only cookie `HttpOnly`, `SameSite=Strict`, and `Secure` in production. JWTs, refresh tokens, and credentials will not be stored in `localStorage`/`sessionStorage`.
+- **Protections:** 30-minute idle expiration, 8-hour absolute expiration, revocation on logout, rotation on authenticate/privilege change, `Cache-Control: no-store`, CSRF and origin verification for unsafe methods, messages that do not enumerate accounts, and attempt limits.
+- **Scope:** Password recovery and accounts for minors remain out of the MVP. The first super-administrator is created via an explicit local command, never via seeded credentials.
+- **Rationale:** Simplifies revocation and avoids credentials accessible to JavaScript. Follows current OWASP guidance for Argon2id, session cookies, and CSRF.
+- **References:** [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html),
   [Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html),
   [CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 
-### FR-DEC-015 - Adaptador móvil mínimo y sin audio en segundo plano
+### FR-DEC-015 - Minimal mobile adapter and no background audio
 
-- **Fecha:** 2026-07-26
-- **Estado:** ACCEPTED
-- **Decisión:** Capacitor empaqueta sólo Reader. App, Network, Splash Screen y Status Bar son los
-  únicos plugins de Fase 10. IndexedDB/`localStorage` continúan como almacenamiento. Web Speech se
-  pausa en segundo plano y no se declaran servicios Android ni `UIBackgroundModes`.
-- **Razón:** La experiencia existente ya es offline, evita permisos de archivos y no dispone de una
-  fuente de audio nativa continua. Declarar reproducción en fondo sería engañoso.
-- **Consecuencias:** Audio nativo futuro requiere otra decisión, controles del sistema, foco de
-  audio, interrupciones, batería y pruebas de tienda. Cualquier secreto requerirá almacenamiento
-  cifrado nativo; los datos no sensibles actuales no.
+- **Date:** 2026-07-26
+- **Status:** ACCEPTED
+- **Decision:** Capacitor will only package Reader. App, Network, Splash Screen, and Status Bar are the only Phase 10 plugins. IndexedDB/`localStorage` continue as storage. Web Speech is paused in the background and no Android services or `UIBackgroundModes` are declared.
+- **Rationale:** The existing experience is already offline, avoids file permissions, and lacks a continuous native audio source. Declaring background playback would be misleading.
+- **Consequences:** Future native audio requires another decision, system controls, audio focus, interruptions, battery considerations, and store testing. Any secret will require native encrypted storage; current non-sensitive data will not.
 
-### FR-DEC-016 - Apoyos educativos deterministas desde el paquete bilingüe
+### FR-DEC-016 - Deterministic educational aids from the bilingual package
 
-- **Fecha:** 2026-07-26
-- **Estado:** ACCEPTED
-- **Decisión:** El modo aprendizaje obtiene traducción, significado y ejemplos esenciales desde
-  párrafos bilingües pareados por `stable_key` y Speech Marks del paquete publicado. La alineación
-  relativa de palabra es un fallback explícito del MVP.
-- **Razón:** Permite aprendizaje offline, conserva revisión editorial y cumple la prohibición de
-  depender inicialmente de IA.
-- **Consecuencias:** Acepciones complejas requerirán un glosario o alineación editorial versionada.
-  Una integración futura con IA sólo puede ser opcional, identificada y degradable.
+- **Date:** 2026-07-26
+- **Status:** ACCEPTED
+- **Decision:** Learning mode obtains translation, meaning, and essential examples from bilingual paragraphs paired by `stable_key` and Speech Marks from the published package. Relative word alignment is an explicit MVP fallback.
+- **Rationale:** Enables offline learning, preserves editorial review, and complies with the initial prohibition on relying on AI.
+- **Consequences:** Complex senses will require a glossary or versioned editorial alignment. A future AI integration may only be optional, identified, and degradable.
 
-### FR-DEC-017 - Observabilidad local, agregada y sin contenido personal
+### FR-DEC-017 - Local, aggregated observability without personal content
 
-- **Fecha:** 2026-07-26
-- **Estado:** ACCEPTED
-- **Decisión:** API, Admin y Reader producen señales operativas mínimas sin enviar datos a terceros.
-  Logs, métricas y errores excluyen cuerpos, query strings, cookies, tokens, texto, vocabulario y
-  datos del menor. Las rutas se normalizan para evitar cardinalidad no controlada.
-- **Razón:** Permite diagnosticar estabilidad sin crear una nueva superficie de privacidad.
-- **Consecuencias:** La Fase 13 podrá conectar un colector, pero deberá mantener redacción,
-  retención, acceso restringido a `/metrics` y separación por ambiente.
+- **Date:** 2026-07-26
+- **Status:** ACCEPTED
+- **Decision:** API, Admin, and Reader produce minimal operational signals without sending data to third parties. Logs, metrics, and errors exclude bodies, query strings, cookies, tokens, text, vocabulary, and minor data. Routes are normalized to avoid uncontrolled cardinality.
+- **Rationale:** Allows diagnosing stability without creating a new privacy surface.
+- **Consequences:** Phase 13 may connect a collector, but must maintain wording, retention, access restricted to `/metrics`, and environment separation.
 
-### FR-DEC-018 - Caché explícita según sensibilidad y mutabilidad
+### FR-DEC-018 - Explicit caching by sensitivity and mutability
 
-- **Fecha:** 2026-07-26
-- **Estado:** ACCEPTED
-- **Decisión:** Autenticación, administración, sincronización y operaciones usan `no-store`;
-  catálogo público usa caché corta y paquetes se revalidan con ETag. Reader aplica network-first a
-  navegación, cache-first a assets versionados y stale-while-revalidate a recursos secundarios.
-- **Razón:** Mejora tiempo de respuesta y offline sin almacenar respuestas sensibles o servir
-  contenido editorial indefinidamente obsoleto.
-- **Consecuencias:** Un CDN futuro deberá conservar estas reglas y probar invalidación al publicar.
+- **Date:** 2026-07-26
+- **Status:** ACCEPTED
+- **Decision:** Authentication, administration, synchronization, and operations use `no-store`; the public catalog uses short cache and packages are revalidated with ETag. Reader applies network-first to navigation, cache-first to versioned assets, and stale-while-revalidate to secondary resources.
+- **Rationale:** Improves response time and offline behavior without storing sensitive responses or serving editorial content indefinitely stale.
+- **Consequences:** A future CDN must preserve these rules and test invalidation on publish.
 
-### FR-DEC-019 - Contenedores opcionales y artefactos neutrales al proveedor
+### FR-DEC-019 - Optional containers and provider-neutral artifacts
 
-- **Fecha:** 2026-07-26
-- **Estado:** ACCEPTED
-- **Decisión:** Docker empaqueta API, Admin y Reader para CI/despliegue, pero `pnpm dev` y SQLite
-  local siguen siendo la ruta principal sin Docker. Las imágenes OCI, Compose y scripts no eligen
-  proveedor; los tags SemVer pueden publicarse en GHCR cuando exista remote GitHub.
-- **Razón:** Cumple el alcance de Fase 13 sin reintroducir PostgreSQL, bloquear Windows ni crear
-  infraestructura o costos no autorizados.
-- **Consecuencias:** La fase conserva un gate externo hasta ejecutar Docker, GitHub y staging. Un
-  proveedor futuro deberá agregar TLS, backups externos, alertas y secretos por entorno.
+- **Date:** 2026-07-26
+- **Status:** ACCEPTED
+- **Decision:** Docker will package API, Admin, and Reader for CI/deploy, but `pnpm dev` and local SQLite remain the main path without Docker. OCI images, Compose, and scripts will not choose a provider; SemVer tags may be published to GHCR when a remote GitHub exists.
+- **Rationale:** Meets Phase 13 scope without reintroducing PostgreSQL, blocking Windows, or creating unauthorized infrastructure or costs.
+- **Consequences:** The phase retains an external gate until Docker, GitHub, and staging run. A future provider must add TLS, external backups, alerts, and environment-specific secrets.
 
-### FR-DEC-020 - Repositorio público bajo licencia MIT
+### FR-DEC-020 - Public repository under MIT license
 
-- **Fecha:** 2026-07-30
-- **Estado:** ACCEPTED
-- **Decisión:** El código y los recursos originales de FollowRead se publican en GitHub bajo la
-  licencia MIT, con copyright de `dafermen`.
-- **Razón:** El propietario desea mostrar el proyecto en su portafolio y permitir que otras personas
-  estudien, reutilicen y modifiquen el código con atribución y sin garantía.
-- **Consecuencias:** `LICENSE` y `package.json` declaran MIT. Las dependencias conservan sus propias
-  licencias y toda distribución binaria requiere un inventario de avisos del artefacto concreto.
+- **Date:** 2026-07-30
+- **Status:** ACCEPTED
+- **Decision:** FollowRead’s original code and assets will be published on GitHub under the MIT license, with copyright by `dafermen`.
+- **Rationale:** The owner wants to showcase the project in their portfolio and allow others to study, reuse, and modify the code with attribution and without warranty.
+- **Consequences:** `LICENSE` and `package.json` declare MIT. Dependencies retain their own licenses and any binary distribution requires an inventory of notices for the specific artifact.
 
-## Decisiones abiertas
+## Open decisions
 
-No hay decisiones abiertas registradas.
+There are no open decisions recorded.

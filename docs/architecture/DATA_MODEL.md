@@ -1,81 +1,81 @@
-# Modelo de datos de FollowRead
+# FollowRead Data Model
 
-**Fase:** 3  
-**Tarea:** FR-PH03-TASK-001  
-**Estado:** Validado para implementación inicial
+**Phase:** 3  
+**Task:** FR-PH03-TASK-001  
+**Status:** Validated for initial implementation
 
-## Principios
+## Principles
 
-1. `ReadingContent` conserva la identidad estable; `ContentVersion` contiene lo publicable.
-2. Una versión publicada es inmutable. Toda corrección crea el siguiente número de versión.
-3. Texto, traducciones, recursos y marcas pertenecen a una versión concreta.
-4. Reader sólo recibe publicaciones activas, compatibles e íntegras.
-5. Los datos de lectura remotos requieren un `User`; el perfil infantil local no crea PII.
-6. Servicios controlan transacciones y estados; las rutas HTTP no hacen commits.
-7. UUID, UTC y nombres explícitos mantienen compatibilidad futura con PostgreSQL.
-8. Borrado editorial es lógico mediante estados; la auditoría no se elimina en cascada.
+1. `ReadingContent` preserves the established identity; `ContentVersion` contains what is publishable.
+2. A published version is immutable. Any correction creates the next version number.
+3. Text, translations, resources, and trademarks belong to a specific version.
+4. Reader only receives active, compatible, and intact publications.
+5. Remote reading data requires a `User`; the local child profile does not create PII.
+6. Services control transactions and states; HTTP routes do not perform commits.
+7. UUID, UTC, and explicit names maintain future compatibility with PostgreSQL.
+8. Editorial deletion is logical via states; audit is not cascade-deleted.
 
-## Agregados
+## Aggregates
 
-| Agregado | Raíz | Entidades |
+| Aggregate | Root | Entities |
 |---|---|---|
-| Identidad | `User` | `Administrator`, `Role`, `Permission`, `UserCredential`, `UserSession` |
-| Contenido editorial | `ReadingContent` | `ReadingLevel`, `Category`, `ContentVersion`, `ContentTranslation`, `Chapter`, `Paragraph`, `Publication` |
-| Recursos y procesamiento | `ContentVersion` | `AudioAsset`, `SpeechMark`, `Illustration`, `ProcessingJob` |
-| Lectura | `User` | `ReadingProgress`, `Favorite`, `VocabularyWord`, `DownloadRecord` |
-| Auditoría | `AuditLog` | referencia actores y objetivos sin depender de sus cascadas |
+| Identity | `User` | `Administrator`, `Role`, `Permission`, `UserCredential`, `UserSession` |
+| Editorial content | `ReadingContent` | `ReadingLevel`, `Category`, `ContentVersion`, `ContentTranslation`, `Chapter`, `Paragraph`, `Publication` |
+| Resources and processing | `ContentVersion` | `AudioAsset`, `SpeechMark`, `Illustration`, `ProcessingJob` |
+| Reading | `User` | `ReadingProgress`, `Favorite`, `VocabularyWord`, `DownloadRecord` |
+| Audit | `AuditLog` | references actors and targets without depending on their cascades |
 
-Las tablas de unión `user_roles`, `role_permissions` y `content_categories` son detalles
-relacionales, no nuevas entidades de dominio.
+The join tables `user_roles`, `role_permissions`, and `content_categories` are relational details,
+not new domain entities.
 
-## Inventario de entidades
+## Entity inventory
 
-| Entidad | Identidad y propiedad | Restricciones principales |
+| Entity | Identity and ownership | Main constraints |
 |---|---|---|
-| `User` | UUID propio | estado y sujeto externo únicos cuando existan |
-| `Administrator` | UUID y FK única a User | un User tiene como máximo un perfil administrativo |
-| `Role` | UUID y nombre estable | nombre único |
-| `Permission` | UUID y código estable | código único |
-| `UserCredential` | UUID y FK única a User | hash Argon2id separado; intentos y bloqueo no negativos |
-| `UserSession` | UUID; pertenece a User | hashes únicos de sesión/CSRF; expiración ordenada y revocación consistente |
-| `ReadingContent` | UUID estable entre versiones | `slug` único; tipo y audiencia válidos |
-| `ContentTranslation` | UUID; pertenece a ContentVersion | único por versión/idioma |
-| `Chapter` | UUID; pertenece a ContentTranslation | posición y `stable_key` únicos por traducción |
-| `Paragraph` | UUID; pertenece a Chapter | posición y `stable_key` únicos por capítulo |
-| `AudioAsset` | UUID; pertenece a versión/idioma | checksum, duración y URI; versión/idioma coherentes |
-| `SpeechMark` | UUID; pertenece a AudioAsset | índice único; tiempos y offsets no negativos |
-| `Illustration` | UUID; pertenece a versión | checksum/URI; anclaje editorial opcional |
-| `Category` | UUID y slug | slug único |
-| `ReadingLevel` | UUID y código | código único y orden único |
-| `ContentVersion` | UUID; pertenece a ReadingContent | número único por contenido; estado validado |
-| `Publication` | UUID; pertenece de forma única a versión | sólo una publicación activa por contenido |
-| `ProcessingJob` | UUID; pertenece a versión/idioma | clave idempotente única |
-| `AuditLog` | UUID independiente | actor opcional; objetivo polimórfico estable |
-| `ReadingProgress` | UUID; pertenece a User/contenido/versión | único por usuario y contenido; anclaje estable |
-| `Favorite` | UUID; pertenece a User/contenido | par usuario/contenido único |
-| `VocabularyWord` | UUID; pertenece a User/versión | palabra normalizada, idioma y anclaje |
-| `DownloadRecord` | UUID; pertenece a User/versión | clave idempotente del cliente única |
+| `User` | Own UUID | state and external subject unique when present |
+| `Administrator` | UUID and unique FK to User | a User has at most one administrative profile |
+| `Role` | UUID and stable name | unique name |
+| `Permission` | UUID and stable code | unique code |
+| `UserCredential` | UUID and unique FK to User | separate Argon2id hash; attempts and lock non-negative |
+| `UserSession` | UUID; belongs to User | unique session/CSRF hashes; ordered expiration and consistent revocation |
+| `ReadingContent` | UUID stable across versions | unique `slug`; valid type and audience |
+| `ContentTranslation` | UUID; belongs to ContentVersion | unique per version/language |
+| `Chapter` | UUID; belongs to ContentTranslation | position and `stable_key` unique per translation |
+| `Paragraph` | UUID; belongs to Chapter | position and `stable_key` unique per chapter |
+| `AudioAsset` | UUID; belongs to version/language | checksum, duration, and URI; consistent version/language |
+| `SpeechMark` | UUID; belongs to AudioAsset | unique index; non-negative times and offsets |
+| `Illustration` | UUID; belongs to version | checksum/URI; optional editorial anchoring |
+| `Category` | UUID and slug | unique slug |
+| `ReadingLevel` | UUID and code | unique code and unique order |
+| `ContentVersion` | UUID; belongs to ReadingContent | unique number per content; validated state |
+| `Publication` | UUID; belongs uniquely to version | only one active publication per content |
+| `ProcessingJob` | UUID; belongs to version/language | unique idempotent key |
+| `AuditLog` | Independent UUID | optional actor; stable polymorphic target |
+| `ReadingProgress` | UUID; belongs to User/content/version | unique per user and content; stable anchoring |
+| `Favorite` | UUID; belongs to User/content | unique user/content pair |
+| `VocabularyWord` | UUID; belongs to User/version | normalized word, language, and anchoring |
+| `DownloadRecord` | UUID; belongs to User/version | unique client idempotent key |
 
-## Valores controlados
+## Controlled values
 
-- tipo de contenido: `story`, `article`, `book`, `lesson`;
-- audiencia: `children`, `teenager`, `adult`, `all`;
-- idioma: `en`, `es`;
-- nivel: `beginner`, `elementary`, `intermediate`, `upper-intermediate`, `advanced`;
-- estado editorial: `draft`, `ready_for_processing`, `processing`, `processing_failed`,
+- content type: `story`, `article`, `book`, `lesson`;
+- audience: `children`, `teenager`, `adult`, `all`;
+- language: `en`, `es`;
+- level: `beginner`, `elementary`, `intermediate`, `upper-intermediate`, `advanced`;
+- editorial state: `draft`, `ready_for_processing`, `processing`, `processing_failed`,
   `ready_for_review`, `review_rejected`, `approved`, `published`, `unpublished`, `archived`;
-- trabajo: `queued`, `running`, `succeeded`, `failed`, `cancelled`;
-- recurso: `pending`, `ready`, `invalid`, `archived`;
-- descarga: `requested`, `downloaded`, `verified`, `removed`, `failed`.
+- work: `queued`, `running`, `succeeded`, `failed`, `cancelled`;
+- resource: `pending`, `ready`, `invalid`, `archived`;
+- download: `requested`, `downloaded`, `verified`, `removed`, `failed`.
 
-`ReadingLevel` se materializa como tabla de referencia para conservar metadatos y orden; su código
-sigue rechazando cualquier valor fuera del conjunto anterior.
+`ReadingLevel` is materialized as a reference table to preserve metadata and order; its code
+continues to reject any value outside the above set.
 
-## Relaciones
+## Relationships
 
 ```mermaid
 erDiagram
-    USER ||--o| ADMINISTRATOR : "puede ser"
+    USER ||--o| ADMINISTRATOR : "may be"
     USER ||--o| USER_CREDENTIAL : "autentica"
     USER ||--o{ USER_SESSION : "mantiene"
     USER }o--o{ ROLE : "tiene"
@@ -97,95 +97,89 @@ erDiagram
     USER ||--o{ DOWNLOAD_RECORD : "sincroniza"
 ```
 
-## Invariantes editoriales
+## Editorial invariants
 
-1. `ReadingContent.slug` no cambia al crear versiones.
-2. El número de versión empieza en 1 y aumenta sin reutilizar valores.
-3. `ContentTranslation.language` sólo permite `en` o `es`.
-4. Capítulos y párrafos se ordenan con enteros no negativos y claves estables.
-5. Un texto publicado no se actualiza en sitio.
-6. `Publication` sólo apunta a una versión `published`.
-7. Como máximo una publicación activa existe por `ReadingContent`.
-8. `AudioAsset.language` debe existir como traducción de la misma versión.
-9. Cada `SpeechMark` referencia el audio y, cuando corresponde, el párrafo de esa misma versión.
-10. Un `ProcessingJob.idempotency_key` repetido devuelve el trabajo existente.
-11. Toda transición editorial genera `AuditLog`.
-12. El catálogo filtra por publicación activa, checksum presente y versión mínima compatible.
+1. `ReadingContent.slug` does not change when creating versions.
+2. The version number starts at 1 and increases without reusing values.
+3. `ContentTranslation.language` only allows `en` or `es`.
+4. Chapters and paragraphs are ordered with non-negative integers and stable keys.
+5. A published text is not updated in place.
+6. `Publication` only points to a `published` version.
+7. At most one active publication exists per `ReadingContent`.
+8. `AudioAsset.language` must exist as a translation of the same version.
+9. Each `SpeechMark` references the audio and, when applicable, the paragraph of that same version.
+10. A repeated `ProcessingJob.idempotency_key` returns the existing work.
+11. Every editorial transition generates `AuditLog`.
+12. The catalog filters by active publication, checksum present, and minimum compatible version.
 
-Las reglas 5 a 12 requieren validación de servicio y transacción; SQLite no puede expresarlas todas
-mediante una restricción de una sola fila.
+Rules 5 through 12 require service and transaction validation; SQLite cannot express them all
+via a single-row constraint.
 
-## Identidad y privacidad
+## Identity and privacy
 
-- `UserCredential` guarda únicamente el hash Argon2id, la fecha de cambio y el estado mínimo de
-  intentos/bloqueo; nunca contiene la contraseña.
-- `UserSession` guarda únicamente hashes SHA-256 del token opaco y del token CSRF. El valor que
-  recibe el navegador no puede reconstruirse desde SQLite.
-- La sesión expira tras 30 minutos de inactividad o 8 horas absolutas y admite revocación explícita.
-- Los endpoints de login y la autorización de ejecución se completan durante la Fase 4.
-- `Administrator` representa el perfil editorial de un `User`.
-- Un menor usa un perfil local no identificable; no se crea `User` infantil en el MVP.
-- Progreso, favoritos y vocabulario pueden vivir sólo en el dispositivo. Si se sincronizan,
-  pertenecen a una cuenta autorizada.
-- `AuditLog.metadata` no puede contener texto editorial completo, tokens, correo libre ni URLs
-  firmadas.
+- `UserCredential` stores only the Argon2id hash, the change date, and the minimal attempts/lock state; it never contains the password.
+- `UserSession` stores only SHA-256 hashes of the opaque token and the CSRF token. The value the browser receives cannot be reconstructed from SQLite.
+- The session expires after 30 minutes of inactivity or 8 absolute hours and supports explicit revocation.
+- Login endpoints and execution authorization will be completed during Phase 4.
+- `Administrator` represents the editorial profile of a `User`.
+- A minor uses a local, non-identifiable profile; no child `User` is created in the MVP.
+- Progress, favorites, and vocabulary may live only on the device. If synchronized,
+  they belong to an authorized account.
+- `AuditLog.metadata` cannot contain full editorial text, tokens, free email, or signed URLs.
 
-## Borrado y retención
+## Deletion and retention
 
-| Relación | Política |
+| Relationship | Policy |
 |---|---|
-| ReadingContent -> versiones | `RESTRICT`; archivar en lugar de borrar |
-| Versión borrador -> traducciones/recursos | `CASCADE` sólo antes de publicación |
-| Traducción -> capítulos -> párrafos | `CASCADE` dentro de versión no publicada |
-| Audio -> Speech Marks | `CASCADE` dentro de versión no publicada |
-| User -> preferencias de lectura | `CASCADE` tras flujo autorizado de eliminación |
-| User -> credencial/sesiones | `CASCADE`; revocar sesiones antes de eliminar la cuenta |
-| User/contenido -> AuditLog | `SET NULL` para actor; objetivo se conserva como texto/UUID |
-| Role/Permission asignados | `RESTRICT` mientras existan asociaciones |
+| ReadingContent -> versions | `RESTRICT`; archive instead of delete |
+| Draft version -> translations/resources | `CASCADE` only before publication |
+| Translation -> chapters -> paragraphs | `CASCADE` within unpublished version |
+| Audio -> Speech Marks | `CASCADE` within unpublished version |
+| User -> reading preferences | `CASCADE` after authorized deletion flow |
+| User -> credential/sessions | `CASCADE`; revoke sessions before deleting account |
+| User/content -> AuditLog | `SET NULL` for actor; target is preserved as text/UUID |
+| Role/Permission assignments | `RESTRICT` while associations exist |
 
-Los servicios rechazan borrado físico de contenido publicado, publicaciones y evidencia auditada.
+Services reject physical deletion of published content, publications, and audited evidence.
 
-## Compatibilidad SQLite/PostgreSQL
+## SQLite/PostgreSQL compatibility
 
-- UUID usa el tipo portable de SQLAlchemy: UUID nativo cuando exista y representación de texto en
-  SQLite.
-- Fechas se generan en UTC; SQLite las persiste como `DATETIME`, PostgreSQL podrá usar
-  `TIMESTAMPTZ`.
-- Booleanos usan el tipo SQLAlchemy portable.
-- Metadatos pequeños usan JSON portable; no se consultan mediante operadores específicos.
-- Enums se almacenan como cadenas con `CHECK`, no como enum nativo.
-- Claves foráneas SQLite se activan por conexión.
-- No se usan arrays, secuencias, tipos de red ni extensiones específicas.
+- UUID uses SQLAlchemy's portable type: native UUID when available and text representation in SQLite.
+- Dates are generated in UTC; SQLite persists them as `DATETIME`, PostgreSQL may use `TIMESTAMPTZ`.
+- Booleans use SQLAlchemy's portable type.
+- Small metadata uses portable JSON; it is not queried with specific operators.
+- Enums are stored as strings with `CHECK`, not as a native enum.
+- SQLite foreign keys are enabled per connection.
+- Arrays, sequences, network types, and specific extensions are not used.
 
-## Trazabilidad
+## Traceability
 
-| Regla/requisito | Aplicación |
+| Rule/requirement | Application |
 |---|---|
-| FR-BR-001..005 | ContentVersion, Publication, AuditLog y servicios de transición |
-| FR-BR-006 | ContentTranslation, AudioAsset y SpeechMark |
-| FR-BR-009..010 | ReadingProgress y `stable_key` |
-| FR-BR-014..017 | enums, ReadingLevel y ContentTranslation |
-| FR-BR-018 | User opcional; perfil infantil sólo local |
-| FR-BR-019..020 | ProcessingJob, Publication y servicios |
-| FR-BR-021..023 | ContentVersion y DownloadRecord |
-| FR-CONTENT-001..007 | agregado editorial completo |
-| FR-API-003..006 | repositorios, servicios y rutas de Fase 3 |
+| FR-BR-001..005 | ContentVersion, Publication, AuditLog and transition services |
+| FR-BR-006 | ContentTranslation, AudioAsset and SpeechMark |
+| FR-BR-009..010 | ReadingProgress and `stable_key` |
+| FR-BR-014..017 | enums, ReadingLevel and ContentTranslation |
+| FR-BR-018 | Optional User; child profile local only |
+| FR-BR-019..020 | ProcessingJob, Publication and services |
+| FR-BR-021..023 | ContentVersion and DownloadRecord |
+| FR-CONTENT-001..007 | complete editorial aggregate |
+| FR-API-003..006 | repositories, services and Phase 3 routes |
 
-## Contratos de persistencia
+## Persistence contracts
 
-- `SqlAlchemyRepository` ofrece alta, consulta por UUID y eliminación sin confirmar transacciones.
-- `PublishedCatalogRepository` sólo devuelve publicaciones activas cuya versión está publicada y
-  contiene checksum y URL de paquete.
-- `CatalogFilters` centraliza idioma, tipo, audiencia, nivel, categoría, límite y desplazamiento.
-- La lista devuelve elementos y total antes de paginar; el detalle carga nivel, categorías,
-  traducciones, capítulos y párrafos.
-- `SqlAlchemyUnitOfWork` comparte una sesión entre repositorios. Los casos de uso llaman `commit`
-  explícitamente; al salir del contexto siempre se ejecutan rollback defensivo y cierre.
+- `SqlAlchemyRepository` offers create, lookup by UUID, and deletion without committing transactions.
+- `PublishedCatalogRepository` only returns active publications whose version is published and contains a checksum and package URL.
+- `CatalogFilters` centralizes language, type, audience, level, category, limit, and offset.
+- The list returns items and total before pagination; the detail loads level, categories,
+  translations, chapters, and paragraphs.
+- `SqlAlchemyUnitOfWork` shares a session among repositories. Use cases explicitly call `commit`;
+  when exiting the context a defensive rollback and close are always executed.
 
-## Validación de diseño
+## Design validation
 
-- Entidades del prompt cubiertas: 22 de 22.
-- Reglas FR-BR-001..025 con ubicación o fase futura explícita: PASS.
-- Dependencia de Docker/PostgreSQL: ninguna para el MVP.
-- Credenciales/sesiones modeladas según FR-DEC-014: PASS.
-- Borrado de publicaciones o auditoría por cascada: no.
+- Prompt entities covered: 22 of 22.
+- Rules FR-BR-001..025 with explicit location or future phase: PASS.
+- Dependency on Docker/PostgreSQL: none for the MVP.
+- Credentials/sessions modeled according to FR-DEC-014: PASS.
+- Deletion of publications or audit by cascade: none.

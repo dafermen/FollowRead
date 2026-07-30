@@ -1,51 +1,51 @@
-# Documentación de FollowRead
+# FollowRead Documentation
 
-El PDF maestro permanece en esta carpeta como fuente original. Los documentos Markdown convierten
-esa fuente en requisitos, decisiones y trabajo verificable.
+The master PDF remains in this folder as the original source. The Markdown documents convert
+that source into requirements, decisions, and verifiable work.
 
-## Mapa
+## Map
 
-### Entradas canónicas
+### Canonical entries
 
 | Documento | Propósito |
 |---|---|
-| `ARCHITECTURE.md` | Topología, límites y decisiones |
-| `API.md` | Contratos y acceso a OpenAPI |
-| `DEVELOPMENT.md` | Preparación y flujo de desarrollo |
-| `TESTING.md` | Estrategia y trece pruebas obligatorias antes de desplegar |
-| `DEPLOYMENT.md` | Secuencia y política de entrega |
-| `OPERATIONS.md` | Salud, backup, observabilidad e incidentes |
-| `SECURITY.md` | Privacidad, secretos, amenazas y auditoría |
-| `TROUBLESHOOTING.md` | Diagnóstico y runbooks |
+| `ARCHITECTURE.md` | Topology, boundaries, and decisions |
+| `API.md` | Contracts and OpenAPI access |
+| `DEVELOPMENT.md` | Preparation and development flow |
+| `TESTING.md` | Strategy and thirteen mandatory tests before deploying |
+| `DEPLOYMENT.md` | Release sequence and policy |
+| `OPERATIONS.md` | Health, backup, observability, and incidents |
+| `SECURITY.md` | Privacy, secrets, threats, and auditing |
+| `TROUBLESHOOTING.md` | Diagnostics and runbooks |
 
-Estas entradas enlazan la documentación detallada; no la sustituyen.
+These entries link to the detailed documentation; they do not replace it.
 
-### Fuentes detalladas
+### Detailed sources
 
 | Carpeta | Propósito |
 |---|---|
-| `requirements/` | Visión, alcance, requisitos, historias, casos y trazabilidad |
-| `architecture/` | Contexto, límites, seguridad y decisiones técnicas |
-| `ux-ui/` | Estrategia, flujos y diseño accesible |
-| `testing/` | Estrategia, planes y evidencia de pruebas |
-| `deployment/` | Entornos, despliegue, migración y rollback |
-| `project-management/` | Fases, tareas, estado, riesgos, decisiones y sesiones |
-| `development/` | Guías para contribuir y mantener el código |
-| `troubleshooting/` | Diagnóstico por dominio |
-| `api/` | Contratos y guía de API |
-| `user-guides/` | Guías para lectores y administradores |
-| `adr/` | Decisiones arquitectónicas con contexto y consecuencias |
+| `requirements/` | Vision, scope, requirements, stories, cases, and traceability |
+| `architecture/` | Context, boundaries, security, and technical decisions |
+| `ux-ui/` | Strategy, flows, and accessible design |
+| `testing/` | Strategy, plans, and testing evidence |
+| `deployment/` | Environments, deployment, migration, and rollback |
+| `project-management/` | Phases, tasks, status, risks, decisions, and sessions |
+| `development/` | Guides for contributing and maintaining code |
+| `troubleshooting/` | Domain diagnostics |
+| `api/` | Contracts and API guide |
+| `user-guides/` | Guides for readers and administrators |
+| `adr/` | Architectural decisions with context and consequences |
 
-## Inicio de cada sesión
+## Start of each session
 
-Leer, en este orden:
+Read, in this order:
 
 1. `project-management/PROJECT_STATUS.md`
 2. `project-management/PHASES.md`
 3. `project-management/TASKS.md`
 4. `project-management/NEXT_STEPS.md`
-5. últimas entradas de `project-management/SESSION_LOG.md`
+5. latest entries of `project-management/SESSION_LOG.md`
 6. `project-management/KNOWN_ISSUES.md`
 7. `project-management/DECISIONS.md`
 
-Después identificar la primera tarea ejecutable y no adelantar fases.
+Then identify the first executable task and do not advance phases.

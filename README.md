@@ -1,109 +1,210 @@
 # FollowRead
 
-FollowRead es una plataforma de lectura sincronizada y accesible. Combina texto, audio, resaltado
-por palabra y modos adaptados para niñas y niños, personas adultas y estudiantes de inglés.
+[![CI](https://github.com/dafermen/FollowRead/actions/workflows/ci.yml/badge.svg)](https://github.com/dafermen/FollowRead/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Node.js 24](https://img.shields.io/badge/Node.js-24-3c873a.svg)](https://nodejs.org/)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776ab.svg)](https://www.python.org/)
 
-## Estado
+FollowRead is an accessible bilingual reading platform that combines synchronized narration,
+word-by-word highlighting, offline reading, learning tools, and a complete editorial workflow.
 
-Las fases 0 a 12 están cerradas. Admin permite gestionar y publicar contenido; Reader ofrece
-biblioteca, búsqueda, detalle, favoritos, historial, vocabulario, modos de lectura, PWA y cuatro
-lecturas bilingües con sincronización por palabra. El catálogo puede leerse sin red y el progreso se
-sincroniza al reconectar. La voz del dispositivo no requiere credenciales ni servicios externos. La Fase 13
-tiene CI, releases y contenedores preparados; su validación externa espera Docker y un remote
-GitHub.
+It includes three independent applications:
 
-## Estructura
+- **Reader:** a responsive web/PWA experience for children, adults, and English learners;
+- **Admin:** an editorial workspace for bilingual content, illustrations, audio, review, and
+  publishing;
+- **API:** a FastAPI backend with SQLite, secure sessions, catalog delivery, audio processing, and
+  offline packages.
 
-- `apps/admin-web`: aplicación web editorial y administrativa.
-- `apps/reader`: lector web/PWA y futura base de Capacitor.
-- `apps/api`: API FastAPI y adaptadores de infraestructura.
-- `packages`: contratos, componentes, modelos, validación y Reader Engine compartidos.
-- `infrastructure`: archivos de base de datos, contenedores, AWS y despliegue.
-- `docs`: requisitos, arquitectura, UX/UI, pruebas, despliegue y gestión.
-- `test`: inventario transversal y fixtures compartidas; las unitarias permanecen junto al código.
-- `scripts`: comandos multiplataforma de desarrollo y validación.
+## Product tour
 
-Los documentos canónicos son `docs/ARCHITECTURE.md`, `API.md`, `DEVELOPMENT.md`, `TESTING.md`,
-`DEPLOYMENT.md`, `OPERATIONS.md`, `SECURITY.md` y `TROUBLESHOOTING.md`. Cada uno enlaza las fuentes
-detalladas existentes.
+### Reader library
 
-## Herramientas
+The library provides search, categories, language and reading-level filters, favorites, history,
+downloads, and four complete bilingual demo readings.
 
-- Node.js 24 y pnpm 11 para JavaScript/TypeScript.
-- Python 3.12 para la API.
-- React/Vite para Admin y Reader.
-- FastAPI para la API.
-- SQLite para persistencia del MVP; PostgreSQL queda como evolución futura.
+![FollowRead Reader library](docs/assets/screenshots/reader-library.png)
 
-## Instalación en Windows
+### Synchronized reading
 
-1. Instala Node.js 24 y confirma `node --version`.
-2. Instala la versión de pnpm declarada por el proyecto:
+Narration follows the published timeline, highlights the active word without moving the paragraph,
+and places a pointing hand below it. Readers can switch chapters, languages, speed, and reading
+modes.
+
+![FollowRead synchronized reading experience](docs/assets/screenshots/reader-synchronized-reading.png)
+
+### Editorial administration
+
+Admin exposes the full content lifecycle: dashboard, bilingual editor, illustration management,
+audio processing, review, publication, and audit visibility.
+
+![FollowRead Admin dashboard](docs/assets/screenshots/admin-dashboard.png)
+
+<details>
+<summary>View the editorial catalog</summary>
+
+![FollowRead Admin editorial catalog](docs/assets/screenshots/admin-catalog.png)
+
+</details>
+
+## Highlights
+
+- Spanish and English content with two chapters per demo reading;
+- natural OpenAI narration with persistent audio reuse, plus a credential-free local adapter;
+- word-level synchronization, chapter illustrations, progress, vocabulary, and learning mode;
+- offline-first PWA packages with checksums and IndexedDB persistence;
+- Android and iOS Capacitor projects without sensitive native permissions;
+- editorial roles, secure opaque sessions, audit events, metrics, and structured errors;
+- accessibility, security, load, regression, and deployment validation;
+- reproducible CI, Docker definitions, backup/restore, release, and rollback tooling.
+
+## Demo catalog
+
+`pnpm demo:seed` creates or updates the complete catalog idempotently:
+
+- **The Fox and the Moon / El zorro y la luna** — story;
+- **The River Between Us / El río entre nosotros** — lesson;
+- **The Secret Garden / El jardín secreto** — article;
+- **The House of Sounds / La casa de los sonidos** — story.
+
+Each item is published in Spanish and English with two chapters. With the local adapter, the seed
+uses deterministic simulated timings. When OpenAI is configured, it generates natural narration
+once and reuses the cached MP3 files until the text or voice configuration changes.
+
+## Architecture
+
+```text
+FollowRead
+├── apps/
+│   ├── admin-web/       React/Vite editorial application
+│   ├── reader/          React/Vite PWA and Capacitor projects
+│   └── api/             FastAPI, SQLAlchemy, Alembic, and SQLite
+├── packages/            Shared contracts, UI, validation, and Reader Engine
+├── infrastructure/      Database, Docker, AWS, and deployment definitions
+├── scripts/             Cross-platform development and quality commands
+├── docs/                Architecture, product, testing, and operations documentation
+└── test/                Cross-cutting test inventory and shared fixtures
+```
+
+The Reader and Admin are separate applications. Cloud integrations are isolated behind API
+adapters, and SQLite remains the authoritative persistence layer for this MVP.
+
+## Technology
+
+- Node.js 24 and pnpm 11;
+- TypeScript, React, and Vite;
+- Python 3.12, FastAPI, SQLAlchemy, and Alembic;
+- SQLite for the MVP;
+- Vitest, Pytest, Ruff, mypy, ESLint, and Prettier;
+- Capacitor 8 for Android and iOS packaging;
+- optional OpenAI text-to-speech and word alignment.
+
+## Windows setup
+
+Install Node.js 24, Python 3.12, and Git. Then install the pnpm version used by the repository:
 
 ```powershell
 npm install --global pnpm@11.9.0
 ```
 
-3. Cierra y abre PowerShell, y confirma `pnpm --version`. Debe responder `11.9.0`.
-4. Desde `C:\Projects\FollowRead`:
+Open a new PowerShell window:
 
 ```powershell
+cd C:\Projects\FollowRead
 pnpm setup
 pnpm migrate
 pnpm demo:seed
 pnpm check
 ```
 
-`pnpm setup` instala dependencias JavaScript, crea `apps/api/.venv`, instala la API y configura los
-hooks Git. SQLite se crea en `var/followread.db` al conectarse o migrar.
+`pnpm setup` installs JavaScript dependencies, creates `apps/api/.venv`, installs the API, and
+configures the Git hooks. SQLite is created under `var/` and is ignored by Git.
 
-`pnpm demo:seed` crea o actualiza idempotentemente las cuatro lecturas bilingües incluidas. Con el
-adaptador local genera tiempos simulados sin credenciales; si `apps/api/.env` configura OpenAI,
-genera audio natural una sola vez y lo reutiliza desde la caché persistente.
+If PowerShell blocks `pnpm.ps1`, use `pnpm.cmd` instead.
 
-Para iniciar API, Admin y Reader al mismo tiempo:
+## Run the complete platform
+
+One command starts all three applications:
 
 ```powershell
 pnpm dev
 ```
 
-El comando muestra las tres direcciones y las detiene juntas con `Ctrl+C`.
+| Application       | URL                          |
+| ----------------- | ---------------------------- |
+| Reader            | <http://localhost:5174>      |
+| Admin             | <http://localhost:5173>      |
+| API documentation | <http://localhost:8000/docs> |
 
-Con los servicios activos, el recorrido del Reader se verifica en Chrome o Edge con:
+Press `Ctrl+C` to stop them together.
+
+## Optional OpenAI narration
+
+Copy the backend environment template:
+
+```powershell
+Copy-Item apps/api/.env.example apps/api/.env
+```
+
+Configure only the local backend file:
+
+```dotenv
+FOLLOWREAD_POLLY_PROVIDER=openai
+OPENAI_API_KEY=your_key_here
+```
+
+Restart `pnpm dev` and run `pnpm demo:seed`, or generate audio through **Admin → Processing**. The
+recommended voices are `marin` for Spanish and `cedar` for English.
+
+Never expose the API key through a `VITE_*` variable or commit `apps/api/.env`.
+
+## Quality and testing
+
+The complete local quality gate is:
+
+```powershell
+pnpm check
+```
+
+Useful focused commands:
 
 ```powershell
 pnpm reader:e2e
 pnpm reader:offline-e2e
-```
-
-Después de modificar o publicar contenido, `pnpm offline:bootstrap` regenera el catálogo incluido en
-el build y verifica sus checksums contra la API activa.
-
-Si PowerShell bloquea `pnpm.ps1`, usa `pnpm.cmd` en los comandos. Reader y Admin incluyen una
-página de ayuda en `/documentation`; la API ofrece su contrato interactivo en
-`http://localhost:8000/docs`.
-
-## Continuidad y despliegue
-
-Toda sesión de Codex debe comenzar leyendo `AGENTS.md` y `CURRENT_STATUS.md`. Para revisar los
-artefactos de despliegue sin Docker:
-
-```powershell
+pnpm quality:regression
+pnpm security:audit
 pnpm deploy:validate
 ```
 
-Docker es opcional. Cuando esté instalado, `pnpm deploy:local` levanta las tres imágenes y
-`pnpm deploy:smoke` comprueba el resultado. Release, backup y rollback están documentados en
-`docs/deployment/`.
+Before an external deployment, all thirteen categories in
+[`docs/testing/PRE_DEPLOYMENT_TESTS.md`](docs/testing/PRE_DEPLOYMENT_TESTS.md) must be `PASS` or
+have an explicitly approved exception.
 
-Antes de desplegar en un entorno compartido deben quedar en `PASS` o contar con excepción aprobada
-las trece categorías de `docs/testing/PRE_DEPLOYMENT_TESTS.md`: aceptación, unitarias, propiedades,
-mutation testing, fuzzing, integración, contrato, E2E, regresión, seguridad, concurrencia,
-rendimiento y compatibilidad/despliegue. El estado actual sigue bloqueado para despliegue externo.
+To regenerate the screenshots in this README while the services are active:
 
-## Seguridad y licencia
+```powershell
+pnpm screenshots:readme
+```
 
-No añadas secretos al repositorio. Las integraciones AWS sólo se realizarán desde adaptadores de la
-API. El código original de FollowRead se publica bajo la licencia MIT; consulta `LICENSE`. Las
-dependencias y herramientas de terceros conservan sus propias licencias, resumidas en
-`THIRD_PARTY_LICENSES.md`.
+## Documentation
+
+Start with:
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [API](docs/API.md)
+- [Development](docs/DEVELOPMENT.md)
+- [Testing](docs/TESTING.md)
+- [Deployment](docs/DEPLOYMENT.md)
+- [Operations](docs/OPERATIONS.md)
+- [Security](docs/SECURITY.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Original master project prompt — English PDF](docs/FollowRead%20Project%20Prompt.pdf)
+- [Current project status](CURRENT_STATUS.md)
+
+Future Codex sessions must read [`AGENTS.md`](AGENTS.md) and
+[`CURRENT_STATUS.md`](CURRENT_STATUS.md) before changing the project.
+
+## License
+
+FollowRead's original code and assets are available under the [MIT License](LICENSE). Third-party
+components remain subject to their own licenses; see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).

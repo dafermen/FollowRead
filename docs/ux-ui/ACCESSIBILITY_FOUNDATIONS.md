@@ -1,73 +1,73 @@
-# Fundamentos de accesibilidad
+# Accessibility Foundations
 
-**Estado:** Base validada para Fase 0  
-**Tarea responsable:** FR-PH00-TASK-010 - COMPLETED
+**Status:** Validated baseline for Phase 0  
+**Responsible task:** FR-PH00-TASK-010 - COMPLETED
 
-## Alcance
+## Scope
 
-Aplica a Admin y Reader web/PWA. Los mismos principios se conservarán en Capacitor. Objetivo:
-WCAG 2.2 AA para flujos MVP, complementado con pruebas manuales.
+Applies to Admin and Reader web/PWA. The same principles will be preserved in Capacitor. Goal:
+WCAG 2.2 AA for MVP flows, complemented with manual testing.
 
-## Teclado y foco
+## Keyboard and focus
 
-- Toda acción crítica operable sin puntero.
-- Orden de foco coincide con lectura.
-- Foco visible, no cubierto y restaurado tras diálogos.
-- Auto-scroll de lectura no mueve el foco.
-- Atajos no interfieren con entrada de texto ni tecnología asistiva.
+- All critical actions operable without a pointer.
+- Focus order matches reading order.
+- Visible focus, not covered, and restored after dialogs.
+- Read auto-scroll does not move focus.
+- Shortcuts do not interfere with text entry or assistive technology.
 
-## Semántica y lector de pantalla
+## Semantics and screen reader
 
-- Controles nativos cuando sea posible.
-- Nombre, rol, valor/estado y error asociados.
-- Encabezados y regiones coherentes.
-- Cambios de descarga, guardado y reproducción anunciados sin exceso.
-- Palabra visual activa no se anuncia en cada cambio si interrumpe la narración; se ofrecerá una
-  estrategia configurable que se validará con usuarios.
+- Native controls when possible.
+- Name, role, value/state and error associated.
+- Consistent headings and regions.
+- Download, save and playback changes announced without excess.
+- Active visual word is not announced on every change if it interrupts narration; a
+  configurable strategy will be offered and validated with users.
 
 ## Visual
 
-- Contraste AA para texto, controles y foco.
-- Color nunca es la única señal.
-- Zoom y reflow hasta 400% sin perder funciones críticas.
-- Texto configurable sin romper posición de mano.
-- Estados de sincronización incluyen texto/icono y semántica.
+- AA contrast for text, controls and focus.
+- Color is never the only cue.
+- Zoom and reflow up to 400% without losing critical functionality.
+- Text configurable without breaking hand position.
+- Sync states include text/icon and semantics.
 
-## Movimiento y audio
+## Motion and audio
 
-- `prefers-reduced-motion` desactiva desplazamientos no esenciales.
-- La mano puede ocultarse independientemente.
-- Auto-scroll evita animación cuando se reduce movimiento.
-- Audio tiene texto completo equivalente.
-- Ninguna función depende sólo de sonido.
+- `prefers-reduced-motion` disables non-essential scrolling.
+- The hand can be hidden independently.
+- Auto-scroll avoids animation when reduced motion is enabled.
+- Audio has full text equivalent.
+- No feature depends solely on sound.
 
-## Tacto y modo infantil
+## Touch and child mode
 
-- Mínimo 24x24 CSS px; objetivo 44x44 en infantil.
-- Separación suficiente para evitar activación accidental.
-- Acciones peligrosas o salida de modo requieren confirmación apropiada.
-- Sin acceso accidental a Admin.
+- Minimum 24x24 CSS px; target 44x44 in child mode.
+- Sufficient separation to avoid accidental activation.
+- Dangerous actions or exiting the mode require appropriate confirmation.
+- No accidental access to Admin.
 
-## Formularios Admin
+## Admin forms
 
-- Etiqueta persistente, instrucción y error asociado.
-- Resumen de errores con foco.
-- Guardado, pendiente, conflicto y recuperación distinguibles.
-- Editor bilingüe conserva relación semántica entre unidades.
+- Persistent label, instruction and associated error.
+- Error summary with focus.
+- Save, pending, conflict and recovery distinguishable.
+- Bilingual editor preserves semantic relationship between units.
 
-## Matriz de validación
+## Validation matrix
 
-| Área | Automatizada | Manual | Usuarios |
+| Area | Automated | Manual | Users |
 |---|---|---|---|
-| Semántica/nombres | Sí | Sí | Cuando aplique |
-| Teclado/foco | Parcial | Sí | Sí |
-| Contraste | Parcial | Sí |  |
-| Zoom/reflow | No | Sí | Sí |
-| Movimiento/mano | Parcial | Sí | Sí |
-| Comprensión infantil | No | Sí | Sí, con protocolo apropiado |
-| Lector de pantalla | Parcial | Sí | Sí |
+| Semantics/names | Yes | Yes | When applicable |
+| Keyboard/focus | Partial | Yes | Yes |
+| Contrast | Partial | Yes |  |
+| Zoom/reflow | No | Yes | Yes |
+| Motion/hand | Partial | Yes | Yes |
+| Child understanding | No | Yes | Yes, with appropriate protocol |
+| Screen reader | Partial | Yes | Yes |
 
-## Criterios para Fase 1
+## Criteria for Phase 1
 
-Cada wireframe debe documentar acción principal, orden de foco, estados, texto accesible, objetivo
-táctil y comportamiento con movimiento reducido. Un diseño que no pueda explicarlo no avanza a UI.
+Each wireframe must document the primary action, focus order, states, accessible text, touch
+target and behavior with reduced motion. A design that cannot explain this does not advance to UI.

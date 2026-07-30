@@ -1,92 +1,88 @@
-# Estrategia UX y accesibilidad
+# UX Strategy and Accessibility
 
-**Estado:** Validada para Fase 0 - FR-PH00-TASK-010 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-010 COMPLETED.
 
-## Norte de experiencia
+## Experience North Star
 
-El contenido debe dominar la pantalla. Los controles principales permanecen visibles o fáciles de
-recuperar, los estados se comunican claramente y ninguna decoración compite con la lectura.
+Content should dominate the screen. Primary controls remain visible or easy to recover, states are communicated clearly, and no decoration competes with reading.
 
-## Una base, modos adaptados
+## One foundation, adapted modes
 
-FollowRead tendrá un sistema de lectura común con configuraciones de presentación:
+FollowRead will have a common reading system with presentation configurations:
 
-- **Infantil:** tipografía y objetivos grandes, navegación reducida, mano visible por defecto, pocas
-  decisiones, ilustraciones y salida segura.
-- **Adulto:** diseño sobrio, mano opcional, tipografía, tema y unidad de resaltado configurables.
-- **Aprender inglés:** inglés principal, traducción opcional, repetición rápida, velocidad y
-  vocabulario en contexto.
+- **Infant:** large typography and targets, reduced navigation, hand visible by default, few decisions, illustrations and safe output.
+- **Adult:** sober layout, optional hand, configurable typography, theme and highlight unit.
+- **Learn English:** English primary, optional translation, quick repetition, speed and vocabulary in context.
 
-No se crearán tres productos desconectados. La lógica principal y los controles esenciales se
-comparten; las diferencias se expresan como políticas y preferencias.
+Three disconnected products will not be created. The main logic and essential controls are shared; differences are expressed as policies and preferences.
 
-## Principios de interacción
+## Interaction principles
 
-1. Una acción principal por vista.
-2. Reproducción y progreso nunca se ocultan detrás de gestos desconocidos.
-3. Un error conserva contexto y ofrece recuperación.
-4. Una descarga muestra tamaño, progreso, resultado y disponibilidad.
-5. Acciones destructivas o de publicación piden confirmación adecuada.
-6. El foco no salta inesperadamente durante auto-scroll.
-7. Tocar una palabra no debe iniciar una navegación accidental.
+1. One primary action per view.
+2. Playback and progress are never hidden behind unfamiliar gestures.
+3. An error preserves context and offers recovery.
+4. A download shows size, progress, result and availability.
+5. Destructive or publishing actions ask for appropriate confirmation.
+6. Focus does not jump unexpectedly during auto-scroll.
+7. Tapping a word must not trigger accidental navigation.
 
-## Mano y resaltado
+## Hand and highlighting
 
-- La palabra activa tendrá resaltado perceptible sin depender sólo de color.
-- La mano se posicionará por la caja de la palabra activa y un área segura inferior.
-- El componente visual observará scroll, resize, fuentes cargadas y cambio de orientación.
-- La mano se oculta con preferencia, falta de espacio o reducción de movimiento.
-- Un modo sin mano conserva toda la información mediante resaltado y semántica.
+- The active word will have a perceptible highlight without relying solely on color.
+- The hand will be positioned by the active word's box and a safe bottom area.
+- The visual component will observe scroll, resize, loaded fonts and orientation change.
+- The hand is hidden with preference, lack of space or reduced motion.
+- A handless mode preserves all information via highlighting and semantics.
 
-## Accesibilidad desde diseño
+## Accessibility by design
 
-- WCAG 2.2 AA como objetivo razonable;
-- navegación completa por teclado;
-- nombres y estados anunciables;
-- foco visible y orden lógico;
-- contraste documentado;
-- zoom y reflow sin pérdida de acciones;
-- objetivos táctiles ampliados en modo infantil;
-- preferencia de reducción de movimiento;
-- texto disponible aunque audio falle;
-- mensajes de estado no dependientes sólo de color.
+- WCAG 2.2 AA as a reasonable target;
+- full keyboard navigation;
+- announceable names and states;
+- visible focus and logical order;
+- documented contrast;
+- zoom and reflow without loss of actions;
+- enlarged touch targets in infant mode;
+- reduced motion preference;
+- text available even if audio fails;
+- status messages not relying on color alone.
 
-## Estados obligatorios de cada flujo
+## Required states for each flow
 
-- inicial y vacío;
-- cargando;
-- éxito;
-- error recuperable;
-- error no recuperable;
+- initial and empty;
+- loading;
+- success;
+- recoverable error;
+- non-recoverable error;
 - offline;
-- sincronización pendiente;
-- permiso insuficiente;
-- contenido incompatible o retirado.
+- pending sync;
+- insufficient permission;
+- incompatible or removed content.
 
-## Validación en Fase 1
+## Phase 1 validation
 
-- entrevistas o revisión con representantes cuando sea posible;
-- recorridos de tareas para cada audiencia;
-- wireframes responsive;
-- prototipos de lector y editor;
-- revisión de teclado, lector de pantalla y movimiento;
-- pruebas de mano en líneas, zoom, orientación y scroll.
+- interviews or review with representatives when possible;
+- task walkthroughs for each audience;
+- responsive wireframes;
+- reader and editor prototypes;
+- review of keyboard, screen reader and motion;
+- hand testing on lines, zoom, orientation and scroll.
 
-## Relación con perfiles
+## Relationship to personas
 
-| Experiencia | Perfiles principales | Riesgo UX dominante |
+| Experience | Primary personas | Dominant UX risk |
 |---|---|---|
-| Infantil | FR-PERSONA-001/004 | Sobrecarga, activación accidental, movimiento |
-| Aprender inglés | FR-PERSONA-002 | Salir de contexto y controles densos |
-| Adulto | FR-PERSONA-003 | Presentación infantilizada y sesiones largas |
-| Admin editor | FR-PERSONA-005 | Pérdida de borrador y errores tardíos |
-| Revisión/operación | FR-PERSONA-006/007 | Estado opaco y acciones privilegiadas |
+| Infant | FR-PERSONA-001/004 | Overload, accidental activation, motion |
+| Learn English | FR-PERSONA-002 | Losing context and dense controls |
+| Adult | FR-PERSONA-003 | Infantilized presentation and long sessions |
+| Admin editor | FR-PERSONA-005 | Draft loss and late errors |
+| Review/operations | FR-PERSONA-006/007 | Opaque state and privileged actions |
 
-## Resultado de Fase 0
+## Phase 0 outcome
 
-- Modos distintos sin aplicaciones duplicadas: PASS.
-- Mano, movimiento, contraste, teclado, lector de pantalla y tacto: PASS.
-- Estados vacíos, carga, error, offline y permiso: PASS.
-- Principios convertibles en checklist de Fase 1: PASS.
+- Distinct modes without duplicated apps: PASS.
+- Hand, motion, contrast, keyboard, screen reader and touch: PASS.
+- Empty, loading, error, offline and permission states: PASS.
+- Principles convertible into a Phase 1 checklist: PASS.
 
-Ver `ACCESSIBILITY_FOUNDATIONS.md`.
+See `ACCESSIBILITY_FOUNDATIONS.md`.

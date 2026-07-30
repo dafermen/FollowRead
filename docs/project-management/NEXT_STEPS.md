@@ -1,39 +1,39 @@
-# Próximos pasos
+# Next steps
 
-## Siguiente tarea exacta
+## Next exact task
 
-**FR-PH13-TASK-012 - Validar Docker, GitHub y staging reales**
+**FR-PH13-TASK-012 - Validate real Docker, GitHub and staging**
 
-### Objetivo
+### Objective
 
-Cerrar los gates externos que no pueden ejecutarse en la estación actual y dejar evidencia de una
-entrega reproducible antes de cerrar la Fase 13.
+Close the external gates that cannot be run at the current workstation and record evidence of a reproducible delivery before closing Phase 13.
 
-### Orden de trabajo
+### Work order
 
-1. Completar las filas parciales/no implementadas de `docs/testing/PRE_DEPLOYMENT_TESTS.md`.
-2. Instalar o disponer de Docker y construir las imágenes de API, Admin y Reader.
-3. Ejecutar `pnpm deploy:local` y `pnpm deploy:smoke`.
-4. Confirmar `ci.yml` en el repositorio público `dafermen/FollowRead` y conservar la evidencia del
-   runner real.
-5. Elegir un proveedor y crear un entorno development o staging protegido.
-6. Demostrar migración, backup, smoke y rollback; registrar URLs y evidencias sin secretos.
-7. Registrar aceptación y actualizar `CURRENT_STATUS.md` antes de decidir el cierre de la fase.
+1. Complete the partial/not implemented rows of `docs/testing/PRE_DEPLOYMENT_TESTS.md`.
+2. Install or have Docker available and build the API, Admin and Reader images.
+3. Run `pnpm deploy:local` and `pnpm deploy:smoke`.
+4. After owner approval, update the Python audit setup so the workflow does not retain vulnerable
+   `pip 25.0.1`; rerun `ci.yml` in `dafermen/FollowRead` and retain the evidence.
+5. Choose a provider and create a protected development or staging environment.
+6. Demonstrate migration, backup, smoke and rollback; record URLs and evidence without secrets.
+7. Record acceptance and update `CURRENT_STATUS.md` before deciding to close the phase.
 
-## No hacer todavía
+## Do not do yet
 
-- No marcar Fase 13 completada sin ejecutar Docker y GitHub reales.
-- No seleccionar ni crear cuentas en un proveedor cloud sin decisión del propietario.
-- No incluir SQLite, secretos, `.env`, certificados ni credenciales en artefactos.
-- No desplegar producción ni publicar en tiendas sin aprobación explícita.
-- No omitir auditorías o regresiones para acelerar un pipeline.
-- No ejecutar migraciones de producción sin backup, readiness y rollback.
-- No interpretar `pnpm check` como sustituto de las trece categorías predespliegue.
+- Do not mark Phase 13 completed without running real Docker and GitHub.
+- Do not select or create accounts with a cloud provider without the owner's decision.
+- Do not include SQLite, secrets, `.env`, certificates or credentials in artifacts.
+- Do not deploy to production or publish to stores without explicit approval.
+- Do not skip audits or regressions to speed up a pipeline.
+- Do not run production migrations without backup, readiness and rollback.
+- Do not interpret `pnpm check` as a substitute for the thirteen pre-deployment categories.
 
-## Gate externo conservado
+## External gate retained
 
-TASK-011 quedó completada con `pnpm check`, regresión total, auditorías, 103 pruebas API, builds y
-smoke local en verde. El remote GitHub ya está disponible; TASK-012 todavía requiere confirmar CI,
-Docker y staging. La validación física de
-iOS en macOS/Xcode sigue siendo obligatoria antes de TestFlight. Además, el gate de despliegue
-requiere cerrar propiedades/invariantes, mutation testing, fuzzing, contratos y resiliencia.
+TASK-011 was completed with `pnpm check`, full regression, audits, 103 API tests, builds and local
+smoke in green. The remote GitHub runner has been exercised: its first run failed only in the Python
+dependency audit because its generated environment retained `pip 25.0.1`. TASK-012 still requires
+the approved audit correction, a green rerun, Docker and staging. Physical validation of iOS on
+macOS/Xcode remains mandatory before TestFlight. Additionally, the deployment gate requires closing
+properties/invariants, mutation testing, fuzzing, contracts and resilience.

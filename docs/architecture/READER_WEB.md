@@ -1,54 +1,42 @@
-# Arquitectura de FollowRead Reader Web
+# FollowRead Reader Web Architecture
 
-## Alcance
+## Scope
 
-La Fase 8 convierte el paquete publicado de la API y el Reader Engine de Fase 7 en una aplicación
-web accesible, responsive e instalable. Reader sigue siendo independiente de Admin.
+Phase 8 turns the published package of the API and the Phase 7 Reader Engine into an accessible, responsive, and installable web application. Reader remains independent from Admin.
 
-## Capas
+## Layers
 
-1. `readerClient.ts` consume el catálogo público y los paquetes versionados.
-2. `ReaderApp.tsx` presenta inicio, biblioteca, detalle y áreas personales.
-3. `StoryReaderPage.tsx` conecta React con el Reader Engine y la narración del navegador.
-4. `readerStorage.ts` valida preferencias locales no sensibles.
-5. `browserNarrator.ts` adapta Web Speech sin enviar texto a servicios externos.
-6. `offlineDomain.ts` valida compatibilidad, tamaño y SHA-256.
-7. `offlineRepository.ts` persiste paquetes y operaciones en IndexedDB.
-8. `offlineService.ts` combina catálogos, activa descargas y sincroniza progreso.
-9. `pwa.ts`, el manifest y `sw.js` instalan y cachean el shell y recursos locales.
+1. `readerClient.ts` consumes the public catalog and the versioned packages.
+2. `ReaderApp.tsx` presents home, library, detail, and personal areas.
+3. `StoryReaderPage.tsx` connects React with the Reader Engine and the browser narration.
+4. `readerStorage.ts` validates non-sensitive local preferences.
+5. `browserNarrator.ts` adapts Web Speech without sending text to external services.
+6. `offlineDomain.ts` validates compatibility, size, and SHA-256.
+7. `offlineRepository.ts` persists packages and operations in IndexedDB.
+8. `offlineService.ts` merges catalogs, triggers downloads, and synchronizes progress.
+9. `pwa.ts`, the manifest and `sw.js` install and cache the shell and local resources.
 
-El Reader Engine sigue siendo la única fuente del estado temporal. Los eventos de palabra de la voz
-del dispositivo corrigen la posición, pero nunca reemplazan la línea de tiempo editorial.
+The Reader Engine remains the single source of ephemeral state. Device voice word events correct position, but never replace the editorial timeline.
 
-## Persistencia local
+## Local persistence
 
-Reader guarda únicamente preferencias, slugs favoritos, progreso, historial y vocabulario. No
-guarda nombres, correos, perfiles infantiles, tokens ni contraseñas. Todos los valores se validan al
-leer y vuelven a defaults seguros si están corruptos.
+Reader stores only preferences, favorite slugs, progress, history, and vocabulary. It does not store names, emails, child profiles, tokens, or passwords. All values are validated on read and revert to safe defaults if they are corrupted.
 
-## PWA y modo offline
+## PWA and offline mode
 
-El service worker cachea el shell, el documento bootstrap y las portadas solicitadas. IndexedDB es
-la autoridad del contenido descargado: un registro sólo reemplaza a otro después de validar versión,
-compatibilidad, límite y SHA-256. El build incluye las cuatro lecturas del catálogo demo para que el
-primer inicio offline tenga contenido real y variado.
+The service worker caches the shell, the bootstrap document, and requested cover images. IndexedDB is the authority for downloaded content: a record only replaces another after validating version, compatibility, limits, and SHA-256. The build includes the four readings of the demo catalog so the first offline start has real and varied content.
 
-El catálogo muestra estados remoto, descargado, actualización, sólo local e incompatible. Una
-descarga de 100 MB o más solicita confirmación y un paquete superior a 250 MB se rechaza. La
-eliminación local no toca historial, favoritos ni progreso.
+The catalog shows remote, downloaded, update, local-only, and incompatible states. A download of 100 MB or more requests confirmation and a package larger than 250 MB is rejected. Local deletion does not touch history, favorites, or progress.
 
-## Sincronización
+## Synchronization
 
-Cada lectura conserva como máximo una operación pendiente por slug con UUID, versión, anclaje
-estable y posición. La API confirma operaciones idempotentes, evita regresiones y representa el
-dispositivo con un UUID aleatorio sin nombre ni correo. Sólo una confirmación elimina la operación
-local.
+Each reading keeps at most one pending operation per slug with UUID, version, stable anchor, and position. The API confirms idempotent operations, prevents regressions, and represents the device with a random UUID without a name or email. Only one confirmation removes the local operation.
 
-## Degradación segura
+## Safe degradation
 
-- Sin voz del dispositivo: continúa el seguimiento visual.
-- Sin API: la biblioteca usa el catálogo local y permite leer paquetes activos.
-- Descarga corrupta o interrumpida: se conserva la versión válida anterior.
-- Sin cuota: el paquete no se activa y el usuario puede eliminar otra descarga.
-- Sin soporte PWA: Reader funciona como web normal.
-- Sin progreso válido: el cuento comienza desde el inicio.
+- No device voice: visual tracking continues.
+- No API: the library uses the local catalog and allows reading active packages.
+- Corrupt or interrupted download: the previous valid version is kept.
+- No quota: the package is not activated and the user can delete another download.
+- No PWA support: Reader works as a normal web app.
+- No valid progress: the story starts from the beginning.

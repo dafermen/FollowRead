@@ -1,8 +1,8 @@
 # Workflows
 
-- `ci.yml`: calidad, seguridad, builds web, artefactos y construcción de tres imágenes.
-- `release.yml`: candidato manual o release SemVer con GHCR, paquetes web y release notes.
-- `deployment-smoke.yml`: smoke test manual bajo GitHub Environments protegidos.
+- `ci.yml`: quality, security, web builds, artifacts, and building three images.
+- `release.yml`: manual candidate or SemVer release with GHCR, web packages, and release notes.
+- `deployment-smoke.yml`: manual smoke test under protected GitHub Environments.
 
-El repositorio local todavía no tiene remote GitHub; la primera ejecución real es un gate externo de
-Fase 13.
+The local repository does not yet have a GitHub remote; the first real run is an external gate of
+Phase 13.

@@ -1,75 +1,75 @@
-# Flujos de usuario
+# User Flows
 
-**Estado:** Validado  
-**Tarea responsable:** FR-PH01-TASK-002 - COMPLETED
+**Status:** Validated  
+**Responsible task:** FR-PH01-TASK-002 - COMPLETED
 
-## Flujo editorial principal
+## Main editorial flow
 
 ```mermaid
 flowchart LR
-    draft["Crear/editar borrador"] --> validate["Validar"]
-    validate --> process["Procesar audio y marcas"]
-    process --> review["Revisar"]
-    review -->|rechazar| draft
-    review --> approve["Aprobar"]
-    approve --> publish["Confirmar y publicar"]
-    process -->|fallo| error["Diagnosticar/reintentar"]
+    draft["Create/edit draft"] --> validate["Validate"]
+    validate --> process["Process audio and marks"]
+    process --> review["Review"]
+    review -->|reject| draft
+    review --> approve["Approve"]
+    approve --> publish["Confirm and publish"]
+    process -->|failure| error["Diagnose/retry"]
     error --> process
 ```
 
-## Lectura y offline
+## Reading and offline
 
 ```mermaid
 flowchart LR
-    discover["Explorar"] --> detail["Detalle"]
-    detail --> read["Leer"]
-    detail --> download["Descargar temporal"]
-    download --> verify["Validar integridad"]
+    discover["Explore"] --> detail["Details"]
+    detail --> read["Read"]
+    detail --> download["Temporary download"]
+    download --> verify["Validate integrity"]
     verify --> read
-    read --> progress["Guardar progreso local"]
-    progress --> sync["Sincronizar cuando haya red"]
-    verify -->|fallo| keep["Conservar versión anterior"]
+    read --> progress["Save local progress"]
+    progress --> sync["Synchronize when online"]
+    verify -->|failure| keep["Keep previous version"]
 ```
 
-## Aprender inglés
+## Learn English
 
 ```mermaid
 flowchart LR
-    english["Abrir texto inglés"] --> play["Escuchar"]
-    play --> word["Seleccionar palabra/oración"]
-    word --> repeat["Repetir/cambiar velocidad"]
-    word --> translation["Ver apoyo editorial"]
-    translation --> vocabulary["Guardar vocabulario"]
+    english["Open English text"] --> play["Listen"]
+    play --> word["Select word/sentence"]
+    word --> repeat["Repeat/change speed"]
+    word --> translation["View editorial support"]
+    translation --> vocabulary["Save vocabulary"]
     vocabulary --> play
 ```
 
-## Cobertura de casos
+## Coverage of cases
 
-| Caso | Inicio | Camino principal | Alterno crítico | Fin seguro |
+| Case | Start | Main path | Critical alternate | Safe end |
 |---|---|---|---|---|
-| FR-UC-001 | lista/crear | editar-procesar-revisar-publicar | fallo/rechazo | versión o borrador |
-| FR-UC-002 | detalle/lector | cargar-reproducir-seguir-guardar | audio/marcas/resize | progreso conservado |
-| FR-UC-003 | detalle | descargar-validar-activar-leer | red/checksum/espacio | versión válida |
-| FR-UC-004 | inicio/refresco | comparar-descargar-migrar | incompatible/corrupta | catálogo válido |
-| FR-UC-005 | lector | palabra-repetir-traducir-guardar | apoyo ausente/offline | posición conservada |
-| FR-UC-006 | ruta privilegiada | autorizar-denegar-auditar | sesión expirada | sin efectos |
-| FR-UC-007 | configuración | elegir-previsualizar-aplicar | almacenamiento/movimiento | preferencias seguras |
-| FR-UC-008 | editor | detectar-comparar-restaurar | conflicto/corrupción | sin sobreescritura |
-| FR-UC-009 | reconexión | enviar-validar-aplicar-confirmar | conflicto/token/reenvío | pendiente o confirmado |
-| FR-UC-010 | errores | inspeccionar-corregir-reintentar | costo/permiso/proveedor | evidencia conservada |
-| FR-UC-011 | biblioteca | combinar-filtrar-detalle | vacío/incompatible/offline | contenido o explicación |
-| FR-UC-012 | mi lectura | cambiar local-sincronizar | duplicado/token/sin cuenta | dato local/confirmado |
+| FR-UC-001 | list/create | edit-process-review-publish | fail/reject | version or draft |
+| FR-UC-002 | detail/reader | load-play-follow-save | audio/marks/resize | progress preserved |
+| FR-UC-003 | detail | download-validate-activate-read | network/checksum/space | valid version |
+| FR-UC-004 | start/refresh | compare-download-migrate | incompatible/corrupt | valid catalog |
+| FR-UC-005 | reader | word-repeat-translate-save | support missing/offline | position preserved |
+| FR-UC-006 | privileged route | authorize-deny-audit | session expired | no effects |
+| FR-UC-007 | settings | choose-preview-apply | storage/move | safe preferences |
+| FR-UC-008 | editor | detect-compare-restore | conflict/corruption | no overwrite |
+| FR-UC-009 | reconnection | send-validate-apply-confirm | conflict/token/resend | pending or confirmed |
+| FR-UC-010 | errors | inspect-fix-retry | cost/permission/provider | evidence preserved |
+| FR-UC-011 | library | merge-filter-detail | empty/incompatible/offline | content or explanation |
+| FR-UC-012 | my reading | switch local-sync | duplicate/token/no account | local/confirmed data |
 
-## Foco y anuncios
+## Focus and announcements
 
-- Navegar cambia foco al encabezado principal sólo cuando corresponde.
-- Diálogos devuelven foco al disparador.
-- Auto-scroll no mueve foco.
-- Guardado, descarga y sincronización usan regiones de estado moderadas.
-- Errores colocan foco en resumen y enlazan campos.
+- Navigation changes focus to the main heading only when appropriate.
+- Dialogs return focus to their trigger.
+- Auto-scroll does not move focus.
+- Save, download, and sync use moderate status regions.
+- Errors place focus on the summary and link to fields.
 
-## Resultado
+## Outcome
 
-- 12 de 12 casos cubiertos: PASS.
-- Error, offline, permiso, recuperación y accesibilidad: PASS.
-- Reader/Admin separados: PASS.
+- 12 of 12 cases covered: PASS.
+- Error, offline, permission, recovery and accessibility: PASS.
+- Reader/Admin separated: PASS.

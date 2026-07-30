@@ -1,6 +1,6 @@
-# Verificación E2E offline - Fase 9
+# Offline E2E Verification - Phase 9
 
-## Preparación
+## Preparation
 
 ```powershell
 pnpm demo:seed
@@ -8,30 +8,30 @@ pnpm dev
 pnpm offline:bootstrap
 ```
 
-## Recorrido automatizado
+## Automated walkthrough
 
 ```powershell
 pnpm reader:offline-e2e
 ```
 
-Chrome usa un perfil desechable y DevTools Protocol para:
+Chrome uses a disposable profile and the DevTools Protocol to:
 
-1. abrir `/downloads` y comprobar el cuento incluido;
-2. bloquear la red;
-3. navegar al lector desde el shell cacheado;
-4. comprobar texto, controles e indicador `Sin conexión`;
-5. iniciar lectura y verificar una operación de progreso en IndexedDB;
-6. restaurar la red y esperar confirmación hasta vaciar la cola.
+1. open `/downloads` and check the included story;
+2. block the network;
+3. navigate to the reader from the cached shell;
+4. check text, controls and the `Sin conexión` indicator;
+5. start reading and verify a progress operation in IndexedDB;
+6. restore the network and wait for confirmation until the queue is emptied.
 
-Las capturas se generan en `var/e2e/phase9-downloads.png` y
+Screenshots are generated in `var/e2e/phase9-downloads.png` and
 `var/e2e/phase9-offline-reader.png`.
 
-## Cobertura complementaria
+## Additional coverage
 
-- paquete válido, alterado e incompatible;
-- catálogo local con API caída;
-- actualización corrupta con rollback;
-- operaciones agrupadas e idempotentes;
-- contenido y anclaje inválidos;
-- límites de 100 MB y 250 MB;
-- API canónica y checksum de la respuesta exacta.
+- valid, tampered and incompatible package;
+- local catalog with API down;
+- corrupt update with rollback;
+- grouped and idempotent operations;
+- invalid content and anchoring;
+- 100 MB and 250 MB limits;
+- canonical API and exact-response checksum.

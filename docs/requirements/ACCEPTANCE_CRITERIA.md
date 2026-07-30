@@ -1,218 +1,218 @@
-# Criterios de aceptación
+# Acceptance Criteria
 
-**Estado:** Validado para Fase 0 - FR-PH00-TASK-008 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-008 COMPLETED.
 
-## FR-AC-001 - Palabra activa
+## FR-AC-001 - Active word
 
-**Relaciona:** FR-READER-004, FR-US-READER-001, FR-UC-002
+**Relates to:** FR-READER-004, FR-US-READER-001, FR-UC-002
 
-- Dada una lista ordenada de marcas válidas, cuando el tiempo entra en el intervalo de una palabra,
-  entonces Reader Engine devuelve esa palabra.
-- En un límite exacto, la regla de inclusión es determinista y está documentada.
-- Antes de la primera marca o después del final, no se devuelve una palabra incorrecta.
+- Given an ordered list of valid marks, when time enters the interval of a word,
+  then the Reader Engine returns that word.
+- At an exact boundary, the inclusion rule is deterministic and documented.
+- Before the first mark or after the end, no incorrect word is returned.
 
-## FR-AC-002 - Mano animada accesible
+## FR-AC-002 - Accessible animated hand
 
-**Relaciona:** FR-READER-006, FR-READER-015
+**Relates to:** FR-READER-006, FR-READER-015
 
-- La mano se ubica debajo de la palabra activa y no cubre el glifo.
-- Se realinea después de scroll, salto de línea, resize u orientación.
-- Al ocultarla o activar reducción de movimiento, no se anima.
+- The hand is positioned beneath the active word and does not cover the glyph.
+- It realigns after scroll, line break, resize, or orientation change.
+- When hidden or reduced motion is enabled, it is not animated.
 
-## FR-AC-003 - Recuperación de progreso
+## FR-AC-003 - Progress recovery
 
-**Relaciona:** FR-READER-009, FR-US-READER-003
+**Relates to:** FR-READER-009, FR-US-READER-003
 
-- Al cerrar y abrir la misma versión, Reader ofrece continuar en la última posición confirmada.
-- Una falla de red no elimina el progreso local.
-- La sincronización repetida no duplica ni retrocede progreso sin una regla de conflicto visible.
+- When closing and reopening the same version, the Reader offers to continue at the last confirmed position.
+- A network failure does not remove local progress.
+- Repeated synchronization does not duplicate or roll back progress without a visible conflict rule.
 
-## FR-AC-004 - Descarga íntegra
+## FR-AC-004 - Complete download
 
-**Relaciona:** FR-OFFLINE-003 a FR-OFFLINE-005, FR-UC-003
+**Relates to:** FR-OFFLINE-003 to FR-OFFLINE-005, FR-UC-003
 
-- Un checksum válido permite activar el paquete.
-- Un checksum inválido produce error y elimina o aísla el temporal.
-- Si existe una versión local válida, permanece disponible después del fallo.
+- A valid checksum allows the package to be activated.
+- An invalid checksum produces an error and removes or isolates the temporary file.
+- If a valid local version exists, it remains available after the failure.
 
-## FR-AC-005 - Publicación válida
+## FR-AC-005 - Valid publishing
 
-**Relaciona:** FR-CONTENT-005 a FR-CONTENT-007, FR-UC-001
+**Relates to:** FR-CONTENT-005 to FR-CONTENT-007, FR-UC-001
 
-- Sólo `approved` puede pasar a `published`.
-- La acción requiere permiso.
-- La transición registra actor y fecha.
-- Una versión publicada no se modifica en sitio.
+- Only `approved` may transition to `published`.
+- The action requires permission.
+- The transition records actor and date.
+- A published version is not modified in place.
 
-## FR-AC-006 - Procesamiento con error
+## FR-AC-006 - Error processing
 
-**Relaciona:** FR-AUDIO-005, FR-AUDIO-006, FR-US-ADMIN-006
+**Relates to:** FR-AUDIO-005, FR-AUDIO-006, FR-US-ADMIN-006
 
-- Un error del proveedor termina en `processing_failed`.
-- El error conserva un código seguro, etapa y correlation ID.
-- Reintentar no crea publicaciones duplicadas.
-- Las pruebas usan un adaptador falso.
+- A provider error ends in `processing_failed`.
+- The error retains a safe code, stage, and correlation ID.
+- Retrying does not create duplicate publications.
+- Tests use a fake adapter.
 
-## FR-AC-007 - Uso offline
+## FR-AC-007 - Offline usage
 
-**Relaciona:** FR-OFFLINE-001, FR-OFFLINE-007, FR-UC-003
+**Relates to:** FR-OFFLINE-001, FR-OFFLINE-007, FR-UC-003
 
-- Sin red, el usuario abre contenido descargado, reproduce audio y guarda progreso.
-- La interfaz comunica modo offline sin interrumpir la lectura.
-- Al regresar la red, los cambios pendientes se sincronizan de forma idempotente.
+- Without network, the user opens downloaded content, plays audio, and saves progress.
+- The interface communicates offline mode without interrupting reading.
+- When the network returns, pending changes synchronize idempotently.
 
-## FR-AC-008 - Navegación accesible
+## FR-AC-008 - Accessible navigation
 
-**Relaciona:** NFR-ACCESSIBILITY-001 a 006
+**Relates to:** NFR-ACCESSIBILITY-001 to 006
 
-- Todas las acciones críticas son alcanzables con teclado.
-- El foco es visible y lógico.
-- Los controles tienen nombre y estado anunciables.
-- La lectura no depende sólo de color o movimiento.
+- All critical actions are reachable by keyboard.
+- Focus is visible and logical.
+- Controls have announceable names and states.
+- Reading does not depend solely on color or motion.
 
-## FR-AC-009 - Seguridad de AWS
+## FR-AC-009 - AWS security
 
-**Relaciona:** NFR-SECURITY-001, FR-AUDIO-001
+**Relates to:** NFR-SECURITY-001, FR-AUDIO-001
 
-- Los bundles de Admin y Reader no contienen credenciales ni variables secretas.
-- Sólo el backend configura el SDK o adaptador AWS.
-- El análisis de secretos no detecta valores reales.
+- Admin and Reader bundles do not contain credentials or secret variables.
+- Only the backend configures the AWS SDK or adapter.
+- Secret scanning does not detect real values.
 
-## FR-AC-010 - Cambio de versión
+## FR-AC-010 - Version change
 
-**Relaciona:** FR-CONTENT-004, FR-OFFLINE-002
+**Relates to:** FR-CONTENT-004, FR-OFFLINE-002
 
-- Reader ignora o explica una versión incompatible.
-- Una versión nueva se descarga sin rebuild.
-- El catálogo local sólo cambia tras validación completa.
+- Reader ignores or explains an incompatible version.
+- A new version downloads without a rebuild.
+- The local catalog only changes after full validation.
 
-## FR-AC-011 - Visión medible
+## FR-AC-011 - Measurable vision
 
-**Relaciona:** FR-OV-001 a FR-OV-008, FR-PH00-TASK-002
+**Relates to:** FR-OV-001 to FR-OV-008, FR-PH00-TASK-002
 
-- Cada resultado de visión tiene un identificador, un indicador, una meta inicial y un método.
-- Cada resultado se relaciona con al menos un requisito, historia o criterio verificable.
-- Las metas de pruebas con usuarios se identifican como hipótesis de piloto.
-- Las decisiones diferidas no se presentan como aprobadas por implicación.
-- La visión incluye explícitamente contenido dinámico, continuidad offline y accesibilidad.
+- Each vision outcome has an identifier, an indicator, an initial target, and a method.
+- Each outcome is related to at least one requirement, story, or verifiable criterion.
+- User test goals are identified as pilot hypotheses.
+- Deferred decisions are not presented as approved by implication.
+- The vision explicitly includes dynamic content, offline continuity, and accessibility.
 
-## FR-AC-012 - Contrato y ciclo de contenido
+## FR-AC-012 - Contract and content lifecycle
 
-**Relaciona:** FR-CONTENT-001 a 007, FR-BR-001 a 006, FR-BR-014 a 020
+**Relates to:** FR-CONTENT-001 to 007, FR-BR-001 to 006, FR-BR-014 to 020
 
-- Los enums rechazan valores desconocidos y permiten los valores documentados.
-- Una versión contiene todos los metadatos obligatorios.
-- Sólo transiciones permitidas cambian estado y toda transición se audita.
-- Una versión publicada es inmutable y una corrección crea otra.
-- Sólo contenido publicado y compatible aparece en el catálogo.
+- Enums reject unknown values and allow documented values.
+- A version contains all required metadata.
+- Only permitted transitions change state and every transition is audited.
+- A published version is immutable and a correction creates another.
+- Only published and compatible content appears in the catalog.
 
-## FR-AC-013 - Edición y conservación de borrador
+## FR-AC-013 - Editing and draft preservation
 
-**Relaciona:** FR-ADMIN-001 a 006
+**Relates to:** FR-ADMIN-001 to 006
 
-- Un editor autorizado crea un cuento bilingüe estructurado y recibe errores asociados al campo.
-- Autoguardado distingue guardando, guardado, pendiente y error.
-- Cerrar o perder conexión no sobrescribe silenciosamente una versión más nueva.
-- Portada/ilustración inválida se rechaza sin perder el borrador.
+- An authorized editor creates a structured bilingual story and receives field-specific errors.
+- Autosave distinguishes saving, saved, pending, and error.
+- Closing or losing connection does not silently overwrite a newer version.
+- Invalid cover/illustration is rejected without losing the draft.
 
-## FR-AC-014 - Procesamiento, revisión y operación
+## FR-AC-014 - Processing, review, and operation
 
-**Relaciona:** FR-ADMIN-007 a 011, FR-AUDIO-001 a 007
+**Relates to:** FR-ADMIN-007 to 011, FR-AUDIO-001 to 007
 
-- Solicitar procesamiento crea un trabajo trazable e idempotente.
-- Audio, marcas, idioma y versión coinciden.
-- Revisión usa una previsualización equivalente al Reader.
-- Error, cancelación y reintento conservan estado y evidencia.
-- Costo/progreso se muestra sin invocar AWS real en automatización.
+- Requesting processing creates a traceable and idempotent job.
+- Audio, marks, language, and version match.
+- Review uses a preview equivalent to the Reader.
+- Error, cancellation, and retry retain state and evidence.
+- Cost/progress is shown without invoking real AWS in automation.
 
-## FR-AC-015 - Descubrimiento, modos y preferencias
+## FR-AC-015 - Discovery, modes, and preferences
 
-**Relaciona:** FR-READER-001, 002, 010, 011, 012, 015
+**Relates to:** FR-READER-001, 002, 010, 011, 012, 015
 
-- Biblioteca combina catálogo local/remoto sin duplicados.
-- Búsqueda/filtros funcionan con catálogo local y estado vacío.
-- Modo y preferencias se aplican sin crear aplicaciones separadas.
-- Mano, tamaño y movimiento se conservan localmente.
-- Todas las acciones críticas permanecen disponibles sin depender sólo de color.
+- Library combines local/remote catalog without duplicates.
+- Search/filters work with the local catalog and empty state.
+- Mode and preferences apply without creating separate apps.
+- Hand, size, and motion preferences are preserved locally.
+- All critical actions remain available without relying solely on color.
 
-## FR-AC-016 - Reproducción y aprendizaje
+## FR-AC-016 - Playback and learning
 
-**Relaciona:** FR-READER-003 a 009, 013, 014
+**Relates to:** FR-READER-003 to 009, 013, 014
 
-- Audio faltante o inválido produce un estado recuperable.
-- Pausa, reanudación, salto, repetición y velocidad respetan límites.
-- Palabra/oración se repiten usando segmentos canónicos.
-- Traducción/vocabulario editorial funciona offline cuando está incluido.
-- Progreso confirmado se recupera tras reinicio.
+- Missing or invalid audio produces a recoverable state.
+- Pause, resume, seek, repeat, and speed respect limits.
+- Word/sentence are repeated using canonical segments.
+- Editorial translation/vocabulary works offline when included.
+- Confirmed progress is recovered after restart.
 
-## FR-AC-017 - Sincronización offline
+## FR-AC-017 - Offline synchronization
 
-**Relaciona:** FR-OFFLINE-001 a 008, FR-BR-007 a 010, FR-BR-021 a 023
+**Relates to:** FR-OFFLINE-001 to 008, FR-BR-007 to 010, FR-BR-021 to 023
 
-- Primer inicio puede abrir contenido incluido sin red.
-- Sólo un paquete compatible e íntegro se activa.
-- Interrupción conserva versión anterior y operación pendiente.
-- Reenvío no duplica cambios.
-- La interfaz anuncia conexión, descarga y sincronización.
+- First launch may open included content without network.
+- Only a compatible and intact package is activated.
+- Interruption preserves the previous version and pending operation.
+- Resubmission does not duplicate changes.
+- The interface announces connection, download, and synchronization.
 
-## FR-AC-018 - API, identidad y datos del lector
+## FR-AC-018 - API, identity, and reader data
 
-**Relaciona:** FR-API-001 a 007
+**Relates to:** FR-API-001 to 007
 
-- Credenciales inválidas y permisos insuficientes no producen efectos.
-- Catálogo no expone borradores ni objetos incompatibles.
-- Propiedad se valida para progreso, favoritos y vocabulario.
-- Health checks y OpenAPI reflejan el contrato disponible.
-- Sincronización repetida es idempotente.
+- Invalid credentials and insufficient permissions have no effect.
+- Catalog does not expose drafts or incompatible objects.
+- Ownership is validated for progress, favorites, and vocabulary.
+- Health checks and OpenAPI reflect the available contract.
+- Repeated synchronization is idempotent.
 
-## FR-AC-019 - Accesibilidad verificable
+## FR-AC-019 - Verifiable accessibility
 
-**Relaciona:** NFR-ACCESSIBILITY-001 a 006
+**Relates to:** NFR-ACCESSIBILITY-001 to 006
 
-- Cero defectos críticos automatizados en flujos MVP.
-- Teclado, foco, nombres/estados, tacto y señales no cromáticas pasan revisión.
-- `prefers-reduced-motion` y el ajuste propio desactivan movimiento no esencial.
+- Zero critical automated defects in MVP flows.
+- Keyboard, focus, names/states, touch, and non-chromatic signals pass review.
+- `prefers-reduced-motion` and the OS setting disable non-essential motion.
 
-## FR-AC-020 - Rendimiento, fiabilidad y disponibilidad
+## FR-AC-020 - Performance, reliability, and availability
 
-**Relaciona:** NFR-PERFORMANCE-001 a 005, NFR-RELIABILITY-001 a 003,
-NFR-AVAILABILITY-001 a 002
+**Relates to:** NFR-PERFORMANCE-001 to 005, NFR-RELIABILITY-001 to 003,
+NFR-AVAILABILITY-001 to 002
 
-- Benchmarks cumplen los umbrales documentados en el entorno de referencia.
-- Fallos de red/almacenamiento no activan datos parciales.
-- Flujo offline crítico funciona sin backend.
-- Ejercicio de recuperación demuestra RTO/RPO o registra desviación antes de producción.
+- Benchmarks meet the documented thresholds in the reference environment.
+- Network/storage failures do not activate partial data.
+- Critical offline flow works without backend.
+- Recovery exercise demonstrates RTO/RPO or records deviation before production.
 
-## FR-AC-021 - Seguridad y privacidad
+## FR-AC-021 - Security and privacy
 
-**Relaciona:** NFR-SECURITY-001 a 007, NFR-PRIVACY-001 a 003
+**Relates to:** NFR-SECURITY-001 to 007, NFR-PRIVACY-001 to 003
 
-- Escaneo no encuentra secretos reales.
-- Entradas, permisos, sesiones, CORS y auditoría pasan casos positivos/negativos.
-- Inventario cubre todos los campos persistidos.
-- MVP no incluye PII ni analítica identificable de menores.
+- Scanning does not find real secrets.
+- Inputs, permissions, sessions, CORS, and audit pass positive/negative cases.
+- Inventory covers all persisted fields.
+- MVP does not include PII or identifiable analytics of minors.
 
-## FR-AC-022 - Mantenibilidad y compatibilidad
+## FR-AC-022 - Maintainability and compatibility
 
-**Relaciona:** NFR-MAINTAINABILITY-001 a 004, NFR-COMPATIBILITY-001 a 002
+**Relates to:** NFR-MAINTAINABILITY-001 to 004, NFR-COMPATIBILITY-001 to 002
 
-- Type-check, análisis Python y regla arquitectónica pasan.
-- Dependencias/decisiones materiales están registradas.
-- Matriz de navegadores, orientación y safe areas pasa los flujos críticos.
+- Type-check, Python analysis, and architectural rule pass.
+- Material dependencies/decisions are recorded.
+- Browser/orientation/safe area matrix passes critical flows.
 
-## FR-AC-023 - Operación, costo, almacenamiento y recuperación
+## FR-AC-023 - Operation, cost, storage, and recovery
 
-**Relaciona:** NFR-OBSERVABILITY-001/002, NFR-COST-001, NFR-RECOVERY-001,
+**Relates to:** NFR-OBSERVABILITY-001/002, NFR-COST-001, NFR-RECOVERY-001,
 NFR-STORAGE-001
 
-- Correlation ID une solicitud, trabajo y error sin datos sensibles.
-- Health checks distinguen vida y dependencias.
-- Límite de costo bloquea antes de invocar proveedor.
-- Paquete excedido produce advertencia/rechazo según configuración.
-- Rollback se prueba en staging antes de producción.
+- Correlation ID links request, job, and error without sensitive data.
+- Health checks distinguish liveness and dependencies.
+- Cost limit blocks before invoking provider.
+- Exceeded package produces warning/rejection according to configuration.
+- Rollback is tested in staging before production.
 
-## Cobertura
+## Coverage
 
-Los criterios FR-AC-012 a 023 cubren todos los requisitos por rango. Los criterios FR-AC-001 a 011
-mantienen detalle adicional para riesgos críticos. La matriz de trazabilidad registra los rangos y
-los métodos de prueba.
+Criteria FR-AC-012 to 023 cover all requirements by range. Criteria FR-AC-001 to 011
+maintain additional detail for critical risks. The traceability matrix records the ranges and
+the test methods.

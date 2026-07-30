@@ -1,14 +1,12 @@
-# Migraciones
+# Migrations
 
-Alembic controla todos los cambios de esquema. La revisión `20260724_0001` establece una línea base
-vacía; las tablas funcionales comienzan en la Fase 3.
+Alembic controls all schema changes. Revision `20260724_0001` establishes an empty baseline; the functional tables begin in Phase 3.
 
-Desde la raíz:
+From the repository root:
 
 ```powershell
 .\apps\api\.venv\Scripts\python.exe -m alembic -c .\apps\api\alembic.ini upgrade head
 .\apps\api\.venv\Scripts\python.exe -m alembic -c .\apps\api\alembic.ini current
 ```
 
-Toda migración debe probar `upgrade`, `downgrade` y otro `upgrade` sobre un archivo temporal antes de
-usarse con datos persistentes.
+Every migration must test `upgrade`, `downgrade`, and another `upgrade` on a temporary database before being used with persistent data.

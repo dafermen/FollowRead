@@ -1,69 +1,66 @@
-# Integración de audio y Speech Marks
+# Audio and Speech Marks Integration
 
-## Resultado de la Fase 6
+## Phase 6 Outcome
 
-FollowRead puede convertir una traducción estructurada en audio y marcas temporales sin acoplar el
-dominio a Amazon Polly. El modo predeterminado del MVP es local, determinista y sin costo. El límite
-AWS está implementado detrás del mismo contrato y sólo se activa explícitamente en un entorno que
-disponga del SDK y credenciales.
+FollowRead can convert a structured translation into audio and timing marks without coupling the
+domain to Amazon Polly. The MVP default mode is local, deterministic, and free. The AWS limit is
+implemented behind the same contract and is only activated explicitly in an environment that
+has the SDK and credentials.
 
-## Flujo
+## Flow
 
-1. Admin envía versión, idioma, voz y clave de idempotencia.
-2. La API valida sesión, CSRF, permiso, traducción e idioma de la voz.
-3. El servicio une los párrafos conservando sus rangos de caracteres.
-4. Calcula una huella SHA-256 del texto, idioma, voz, proveedor y modelos configurados.
-5. Si existe un MP3 listo con la misma huella, devuelve un trabajo `cached` con costo cero y no
-   llama al proveedor.
-6. Si la huella cambió o el archivo falta, calcula `caracteres × 0.000004 USD` y aplica el límite.
-7. El texto se divide sin cortar palabras, con un máximo configurable por fragmento.
-8. El adaptador genera audio y marcas de palabra. Las llamadas transitorias se intentan hasta tres
-   veces.
-9. Los timestamps externos se ajustan a una secuencia monótona antes de acumular tiempos y vincular
-   cada marca al párrafo que contiene su carácter.
-10. El audio y su huella de origen se guardan en SQLite/almacenamiento local; el trabajo termina
-    como completado o fallido.
-11. Si la versión tiene una publicación activa, la API recalcula su checksum con el paquete final
-    para que Reader y el bootstrap offline detecten el audio nuevo.
+1. Admin sends version, language, voice, and idempotency key.
+2. The API validates session, CSRF, permission, translation, and voice language.
+3. The service joins paragraphs while preserving their character ranges.
+4. It computes a SHA-256 fingerprint of the text, language, voice, provider, and configured models.
+5. If an MP3 ready with the same fingerprint exists, it returns a job `cached` with zero cost and does not
+   call the provider.
+6. If the fingerprint changed or the file is missing, it computes `caracteres × 0.000004 USD` and applies the limit.
+7. The text is split without cutting words, with a configurable maximum per fragment.
+8. The adapter generates audio and word marks. Transient calls are retried up to three
+   times.
+9. External timestamps are adjusted to a monotonic sequence before accumulating times and linking
+   each mark to the paragraph that contains its character.
+10. The audio and its source fingerprint are saved to SQLite/local storage; the job ends
+    as completed or failed.
+11. If the version has an active publication, the API recalculates its checksum with the final package
+    so Reader and offline bootstrap detect the new audio.
 
-## Adaptadores
+## Adapters
 
-- `FakePollyAdapter`: opción predeterminada. Produce datos reproducibles, no usa red y es adecuada
-  para desarrollo, demostraciones y todas las pruebas automáticas.
-- `AwsPollyAdapter`: realiza una solicitud MP3 y otra de Speech Marks a un cliente compatible con
-  Amazon Polly. El cliente se crea de forma diferida sólo cuando el proveedor es `aws`.
-- `OpenAITtsAdapter`: genera un MP3 con una voz natural y alinea las palabras con timestamps. La
-  clave se lee exclusivamente desde `OPENAI_API_KEY` en la API.
-- `RetryingPollyAdapter`: conserva un máximo de tres intentos por fragmento y propaga el error final
-  para que quede diagnosticado en el trabajo.
-- `LocalAudioStorage`: escribe en el directorio local configurado. El contrato permite sustituirlo
-  por almacenamiento de objetos en una fase posterior.
+- `FakePollyAdapter`: default option. Produces reproducible data, uses no network, and is suitable
+  for development, demos, and all automated tests.
+- `AwsPollyAdapter`: makes an MP3 request and a Speech Marks request to an Amazon Polly-compatible client. The client is created lazily only when the provider is `aws`.
+- `OpenAITtsAdapter`: generates an MP3 with a natural voice and aligns words with timestamps. The
+  key is read exclusively from `OPENAI_API_KEY` in the API.
+- `RetryingPollyAdapter`: keeps up to three attempts per fragment and propagates the final error
+  so it is recorded in the job diagnostics.
+- `LocalAudioStorage`: writes to the configured local directory. The contract allows replacing it
+  with object storage in a later phase.
 
-## Seguridad y operación
+## Security and operation
 
-- El navegador nunca recibe credenciales AWS ni invoca Polly directamente.
-- El navegador tampoco recibe `OPENAI_API_KEY`: reproduce únicamente el MP3 publicado.
-- Todas las mutaciones exigen cookie de sesión, permiso `content.process`, origen permitido y CSRF.
-- La clave de idempotencia evita duplicados ante reenvíos de una misma solicitud.
-- La caché persistente evita nuevas llamadas de pago aunque Admin envíe otra solicitud: sólo se
-  regenera cuando cambia el texto, idioma, voz, proveedor/modelos o cuando falta el MP3.
-- Un paquete incluido puede actualizarse al cambiar el checksum editorial; una descarga iniciada
-  por el usuario nunca se reemplaza silenciosamente.
-- Una caché válida con marcas antiguas superpuestas se repara localmente y conserva el MP3, por lo
-  que la corrección no realiza una nueva llamada de pago.
-- El límite de costo se evalúa antes de cualquier llamada al proveedor.
-- Los errores guardados se limitan a 500 caracteres.
-- Ninguna prueba automatizada usa una cuenta, secreto o llamada real de AWS.
+- The browser never receives AWS credentials nor invokes Polly directly.
+- The browser also does not receive `OPENAI_API_KEY`: it only plays the published MP3.
+- All mutations require a session cookie, permission `content.process`, allowed origin, and CSRF.
+- The idempotency key prevents duplicates from resubmitted requests.
+- The persistent cache prevents new paid calls even if Admin sends another request: it is only
+  regenerated when the text, language, voice, provider/models change or when the MP3 is missing.
+- An included package can be updated when the editorial checksum changes; a user-initiated download is never silently replaced.
+- A valid cache with overlapping old marks is repaired locally and keeps the MP3, so the fix does not perform a new paid call.
+- The cost limit is evaluated before any call to the provider.
+- Stored errors are limited to 500 characters.
+- No automated test uses an actual AWS account, secret, or call.
 
-## API administrativa
+## Administrative API
 
-| Método | Ruta | Uso |
+| Method | Path | Use |
 |---|---|---|
-| `GET` | `/admin/voices` | voces compatibles por idioma |
-| `GET` | `/admin/processing` | actividad y diagnóstico reciente |
-| `POST` | `/admin/processing` | iniciar generación idempotente |
-| `POST` | `/admin/processing/{id}/retry` | reintentar un fallo |
-| `POST` | `/admin/processing/{id}/cancel` | cancelar un trabajo pendiente |
+| `GET` | `/admin/voices` | supported voices by language |
+| `GET` | `/admin/processing` | recent activity and diagnostics |
+| `POST` | `/admin/processing` | start idempotent generation |
+| `POST` | `/admin/processing/{id}/retry` | retry a failure |
+| `POST` | `/admin/processing/{id}/cancel` | cancel a pending job |
 
-La pantalla `/processing` muestra idioma, voz, costo máximo, progreso, estado, error y acciones. En
-desarrollo conserva una vista previa visual cuando la API no tiene una sesión activa.
+The `/processing` screen shows language, voice, maximum cost, progress, status, error, and actions. In
+development it retains a visual preview when the API does not have an active session.

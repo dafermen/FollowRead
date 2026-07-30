@@ -1,7 +1,9 @@
-# Arquitectura de información
+# Information Architecture
 
-**Estado:** Validada  
-**Tarea responsable:** FR-PH01-TASK-002 - COMPLETED
+**Status:** Validated  
+**Responsible task:** FR-PH01-TASK-002 - COMPLETED
+**Locale note:** Spanish labels in the trees intentionally reproduce the application's current
+default UI; the architecture descriptions are in English.
 
 ## Reader
 
@@ -30,8 +32,7 @@ Reader
     └── Perfil local/cuenta futura
 ```
 
-Navegación primaria propuesta: Inicio, Biblioteca, Mi lectura y Configuración. Lector es una ruta de
-tarea enfocada y no una pestaña persistente.
+Proposed primary navigation: Home, Library, My Reading, and Settings. Reader is a task-focused route and not a persistent tab.
 
 ## Admin
 
@@ -55,33 +56,32 @@ Admin
     └── Historial/auditoría
 ```
 
-Admin nunca aparece como enlace o ruta en Reader. Autorización servidor protege cada sección aunque
-la navegación o URL sea manipulada.
+Admin never appears as a link or route in Reader. Server authorization protects each section even if navigation or URL is manipulated.
 
-## Objetos de información
+## Information objects
 
-| Objeto | Vistas principales | Estado visible |
+| Object | Main views | Visible state |
 |---|---|---|
-| Contenido | lista, detalle, editor, Reader | tipo, idioma, nivel, versión |
-| Versión | editor, revisión, publicación | workflow, compatibilidad, checksum |
-| Trabajo | dashboard, procesamiento, errores | etapa, progreso, costo, error |
-| Paquete | detalle, descargas | tamaño, versión, integridad |
-| Progreso | inicio, historial, lector | local, pendiente, sincronizado |
-| Perfil | configuración | local/cuenta, modo, preferencias |
-| Vocabulario | lector, vocabulario | local, pendiente, sincronizado |
+| Content | list, detail, editor, Reader | type, language, level, version |
+| Version | editor, review, publish | workflow, compatibility, checksum |
+| Job | dashboard, processing, errors | stage, progress, cost, error |
+| Package | detail, downloads | size, version, integrity |
+| Progress | home, history, reader | local, pending, synchronized |
+| Profile | settings | local/account, mode, preferences |
+| Vocabulary | reader, vocabulary | local, pending, synchronized |
 
-## Reglas de navegación
+## Navigation rules
 
-- Back conserva contexto, filtros y borrador.
-- Deep links a Reader validan paquete/versión antes de abrir.
-- Una ruta sin permiso muestra denegación segura, no contenido parcial.
-- Offline oculta o deshabilita sólo acciones remotas y explica por qué.
-- Infantil reduce navegación secundaria y requiere salida segura.
-- Publicación y eliminación no dependen de navegación implícita.
+- Back preserves context, filters, and draft.
+- Deep links to Reader validate package/version before opening.
+- A route without permission shows a safe denial, not partial content.
+- Offline hides or disables only remote actions and explains why.
+- Kids mode reduces secondary navigation and requires a safe exit.
+- Publishing and deletion do not depend on implicit navigation.
 
-## Validación
+## Validation
 
-- 12 pantallas Reader ubicadas: PASS.
-- 14 pantallas Admin ubicadas: PASS.
-- Separación de aplicaciones: PASS.
-- Estados offline, permiso y compatibilidad tienen ruta: PASS.
+- 12 Reader screens located: PASS.
+- 14 Admin screens located: PASS.
+- Separation of applications: PASS.
+- Offline, permission, and compatibility states have a path: PASS.

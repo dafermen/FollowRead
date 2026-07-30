@@ -1,16 +1,16 @@
 # Architecture Decision Records
 
-Los ADR registran decisiones arquitectónicas con contexto, consecuencias y estado. El historial
-completo y sus IDs canónicos permanece en
+ADRs record architectural decisions with context, consequences, and status. The full history
+and their canonical IDs remain in
 [`docs/project-management/DECISIONS.md`](../project-management/DECISIONS.md).
 
-## Registros
+## Records
 
-- [ADR-0001: SQLite para el MVP](0001-sqlite-mvp.md), corresponde a FR-DEC-013.
-- [ADR-0002: contenedores opcionales](0002-optional-containers.md), corresponde a FR-DEC-019.
+- [ADR-0001: SQLite for the MVP](0001-sqlite-mvp.md), corresponds to FR-DEC-013.
+- [ADR-0002: optional containers](0002-optional-containers.md), corresponds to FR-DEC-019.
 
-## Regla
+## Rule
 
-Crear un ADR cuando una decisión cambie límites, persistencia, seguridad, contratos, proveedores,
-operación o despliegue. No reescribir decisiones aceptadas: crear un ADR nuevo que las sustituya y
-enlazar ambos estados.
+Create an ADR when a decision changes boundaries, persistence, security, contracts, providers,
+operation, or deployment. Do not rewrite accepted decisions: create a new ADR that supersedes them and
+link both states.

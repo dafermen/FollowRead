@@ -1,24 +1,23 @@
-# ADR-0001: SQLite para el MVP
+# ADR-0001: SQLite for the MVP
 
-**Estado:** ACCEPTED  
-**Fecha:** 2026-07-24  
-**Decisión canónica:** FR-DEC-013
+**Status:** ACCEPTED  
+**Date:** 2026-07-24  
+**Canonical decision:** FR-DEC-013
 
-## Contexto
+## Context
 
-El MVP debe poder desarrollarse y demostrarse sin operar PostgreSQL ni contenedores.
+The MVP must be able to be developed and demonstrated without running PostgreSQL or containers.
 
-## Decisión
+## Decision
 
-SQLite es la base autoritativa del MVP mediante SQLAlchemy y Alembic. Las consultas deben evitar
-dependencias innecesarias de SQLite para conservar una futura ruta de migración.
+SQLite is the authoritative database for the MVP via SQLAlchemy and Alembic. Queries should avoid unnecessary dependencies on SQLite to preserve a future migration path.
 
-## Consecuencias
+## Consequences
 
-- desarrollo local con menos infraestructura;
-- pruebas de integración contra SQLite real;
-- backups de archivo con checksum e integridad;
-- concurrencia y migración futura requieren validaciones específicas;
-- PostgreSQL no puede introducirse como requisito del MVP sin una nueva decisión.
+- local development with less infrastructure;
+- integration tests against real SQLite;
+- file backups with checksum and integrity;
+- concurrency and future migration require specific validations;
+- PostgreSQL cannot be introduced as an MVP requirement without a new decision.
 
-Véase [DECISIONS.md](../project-management/DECISIONS.md).
+See [DECISIONS.md](../project-management/DECISIONS.md).

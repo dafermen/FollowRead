@@ -1,22 +1,21 @@
 # FollowRead Admin
 
-Aplicación web independiente para creación, revisión, procesamiento y publicación de contenido.
+Standalone web application for creating, reviewing, processing, and publishing content.
 
-## Comandos
+## Commands
 
 - `pnpm --filter @followread/admin-web dev`
 - `pnpm --filter @followread/admin-web test`
 - `pnpm --filter @followread/admin-web build`
 
-## Pantallas disponibles
+## Available screens
 
-- `/` Dashboard editorial;
-- `/content` catálogo y filtros;
-- `/content/new` creación de borradores;
-- `/content/{id}/edit` editor bilingüe, recuperación e ilustraciones;
-- `/processing` audio, voces, costos y diagnóstico;
-- `/reviews` revisión, historial y publicación;
-- `/documentation` instalación y operación dentro de la aplicación.
+- `/` Editorial dashboard;
+- `/content` catalog and filters;
+- `/content/new` draft creation;
+- `/content/{id}/edit` bilingual editor, recovery, and illustrations;
+- `/processing` audio, voices, costs, and diagnostics;
+- `/reviews` review, history, and publishing;
+- `/documentation` installation and operation within the app.
 
-En desarrollo, si no existe una sesión, estas pantallas muestran una vista previa identificada con
-datos de ejemplo para facilitar demostraciones visuales.
+In development, if there is no session, these screens show a preview identified with sample data to facilitate visual demonstrations.

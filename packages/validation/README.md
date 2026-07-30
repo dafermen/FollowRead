@@ -1,3 +1,3 @@
 # @followread/validation
 
-Esquemas y funciones de validación reutilizables.
+Reusable validation schemas and functions.

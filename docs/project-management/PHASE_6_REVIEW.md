@@ -1,36 +1,33 @@
-# Revisión de Fase 6
+# Phase 6 Review
 
-**Fase:** Integración de audio con Amazon Polly  
-**Fecha:** 2026-07-25  
-**Resultado:** PASS
+**Phase:** Audio integration with Amazon Polly  
+**Date:** 2026-07-25  
+**Outcome:** PASS
 
-## Criterios de salida
+## Exit Criteria
 
-| Criterio | Evidencia | Estado |
+| Criterion | Evidence | Status |
 |---|---|---|
-| Cliente desacoplado y configurable | Adaptadores `fake` y `aws`, selección por entorno | PASS |
-| Texto dividido de forma segura | `TextChunker` y pruebas de límites | PASS |
-| Audio almacenado con integridad | almacenamiento local y checksum SHA-256 | PASS |
-| Speech Marks procesados | tiempos, caracteres y párrafo persistidos | PASS |
-| Sincronización validable | marcas ordenadas y vinculadas a estructura editorial | PASS |
-| Costos controlados | estimación previa y límite configurable | PASS |
-| Errores y reintentos | diagnóstico persistido, tres intentos y reintento manual | PASS |
-| Experiencia administrativa | progreso, voz, idioma, costo, cancelación y diagnóstico | PASS |
-| Seguridad | sesión, permiso, origen, CSRF e idempotencia | PASS |
-| Pruebas sin AWS real | cliente AWS simulado y adaptador local predeterminado | PASS |
+| Decoupled and configurable client | Adapters `fake` and `aws`, selection by environment | PASS |
+| Text safely chunked | `TextChunker` and boundary tests | PASS |
+| Audio stored with integrity | local storage and SHA-256 checksum | PASS |
+| Speech Marks processed | timings, characters and paragraph persisted | PASS |
+| Verifiable synchronization | marks ordered and linked to editorial structure | PASS |
+| Costs controlled | upfront estimate and configurable cap | PASS |
+| Errors and retries | persisted diagnostics, three attempts and manual retry | PASS |
+| Administrative experience | progress, voice, language, cost, cancellation and diagnostics | PASS |
+| Security | session, permission, origin, CSRF and idempotency | PASS |
+| Tests without real AWS | simulated AWS client and local adapter as default | PASS |
 
-## Validación
+## Validation
 
-- puerta rápida del monorepo en verde;
-- 12 pruebas de Admin;
-- 91 pruebas de API;
-- cobertura backend de 100%;
-- lint y tipos estáticos en verde;
-- compilación de aplicaciones pendiente de la puerta final de integración.
+- monorepo quick gate is green;
+- 12 Admin tests;
+- 91 API tests;
+- backend coverage 100%;
+- lint and static types green;
+- app builds pending final integration gate.
 
-## Restricción consciente del MVP
+## MVP conscious constraint
 
-No se instala ni configura una cuenta AWS. El límite real está preparado y probado con un cliente
-simulado; activarlo requiere `boto3`, credenciales gestionadas externamente y
-`FOLLOWREAD_POLLY_PROVIDER=aws`. Esta restricción elimina costo y dependencia de red en el MVP sin
-cambiar el contrato de procesamiento.
+No AWS account is installed or configured. The real cap is prepared and tested with a simulated client; enabling it requires `boto3`, externally managed credentials and `FOLLOWREAD_POLLY_PROVIDER=aws`. This constraint removes cost and network dependency in the MVP without changing the processing contract.

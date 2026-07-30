@@ -1,35 +1,35 @@
-# Revisión de Fase 8 - FollowRead Reader Web
+# Phase 8 Review - FollowRead Reader Web
 
-**Fecha:** 2026-07-26  
-**Estado:** COMPLETED
+**Date:** 2026-07-26  
+**Status:** COMPLETED
 
-## Resultado
+## Outcome
 
-Reader ofrece una experiencia completa y demostrable: inicio, biblioteca, filtros, categorías,
-detalle, lector bilingüe, favoritos, progreso, historial, configuración, vocabulario y tres modos
-de lectura. El navegador puede narrar con una voz local sin API key y la aplicación dispone de
-manifest, icono, instalación y cache de shell PWA.
+Reader provides a complete and demonstrable experience: sign-in, library, filters, categories,
+detail, bilingual reader, favorites, progress, history, settings, vocabulary and three reading modes.
+The browser can narrate with a local voice without an API key and the app includes a manifest, icon,
+installation and PWA shell caching.
 
-## Criterios verificados
+## Verified criteria
 
-1. Biblioteca y búsqueda consumen exclusivamente contenido publicado.
-2. Detalle y lector preservan slug, idioma, capítulos y progreso.
-3. Favoritos, historial, vocabulario y ajustes locales se validan y no contienen PII.
-4. Infantil, adulto y aprendizaje comparten la aplicación y aplican defaults distintos.
-5. Narración audible degrada a seguimiento visual cuando Web Speech no está disponible.
-6. Shell amplio/compacto, safe areas, 320 px, reduced motion y foco visible están contemplados.
-7. La PWA cachea el shell sin adelantar las descargas de contenido de Fase 9.
-8. Pruebas unitarias, integración, navegador real, tipos, lint, build y puerta completa pasan.
+1. Library and search consume exclusively published content.
+2. Detail and reader preserve slug, language, chapters and progress.
+3. Favorites, history, vocabulary and local settings are validated and do not contain PII.
+4. Child, adult and learning share the application and apply different defaults.
+5. Audible narration degrades to visual tracking when Web Speech is not available.
+6. Wide/compact shell, safe areas, 320 px, reduced motion and visible focus are considered.
+7. The PWA caches the shell without prefetching Phase 9 content downloads.
+8. Unit, integration, real browser tests, types, lint, build and full gate pass.
 
-## Evidencia
+## Evidence
 
-- 22 pruebas Reader con cobertura superior al 90% en almacenamiento, narración y PWA.
-- recorrido Chrome headless sobre cinco rutas públicas y manifest;
-- revisión visual amplia y compacta;
-- `pnpm check` desde SQLite sembrada.
+- 22 Reader tests with coverage above 90% in storage, narration and PWA.
+- headless Chrome run across five public routes and the manifest;
+- wide and compact visual review;
+- `pnpm check` seeded from SQLite.
 
-## Decisiones
+## Decisions
 
-- Web Speech es el adaptador audible local del MVP; no requiere OpenAI ni AWS.
-- El Reader Engine conserva la autoridad temporal.
-- Las descargas offline, checksum y sincronización quedan en Fase 9.
+- Web Speech is the local audible adapter for the MVP; it does not require OpenAI or AWS.
+- The Reader Engine retains temporary authority.
+- Offline downloads, checksum and synchronization remain for Phase 9.

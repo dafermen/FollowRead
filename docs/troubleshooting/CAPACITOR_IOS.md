@@ -1,16 +1,16 @@
-# Capacitor iOS: solución de problemas
+# Capacitor iOS: troubleshooting
 
-## Requisito de plataforma
+## Platform requirement
 
-El proyecto puede generarse y sincronizarse en Windows, pero Apple exige macOS con Xcode 26+ para
-compilar, firmar, ejecutar simuladores y publicar. Verifica el entorno en el Mac:
+The project can be generated and synced on Windows, but Apple requires macOS with Xcode 26+ to
+build, sign, run simulators, and publish. Verify the environment on the Mac:
 
 ```bash
 pnpm mobile:doctor ios
 xcode-select -p
 ```
 
-## Dependencias Swift no resuelven
+## Swift dependencies not resolving
 
 ```bash
 pnpm install --frozen-lockfile
@@ -18,31 +18,31 @@ pnpm mobile:sync:ios
 pnpm mobile:open:ios
 ```
 
-Capacitor 8 usa Swift Package Manager por defecto. En Xcode, espera a que termine la resolución y
-revisa `ios/App/CapApp-SPM/Package.swift`.
+Capacitor 8 uses Swift Package Manager by default. In Xcode, wait for resolution to finish and
+check `ios/App/CapApp-SPM/Package.swift`.
 
-## Firma o bundle identifier
+## Signing or bundle identifier
 
-- conserva `com.followread.reader`;
-- selecciona el Team correcto en Signing & Capabilities;
-- usa perfiles de desarrollo/TestFlight administrados por Apple;
-- no agregues certificados, perfiles ni contraseñas al repositorio.
+- keep `com.followread.reader`;
+- select the correct Team in Signing & Capabilities;
+- use development/TestFlight profiles managed by Apple;
+- do not add certificates, profiles, or passwords to the repository.
 
-## Pantalla en blanco o API inaccesible
+## Blank screen or API inaccessible
 
-- confirma que `pnpm mobile:sync:ios` copió un build reciente;
-- usa un `VITE_API_BASE_URL` HTTPS alcanzable desde el dispositivo;
-- admite `capacitor://localhost` en CORS;
-- revisa la consola de Safari/Xcode y no deshabilites App Transport Security en producción.
+- confirm that `pnpm mobile:sync:ios` copied a recent build;
+- use an HTTPS `VITE_API_BASE_URL` reachable from the device;
+- support `capacitor://localhost` in CORS;
+- check the Safari/Xcode console and do not disable App Transport Security in production.
 
-## Notch, orientación o controles tapados
+## Notch, orientation, or controls covered
 
-El viewport debe conservar `viewport-fit=cover`. Revisa vertical y horizontal en iPhone/iPad con
-navegación gestual y texto grande. Si una pantalla nueva usa posición fija, debe sumar
+The viewport must keep `viewport-fit=cover`. Test vertical and horizontal on iPhone/iPad with
+gesture navigation and large text. If a new screen uses fixed positioning, it must add
 `env(safe-area-inset-*)`.
 
-## Voz se pausa al bloquear o cambiar de app
+## Voice pauses when locking or switching apps
 
-Es el comportamiento esperado del MVP. Web Speech no ofrece audio continuo nativo; FollowRead pausa
-y conserva progreso. No agregues `UIBackgroundModes` hasta implementar una fuente de audio nativa y
-controles de interrupción.
+This is the expected behavior of the MVP. Web Speech does not provide native continuous audio; FollowRead pauses
+and preserves progress. Do not add `UIBackgroundModes` until you implement a native audio source and
+interruption controls.

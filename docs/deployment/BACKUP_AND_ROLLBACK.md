@@ -1,49 +1,45 @@
-# Backup, migración y rollback
+# Backup, migration and rollback
 
-## Backup SQLite
+## SQLite Backup
 
-La API usa la función online de backup de SQLite, ejecuta `PRAGMA integrity_check`, calcula SHA-256
-y genera un manifiesto JSON.
+The API uses SQLite's online backup function, runs `PRAGMA integrity_check`, computes SHA-256 and generates a JSON manifest.
 
 ```powershell
 pnpm deploy:backup -- --output .\var\backups
 ```
 
-En contenedor:
+In container:
 
 ```bash
 docker compose -f infrastructure/docker/compose.yaml run --rm --no-deps api \
   python -m followread_api.cli.database_backup backup --output /data/backups
 ```
 
-El backup debe copiarse a almacenamiento separado del volumen y probarse en staging. RPO inicial:
-24 horas. RTO inicial: 4 horas.
+The backup must be copied to storage separate from the volume and tested in staging. Initial RPO: 24 hours. Initial RTO: 4 hours.
 
-## Migraciones
+## Migrations
 
-Compose ejecuta `alembic upgrade head` como servicio de una sola ejecución antes de iniciar API.
-Para staging/production:
+Compose runs `alembic upgrade head` as a one-off service before starting the API. For staging/production:
 
-1. detener cambios editoriales;
-2. crear y verificar backup;
-3. ejecutar migración con la nueva imagen;
-4. confirmar `/ready`, catálogo y smoke tests;
-5. reabrir tráfico.
+1. stop editorial changes;
+2. create and verify backup;
+3. run migration with the new image;
+4. confirm `/ready`, catalog and smoke tests;
+5. reopen traffic.
 
-No se ejecuta `alembic downgrade` automáticamente.
+`alembic downgrade` is not run automatically.
 
-## Restauración
+## Restoration
 
-Detén la API y conserva una copia fuera del volumen. La restauración exige la palabra `RESTORE`,
-valida checksum/integridad y crea un backup `pre-restore` del destino existente.
+Stop the API and keep a copy outside the volume. Restoration requires the word `RESTORE`, validates checksum/integrity and creates a backup `pre-restore` of the existing target.
 
 ```powershell
 pnpm deploy:restore -- --backup C:\secure\followread-20260726.sqlite3 --confirm RESTORE
 ```
 
-Restaurar producción requiere aprobación del propietario y evidencia de corrupción o pérdida.
+Restoring production requires owner approval and evidence of corruption or loss.
 
-## Rollback de aplicación
+## Application rollback
 
 ```powershell
 $env:FOLLOWREAD_DEPLOY_APPROVED = "YES"
@@ -53,10 +49,9 @@ node scripts/deploy-compose.mjs `
   --rollback v1.2.3
 ```
 
-El rollback cambia las tres imágenes, conserva el volumen y no revierte esquema. Después:
+The rollback changes the three images, preserves the volume, and does not revert the schema. Afterwards:
 
-1. ejecutar `pnpm deploy:smoke` contra las URLs reales;
-2. verificar `/metrics` y errores 5xx;
-3. confirmar compatibilidad del esquema;
-4. registrar versión, causa, impacto y resultado.
-
+1. run `pnpm deploy:smoke` against the real URLs;
+2. verify `/metrics` and 5xx errors;
+3. confirm schema compatibility;
+4. record version, cause, impact and outcome.

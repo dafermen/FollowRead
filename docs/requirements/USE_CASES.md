@@ -1,196 +1,196 @@
-# Casos de uso
+# Use cases
 
-**Estado:** Validado para Fase 0 - FR-PH00-TASK-007 COMPLETED.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-007 COMPLETED.
 
-## FR-UC-001 - Publicar contenido bilingüe
+## FR-UC-001 - Publish bilingual content
 
-- **Actor principal:** Editor / Revisor / Publicador
-- **Precondiciones:** Usuarios autenticados; permisos adecuados; contenido en draft.
-- **Disparador:** El editor decide preparar una versión.
-- **Flujo principal:**
-  1. El editor estructura capítulos y párrafos.
-  2. Asocia idiomas, audiencia, nivel, categorías y voces.
-  3. Solicita procesamiento.
-  4. API valida, crea trabajo y genera audio/marcas mediante servicios.
-  5. El revisor previsualiza la sincronización.
-  6. El revisor aprueba.
-  7. El publicador publica una versión inmutable.
-  8. El catálogo remoto expone la nueva versión.
-- **Alternos:** Validación fallida; procesamiento parcial; revisión rechazada; permiso insuficiente.
-- **Postcondición:** Existe una versión publicada auditada o el estado conserva una explicación.
-- **Historias:** FR-US-ADMIN-001, 003, 004, 005, 006.
+- **Primary actor:** Editor / Reviewer / Publisher
+- **Preconditions:** Authenticated users; appropriate permissions; content in draft.
+- **Trigger:** The editor decides to prepare a release.
+- **Main flow:**
+  1. The editor structures chapters and paragraphs.
+  2. Associates languages, audience, level, categories, and voices.
+  3. Requests processing.
+  4. API validates, creates a job, and generates audio/marks via services.
+  5. The reviewer previews the synchronization.
+  6. The reviewer approves.
+  7. The publisher publishes an immutable version.
+  8. The remote catalog exposes the new version.
+- **Alternates:** Failed validation; partial processing; review rejected; insufficient permission.
+- **Postcondition:** There exists an audited published version or the state retains an explanation.
+- **Stories:** FR-US-ADMIN-001, 003, 004, 005, 006.
 
-## FR-UC-002 - Reproducir lectura sincronizada
+## FR-UC-002 - Play synchronized reading
 
-- **Actor principal:** Lector
-- **Precondiciones:** Contenido, audio y Speech Marks válidos disponibles.
-- **Disparador:** El lector selecciona reproducir.
-- **Flujo principal:**
-  1. Reader carga la versión y el progreso.
-  2. Reader Engine inicia audio.
-  3. Cada cambio temporal resuelve una palabra activa.
-  4. La interfaz resalta la palabra y posiciona la mano si está habilitada.
-  5. El texto se desplaza sólo cuando la palabra sale del área segura.
-  6. El progreso se guarda periódicamente y en eventos relevantes.
-- **Alternos:** Audio ausente; marcas inválidas; resize; orientación; pausa; interrupción.
-- **Postcondición:** La lectura continúa o muestra un error recuperable sin perder progreso.
-- **Historias:** FR-US-READER-001, 002, 003, 005.
+- **Primary actor:** Reader
+- **Preconditions:** Valid content, audio, and Speech Marks available.
+- **Trigger:** The reader selects play.
+- **Main flow:**
+  1. Reader loads the version and progress.
+  2. Reader Engine starts audio.
+  3. Each time update resolves an active word.
+  4. The UI highlights the word and positions the hand if enabled.
+  5. Text scrolls only when the word leaves the safe area.
+  6. Progress is saved periodically and on relevant events.
+- **Alternates:** Missing audio; invalid marks; resize; orientation; pause; interruption.
+- **Postcondition:** Reading continues or shows a recoverable error without losing progress.
+- **Stories:** FR-US-READER-001, 002, 003, 005.
 
-## FR-UC-003 - Descargar y leer offline
+## FR-UC-003 - Download and read offline
 
-- **Actor principal:** Lector
-- **Precondiciones:** Conexión disponible para descargar; almacenamiento suficiente.
-- **Disparador:** El lector elige descargar.
-- **Flujo principal:**
-  1. Reader obtiene metadatos y compatibilidad.
-  2. Descarga a un área temporal.
-  3. Verifica checksum y contenido requerido.
-  4. Activa el paquete atómicamente.
-  5. Sin conexión, abre texto, imágenes, audio y marcas locales.
-  6. Guarda cambios locales para sincronización posterior.
-- **Alternos:** Red interrumpida; checksum inválido; versión incompatible; espacio insuficiente.
-- **Postcondición:** Existe un paquete completo válido o se conserva la versión anterior.
-- **Historias:** FR-US-READER-004, FR-US-READER-009.
+- **Primary actor:** Reader
+- **Preconditions:** Connection available for download; sufficient storage.
+- **Trigger:** The reader chooses to download.
+- **Main flow:**
+  1. Reader obtains metadata and compatibility.
+  2. Downloads to a temporary area.
+  3. Verifies checksum and required content.
+  4. Activates the package atomically.
+  5. Offline, opens text, images, audio, and local marks.
+  6. Saves local changes for later synchronization.
+- **Alternates:** Interrupted network; invalid checksum; incompatible version; insufficient space.
+- **Postcondition:** There exists a complete valid package or the previous version is preserved.
+- **Stories:** FR-US-READER-004, FR-US-READER-009.
 
-## FR-UC-004 - Actualizar contenido descargado
+## FR-UC-004 - Update downloaded content
 
-- **Actor principal:** Reader
-- **Precondiciones:** Catálogo local presente; backend disponible.
-- **Disparador:** Inicio, refresco o tarea programada apropiada.
-- **Flujo principal:**
-  1. Compara IDs y versiones.
-  2. Filtra versiones incompatibles.
-  3. Descarga sólo cambios.
-  4. Valida y activa la nueva versión.
-  5. Migra o ancla progreso cuando sea posible.
-- **Alternos:** Actualización corrupta; contenido retirado; conflicto de progreso.
-- **Postcondición:** Reader conserva una versión válida y comunica el resultado.
-- **Historias:** FR-US-READER-003, 004, 009.
+- **Primary actor:** Reader
+- **Preconditions:** Local catalog present; backend available.
+- **Trigger:** Startup, refresh, or an appropriate scheduled task.
+- **Main flow:**
+  1. Compares IDs and versions.
+  2. Filters incompatible versions.
+  3. Downloads only changes.
+  4. Validates and activates the new version.
+  5. Migrates or anchors progress when possible.
+- **Alternates:** Corrupted update; content withdrawn; progress conflict.
+- **Postcondition:** Reader retains a valid version and communicates the result.
+- **Stories:** FR-US-READER-003, 004, 009.
 
-## FR-UC-005 - Aprender inglés durante la lectura
+## FR-UC-005 - Learn English while reading
 
-- **Actor principal:** Estudiante
-- **Precondiciones:** Contenido inglés con apoyos editoriales disponibles.
-- **Disparador:** Activa modo aprender inglés.
-- **Flujo principal:**
-  1. Ve texto inglés y traducción opcional.
-  2. Toca una palabra para escucharla.
-  3. Consulta significado contextual.
-  4. Repite palabra u oración y reduce velocidad.
-  5. Guarda la palabra en vocabulario.
-- **Alternos:** Traducción no disponible; offline; palabra ya guardada.
-- **Postcondición:** La lectura no pierde posición y el vocabulario queda local o sincronizado.
-- **Historias:** FR-US-READER-007, 008.
+- **Primary actor:** Student
+- **Preconditions:** English content with editorial supports available.
+- **Trigger:** Enables learn English mode.
+- **Main flow:**
+  1. Sees English text and optional translation.
+  2. Taps a word to hear it.
+  3. Looks up contextual meaning.
+  4. Repeats word or sentence and slows down playback.
+  5. Saves the word to vocabulary.
+- **Alternates:** Translation unavailable; offline; word already saved.
+- **Postcondition:** Reading does not lose position and vocabulary is stored locally or synchronized.
+- **Stories:** FR-US-READER-007, 008.
 
-## FR-UC-006 - Rechazar una acción sin permiso
+## FR-UC-006 - Reject an action without permission
 
-- **Actor principal:** Usuario autenticado sin permiso
-- **Precondiciones:** Sesión válida con rol insuficiente.
-- **Disparador:** Intenta aprobar, publicar o administrar.
-- **Flujo principal:**
-  1. API evalúa la autorización.
-  2. Deniega sin ejecutar efectos secundarios.
-  3. Registra el evento apropiado.
-  4. El cliente presenta un mensaje seguro.
-- **Postcondición:** Datos y estado permanecen sin cambios.
-- **Historias:** FR-US-SECURITY-001.
+- **Primary actor:** Authenticated user without permission
+- **Preconditions:** Valid session with insufficient role.
+- **Trigger:** Attempts to approve, publish, or administer.
+- **Main flow:**
+  1. API evaluates authorization.
+  2. Denies without executing side effects.
+  3. Logs the appropriate event.
+  4. The client presents a safe message.
+- **Postcondition:** Data and state remain unchanged.
+- **Stories:** FR-US-SECURITY-001.
 
-## FR-UC-007 - Configurar una sesión accesible
+## FR-UC-007 - Configure an accessible session
 
-- **Actor principal:** Lector o tutor.
-- **Precondiciones:** Reader disponible; no se requiere cuenta.
-- **Disparador:** Abre configuración o preparación de sesión.
-- **Flujo principal:**
-  1. Elige modo infantil/adulto/aprender inglés.
-  2. Ajusta idioma, tamaño, velocidad, mano y movimiento.
-  3. Reader presenta una vista previa comprensible.
-  4. Guarda preferencias en perfil local.
-  5. Inicia la lectura con las preferencias aplicadas.
-- **Alternos:** Preferencias del sistema contradicen animación; almacenamiento local no disponible.
-- **Accesibilidad:** Todo funciona con teclado, foco visible y anuncios de estado.
-- **Postcondición:** La lectura es utilizable aunque la mano esté oculta.
-- **Historias:** FR-US-CHILD-001, FR-US-TUTOR-001, FR-US-ADULT-001, FR-US-READER-005.
+- **Primary actor:** Reader or tutor.
+- **Preconditions:** Reader available; account not required.
+- **Trigger:** Opens settings or prepares a session.
+- **Main flow:**
+  1. Chooses child/adult/learn English mode.
+  2. Adjusts language, size, speed, hand, and motion.
+  3. Reader presents a comprehensible preview.
+  4. Saves preferences in local profile.
+  5. Starts reading with preferences applied.
+- **Alternates:** System preferences conflict with animation; local storage not available.
+- **Accessibility:** Everything works with keyboard, visible focus, and status announcements.
+- **Postcondition:** Reading is usable even if the hand is hidden.
+- **Stories:** FR-US-CHILD-001, FR-US-TUTOR-001, FR-US-ADULT-001, FR-US-READER-005.
 
-## FR-UC-008 - Recuperar un borrador editorial
+## FR-UC-008 - Recover an editorial draft
 
-- **Actor principal:** Editor.
-- **Precondiciones:** Borrador iniciado y permiso de edición.
-- **Disparador:** Regresa tras cierre, caída o pérdida de red.
-- **Flujo principal:**
-  1. Admin detecta cambios locales o remotos recuperables.
-  2. Informa qué versión y hora se recuperarán.
-  3. El editor acepta o compara cuando existe conflicto.
-  4. Admin restaura y vuelve a indicar estado de guardado.
-- **Alternos:** Borrador corrupto; sesión expirada; edición por otro usuario.
-- **Postcondición:** No se sobrescribe silenciosamente una versión más nueva.
-- **Historias:** FR-US-ADMIN-002.
+- **Primary actor:** Editor.
+- **Preconditions:** Draft started and edit permission.
+- **Trigger:** Returns after closure, crash, or loss of network.
+- **Main flow:**
+  1. Admin detects recoverable local or remote changes.
+  2. Informs which version and time will be recovered.
+  3. The editor accepts or compares when a conflict exists.
+  4. Admin restores and reindicates saved state.
+- **Alternates:** Corrupt draft; expired session; edited by another user.
+- **Postcondition:** A newer version is not silently overwritten.
+- **Stories:** FR-US-ADMIN-002.
 
-## FR-UC-009 - Resolver progreso pendiente
+## FR-UC-009 - Resolve pending progress
 
-- **Actor principal:** Reader.
-- **Precondiciones:** Existe progreso local pendiente y vuelve la conexión.
-- **Disparador:** Evento de conectividad o sincronización manual.
-- **Flujo principal:**
-  1. Reader envía operación con ID idempotente.
-  2. API valida propiedad y versión.
-  3. Aplica política de anclaje sin retroceder silenciosamente.
-  4. Confirma y Reader elimina sólo la operación confirmada.
-- **Alternos:** Token expirado; versión retirada; conflicto; reenvío.
-- **Postcondición:** El usuario ve estado sincronizado o pendiente explicable.
-- **Historias:** FR-US-READER-003, FR-US-READER-009.
+- **Primary actor:** Reader.
+- **Preconditions:** There is pending local progress and connection returns.
+- **Trigger:** Connectivity event or manual synchronization.
+- **Main flow:**
+  1. Reader sends operation with an idempotent ID.
+  2. API validates ownership and version.
+  3. Applies anchoring policy without silently rolling back.
+  4. Confirms and Reader removes only the confirmed operation.
+- **Alternates:** Token expired; version withdrawn; conflict; resend.
+- **Postcondition:** The user sees synchronized or explainably pending state.
+- **Stories:** FR-US-READER-003, FR-US-READER-009.
 
-## FR-UC-010 - Operar un trabajo fallido
+## FR-UC-010 - Operate a failed job
 
-- **Actor principal:** Operador.
-- **Precondiciones:** Trabajo en `processing_failed`.
-- **Disparador:** Abre detalle del error.
-- **Flujo principal:**
-  1. Admin muestra etapa, código seguro, correlation ID y recursos conservados.
-  2. El operador corrige configuración o solicita reintento.
-  3. API usa clave idempotente y registra la acción.
-  4. El trabajo progresa o falla con nueva evidencia.
-- **Alternos:** Sin permiso; límite de costo; contenido cambió; proveedor no disponible.
-- **Postcondición:** No hay publicación o costo duplicado silencioso.
-- **Historias:** FR-US-ADMIN-006, FR-US-OPS-001.
+- **Primary actor:** Operator.
+- **Preconditions:** Job in `processing_failed`.
+- **Trigger:** Opens error detail.
+- **Main flow:**
+  1. Admin shows stage, safe code, correlation ID, and preserved resources.
+  2. The operator corrects configuration or requests retry.
+  3. API uses an idempotent key and records the action.
+  4. The job progresses or fails with new evidence.
+- **Alternates:** No permission; cost limit; content changed; provider unavailable.
+- **Postcondition:** No silent duplicate publication or cost.
+- **Stories:** FR-US-ADMIN-006, FR-US-OPS-001.
 
-## FR-UC-011 - Explorar y abrir contenido
+## FR-UC-011 - Browse and open content
 
-- **Actor principal:** Lector.
-- **Precondiciones:** Existe catálogo local o remoto válido.
-- **Disparador:** Abre biblioteca.
-- **Flujo principal:**
-  1. Reader combina catálogos sin duplicar contenido.
-  2. Muestra categorías, idioma, nivel y disponibilidad.
-  3. El lector busca o filtra.
-  4. Abre detalle y elige idioma/modo compatible.
-  5. Inicia lectura o descarga.
-- **Alternos:** Sin red; catálogo vacío; versión incompatible; contenido retirado.
-- **Postcondición:** Se abre un recurso válido o se explica una acción posible.
-- **Historias:** FR-US-READER-004, FR-US-READER-006.
+- **Primary actor:** Reader.
+- **Preconditions:** There is a valid local or remote catalog.
+- **Trigger:** Opens library.
+- **Main flow:**
+  1. Reader merges catalogs without duplicating content.
+  2. Shows categories, language, level, and availability.
+  3. The reader searches or filters.
+  4. Opens detail and chooses compatible language/mode.
+  5. Starts reading or downloading.
+- **Alternates:** No network; empty catalog; incompatible version; content withdrawn.
+- **Postcondition:** A valid resource opens or an actionable explanation is provided.
+- **Stories:** FR-US-READER-004, FR-US-READER-006.
 
-## FR-UC-012 - Gestionar datos personales de lectura
+## FR-UC-012 - Manage personal reading data
 
-- **Actor principal:** Lector.
-- **Precondiciones:** Perfil local o cuenta autorizada.
-- **Disparador:** Guarda favorito/vocabulario, consulta historial o elimina una descarga.
-- **Flujo principal:**
-  1. Reader aplica cambio local inmediatamente.
-  2. Registra operación sincronizable cuando corresponde.
-  3. Comunica estado local/pendiente.
-  4. API confirma de forma idempotente cuando hay cuenta y conexión.
-- **Alternos:** Sin cuenta; sin red; elemento duplicado; token expirado; eliminación local.
-- **Postcondición:** El dato queda local, sincronizado o pendiente sin pérdida silenciosa.
-- **Historias:** FR-US-READER-003, FR-US-READER-007, FR-US-READER-009.
+- **Primary actor:** Reader.
+- **Preconditions:** Local profile or authorized account.
+- **Trigger:** Saves favorite/vocabulary, queries history, or deletes a download.
+- **Main flow:**
+  1. Reader applies change locally immediately.
+  2. Records a synchronizable operation when applicable.
+  3. Communicates local/pending state.
+  4. API confirms idempotently when there is an account and connection.
+- **Alternates:** No account; no network; duplicate item; token expired; local deletion.
+- **Postcondition:** The data remains local, synchronized, or pending without silent loss.
+- **Stories:** FR-US-READER-003, FR-US-READER-007, FR-US-READER-009.
 
-## Walkthrough documental
+## Documentary walkthrough
 
-| Riesgo/alterno | Casos | Resultado |
+| Risk/alternate | Cases | Result |
 |---|---|---|
-| Offline/descarga corrupta | FR-UC-003/004/009 | PASS |
-| Audio/marcas inválidas | FR-UC-001/002/010 | PASS |
-| Permiso insuficiente | FR-UC-001/006/010 | PASS |
-| Accesibilidad/preferencias | FR-UC-002/007 | PASS |
-| Pérdida de borrador/progreso | FR-UC-008/009 | PASS |
-| Cuenta infantil | FR-UC-007 + FR-DEC-009 | PASS |
-| Catálogo vacío/incompatible | FR-UC-011 | PASS |
-| Datos locales/sincronizados | FR-UC-009/012 | PASS |
+| Offline/corrupt download | FR-UC-003/004/009 | PASS |
+| Invalid audio/marks | FR-UC-001/002/010 | PASS |
+| Insufficient permission | FR-UC-001/006/010 | PASS |
+| Accessibility/preferences | FR-UC-002/007 | PASS |
+| Draft/progress loss | FR-UC-008/009 | PASS |
+| Child account | FR-UC-007 + FR-DEC-009 | PASS |
+| Empty/incompatible catalog | FR-UC-011 | PASS |
+| Local/synchronized data | FR-UC-009/012 | PASS

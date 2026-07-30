@@ -1,18 +1,18 @@
-# Arquitectura inicial propuesta
+# Proposed initial architecture
 
-**Estado:** Validada para Fase 0 - FR-PH00-TASK-009 COMPLETED.  
-No autoriza crear el monorepo antes de Fase 2.
+**Status:** Validated for Phase 0 - FR-PH00-TASK-009 COMPLETED.  
+Does not authorize creating the monorepo before Phase 2.
 
-## Objetivos
+## Goals
 
-- separar experiencia, reglas de negocio e infraestructura;
-- mantener Reader Engine determinista y comprobable;
-- cambiar contenido sin actualizar la aplicación;
-- funcionar con datos locales válidos cuando la red falla;
-- sustituir servicios externos por falsos en pruebas;
-- permitir procesamiento asíncrono futuro sin rediseñar controladores.
+- separate experience, business rules, and infrastructure;
+- keep the Reader Engine deterministic and verifiable;
+- change content without updating the application;
+- work with valid local data when the network fails;
+- replace external services with fakes in tests;
+- allow future asynchronous processing without redesigning controllers.
 
-## Monorepo previsto
+## Planned monorepo
 
 ```text
 followread/
@@ -36,41 +36,41 @@ followread/
   scripts/
 ```
 
-## Responsabilidades y prohibiciones
+## Responsibilities and prohibitions
 
 ### `apps/admin-web`
 
-- Presenta flujos editoriales y consume API.
-- No se empaqueta con Capacitor.
-- No llama AWS, no decide transiciones por sí solo y no contiene secretos.
+- Presents editorial flows and consumes APIs.
+- Is not packaged with Capacitor.
+- Does not call AWS, does not decide transitions on its own, and does not contain secrets.
 
 ### `apps/reader`
 
-- Presenta biblioteca, lector, preferencias y estado offline.
-- Integra Reader Engine con audio, DOM y almacenamiento.
-- No edita contenido, no llama Polly y no confía en paquetes sin validar.
+- Presents library, reader, preferences, and offline state.
+- Integrates Reader Engine with audio, DOM, and storage.
+- Does not edit content, does not call Polly, and does not rely on unvetted packages.
 
 ### `apps/api`
 
-- Aplica autenticación, autorización, validación y reglas de negocio.
-- Coordina repositorios, servicios de dominio y adaptadores externos.
-- No acopla routers HTTP directamente con SQLAlchemy, Polly o S3.
+- Applies authentication, authorization, validation, and business rules.
+- Coordinates repositories, domain services, and external adapters.
+- Does not couple HTTP routers directly with SQLAlchemy, Polly, or S3.
 
 ### `packages/reader-engine`
 
-- Resuelve tiempo -> palabra/oración; controla reproducción lógica y progreso.
-- No importa React, DOM, Capacitor, AWS ni una base de datos.
-- Expone contratos que adaptadores de UI pueden implementar.
+- Resolves time -> word/sentence; controls logical playback and progress.
+- Does not import React, DOM, Capacitor, AWS, or a database.
+- Exposes contracts that UI adapters can implement.
 
-### Paquetes compartidos
+### Shared packages
 
-- `shared-types`: contratos TypeScript públicos y estables.
-- `shared-ui`: componentes visuales realmente compartibles entre webs.
-- `content-models`: esquema de paquetes y catálogo.
-- `validation`: validación portable que no sustituye al servidor.
-- `configuration`: lectura tipada de configuración pública.
+- `shared-types`: public and stable TypeScript contracts.
+- `shared-ui`: visual components truly shareable across websites.
+- `content-models`: package schema and catalog.
+- `validation`: portable validation that does not replace the server.
+- `configuration`: typed reading of public configuration.
 
-## Capas del backend
+## Backend layers
 
 ```mermaid
 flowchart LR
@@ -83,59 +83,57 @@ flowchart LR
     ports --> jobs["Ejecutor de trabajos"]
 ```
 
-Los routers traducen HTTP, pero no contienen reglas ni SDKs. Los servicios coordinan transacciones.
-El dominio valida estados. Los adaptadores implementan puertos y pueden reemplazarse por falsos.
+Routers translate HTTP, but do not contain rules or SDKs. Services coordinate transactions.
+The domain validates states. Adapters implement ports and can be replaced by fakes.
 
-## Procesamiento de audio
+## Audio processing
 
-1. Admin envía una solicitud idempotente.
-2. API valida permisos, estado, texto, idioma y voz.
-3. Crea `ProcessingJob`.
-4. Un ejecutor simple procesa inicialmente fuera del controlador.
-5. `SpeechGenerationService` divide y envía texto a `PollyService`.
-6. `SpeechMarksParser` normaliza eventos.
-7. `ContentProcessingService` valida relación texto/marcas.
-8. `AudioStorageService` almacena objetos.
-9. La transacción final asocia recursos a la versión y cambia estado.
+1. Admin submits an idempotent request.
+2. API validates permissions, state, text, language, and voice.
+3. Creates `ProcessingJob`.
+4. A simple executor initially processes outside the controller.
+5. `SpeechGenerationService` splits and sends text to `PollyService`.
+6. `SpeechMarksParser` normalizes events.
+7. `ContentProcessingService` validates text/marks relationships.
+8. `AudioStorageService` stores objects.
+9. The final transaction associates resources to the version and changes state.
 
-La interfaz de cola se diseña desde el principio, aunque Redis/Celery se agreguen después.
+The queue interface is designed from the start, even if Redis/Celery are added later.
 
-## Paquete de contenido
+## Content package
 
-Un paquete versionado incluye manifiesto, texto estructurado, traducciones, referencias o copias
-locales de audio/imágenes y Speech Marks normalizados. El manifiesto contiene checksum por objeto,
-versión mínima y compatibilidad. El paquete se considera inmutable.
+A versioned package includes a manifest, structured text, translations, references or local copies
+of audio/images, and normalized Speech Marks. The manifest contains a checksum per object,
+minimum version, and compatibility. The package is considered immutable.
 
-## Estrategia offline
+## Offline strategy
 
-- catálogo local incluido en build;
-- catálogo remoto como fuente de versiones disponibles;
-- descarga temporal reanudable cuando sea razonable;
-- verificación antes de activación;
-- puntero atómico a versión activa;
-- progreso local con operaciones idempotentes;
-- cola de sincronización y política de conflictos documentada.
+- local catalog included in the build;
+- remote catalog as the source of available versions;
+- resumable temporary download when reasonable;
+- verification before activation;
+- atomic pointer to the active version;
+- local progress with idempotent operations;
+- synchronization queue and documented conflict policy.
 
-## Datos
+## Data
 
-SQLite conservará en el MVP usuarios, roles, contenido, versiones, trabajos, auditoría y progreso
-remoto. S3 conservará objetos grandes. Reader mantendrá sólo un subconjunto local orientado a
-lectura. SQLAlchemy y Alembic mantendrán una frontera que permita migrar a PostgreSQL sin cambiar
-routers o dominio.
+SQLite will store users, roles, content, versions, jobs, audit, and remote progress in the MVP.
+S3 will store large objects. Reader will keep only a local read-oriented subset. SQLAlchemy and Alembic will maintain a boundary that allows migrating to PostgreSQL without changing routers or domain.
 
-## Decisiones aplazadas
+## Deferred decisions
 
-- herramienta de monorepo y gestor de paquetes;
-- proveedor de identidad;
-- Redis/Celery frente a alternativa;
-- ORM o almacenamiento local de Reader;
-- entrega de objetos S3;
-- hosting y observabilidad.
-- momento y estrategia de migración de SQLite a PostgreSQL.
+- monorepo tool and package manager;
+- identity provider;
+- Redis/Celery versus alternative;
+- ORM or local Reader storage;
+- delivery of S3 objects;
+- hosting and observability;
+- timing and strategy for migrating SQLite to PostgreSQL.
 
-Cada elección añadirá una dependencia sólo después de justificarla en una decisión.
+Each choice will add a dependency only after it is justified in a decision.
 
-## Evidencia de validación
+## Validation evidence
 
-`ARCHITECTURE_VALIDATION.md` recorre publicación, reproducción, offline y recuperación, y define
-reglas de dependencia que se automatizarán cuando exista código.
+`ARCHITECTURE_VALIDATION.md` walks through publishing, playback, offline, and recovery, and defines
+dependency rules that will be automated when code exists.

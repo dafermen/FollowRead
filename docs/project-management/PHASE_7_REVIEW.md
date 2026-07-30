@@ -1,36 +1,36 @@
-# Revisión de Fase 7
+# Phase 7 Review
 
-**Fase:** Motor de lectura  
-**Fecha:** 2026-07-26  
-**Resultado:** PASS
+**Phase:** Reading Engine  
+**Date:** 2026-07-26  
+**Outcome:** PASS
 
-## Criterios de salida
+## Exit Criteria
 
-| Criterio | Evidencia | Estado |
+| Criterion | Evidence | Status |
 |---|---|---|
-| Contratos reutilizables | paquete TypeScript sin React ni DOM | PASS |
-| Línea de tiempo válida | duración, orden, límites y capítulos validados | PASS |
-| Palabra activa determinista | búsqueda binaria y pausas sin marca | PASS |
-| Controles completos | reproducción, pausa, repetición, seek, velocidad y capítulos | PASS |
-| Recuperación robusta | progreso, resize, orientación, blur y error de audio | PASS |
-| Paquete publicado | endpoint con texto, ilustración, audio y Speech Marks | PASS |
-| Demostración sin externos | cuento bilingüe original, SQLite y adaptador local | PASS |
-| Calidad y documentación | pruebas, tipos, lint, formato, builds y arquitectura | PASS |
+| Reusable contracts | TypeScript package without React or DOM | PASS |
+| Valid timeline | duration, order, boundaries and chapters validated | PASS |
+| Deterministic active word | binary search and marker-free pauses | PASS |
+| Full controls | play, pause, repeat, seek, speed and chapters | PASS |
+| Robust recovery | progress, resize, orientation, blur and audio error | PASS |
+| Published package | endpoint with text, illustration, audio and Speech Marks | PASS |
+| Self-contained demo | original bilingual story, SQLite and local adapter | PASS |
+| Quality and documentation | tests, types, lint, format, builds and architecture | PASS |
 
-## Corte visual adelantado
+## Early Visual Cut
 
-Para facilitar demostraciones se adelantó un corte de Fase 8: biblioteca y lector responsive con
-resaltado, mano, auto-scroll y controles. Esto valida visualmente el motor, pero no cierra la Fase 8:
-quedan PWA, audio audible real, estados completos de biblioteca y accesibilidad manual ampliada.
+To facilitate demonstrations, an early cut of Phase 8 was advanced: responsive library and reader with
+highlighting, hand, auto-scroll and controls. This visually validates the engine, but does not close Phase 8:
+PWA, real audible audio, full library states and extended manual accessibility remain.
 
-## Restricción consciente del MVP
+## Conscious MVP Restriction
 
-El audio local actual simula tiempo y marcas, pero no contiene voz reproducible. No se requieren
-credenciales de OpenAI ni AWS. El reemplazo por audio real conserva el contrato del motor.
+The current local audio simulates time and markers, but does not contain playable voice. No OpenAI or AWS
+credentials are required. Replacing it with real audio preserves the engine contract.
 
-## Validación final
+## Final Validation
 
-- 95 pruebas API, 6 del Reader Engine, 5 del Reader, 13 de Admin y 3 de configuración;
-- cobertura total redondeada de 99% para API, Reader Engine y Reader;
-- Ruff, ESLint, mypy, TypeScript strict, formato y validación de CI en verde;
-- builds de producción de Admin, Reader y todos los paquetes en verde.
+- 95 API tests, 6 Reader Engine tests, 5 Reader tests, 13 Admin tests and 3 configuration tests;
+- rounded total coverage of 99% for API, Reader Engine and Reader;
+- Ruff, ESLint, mypy, TypeScript strict, formatting and CI validation all green;
+- production builds of Admin, Reader and all packages green.

@@ -1,108 +1,107 @@
-# Estrategia inicial de despliegue
+# Initial Deployment Strategy
 
-**Estado:** Implementación local/CI preparada en Fase 13; validación externa pendiente.
-Los artefactos son independientes del proveedor. Dominios, hosting y credenciales se decidirán con
-el propietario antes de staging/production.
+**Status:** Local/CI deployment implemented in Phase 13; external validation pending.
+Artifacts are provider-agnostic. Domains, hosting and credentials will be decided with
+the owner before staging/production.
 
-## Gate previo obligatorio
+## Mandatory pre-gate
 
-Antes de desplegar en development compartido, staging o production, completar
-`docs/testing/PRE_DEPLOYMENT_TESTS.md`. Las trece categorías deben quedar en `PASS` o `WAIVED`
-aprobado para el mismo commit y artefactos. La puerta local `pnpm check` no sustituye ese acta.
+Before deploying to shared development, staging, or production, complete
+`docs/testing/PRE_DEPLOYMENT_TESTS.md`. All thirteen categories must be in `PASS` or `WAIVED`
+approved for the same commit and artifacts. The local gate `pnpm check` does not substitute that record.
 
-## Entornos
+## Environments
 
-| Entorno | Propósito | Datos/servicios |
+| Environment | Purpose | Data/services |
 |---|---|---|
-| local | Desarrollo individual | Contenedores y adaptadores falsos |
-| development | Integración continua del equipo | Recursos aislados de bajo costo |
-| staging | Validación semejante a producción | Datos sintéticos, migraciones y rollback |
-| production | Usuarios reales | Controles, backups y monitoreo |
+| local | Individual development | Containers and fake adapters |
+| development | Team continuous integration | Low-cost isolated resources |
+| staging | Production-like validation | Synthetic data, migrations and rollback |
+| production | Real users | Controls, backups and monitoring |
 
-## Unidades desplegables
+## Deployable units
 
-- Admin web estático o servido, separado de Reader;
+- Admin web static or served, separate from Reader;
 - Reader web/PWA;
-- API FastAPI;
-- worker de procesamiento cuando se agregue;
-- archivo SQLite persistente del MVP;
-- almacenamiento de objetos;
-- apps móviles Reader a partir de Fase 10.
+- FastAPI API;
+- processing worker when added;
+- persistent MVP SQLite file;
+- object storage;
+- Reader mobile apps from Phase 10 onward.
 
-## Principios
+## Principles
 
-- configuración por entorno;
-- secretos en un almacén apropiado, nunca en artefactos;
-- artefactos versionados e inmutables;
-- migraciones revisadas y ejecutadas de forma controlada;
-- despliegue API compatible con clientes anteriores razonables;
-- contenido versionado independiente del build;
-- rollback de aplicación no elimina datos ni contenido.
+- configuration by environment;
+- secrets in an appropriate store, never in artifacts;
+- versioned, immutable artifacts;
+- migrations reviewed and executed in a controlled manner;
+- API deployment compatible with reasonable prior clients;
+- content versioned independently of the build;
+- application rollback does not delete data or content.
 
-## Flujo de entrega implementado
+## Implemented delivery flow
 
-1. lint, type-check y pruebas;
-2. build reproducible;
-3. análisis de seguridad;
-4. publicación de builds web e imágenes OCI con tag SemVer;
-5. despliegue a development;
-6. migración y pruebas en staging;
-7. aprobación;
-8. despliegue production;
-9. smoke tests y monitoreo;
-10. rollback si fallan indicadores.
+1. lint, type-check and tests;
+2. reproducible build;
+3. security analysis;
+4. publish web builds and OCI images with SemVer tag;
+5. deploy to development;
+6. migration and testing in staging;
+7. approval;
+8. deploy production;
+9. smoke tests and monitoring;
+10. rollback if indicators fail.
 
-## Móvil
+## Mobile
 
-Reader web es la única fuente que Capacitor empaqueta. Permisos, plugins, iconos y configuraciones
-nativas se versionan por plataforma. Contenido nuevo no obliga a publicar otra app.
+Reader web is the only source that Capacitor packages. Permissions, plugins, icons and native
+configurations are versioned per platform. New content does not require publishing another app.
 
-Fase 10 dejó Android/iOS bajo `apps/reader`, recursos reproducibles, build Android debug y guías de
-firma/publicación en `MOBILE_RELEASES.md`. La ejecución iOS final se realiza en macOS/Xcode antes de
-TestFlight; firmas, cuentas y credenciales de tiendas siguen fuera del repositorio.
+Phase 10 left Android/iOS under `apps/reader`, reproducible resources, Android debug build and signing/publishing guides in `MOBILE_RELEASES.md`. Final iOS execution is performed on macOS/Xcode before
+TestFlight; store signing, accounts and credentials remain out of the repository.
 
-## Automatización disponible
+## Available automation
 
-- `pnpm deploy:validate`: definición estática, imágenes, Compose, CI y release.
-- `pnpm deploy:local`: build/migración/arranque opcional mediante Docker Compose.
-- `pnpm deploy:smoke`: salud de API y shell de Admin/Reader.
-- `pnpm deploy:backup` y `deploy:restore`: SQLite con integridad y checksum.
-- CI construye todas las imágenes; tags SemVer publican en GHCR y crean GitHub Release.
+- `pnpm deploy:validate`: static definition, images, Compose, CI and release.
+- `pnpm deploy:local`: optional build/migration/startup via Docker Compose.
+- `pnpm deploy:smoke`: API health and Admin/Reader shell.
+- `pnpm deploy:backup` and `deploy:restore`: SQLite with integrity and checksum.
+- CI builds all images; SemVer tags publish to GHCR and create GitHub Release.
 
-## Pendientes externos
+## External pending items
 
-- proveedor y regiones;
-- alta disponibilidad, RTO y RPO;
-- dominio, TLS y CDN;
-- ejecución real de backup/restore sobre el host elegido;
-- ciclo de vida S3;
-- estrategia de migraciones sin interrupción;
-- firma y cuentas de tiendas;
-- conexión de métricas/alertas al proveedor elegido;
-- validación `docker build/compose` en una máquina con Docker;
-- remote GitHub y primera ejecución de workflows.
+- provider and regions;
+- high availability, RTO and RPO;
+- domain, TLS and CDN;
+- actual backup/restore execution on the chosen host;
+- S3 lifecycle;
+- zero-downtime migration strategy;
+- store signing and accounts;
+- connecting metrics/alerts to the chosen provider;
+- validation `docker build/compose` on a machine with Docker;
+- remote GitHub and first run of workflows.
 
-## Migraciones
+## Migrations
 
-- Toda migración se versiona y revisa.
-- Primero se prueba con copia/datos sintéticos en staging.
-- Cambios destructivos usan expansión/contracción: agregar, migrar, verificar y retirar después.
-- La aplicación debe tolerar la versión anterior/nueva durante despliegue cuando aplique.
-- Backup y restauración se prueban antes de una migración de alto riesgo.
+- Every migration is versioned and reviewed.
+- First tested with a copy/synthetic data in staging.
+- Destructive changes use expand/contract: add, migrate, verify and remove after.
+- The application must tolerate both previous/new version during deployment where applicable.
+- Backup and restore are tested before a high-risk migration.
 
 ## Rollback
 
-1. Detener promoción y cambios incompatibles.
-2. Revertir artefacto a una versión conocida.
-3. No revertir esquema destructivamente sin plan probado.
-4. Restaurar datos sólo con evidencia de corrupción y autorización.
-5. Ejecutar smoke tests de Admin, Reader, API y catálogo.
-6. Registrar incidente, impacto y decisión.
+1. Stop promotion and incompatible changes.
+2. Revert artifact to a known version.
+3. Do not destructively revert schema without a tested plan.
+4. Restore data only with evidence of corruption and authorization.
+5. Run smoke tests for Admin, Reader, API and catalog.
+6. Record incident, impact and decision.
 
-## Validación de entornos
+## Environment validation
 
-- `local`: adaptadores falsos y datos sintéticos: PASS.
-- `development`: configuración y gates definidos; ejecución externa pendiente.
-- `staging`: configuración, migración, rollback y aprobación definidos; ejecución pendiente.
-- `production`: secretos, backups, observabilidad y aprobación definidos; ejecución pendiente.
-- Despliegue de contenido independiente del build: PASS.
+- `local`: fake adapters and synthetic data: PASS.
+- `development`: configuration and gates defined; external execution pending.
+- `staging`: configuration, migration, rollback and approval defined; execution pending.
+- `production`: secrets, backups, observability and approval defined; execution pending.
+- Content deployment independent of build: PASS.

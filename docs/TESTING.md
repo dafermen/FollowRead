@@ -1,34 +1,33 @@
-# Pruebas
+# Tests
 
-Esta es la entrada canónica para la estrategia y las puertas de calidad de FollowRead.
+This is the canonical entry for FollowRead's testing strategy and quality gates.
 
-## Regla antes de desplegar
+## Rule before deploying
 
-Antes de desplegar en development compartido, staging o production deben ejecutarse y quedar
-documentadas estas trece categorías:
+Before deploying to shared development, staging, or production, these thirteen categories must be executed and documented:
 
-1. pruebas de aceptación;
-2. pruebas unitarias;
-3. pruebas de propiedades e invariantes;
+1. acceptance tests;
+2. unit tests;
+3. property and invariant tests;
 4. mutation testing;
 5. fuzzing;
-6. pruebas de integración;
-7. pruebas de contrato;
-8. pruebas de extremo a extremo;
-9. pruebas de regresión;
-10. pruebas de seguridad;
-11. concurrencia y resiliencia;
-12. rendimiento y recursos;
-13. compatibilidad y despliegue.
+6. integration tests;
+7. contract tests;
+8. end-to-end tests;
+9. regression tests;
+10. security tests;
+11. concurrency and resilience;
+12. performance and resources;
+13. compatibility and deployment.
 
-Una categoría sólo puede quedar `PASS` o `WAIVED`. Un `WAIVED` exige riesgo, justificación,
-responsable, fecha de caducidad y aprobación explícita. `PARTIAL`, `NOT_IMPLEMENTED`, `BLOCKED` o
-una evidencia ausente impiden el despliegue externo.
+A category may only be `PASS` or `WAIVED`. A `WAIVED` requires risk, justification,
+owner, expiry date, and explicit approval. `PARTIAL`, `NOT_IMPLEMENTED`, `BLOCKED` or
+missing evidence prevent external deployment.
 
-La matriz con comandos, evidencia actual, brechas y plantilla de acta está en
-[Pruebas obligatorias antes del despliegue](testing/PRE_DEPLOYMENT_TESTS.md).
+The matrix with commands, current evidence, gaps, and meeting template is in
+[Mandatory tests before deployment](testing/PRE_DEPLOYMENT_TESTS.md).
 
-## Puertas disponibles
+## Available gates
 
 ```powershell
 pnpm docs:validate
@@ -39,14 +38,14 @@ pnpm deploy:validate
 pnpm deploy:smoke
 ```
 
-Estos comandos cubren una parte importante de la matriz, pero no sustituyen mutation testing,
-fuzzing, propiedades/invariantes, contratos formales ni la validación real de contenedores y
-staging mientras esas filas continúen incompletas.
+These commands cover a significant portion of the matrix, but do not replace mutation testing,
+fuzzing, properties/invariants, formal contracts, or actual validation of containers and
+staging while those rows remain incomplete.
 
-## Fuentes detalladas
+## Detailed sources
 
-- [Estrategia de pruebas](testing/TEST_STRATEGY.md)
-- [Puertas por fase](testing/QUALITY_GATES.md)
-- [Pruebas obligatorias antes del despliegue](testing/PRE_DEPLOYMENT_TESTS.md)
-- [Inventario de pruebas](../test/README.md)
-- [Criterios de aceptación](requirements/ACCEPTANCE_CRITERIA.md)
+- [Test strategy](testing/TEST_STRATEGY.md)
+- [Gates by phase](testing/QUALITY_GATES.md)
+- [Mandatory tests before deployment](testing/PRE_DEPLOYMENT_TESTS.md)
+- [Test inventory](../test/README.md)
+- [Acceptance criteria](requirements/ACCEPTANCE_CRITERIA.md)

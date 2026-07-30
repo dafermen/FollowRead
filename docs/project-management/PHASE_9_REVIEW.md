@@ -1,38 +1,38 @@
-# Revisión de Fase 9 - Sincronización y modo offline
+# Phase 9 Review - Sync and Offline
 
-**Fecha:** 2026-07-26  
-**Estado:** COMPLETED
+**Date:** 2026-07-26  
+**Status:** COMPLETED
 
-## Resultado
+## Outcome
 
-Reader puede descubrir, descargar, verificar, actualizar, eliminar y leer contenido sin conexión.
-El build contiene **El zorro y la luna**, por lo que una instalación nueva conserva una lectura real
-sin depender de la API. El progreso se encola localmente y se confirma al reconectar.
+Reader can discover, download, verify, update, delete, and read content offline.
+The build contains **El zorro y la luna**, so a fresh install preserves an actual reading
+without depending on the API. Progress is queued locally and committed when reconnecting.
 
-## Criterios verificados
+## Verified criteria
 
-1. API y navegador calculan SHA-256 sobre los mismos bytes canónicos.
-2. IndexedDB mantiene paquetes, catálogo y operaciones sin usar `localStorage` para contenido.
-3. Catálogo local/remoto comunica versión, disponibilidad e incompatibilidad.
-4. Activación atómica y rollback conservan el último paquete válido.
-5. Advertencia de 100 MB, límite de 250 MB y cuota del navegador se aplican antes de guardar.
-6. Eliminar una descarga conserva favoritos, historial, vocabulario y progreso.
-7. Biblioteca, descargas, lector, marcas y voz del dispositivo funcionan sin red.
-8. La API de sincronización confirma reenvíos, evita regresión y no requiere PII.
-9. Estados de conexión y sincronización se anuncian visual y semánticamente.
-10. Chrome real demuestra offline, cola y reconexión.
+1. API and client compute SHA-256 over the same canonical bytes.
+2. IndexedDB holds packages, catalog, and unused operations `localStorage` for content.
+3. Local/remote catalog communicates version, availability, and incompatibility.
+4. Atomic activation and rollback preserve the last valid package.
+5. 100 MB warning, 250 MB limit, and browser quota are enforced before saving.
+6. Deleting a download preserves favorites, history, vocabulary, and progress.
+7. Library, downloads, reader, bookmarks, and device voice work without network.
+8. The sync API acknowledges resends, prevents regression, and does not require PII.
+9. Connection and sync states are announced visually and semantically.
+10. Real Chrome demonstrates offline, queuing, and reconnection.
 
-## Evidencia
+## Evidence
 
-- 98 pruebas API;
-- 31 pruebas Reader con cobertura superior a 90%;
-- prueba Chrome `reader:offline-e2e` en cuatro etapas;
-- capturas amplia de Descargas y lector sin conexión;
-- `pnpm check` desde SQLite sembrada.
+- 98 API tests;
+- 31 Reader tests with over 90% coverage;
+- Chrome test `reader:offline-e2e` in four stages;
+- extensive screenshots of Downloads and reader offline;
+- `pnpm check` from seeded SQLite.
 
-## Decisiones
+## Decisions
 
-- SQLite sigue siendo la base del MVP.
-- IndexedDB es la autoridad de paquetes locales.
-- El cuento demo forma parte del build y no puede eliminarse desde la UI.
-- UUID local aleatorio identifica sincronización sin recopilar nombre ni correo.
+- SQLite remains the basis of the MVP.
+- IndexedDB is the authority for local packages.
+- The demo story is part of the build and cannot be removed from the UI.
+- A random local UUID identifies sync without collecting name or email.

@@ -1,129 +1,120 @@
-# Perfiles de usuario y partes interesadas
+# User profiles and stakeholders
 
-**Estado:** Validado para Fase 0  
-**Tarea responsable:** FR-PH00-TASK-003 - COMPLETED  
-**Fecha:** 2026-07-24
+**Status:** Validated for Phase 0  
+**Responsible task:** FR-PH00-TASK-003 - COMPLETED  
+**Date:** 2026-07-24
 
-## Conceptos
+## Concepts
 
-- **Persona:** individuo que interactúa o se beneficia del producto.
-- **Usuario:** persona que realiza acciones en Reader, Admin o API.
-- **Cuenta:** identidad autenticable; una persona puede usar Reader sin cuenta en el MVP.
-- **Perfil:** preferencias y progreso de lectura asociados localmente o a una cuenta.
-- **Rol:** conjunto de permisos del sistema, no una descripción demográfica.
-- **Parte interesada:** persona responsable o afectada que puede no usar el producto directamente.
+- **Persona:** individual who interacts with or benefits from the product.
+- **User:** person who performs actions in Reader, Admin, or API.
+- **Account:** authenticable identity; a person may use Reader without an account in the MVP.
+- **Profile:** preferences and reading progress associated locally or with an account.
+- **Role:** set of system permissions, not a demographic description.
+- **Stakeholder:** person responsible or affected who may not use the product directly.
 
-Esta distinción evita suponer que un lector infantil necesita cuenta propia.
+This distinction avoids assuming that a child reader needs their own account.
 
-## FR-PERSONA-001 - Lector infantil acompañado
+## FR-PERSONA-001 - Accompanied child reader
 
-- **Tipo:** Beneficiario primario.
-- **Contexto:** Niño que lee solo o acompañado, en sesiones breves y con experiencia digital variable.
-- **Objetivo:** Seguir una historia sin perder la palabra activa y controlar acciones básicas.
-- **Barreras:** Demasiados controles, texto pequeño, navegación accidental, movimiento excesivo,
-  dependencia de red y mensajes abstractos.
-- **Necesidades:** Tipografía y objetivos grandes, acción principal visible, mano opcional, audio,
-  progreso automático, salida segura y contenido apropiado.
-- **Accesibilidad:** No depender sólo de color; compatibilidad con reducción de movimiento; lectura
-  completa aunque falle la mano o el audio.
-- **Cuenta/datos:** En el MVP usa perfil local o sesión gestionada por un adulto, sin cuenta ni datos
-  personales propios.
-- **Resultado esperado:** Puede iniciar, pausar y retomar una historia con mínima ayuda.
-- **Modos:** infantil, español, inglés.
-- **Resultados de visión:** FR-OV-001, FR-OV-003, FR-OV-004, FR-OV-006.
+- **Type:** Primary beneficiary.
+- **Context:** Child who reads alone or with someone, in short sessions and with variable digital experience.
+- **Goal:** Follow a story without losing the active word and control basic actions.
+- **Barriers:** Too many controls, small text, accidental navigation, excessive movement,
+  reliance on network, and abstract messages.
+- **Needs:** Large typography and targets, visible primary action, optional hand indicator, audio,
+  automatic progress, safe exit, and age-appropriate content.
+- **Accessibility:** Not relying solely on color; compatibility with reduced motion; full reading even if the hand indicator or audio fails.
+- **Account/data:** In the MVP uses a local profile or an adult-managed session, without an account or personal data of its own.
+- **Expected outcome:** Can start, pause, and resume a story with minimal help.
+- **Modes:** child, Spanish, English.
+- **Vision outcomes:** FR-OV-001, FR-OV-003, FR-OV-004, FR-OV-006.
 
-## FR-PERSONA-002 - Estudiante de inglés
+## FR-PERSONA-002 - English learner
 
-- **Tipo:** Beneficiario primario.
-- **Contexto:** Adolescente o adulto que comprende texto básico y necesita relacionar sonido,
-  escritura y significado.
-- **Objetivo:** Escuchar, repetir y estudiar unidades exactas sin abandonar el contexto.
-- **Barreras:** Velocidad alta, traducciones descontextualizadas, navegación entre varias pantallas y
-  pérdida de vocabulario guardado.
-- **Necesidades:** Texto inglés principal, traducción editorial opcional, repetición de palabra/oración,
-  velocidad, vocabulario y progreso.
-- **Accesibilidad:** Teclado, lector de pantalla, ajustes de texto y movimiento.
-- **Cuenta/datos:** Puede iniciar como perfil local; una cuenta futura habilita sincronización.
-- **Resultado esperado:** Repite una unidad, ajusta velocidad y guarda vocabulario dentro del lector.
-- **Modos:** aprender inglés, inglés.
-- **Resultados de visión:** FR-OV-001, FR-OV-002, FR-OV-003, FR-OV-007.
+- **Type:** Primary beneficiary.
+- **Context:** Teen or adult who understands basic text and needs to relate sound, writing, and meaning.
+- **Goal:** Listen, repeat, and study exact units without leaving the context.
+- **Barriers:** High speed, decontextualized translations, navigating across multiple screens, and loss of saved vocabulary.
+- **Needs:** English text as primary, optional editorial translation, repetition of word/sentence, speed control, vocabulary, and progress.
+- **Accessibility:** Keyboard, screen reader, text and motion adjustments.
+- **Account/data:** Can start as a local profile; a future account enables synchronization.
+- **Expected outcome:** Repeats a unit, adjusts speed, and saves vocabulary within the reader.
+- **Modes:** learn English, English.
+- **Vision outcomes:** FR-OV-001, FR-OV-002, FR-OV-003, FR-OV-007.
 
-## FR-PERSONA-003 - Lector adulto
+## FR-PERSONA-003 - Adult reader
 
-- **Tipo:** Beneficiario primario.
-- **Contexto:** Adulto que alterna lectura y narración, usa sesiones largas o necesita apoyo visual.
-- **Objetivo:** Consumir contenido con una presentación sobria, adaptable y confiable.
-- **Barreras:** Interfaz infantilizada, mano obligatoria, contraste insuficiente, pérdida de posición y
-  controles que desaparecen.
-- **Necesidades:** Mano opcional, tamaño/tema configurables, favoritos, historial, velocidad y offline.
-- **Accesibilidad:** Zoom, reflow, teclado, lector de pantalla y controles persistentes.
-- **Cuenta/datos:** Perfil local en MVP; sincronización autenticada se añade sin impedir uso offline.
-- **Resultado esperado:** Completa y reanuda lecturas con sus preferencias.
-- **Modos:** adulto, español, inglés.
-- **Resultados de visión:** FR-OV-001, FR-OV-003, FR-OV-004, FR-OV-006.
+- **Type:** Primary beneficiary.
+- **Context:** Adult who alternates reading and narration, uses long sessions or needs visual support.
+- **Goal:** Consume content with a sober, adaptable, and reliable presentation.
+- **Barriers:** Childish interface, mandatory hand indicator, insufficient contrast, loss of position, and disappearing controls.
+- **Needs:** Optional hand indicator, configurable size/theme, favorites, history, speed control, and offline support.
+- **Accessibility:** Zoom, reflow, keyboard, screen reader, and persistent controls.
+- **Account/data:** Local profile in MVP; authenticated synchronization is added without preventing offline use.
+- **Expected outcome:** Completes and resumes readings with their preferences.
+- **Modes:** adult, Spanish, English.
+- **Vision outcomes:** FR-OV-001, FR-OV-003, FR-OV-004, FR-OV-006.
 
-## FR-PERSONA-004 - Tutor, familiar o docente
+## FR-PERSONA-004 - Tutor, family member, or teacher
 
-- **Tipo:** Parte interesada de apoyo.
-- **Contexto:** Acompaña a un lector y selecciona contenido o configuración apropiada.
-- **Objetivo:** Iniciar una experiencia segura sin administrar infraestructura ni contenido editorial.
-- **Barreras:** Controles peligrosos accesibles, cuentas infantiles ambiguas y progreso difícil de
-  interpretar.
-- **Necesidades:** Separación absoluta de Admin, salida segura, información clara y perfiles locales.
-- **Accesibilidad:** Instrucciones comprensibles y controles operables con diversas capacidades.
-- **Cuenta/datos:** No se asume portal de tutor en MVP.
-- **Resultado esperado:** Configura una sesión apropiada sin exponer administración.
+- **Type:** Supporting stakeholder.
+- **Context:** Accompanies a reader and selects appropriate content or settings.
+- **Goal:** Start a safe experience without administering infrastructure or editorial content.
+- **Barriers:** Dangerous controls accessible, ambiguous child accounts, and progress that is hard to interpret.
+- **Needs:** Absolute separation from Admin, safe exit, clear information, and local profiles.
+- **Accessibility:** Understandable instructions and controls operable with diverse abilities.
+- **Account/data:** No tutor portal is assumed in the MVP.
+- **Expected outcome:** Configures an appropriate session without exposing administration.
 
-## FR-PERSONA-005 - Editor de contenido
+## FR-PERSONA-005 - Content editor
 
-- **Tipo:** Usuario habilitador.
-- **Rol esperado:** `content_admin`.
-- **Contexto:** Prepara texto estructurado, traducciones y metadatos durante sesiones extensas.
-- **Objetivo:** Crear contenido correcto sin perder trabajo.
-- **Barreras:** Formularios ambiguos, errores tardíos, autoguardado invisible y edición bilingüe
-  desalineada.
-- **Necesidades:** Borradores, validación temprana, estados de guardado, estructura clara y vista
-  bilingüe.
-- **Accesibilidad:** Teclado completo, etiquetas, errores asociados y foco predecible.
-- **Resultado esperado:** Deja una versión lista para procesamiento con validaciones satisfechas.
+- **Type:** Enabler user.
+- **Expected role:** `content_admin`.
+- **Context:** Prepares structured text, translations, and metadata during extended sessions.
+- **Goal:** Create correct content without losing work.
+- **Barriers:** Ambiguous forms, late errors, invisible autosave, and misaligned bilingual editing.
+- **Needs:** Drafts, early validation, save-state indicators, clear structure, and a bilingual view.
+- **Accessibility:** Full keyboard, labels, associated errors, and predictable focus.
+- **Expected outcome:** Leaves a version ready for processing with validations satisfied.
 
-## FR-PERSONA-006 - Revisor y publicador
+## FR-PERSONA-006 - Reviewer and publisher
 
-- **Tipo:** Usuario habilitador.
-- **Roles esperados:** `reviewer` y permiso explícito de publicación.
-- **Contexto:** Revisa texto, audio, sincronización, derechos y compatibilidad antes de publicar.
-- **Objetivo:** Evitar que una versión defectuosa llegue al catálogo.
-- **Barreras:** Estados opacos, reproducción distinta a Reader y falta de historial.
-- **Necesidades:** Previsualización fiel, lista de validaciones, comentarios, rechazo y auditoría.
-- **Accesibilidad:** Comparación que no dependa sólo de color; reproducción controlable por teclado.
-- **Resultado esperado:** Aprueba o rechaza con evidencia y transición válida.
+- **Type:** Enabler user.
+- **Expected roles:** `reviewer` and explicit publishing permission.
+- **Context:** Reviews text, audio, synchronization, rights, and compatibility before publishing.
+- **Goal:** Prevent a defective version from reaching the catalog.
+- **Barriers:** Opaque states, playback different from Reader, and lack of history.
+- **Needs:** Faithful preview, list of validations, comments, rejection, and audit trail.
+- **Accessibility:** Comparison that does not rely solely on color; playback controllable by keyboard.
+- **Expected outcome:** Approves or rejects with evidence and a valid transition.
 
-## FR-PERSONA-007 - Operador técnico
+## FR-PERSONA-007 - Technical operator
 
-- **Tipo:** Usuario habilitador / parte interesada.
-- **Rol esperado:** `super_admin` o permiso operativo limitado.
-- **Contexto:** Investiga trabajos, integraciones, almacenamiento y errores.
-- **Objetivo:** Recuperar el servicio sin alterar contenido silenciosamente.
-- **Barreras:** Logs sin correlación, errores inseguros, reintentos duplicados y costos invisibles.
-- **Necesidades:** Correlation IDs, estado de trabajos, reintento idempotente, métricas y auditoría.
-- **Accesibilidad:** Paneles con estructura semántica y estados textuales.
-- **Resultado esperado:** Diagnostica la etapa fallida y ejecuta una recuperación segura.
+- **Type:** Enabler user / stakeholder.
+- **Expected role:** `super_admin` or limited operational permission.
+- **Context:** Investigates jobs, integrations, storage, and errors.
+- **Goal:** Recover the service without silently altering content.
+- **Barriers:** Logs without correlation, insecure errors, duplicate retries, and invisible costs.
+- **Needs:** Correlation IDs, job status, idempotent retry, metrics, and audit.
+- **Accessibility:** Dashboards with semantic structure and textual states.
+- **Expected outcome:** Diagnoses the failed stage and performs a safe recovery.
 
-## Matriz de cobertura
+## Coverage matrix
 
-| Necesidad | Infantil | Inglés | Adulto | Tutor | Editor | Revisor | Operador |
+| Need | Child | English | Adult | Tutor | Editor | Reviewer | Operator |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Audio y resaltado | X | X | X |  |  | X |  |
-| Progreso/offline | X | X | X | X |  |  |  |
-| Ajustes accesibles | X | X | X | X | X | X | X |
-| Traducción/vocabulario |  | X |  |  | X | X |  |
-| Borrador y validación |  |  |  |  | X | X |  |
-| Publicación y auditoría |  |  |  |  |  | X | X |
-| Diagnóstico y reintento |  |  |  |  |  |  | X |
+| Audio and highlighting | X | X | X |  |  | X |  |
+| Progress/offline | X | X | X | X |  |  |  |
+| Accessible settings | X | X | X | X | X | X | X |
+| Translation/vocabulary |  | X |  |  | X | X |  |
+| Draft and validation |  |  |  |  | X | X |  |
+| Publishing and audit |  |  |  |  |  | X | X |
+| Diagnostics and retry |  |  |  |  |  |  | X |
 
-## Validación
+## Validation
 
-- Todos los modos de lectura tienen al menos un perfil: PASS.
-- Cada perfil contiene contexto, objetivo, barrera, accesibilidad y resultado: PASS.
-- Persona, cuenta, perfil, rol y parte interesada se distinguen: PASS.
-- El rol del adulto responsable está definido sin inventar una cuenta infantil: PASS.
+- All reading modes have at least one profile: PASS.
+- Each profile contains context, goal, barrier, accessibility, and outcome: PASS.
+- Persona, account, profile, role, and stakeholder are distinguished: PASS.
+- The responsible adult role is defined without inventing a child account: PASS.

@@ -1,60 +1,57 @@
-# Análisis del prompt maestro
+# Master prompt analysis
 
-## Fuente
+## Source
 
-- **Documento:** `docs/FollowRead Project Prompt.pdf`
-- **Fecha del documento:** 2026-07-24
-- **Páginas revisadas:** 37 de 37
-- **Estado:** Fuente normativa inicial del proyecto
+- **Document:** `docs/FollowRead Project Prompt.pdf`
+- **Document date:** 2026-07-24
+- **Pages reviewed:** 37 of 37
+- **Status:** Initial normative source for the project
 
-## Mandatos que condicionan toda implementación
+## Mandates that condition all implementation
 
-1. El trabajo avanza por fases y tareas con estados explícitos.
-2. Admin, Reader y API permanecen separados.
-3. Sólo Reader se empaqueta con Capacitor.
-4. Reader Engine se mantiene independiente de la interfaz.
-5. Contenido y recursos editoriales se actualizan sin nuevo build.
-6. AWS sólo se usa desde el backend y sus credenciales nunca llegan al cliente.
-7. Las pruebas automatizadas no usan servicios AWS reales.
-8. Accesibilidad, offline, seguridad, documentación y pruebas no son mejoras opcionales.
-9. Ninguna tarea se completa si faltan criterios, pruebas o documentación.
-10. La Fase 0 debe cerrarse antes de diseñar pantallas definitivas.
+1. Work progresses in phases and tasks with explicit states.
+2. Admin, Reader, and API remain separated.
+3. Only Reader is packaged with Capacitor.
+4. Reader Engine is kept independent from the UI.
+5. Editorial content and resources are updated without a new build.
+6. AWS is used only from the backend and its credentials never reach the client.
+7. Automated tests do not use real AWS services.
+8. Accessibility, offline, security, documentation, and testing are not optional enhancements.
+9. No task is completed if criteria, tests, or documentation are missing.
+10. Phase 0 must be closed before designing final screens.
 
-## Dominios identificados
+## Identified domains
 
-- gestión editorial bilingüe;
-- catálogo y versionado de contenido;
-- procesamiento de texto, audio y Speech Marks;
-- lector sincronizado;
-- modos infantil, adulto y aprendizaje;
-- identidad, autorización y auditoría;
-- descarga, almacenamiento local y sincronización;
-- aplicaciones web, PWA y móvil híbrida;
-- seguridad, privacidad, accesibilidad y operación.
+- bilingual editorial management;
+- catalog and content versioning;
+- processing of text, audio, and Speech Marks;
+- synchronized reader;
+- child, adult, and learning modes;
+- identity, authorization, and auditing;
+- download, local storage, and synchronization;
+- web apps, PWA, and hybrid mobile apps;
+- security, privacy, accessibility, and operations.
 
-## Inconsistencias y vacíos
+## Inconsistencies and gaps
 
-| ID | Tema | Observación | Tratamiento |
+| ID | Topic | Observation | Treatment |
 |---|---|---|---|
-| PA-001 | Tipo `document` | Aparece en la visión, no en el catálogo de tipos | FR-DEC-OPEN-001 |
-| PA-002 | Cuentas infantiles | No hay modelo de consentimiento o tutor | FR-DEC-OPEN-002 |
-| PA-003 | Traducción contextual | No se define fuente, licencia ni modo offline | FR-DEC-OPEN-003 |
-| PA-004 | Notas y marcadores | Requeridos en modo adulto sin entidades iniciales | FR-ISSUE-003 |
-| PA-005 | MVP | El documento define el producto final, no el corte mínimo | FR-PH00-TASK-004 |
-| PA-006 | Metas medibles | "Rápido", "estable" y "razonable" requieren umbrales | FR-PH00-TASK-006 |
-| PA-007 | Licencia | Se solicita un archivo, pero no se indica licencia | FR-DEC-OPEN-004 |
+| PA-001 | Type `document` | Appears in the vision, not in the type catalog | FR-DEC-OPEN-001 |
+| PA-002 | Child accounts | There is no consent or guardian model | FR-DEC-OPEN-002 |
+| PA-003 | Contextual translation | Source, license, and offline mode are not defined | FR-DEC-OPEN-003 |
+| PA-004 | Notes and bookmarks | Required in adult mode without initial entities | FR-ISSUE-003 |
+| PA-005 | MVP | The document defines the final product, not the minimal cut | FR-PH00-TASK-004 |
+| PA-006 | Measurable goals | "Fast", "stable", and "reasonable" require thresholds | FR-PH00-TASK-006 |
+| PA-007 | License | A file is requested, but no license is indicated | FR-DEC-OPEN-004 |
 
-## Supuestos de trabajo, no aprobados
+## Working assumptions, not approved
 
-- El MVP será una sección vertical demostrable y no todas las funciones del roadmap.
-- El contenido editorial se prepara antes de publicarse; Reader nunca edita contenido.
-- Las traducciones del MVP serán editoriales para funcionar offline y evitar dependencia de IA.
-- El uso infantil minimizará datos personales hasta decidir un modelo de cuenta.
-- El prompt original proponía PostgreSQL como fuente autoritativa; FR-DEC-013 lo sustituye por SQLite
-  para el MVP debido a la restricción operativa confirmada. S3 conservará objetos grandes.
+- The MVP will be a demonstrable vertical section, not all roadmap features.
+- Editorial content is prepared before publication; Reader never edits content.
+- MVP translations will be editorial to work offline and avoid dependence on AI.
+- Child usage will minimize personal data until an account model is decided.
+- The original prompt proposed PostgreSQL as the authoritative source; FR-DEC-013 replaces it with SQLite for the MVP due to the confirmed operational constraint. S3 will retain large objects.
 
-## Resultado del análisis
+## Analysis outcome
 
-El proyecto es viable si se controla el alcance y se resuelven privacidad infantil, modelo de
-traducciones, tipos de contenido y métricas no funcionales. No es responsable iniciar código antes de
-cerrar esas definiciones.
+The project is viable if scope is controlled and child privacy, translation model, content types, and non-functional metrics are resolved. It is not advisable to start coding before those definitions are closed.

@@ -1,889 +1,794 @@
-# Registro de sesiones
+# Session Log
 
-## Sesión 2026-07-24 - Línea base inicial
+## Session 2026-07-24 - Initial baseline
 
-### Objetivo
+### Objective
 
-Revisar el prompt maestro, crear el sistema de seguimiento y dejar la Fase 0 lista para continuar de
-forma controlada.
+Review the master prompt, create the tracking system, and leave Phase 0 ready to continue in a controlled manner.
 
-### Trabajo realizado
+### Work performed
 
-- Se verificó que el PDF maestro tiene 37 páginas y no está cifrado.
-- Se extrajo el texto completo y se revisaron visualmente páginas representativas, incluida la primera
-  ejecución requerida.
-- Se confirmó que el proyecto sólo contenía `docs/FollowRead Project Prompt.pdf`.
-- Se confirmó que todavía no existe un repositorio Git.
-- Se creó la estructura documental inicial de Fase 0.
-- Se registraron decisiones obligatorias del prompt, decisiones abiertas, riesgos e inconsistencias.
-- Se completó FR-PH00-TASK-001.
-- Se dejó FR-PH00-TASK-002 como tarea activa.
-- Se copiaron 30 archivos documentales al directorio definitivo sin reemplazar el PDF maestro.
+- Verified that the master PDF has 37 pages and is not encrypted.
+- Extracted the full text and visually reviewed representative pages, including the required first run.
+- Confirmed that the project only contained `docs/FollowRead Project Prompt.pdf`.
+- Confirmed that there is still no Git repository.
+- Created the initial Phase 0 documentation structure.
+- Recorded mandatory prompt decisions, open decisions, risks, and inconsistencies.
+- Completed FR-PH00-TASK-001.
+- Left FR-PH00-TASK-002 as an active task.
+- Copied 30 documentation files to the final directory without replacing the master PDF.
 
-### Comandos y comprobaciones
+### Commands and checks
 
-- Inspección de metadatos del PDF con `pdfinfo`.
-- Renderizado de las 37 páginas con `pdftoppm`.
-- Extracción de texto con `pypdf`.
-- Inventario recursivo de `C:\Projects\FollowRead`.
-- Comprobación de existencia de `.git`.
-- Validación futura: script documental de enlaces, IDs y estados.
+- Inspected PDF metadata with `pdfinfo`.
+- Rendered the 37 pages with `pdftoppm`.
+- Extracted text with `pypdf`.
+- Recursive inventory of `C:\Projects\FollowRead`.
+- Checked existence of `.git`.
+- Future validation: documentation script for links, IDs, and states.
 
-### Pruebas ejecutadas
+### Tests executed
 
-No se ejecutaron pruebas de aplicación porque todavía no existe código.
+No application tests were run because there is still no code.
 
-Se ejecutó una validación estructural de la documentación:
+A structural validation of the documentation was performed:
 
-- 30 archivos Markdown encontrados;
-- 19 entregables mínimos presentes y no vacíos;
-- 12 tareas de Fase 0 con todos los campos obligatorios;
-- estados de tarea dentro del conjunto permitido;
-- ausencia de asignaciones aparentes de credenciales AWS;
-- resultado final: `PASS`.
-- comparación SHA-256 de los 30 archivos entre preparación y destino: `PASS`;
-- tamaño del PDF maestro en destino: 183293 bytes, sin cambios.
+- 30 Markdown files found;
+- 19 minimal deliverables present and non-empty;
+- 12 Phase 0 tasks with all required fields;
+- task states within the allowed set;
+- no apparent AWS credential assignments;
+- final result: `PASS`.
+- SHA-256 comparison of the 30 files between preparation and destination: `PASS`;
+- master PDF size at destination: 183293 bytes, unchanged.
 
-La primera versión del comprobador produjo un falso negativo porque PowerShell alteró caracteres
-acentuados del código de validación y porque la palabra `TODO` aparecía dentro de una regla
-explicativa. Se normalizó la comparación a ASCII y se limitó la detección de secretos; no fue
-necesario modificar ni degradar la documentación.
+The first version of the checker produced a false negative because PowerShell altered accented characters in the validation code and because the word `TODO` appeared within an explanatory rule. The comparison was normalized to ASCII and secret detection was limited; it was not necessary to modify or degrade the documentation.
 
-### Problemas encontrados
+### Problems found
 
-- Inconsistencia entre "document" y la lista de tipos de contenido.
-- Falta definición de cuentas infantiles y consentimiento.
-- Notas y marcadores adultos no aparecen en las entidades iniciales.
-- No existe repositorio Git.
+- Inconsistency between "document" and the list of content types.
+- Missing definition of child accounts and consent.
+- Adult notes and bookmarks do not appear in the initial entities.
+- No Git repository exists.
 
-### Decisiones tomadas
+### Decisions made
 
-Ver FR-DEC-001 a FR-DEC-005 en `DECISIONS.md`.
+See FR-DEC-001 to FR-DEC-005 in `DECISIONS.md`.
 
-### Punto exacto de continuación
+### Exact continuation point
 
-Continuar en FR-PH00-TASK-002, comenzando por validar los resultados medibles de
-`docs/requirements/PRODUCT_VISION.md`. No comenzar Fase 1.
+Continue at FR-PH00-TASK-002, starting by validating the measurable results of `docs/requirements/PRODUCT_VISION.md`. Do not start Phase 1.
 
 ---
 
-## Sesión 2026-07-24 - Validación de visión del producto
+## Session 2026-07-24 - Product vision validation
 
-### Objetivo
+### Objective
 
-Completar FR-PH00-TASK-002 y dejar iniciada la definición de usuarios de FR-PH00-TASK-003.
+Complete FR-PH00-TASK-002 and start defining users for FR-PH00-TASK-003.
 
-### Trabajo realizado
+### Work performed
 
-- Se releyeron todos los archivos de gestión obligatorios.
-- Se comparó la visión con alcance, requisitos funcionales y no funcionales, historias, criterios y
-  trazabilidad.
-- Se separaron beneficiarios primarios, usuarios habilitadores y partes interesadas.
-- Se definieron ocho resultados de producto identificados y medibles.
-- Se aclaró que las metas de usabilidad son hipótesis de piloto.
-- Se mantuvieron abiertas las decisiones de cuenta infantil, traducción y MVP.
-- Se añadió trazabilidad entre resultados, requisitos, historias y criterios.
-- Se completó FR-PH00-TASK-002 y se inició FR-PH00-TASK-003.
+- Reread all mandatory management files.
+- Compared the vision with scope, functional and non-functional requirements, stories, criteria, and traceability.
+- Separated primary beneficiaries, enabling users, and stakeholders.
+- Defined eight identified and measurable product outcomes.
+- Clarified that usability goals are pilot hypotheses.
+- Left decisions about child accounts, translation, and MVP open.
+- Added traceability between outcomes, requirements, stories, and criteria.
+- Completed FR-PH00-TASK-002 and started FR-PH00-TASK-003.
 
-### Problemas encontrados
+### Problems found
 
-La visión inicial mezclaba segmentos lectores con usuarios editoriales y no tenía indicadores ni
-métodos de medición explícitos. No se encontró una contradicción crítica con el alcance o los
-requisitos.
+The initial vision mixed reader segments with editorial users and lacked explicit indicators or measurement methods. No critical contradiction with scope or requirements was found.
 
-### Decisiones tomadas
+### Decisions made
 
-FR-DEC-006 - Jerarquía de audiencias por relación con el valor.
+FR-DEC-006 - Audience hierarchy by relationship to value.
 
-### Pruebas ejecutadas
+### Tests executed
 
-Se ejecutó una validación documental cruzada:
+A cross-document validation was run:
 
-- 30 archivos Markdown presentes;
-- 12 secciones de tareas con todos los campos obligatorios;
-- resumen y detalle de estados sincronizados;
-- FR-PH00-TASK-002 en `COMPLETED`;
-- FR-PH00-TASK-003 en `IN_PROGRESS`;
-- ocho resultados de producto definidos y ocho trazados;
-- siete comprobaciones de coherencia de visión en `PASS`;
-- FR-AC-011 y FR-DEC-006 presentes;
-- resultado final: `PASS`.
-- comparación final de los 30 documentos entre preparación y destino: `PASS`.
+- 30 Markdown files present;
+- 12 task sections with all required fields;
+- summary and detailed states synchronized;
+- FR-PH00-TASK-002 in `COMPLETED`;
+- FR-PH00-TASK-003 in `IN_PROGRESS`;
+- eight product outcomes defined and eight traced;
+- seven vision coherence checks in `PASS`;
+- FR-AC-011 and FR-DEC-006 present;
+- final result: `PASS`.
+- final comparison of the 30 documents between preparation and destination: `PASS`.
 
-La primera ejecución del comprobador no reconoció el encabezado acentuado de FR-AC-011. Se repitió
-la comparación con normalización Unicode y se confirmó que era un falso negativo del comprobador,
-no un defecto del documento.
+The first run of the checker did not recognize the accented header of FR-AC-011. The comparison was repeated with Unicode normalization and it was confirmed to be a false negative of the checker, not a document defect.
 
-### Punto exacto de continuación
+### Exact continuation point
 
-Continuar FR-PH00-TASK-003 creando perfiles de usuario y distinguiendo explícitamente persona, cuenta,
-rol y parte interesada. No decidir cuentas infantiles por implicación y no comenzar Fase 1.
+Continue FR-PH00-TASK-003 by creating user profiles and explicitly distinguishing person, account, role, and stakeholder. Do not decide child accounts by implication and do not start Phase 1.
 
 ---
 
-## Sesión 2026-07-24 - Cierre de Fase 0 e inicio de Fase 1
+## Session 2026-07-24 - Phase 0 closure and start of Phase 1
 
-### Objetivo
+### Objective
 
-Avanzar de forma sostenida hasta cerrar Fase 0 y comenzar diseño UX/UI sin crear código.
+Advance steadily until closing Phase 0 and begin UX/UI design without creating code.
 
-### Tareas completadas
+### Tasks completed
 
-- FR-PH00-TASK-003 a FR-PH00-TASK-012.
-- FR-PH01-TASK-001 y FR-PH01-TASK-002.
+- FR-PH00-TASK-003 through FR-PH00-TASK-012.
+- FR-PH01-TASK-001 and FR-PH01-TASK-002.
 
-### Trabajo realizado
+### Work performed
 
-- Siete perfiles con contexto, objetivos, barreras, accesibilidad y resultados.
-- MVP vertical y límites por componente.
-- Decisiones de documentos, traducción editorial, privacidad infantil y notas.
-- 55 requisitos funcionales con fuente/verificación y 25 reglas.
-- 37 requisitos no funcionales medibles, política de datos y 12 amenazas.
-- 20 historias, 12 casos, 23 criterios y trazabilidad completa.
-- Validación de arquitectura, accesibilidad, riesgos, pruebas, entornos y rollback.
-- Cierre formal de Fase 0 pasando por `READY_FOR_REVIEW`.
-- Ocho tareas de Fase 1 preparadas.
-- Inventario de 26 pantallas y arquitectura/flujos UX.
+- Seven profiles with context, goals, barriers, accessibility, and outcomes.
+- Vertical MVP and component boundaries.
+- Decisions on documents, editorial translation, child privacy, and notes.
+- 55 functional requirements with source/verification and 25 rules.
+- 37 measurable non-functional requirements, data policy, and 12 threats.
+- 20 stories, 12 cases, 23 criteria, and complete traceability.
+- Validation of architecture, accessibility, risks, tests, environments, and rollback.
+- Formal closure of Phase 0 passing through `READY_FOR_REVIEW`.
+- Eight Phase 1 tasks prepared.
+- Inventory of 26 screens and UX architecture/flows.
 
-### Pruebas ejecutadas
+### Tests executed
 
-- FR-PH00-TASK-005: 55 requisitos y 25 reglas, PASS.
-- FR-PH00-TASK-006: 37 NFR y 12 amenazas, PASS.
-- FR-PH00-TASK-007/008: 92/92 requisitos y 25/25 reglas trazados, PASS.
-- FR-PH00-TASK-009/011: 4 walkthroughs y 8 riesgos mapeados, PASS.
-- Pre-cierre Fase 0: 19 entregables y 9 criterios de salida, PASS.
-- FR-PH01-TASK-001: 12 Reader, 14 Admin, 12 casos y 7 perfiles, PASS.
-- FR-PH01-TASK-002: 12 casos y 3 diagramas de flujo, PASS.
-- Validación final: 40 archivos Markdown y 20 tareas, PASS.
-- Comparación de los 40 documentos en destino y PDF maestro intacto, PASS.
+- FR-PH00-TASK-005: 55 requirements and 25 rules, PASS.
+- FR-PH00-TASK-006: 37 NFR and 12 threats, PASS.
+- FR-PH00-TASK-007/008: 92/92 requirements and 25/25 rules traced, PASS.
+- FR-PH00-TASK-009/011: 4 walkthroughs and 8 risks mapped, PASS.
+- Pre-close Phase 0: 19 deliverables and 9 exit criteria, PASS.
+- FR-PH01-TASK-001: 12 Reader, 14 Admin, 12 cases and 7 profiles, PASS.
+- FR-PH01-TASK-002: 12 cases and 3 flow diagrams, PASS.
+- Final validation: 40 Markdown files and 20 tasks, PASS.
+- Comparison of the 40 documents at destination and master PDF intact, PASS.
 
-Varias primeras ejecuciones de validadores produjeron falsos positivos por caracteres acentuados,
-comparación global de secciones o abreviaturas. Se corrigieron para validar la estructura real; no se
-ocultaron defectos documentales.
+Several initial runs of validators produced false positives due to accented characters, global section comparison, or abbreviations. They were corrected to validate the real structure; documentary defects were not hidden.
 
-### Decisiones
+### Decisions
 
-- FR-DEC-007: documento usa `article`.
-- FR-DEC-008: traducciones esenciales editoriales.
-- FR-DEC-009: sin cuentas/PII de menores en MVP.
-- FR-DEC-010: notas libres después del MVP.
+- FR-DEC-007: document uses `article`.
+- FR-DEC-008: essential editorial translations.
+- FR-DEC-009: no minor accounts/PII in the MVP.
+- FR-DEC-010: free-form notes after the MVP.
 
-### Problemas conocidos
+### Known issues
 
-- FR-ISSUE-001 sigue abierto hasta Fase 2: no existe repositorio Git.
-- FR-DEC-OPEN-004 sigue abierta con dueño/fecha: licencia antes de Fase 14.
+- FR-ISSUE-001 remains open until Phase 2: no Git repository.
+- FR-DEC-OPEN-004 remains open with owner/date: license before Phase 14.
 
-### Punto exacto de continuación
+### Exact continuation point
 
-Continuar FR-PH01-TASK-003 creando wireframes Reader para las 12 pantallas, comenzando por el layout
-base y el Lector. No crear componentes React todavía.
+Continue FR-PH01-TASK-003 creating Reader wireframes for the 12 screens, starting with the base layout and the Reader. Do not create React components yet.
 
 ---
 
-## Sesión 2026-07-24 - Cierre de Fase 1 y base técnica hasta Docker
+## Session 2026-07-24 - Phase 1 closure and technical base up to Docker
 
-### Objetivo
+### Objective
 
-Cerrar Fase 1 e implementar la base verificable de Fase 2 hasta encontrar un bloqueo real.
+Close Phase 1 and implement the verifiable base of Phase 2 until a real blocker is encountered.
 
-### Tareas completadas
+### Tasks completed
 
-- FR-PH01-TASK-003 a FR-PH01-TASK-008.
-- FR-PH02-TASK-001 a FR-PH02-TASK-006.
+- FR-PH01-TASK-003 through FR-PH01-TASK-008.
+- FR-PH02-TASK-001 through FR-PH02-TASK-006.
 
-### Trabajo realizado
+### Work performed
 
-- 12 wireframes Reader, 14 Admin, sistema visual, responsive, accesibilidad, modos y journeys.
-- Repositorio Git `main`, monorepo pnpm y seis paquetes TypeScript con límites explícitos.
-- Admin y Reader separados con React/Vite, pruebas de humo y builds.
-- API FastAPI con configuración tipada y `GET /health`.
-- Puerta `pnpm check` con ESLint, Prettier, Ruff, mypy, Vitest, pytest y builds.
-- Ejemplos y validación de variables de entorno públicas y privadas.
+- 12 Reader wireframes, 14 Admin, visual system, responsive design, accessibility, modes, and journeys.
+- Git repository `main`, pnpm monorepo and six TypeScript packages with explicit boundaries.
+- Admin and Reader separated with React/Vite, smoke tests and builds.
+- FastAPI API with typed configuration and `GET /health`.
+- Root gate `pnpm check` with ESLint, Prettier, Ruff, mypy, Vitest, pytest and builds.
+- Examples and validation of public and private environment variables.
 
-### Validación
+### Validation
 
-- Fase 1: 12 entregables, 26/26 wireframes y 12/12 casos, PASS.
-- Contraste: 18 pares, mínimo 5.47:1 claro y 7.32:1 oscuro, PASS.
-- Puerta raíz: formato, lint, tipos, seis pruebas y builds, PASS sin advertencias.
-- Admin, Reader, configuración y API: 100% de cobertura base.
+- Phase 1: 12 deliverables, 26/26 wireframes and 12/12 cases, PASS.
+- Contrast: 18 pairs, minimum 5.47:1 light and 7.32:1 dark, PASS.
+- Root gate: format, lint, types, six tests and builds, PASS with no warnings.
+- Admin, Reader, configuration and API: 100% base coverage.
 
-### Bloqueo actual
+### Current blocker
 
-FR-ISSUE-005: Docker no está instalado o no está disponible en `PATH`. FR-PH02-TASK-007 queda
-`BLOCKED`; no se simuló la validación de PostgreSQL.
+FR-ISSUE-005: Docker is not installed or not available on `PATH`. FR-PH02-TASK-007 remains `BLOCKED`; PostgreSQL validation was not simulated.
 
-### Punto exacto de continuación
+### Exact continuation point
 
-Instalar o iniciar Docker Desktop. Verificar `docker --version` y `docker compose version`; después
-crear y validar PostgreSQL local.
+Install or start Docker Desktop. Verify `docker --version` and `docker compose version`; then create and validate local PostgreSQL.
 
 ---
 
-## Continuación 2026-07-24 - Preparación estática de PostgreSQL
+## Continuation 2026-07-24 - Static preparation of PostgreSQL
 
-Docker continuó ausente. Sin omitir ese bloqueo, se completó la parte verificable de
-FR-PH02-TASK-007:
+Docker remained absent. Without bypassing that blocker, the verifiable portion of FR-PH02-TASK-007 was completed:
 
-- imagen oficial `postgres:18.4-alpine3.24` fijada;
-- volumen compatible con el cambio de `PGDATA` de PostgreSQL 18;
-- puerto limitado a `127.0.0.1`;
-- healthcheck con `pg_isready`;
-- variables locales y DSN PostgreSQL tipado;
-- validador estático incorporado a `pnpm check`;
-- FR-DEC-012 registrada.
+- official image `postgres:18.4-alpine3.24` pinned;
+- volume compatible with the change in PostgreSQL 18 `PGDATA`;
+- port limited to `127.0.0.1`;
+- healthcheck with `pg_isready`;
+- local variables and typed PostgreSQL DSN;
+- static validator incorporated into `pnpm check`;
+- FR-DEC-012 recorded.
 
-`pnpm check` pasó completo: validación Compose, formato, lint, tipos, seis pruebas, cobertura base
-100% y builds. Permanecen pendientes `docker compose config`, arranque y confirmación `healthy`.
+`pnpm check` passed fully: Compose validation, format, lint, types, six tests, 100% base coverage and builds. Remaining: `docker compose config`, startup and confirmation `healthy`.
 
 ---
 
-## Continuación 2026-07-24 - Auditoría final del bloqueo Docker
+## Continuation 2026-07-24 - Final audit of the Docker blocker
 
-Se repitió la comprobación por tercera vez y se inspeccionaron:
+The check was repeated a third time and the following were inspected:
 
-- resolución del comando mediante `PATH` y `where`;
-- rutas habituales de Docker Desktop y Docker CLI;
-- registro de aplicaciones instaladas;
-- servicios y procesos de Docker;
-- disponibilidad de Podman como runtime alternativo.
+- command resolution via `PATH` and `where`;
+- usual paths for Docker Desktop and Docker CLI;
+- installed applications registry;
+- Docker services and processes;
+- availability of Podman as an alternative runtime.
 
-Todos los resultados fueron negativos. Las tareas 008 a 011 dependen de PostgreSQL/migraciones o de
-la puerta completa que las incluye, por lo que no existe otro avance seguro que respete dependencias.
-El proyecto queda detenido hasta instalar/iniciar Docker Desktop.
+All results were negative. Tasks 008 to 011 depend on PostgreSQL/migrations or the full gate that includes them, so there is no other safe progress that respects dependencies. The project is stopped until Docker Desktop is installed/started.
 
 ---
 
-## Reanudación 2026-07-24 - SQLite autorizado para el MVP
+## Resumption 2026-07-24 - SQLite authorized for the MVP
 
-El propietario indicó que PostgreSQL no está disponible para el MVP y autorizó SQLite. Se registró
-FR-DEC-013, que sustituye FR-DEC-012 para el alcance actual. FR-ISSUE-005 queda resuelto por cambio de
-alcance y FR-PH02-TASK-007 vuelve a `IN_PROGRESS`.
+The owner indicated that PostgreSQL is not available for the MVP and authorized SQLite. FR-DEC-013 was recorded, replacing FR-DEC-012 for the current scope. FR-ISSUE-005 is resolved by scope change and FR-PH02-TASK-007 returns to `IN_PROGRESS`.
 
-PostgreSQL permanece como evolución futura; no es requisito para continuar las fases del MVP.
+PostgreSQL remains as a future evolution; it is not a requirement to continue MVP phases.
 
 ---
 
-## Continuación 2026-07-24 - SQLite, migraciones, hooks y CI
+## Continuation 2026-07-24 - SQLite, migrations, hooks and CI
 
-Se sustituyó la preparación PostgreSQL/Docker por una base SQLite local conforme a FR-DEC-013:
+The PostgreSQL/Docker preparation was replaced by a local SQLite base in accordance with FR-DEC-013:
 
-- configuración tipada y resolución reproducible de la ruta de la base;
-- conexión SQLAlchemy con claves foráneas activas y sesiones aisladas;
-- Alembic con migración base, upgrade/downgrade probado y una sola cabeza;
-- scripts de instalación, migración y calidad compatibles con Windows/CI;
-- pre-commit verificable que ejecuta `pnpm check:fast` sin modificar archivos;
-- workflow de GitHub Actions con permisos mínimos, versiones declaradas y puerta equivalente;
-- documentación de instalación, variables, operación y límites de SQLite.
+- typed configuration and reproducible resolution of the database path;
+- SQLAlchemy connection with foreign keys enabled and isolated sessions;
+- Alembic with base migration, upgrade/downgrade tested and a single head;
+- install, migration and quality scripts compatible with Windows/CI;
+- pre-commit verifiable that runs `pnpm check:fast` without modifying files;
+- GitHub Actions workflow with minimal permissions, declared versions and equivalent gate;
+- documentation for installation, variables, operation and SQLite limits.
 
-La migración y `pnpm check` pasaron en `C:\Projects\FollowRead`; la API alcanzó 100% de cobertura.
-Pytest requirió usar `.pytest-temp/` dentro del checkout porque la carpeta temporal global de
-Windows no era accesible en el entorno de validación. FR-PH02-TASK-009 y 010 quedaron completadas.
-FR-PH02-TASK-011 pasó a `READY_FOR_REVIEW` para ejecutar la auditoría limpia final.
+The migration and `pnpm check` passed in `C:\Projects\FollowRead`; the API reached 100% coverage. Pytest required using `.pytest-temp/` within the checkout because the global temporary folder on Windows was not accessible in the validation environment. FR-PH02-TASK-009 and 010 were completed. FR-PH02-TASK-011 moved to `READY_FOR_REVIEW` to run the final clean audit.
 
 ---
 
-## Continuación 2026-07-24 - Cierre de Fase 2 e inicio de Fase 3
+## Continuation 2026-07-24 - Phase 2 closure and start of Phase 3
 
-La auditoría final se ejecutó sobre un clon Git limpio del commit `c348ca1`. Se instalaron
-dependencias Node/Python, se configuraron hooks, se aplicó Alembic sobre SQLite y `pnpm check` pasó.
+The final audit was executed on a clean Git clone from commit `c348ca1`. Node/Python dependencies were installed, hooks configured, Alembic applied on SQLite and `pnpm check` passed.
 
-El primer clon reveló una discrepancia real de saltos de línea: Git convertía texto a CRLF en
-Windows mientras Prettier exige LF. Se corrigió `.gitattributes`, se creó `c348ca1` y un segundo clon
-pasó la puerta completa. La evidencia quedó en `PHASE_2_REVIEW.md`.
+The first clone revealed a real discrepancy with line endings: Git converted text to CRLF on Windows while Prettier requires LF. `.gitattributes` was corrected, `c348ca1` was created and a second clone passed the full gate. Evidence was left in `PHASE_2_REVIEW.md`.
 
-FR-PH02-TASK-011 quedó `COMPLETED`, la Fase 2 quedó cerrada y se prepararon 12 tareas para la Fase 3.
-FR-PH03-TASK-001 quedó `IN_PROGRESS`.
+FR-PH02-TASK-011 became `COMPLETED`, Phase 2 was closed and 12 tasks were prepared for Phase 3. FR-PH03-TASK-001 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-24 - Modelos de lectura y migración funcional
+## Continuation 2026-07-24 - Reading models and functional migration
 
-- Se implementaron ReadingProgress, Favorite, VocabularyWord y DownloadRecord con propiedad,
-  versión, anclajes estables e idempotencia.
-- Se corrigió la referencia de continuación obsoleta en PROJECT_STATUS.
-- La revisión inicial de migración descubrió que AuditLog aún no tenía modelo; se añadió antes de
-  aceptar el esquema.
-- Alembic `2bf6cf5e1177` materializa el modelo funcional completo sobre la base de Fase 2.
-- La prueba de migración aplica, inspecciona tablas/FKs, revierte y vuelve a aplicar una sola cabeza.
-- `pnpm check` pasó con 19 pruebas Python y cobertura 100%.
+- Implemented ReadingProgress, Favorite, VocabularyWord and DownloadRecord with ownership, versioning, stable anchors and idempotence.
+- Fixed the obsolete continuation reference in PROJECT_STATUS.
+- Initial migration review found that AuditLog did not yet have a model; it was added before accepting the schema.
+- Alembic `2bf6cf5e1177` materializes the full functional model on top of the Phase 2 base.
+- The migration test applies, inspects tables/FKs, reverts and reapplies a single head.
+- `pnpm check` passed with 19 Python tests and 100% coverage.
 
-FR-PH03-TASK-006 y 007 quedaron `COMPLETED`; FR-PH03-TASK-008 quedó `IN_PROGRESS`.
+FR-PH03-TASK-006 and 007 became `COMPLETED`; FR-PH03-TASK-008 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-24 - Repositorios y unidad de trabajo
+## Continuation 2026-07-24 - Repositories and unit of work
 
-- Se creó un repositorio base tipado que prepara altas, consultas por UUID y eliminaciones sin
-  confirmar transacciones.
-- Se implementó el catálogo publicado con filtros por idioma, tipo, audiencia, nivel y categoría,
-  total independiente de la página y orden estable.
-- El detalle carga el árbol editorial completo y excluye borradores, publicaciones inactivas y
-  paquetes incompletos.
-- `SqlAlchemyUnitOfWork` concentra sesión, commit, rollback y cierre.
-- Las pruebas cubren filtros, paginación, detalle/not-found, duplicados, commit, rollback explícito
-  y rollback al salir del contexto; la API conserva 100% de cobertura.
+- Created a typed base repository that prepares inserts, UUID queries and deletions without committed transactions.
+- Implemented the published catalog with filters by language, type, audience, level and category, total independent of page and stable ordering.
+- The detail loads the full editorial tree and excludes drafts, inactive publications and incomplete packages.
+- `SqlAlchemyUnitOfWork` centralizes session, commit, rollback and close.
+- Tests cover filters, pagination, detail/not-found, duplicates, commit, explicit rollback and rollback on context exit; the API retains 100% coverage.
 
-FR-PH03-TASK-008 quedó `COMPLETED`; FR-PH03-TASK-009 quedó `IN_PROGRESS`.
+FR-PH03-TASK-008 became `COMPLETED`; FR-PH03-TASK-009 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-24 - Servicios, validaciones y errores
+## Continuation 2026-07-24 - Services, validations and errors
 
-- Se implementó `CatalogService` mediante un protocolo de lectura desacoplado de SQLAlchemy.
-- El servicio valida límite 1..100, desplazamiento no negativo y slugs canónicos.
-- Se definieron códigos estables `catalog.invalid_query` y `content.not_found`.
-- El manejador global traduce errores de dominio a un contenedor JSON documentado sin exponer
-  detalles internos.
-- Las pruebas cubren entradas válidas e inválidas, contenido presente/ausente y estados HTTP
-  404/422; la API conserva 100% de cobertura.
+- Implemented `CatalogService` via a protocol decoupled from SQLAlchemy reading.
+- The service validates limit 1..100, non-negative offset and canonical slugs.
+- Stable codes `catalog.invalid_query` and `content.not_found` were defined.
+- The global handler translates domain errors to a documented JSON container without exposing internal details.
+- Tests cover valid and invalid inputs, content present/absent and HTTP states 404/422; the API retains 100% coverage.
 
-FR-PH03-TASK-009 quedó `COMPLETED`; FR-PH03-TASK-010 quedó `IN_PROGRESS`.
+FR-PH03-TASK-009 became `COMPLETED`; FR-PH03-TASK-010 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-24 - API pública de catálogo
+## Continuation 2026-07-24 - Public catalog API
 
-- Se añadieron schemas tipados para resumen, paginación, traducciones, capítulos y párrafos.
-- `GET /catalog` admite filtros por idioma, tipo, audiencia, nivel y categoría.
-- `GET /catalog/{slug}` devuelve el árbol editorial publicado o un 404 estable.
-- La integración excluye borradores y comprueba 200, 404 y 422.
-- Las pruebas detectaron aislamiento de SQLite `:memory:` entre hilos; `StaticPool` lo corrige sin
-  alterar bases SQLite de archivo.
-- La API pasó 39 pruebas y mantiene 100% de cobertura.
+- Added typed schemas for summary, pagination, translations, chapters and paragraphs.
+- `GET /catalog` supports filters by language, type, audience, level and category.
+- `GET /catalog/{slug}` returns the published editorial tree or a stable 404.
+- Integration excludes drafts and checks 200, 404 and 422.
+- Tests detected SQLite thread isolation `:memory:`; `StaticPool` fixes it without altering file-based SQLite databases.
+- The API passed 39 tests and maintains 100% coverage.
 
-FR-PH03-TASK-010 quedó `COMPLETED`; FR-PH03-TASK-011 quedó `IN_PROGRESS`.
-
----
-
-## Continuación 2026-07-24 - Observabilidad, readiness y OpenAPI
-
-- Se separó liveness (`/health`) de readiness (`/ready`) con una consulta real a SQLite.
-- Cada respuesta incorpora `X-Request-ID`; valores entrantes inválidos se reemplazan.
-- Los eventos de solicitud se emiten en JSON sin query, cuerpos ni secretos.
-- Fallos inesperados se registran con correlación y devuelven un 500 genérico.
-- OpenAPI verifica rutas operativas, catálogo, detalle y schemas 404/503.
-- Las pruebas cubren éxito/fallo de SQLite, logs, request ID, 500 seguro y contrato OpenAPI.
-
-FR-PH03-TASK-011 quedó `COMPLETED`; FR-PH03-TASK-012 quedó `IN_PROGRESS`.
+FR-PH03-TASK-010 became `COMPLETED`; FR-PH03-TASK-011 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-24 - Auditoría de Fase 3
+## Continuation 2026-07-24 - Observability, readiness and OpenAPI
 
-- Una base SQLite desechable se creó desde cero con Alembic.
-- Se confirmó una sola cabeza/current: `2bf6cf5e1177`.
-- Downgrade a base y segundo upgrade a head pasaron.
-- `pnpm check` pasó con 44 pruebas Python, 5 JavaScript, cobertura 100% y todos los builds.
-- Los ocho criterios de salida quedaron documentados en `PHASE_3_REVIEW.md`.
-- La base desechable se eliminó y no quedaron bloqueadores.
+- Separated liveness (`/health`) from readiness (`/ready`) with a real SQLite query.
+- Each response incorporates `X-Request-ID`; invalid incoming values are replaced.
+- Request events are emitted in JSON without query, bodies or secrets.
+- Unexpected failures are logged with correlation and return a generic 500.
+- OpenAPI verifies operational routes, catalog, detail and 404/503 schemas.
+- Tests cover SQLite success/failure, logs, request ID, safe 500 and OpenAPI contract.
 
-FR-PH03-TASK-012 y la Fase 3 pasaron a `READY_FOR_REVIEW`.
-
----
-
-## Continuación 2026-07-24 - Cierre de Fase 3
-
-El commit de evidencia `a32c6ca` ejecutó nuevamente el pre-commit completo sin discrepancias. Se
-confirmó la transición obligatoria `IN_PROGRESS -> READY_FOR_REVIEW -> COMPLETED`.
-
-FR-PH03-TASK-012 quedó `COMPLETED` y la Fase 3 quedó cerrada. El siguiente paso es preparar y
-activar el desglose de Fase 4 antes de implementar autenticación o autorización.
+FR-PH03-TASK-011 became `COMPLETED`; FR-PH03-TASK-012 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-24 - Preparación de Fase 4
+## Continuation 2026-07-24 - Phase 3 audit
 
-Se contrastó la estrategia con guías actuales de OWASP. FR-DEC-014 selecciona contraseña Argon2id y
-sesión opaca revocable en cookie HttpOnly, sin JWT ni almacenamiento web de credenciales. También
-fija TTL, CSRF/origen, no-store, bootstrap local y exclusión de recuperación/cuentas infantiles.
+- A disposable SQLite database was created from scratch with Alembic.
+- Confirmed a single head/current: `2bf6cf5e1177`.
+- Downgrade to base and second upgrade to head passed.
+- `pnpm check` passed with 44 Python tests, 5 JavaScript, 100% coverage and all builds.
+- The eight exit criteria were documented in `PHASE_3_REVIEW.md`.
+- The disposable database was removed and no blockers remained.
 
-Se definieron 10 tareas y ocho criterios de salida. FR-PH04-TASK-001 quedó `COMPLETED`;
-FR-PH04-TASK-002 quedó `IN_PROGRESS` para modelar credenciales y sesiones antes de endpoints.
-
----
-
-## Continuación 2026-07-25 - Persistencia, criptografía y bootstrap de autenticación
-
-- Se añadieron `UserCredential` y `UserSession` con hashes separados, expiración, revocación,
-  restricciones e índices, junto con una migración Alembic reversible.
-- SQLite normaliza fechas de sesión a UTC al evaluar vigencia.
-- Las contraseñas usan Argon2id mediante `pwdlib`; los tokens opacos usan aleatoriedad criptográfica,
-  SHA-256 para persistencia y comparación de tiempo constante.
-- `pnpm admin:bootstrap` crea el primer superadministrador de forma local, idempotente y sin
-  contraseña seed ni contraseña en argumentos.
-- La API alcanzó 60 pruebas con 100% de cobertura antes de la verificación integral.
-
-FR-PH04-TASK-002, 003 y 004 quedaron `COMPLETED`; FR-PH04-TASK-005 quedó `IN_PROGRESS`.
+FR-PH03-TASK-012 and Phase 3 moved to `READY_FOR_REVIEW`.
 
 ---
 
-## Continuación 2026-07-25 - Sesión HTTP y controles del navegador
+## Continuation 2026-07-24 - Phase 3 closure
 
-- Se expusieron `POST /auth/login`, `GET /auth/session` y `POST /auth/logout`.
-- Los errores de login no distinguen cuenta inexistente, deshabilitada o contraseña incorrecta.
-- La sesión renueva inactividad sin superar ocho horas y logout es revocable e idempotente.
-- La cookie de sesión es host-only, HttpOnly y Strict; producción añade Secure.
-- Logout exige origen permitido y token CSRF verificado contra cookie y hash de servidor.
-- CORS acepta credenciales únicamente desde Admin/Reader configurados y `/auth` nunca se cachea.
-- La suite de API alcanzó 73 pruebas Python con 100% de cobertura antes de la puerta integral.
+The evidence commit `a32c6ca` executed the full pre-commit again with no discrepancies. The mandatory transition `IN_PROGRESS -> READY_FOR_REVIEW -> COMPLETED` was confirmed.
 
-FR-PH04-TASK-005 y 006 quedaron `COMPLETED`; FR-PH04-TASK-007 quedó `IN_PROGRESS`.
+FR-PH03-TASK-012 became `COMPLETED` and Phase 3 was closed. The next step is to prepare and activate Phase 4 breakdown before implementing authentication or authorization.
 
 ---
 
-## Continuación 2026-07-25 - Autorización RBAC
+## Continuation 2026-07-24 - Phase 4 preparation
 
-- Se definieron cuatro roles y ocho permisos estables con sincronización idempotente.
-- El bootstrap asigna todos los permisos MVP a `super_admin`.
-- Las dependencias HTTP resuelven una sesión activa y exigen un permiso explícito.
-- `/admin/access` valida el ingreso al Admin mediante `admin.access`.
-- Cuentas sin permiso, inactivas, revocadas o sin sesión quedan rechazadas.
-- La suite alcanzó 77 pruebas Python con cobertura 100% antes de la puerta integral.
+The strategy was contrasted with current OWASP guides. FR-DEC-014 selects Argon2id password hashing and an opaque revocable session in an HttpOnly cookie, with no JWT or client-side credential storage. It also sets TTL, CSRF/origin, no-store, local bootstrap and exclusion of recovery/child accounts.
 
-FR-PH04-TASK-007 quedó `COMPLETED`; FR-PH04-TASK-008 quedó `IN_PROGRESS`.
+Ten tasks and eight exit criteria were defined. FR-PH04-TASK-001 became `COMPLETED`; FR-PH04-TASK-002 became `IN_PROGRESS` to model credentials and sessions before endpoints.
 
 ---
 
-## Continuación 2026-07-25 - Límite de login y auditoría
+## Continuation 2026-07-25 - Persistence, cryptography and authentication bootstrap
 
-- Cinco fallos en 15 minutos bloquean la credencial durante 15 minutos.
-- La ventana se reinicia al vencer y el éxito limpia contadores/bloqueo.
-- Login y logout generan `AuditLog` con resultado y correlation ID.
-- La auditoría no contiene contraseña, token, correo solicitado ni cuerpo HTTP.
-- Cuentas inexistentes conservan el mismo contrato externo y evidencia minimizada.
-- La suite alcanzó 79 pruebas Python con cobertura 100%.
+- Added `UserCredential` and `UserSession` with separate hashes, expiration, revocation, constraints and indices, along with a reversible Alembic migration.
+- SQLite normalizes session dates to UTC when evaluating validity.
+- Passwords use Argon2id via `pwdlib`; opaque tokens use cryptographic randomness, SHA-256 for persistence and constant-time comparison.
+- `pnpm admin:bootstrap` creates the first superadmin locally, idempotently and without seeded password or password in arguments.
+- The API reached 60 tests with 100% coverage prior to the comprehensive verification.
 
-FR-PH04-TASK-008 quedó `COMPLETED`; FR-PH04-TASK-009 quedó `IN_PROGRESS`.
-
----
-
-## Continuación 2026-07-25 - Auditoría y cierre de Fase 4
-
-- SQLite desechable pasó upgrade, downgrade a base y segundo upgrade hasta `20260725_0002`.
-- `pnpm check` pasó con 79 pruebas Python, 5 web, cobertura 100% y todos los builds.
-- Los ocho criterios quedaron en PASS en `PHASE_4_REVIEW.md`.
-- FR-PH04-TASK-009 y 010 transitaron por `READY_FOR_REVIEW` antes de `COMPLETED`.
-
-FR-PH04-TASK-009, FR-PH04-TASK-010 y la Fase 4 quedaron `COMPLETED`. El siguiente paso es preparar
-el desglose de Fase 5.
+FR-PH04-TASK-002, 003 and 004 became `COMPLETED`; FR-PH04-TASK-005 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-25 - Inicio visual de Fase 5
+## Continuation 2026-07-25 - HTTP session and browser controls
 
-- Se descompuso Fase 5 en 12 tareas verificables y se activó el flujo de acceso.
-- Se reemplazó la tarjeta provisional por un shell administrativo responsive.
-- Dashboard y Contenidos muestran una vista previa identificada con datos editoriales de ejemplo.
-- Login consume `/auth/login` y presenta estados de envío, credencial inválida, límite e indisponibilidad.
-- La documentación integrada se adaptó al nuevo sistema visual sin perder instalación de pnpm.
-- Admin pasó siete pruebas, cobertura configurada al 100%, typecheck y build de producción.
+- Exposed `POST /auth/login`, `GET /auth/session` and `POST /auth/logout`.
+- Login errors do not distinguish nonexistent account, disabled account or incorrect password.
+- The session renews on activity without exceeding eight hours and logout is revocable and idempotent.
+- The session cookie is host-only, HttpOnly and Strict; production adds Secure.
+- Logout requires an allowed origin and a CSRF token verified against the cookie and a server hash.
+- CORS accepts credentials only from configured Admin/Reader and `/auth` is never cached.
+- The API suite reached 73 Python tests with 100% coverage before the integral gate.
 
-FR-PH05-TASK-001 y 002 quedaron `COMPLETED`; FR-PH05-TASK-003 quedó `IN_PROGRESS`.
-
----
-
-## Continuación 2026-07-25 - Sesión completa de Admin
-
-- Admin restaura la sesión desde `/auth/session` y conserva identidad y permisos sólo en memoria.
-- El cierre de sesión envía el token CSRF de la cookie y vuelve al acceso protegido.
-- La navegación oculta áreas sin permiso, mientras la API mantiene la autorización definitiva.
-- Una sesión válida muestra la identidad real; desarrollo conserva la vista previa si no hay cuenta.
-- Ocho pruebas web cubren rutas, login, restauración, permiso parcial y logout con cobertura 100%.
-
-FR-PH05-TASK-003 quedó `COMPLETED`; FR-PH05-TASK-004 quedó `IN_PROGRESS`.
+FR-PH04-TASK-005 and 006 became `COMPLETED`; FR-PH04-TASK-007 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-25 - Dashboard editorial conectado
+## Continuation 2026-07-25 - RBAC authorization
 
-- Se añadió un resumen administrativo protegido por `admin.access`.
-- La API calcula métricas, prioridades, contenido reciente y actividad desde SQLite.
-- El Dashboard autenticado consume datos reales y presenta estados de carga, vacío y error.
-- La vista previa de desarrollo sigue identificada y separada de la información real.
-- Los permisos de navegación se alinearon con los permisos efectivos de la API.
-- La puerta integral pasó con 81 pruebas Python, ocho pruebas web y cobertura configurada en 100%.
+- Defined four roles and eight stable permissions with idempotent synchronization.
+- Bootstrap assigns all MVP permissions to `super_admin`.
+- HTTP dependencies resolve an active session and require an explicit permission.
+- `/admin/access` validates Admin entry via `admin.access`.
+- Accounts without permission, inactive, revoked or without session are rejected.
+- The suite reached 77 Python tests with 100% coverage before the integral gate.
 
-FR-PH05-TASK-004 quedó `COMPLETED`; FR-PH05-TASK-005 quedó `IN_PROGRESS`.
-
----
-
-## Continuación 2026-07-25 - Catálogo editorial conectado
-
-- Se añadió una lista administrativa protegida con búsqueda, estado, tipo, orden y paginación.
-- Cada resultado usa la versión editorial más reciente y muestra título, audiencia e idiomas.
-- La API calcula acciones visibles de edición, procesamiento, revisión y publicación por permiso.
-- La pantalla conserva datos de demostración interactivos cuando no existe una sesión local.
-- Se incorporaron estados de carga, error y catálogo vacío en composiciones desktop y compactas.
-- La puerta pasó con 83 pruebas Python, nueve pruebas web, cobertura 100% y todos los builds.
-
-FR-PH05-TASK-005 quedó `COMPLETED`; FR-PH05-TASK-006 quedó `IN_PROGRESS`.
+FR-PH04-TASK-007 became `COMPLETED`; FR-PH04-TASK-008 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-25 - Creación visual de borradores
+## Continuation 2026-07-25 - Login limit and audit
 
-- Se añadió una pantalla responsive de creación con título, slug automático, tipo y audiencia.
-- El formulario incluye nivel lector, uno o dos idiomas y categorías editoriales.
-- `POST /admin/content` exige `content.create`, origen permitido, cookie de sesión y token CSRF.
-- SQLite crea o reutiliza niveles y categorías, registra la versión 1 en borrador y deja auditoría.
-- La vista previa simula el resultado para demostraciones sin cuenta; la sesión real persiste datos.
-- La puerta pasó con 85 pruebas Python, diez pruebas web, cobertura 100% y todos los builds.
+- Five failures in 15 minutes block the credential for 15 minutes.
+- The window resets on expiry and success clears counters/block.
+- Login and logout generate `AuditLog` with result and correlation ID.
+- The audit does not contain password, token, requested email or HTTP body.
+- Nonexistent accounts preserve the same external contract and minimized evidence.
+- The suite reached 79 Python tests with 100% coverage.
 
-FR-PH05-TASK-006 quedó `COMPLETED`; FR-PH05-TASK-007 quedó `IN_PROGRESS`.
-
----
-
-## Continuación 2026-07-25 - Editor estructural y recuperación
-
-- Se añadió lectura y guardado protegido de documentos editoriales por contenido.
-- El editor visual organiza idiomas, capítulos y párrafos y permite reordenar con controles accesibles.
-- Los cambios se autoguardan, muestran estado y se conservan localmente hasta confirmar persistencia.
-- Una fecha esperada detecta ediciones concurrentes y presenta conflicto recuperable.
-- El guardado exige `content.edit`, origen permitido y CSRF, y genera auditoría.
-- La puerta pasó con 86 pruebas Python, once pruebas web y cobertura 100%.
-
-FR-PH05-TASK-007 quedó `COMPLETED`; FR-PH05-TASK-008 quedó `IN_PROGRESS`.
+FR-PH04-TASK-008 became `COMPLETED`; FR-PH04-TASK-009 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-25 - Cierre visual de Admin y Fase 6
+## Continuation 2026-07-25 - Audit and Phase 4 closure
 
-- El editor completó traducciones, selección compatible de voces y carga validada de ilustraciones.
-- La pantalla Procesamiento muestra costo, progreso, idioma, voz, diagnóstico, cancelación y reintento.
-- La API divide texto, calcula costo, genera audio local y vincula Speech Marks con cada párrafo.
-- El límite Amazon Polly quedó desacoplado, configurable y probado con un cliente simulado sin red.
-- Revisión y publicación incorporaron checklist, aprobación, rechazo, publicación, despublicación,
-  archivo e historial auditado.
-- Las composiciones responsive cubren 320 px, etiquetas, alertas, progreso ARIA y movimiento reducido.
-- La puerta rápida pasó con 91 pruebas Python, 13 pruebas Admin y cobertura backend de 100%.
+- Disposable SQLite passed upgrade, downgrade to base and second upgrade up to `20260725_0002`.
+- `pnpm check` passed with 79 Python tests, 5 web, 100% coverage and all builds.
+- The eight criteria were in PASS in `PHASE_4_REVIEW.md`.
+- FR-PH04-TASK-009 and 010 transited through `READY_FOR_REVIEW` before `COMPLETED`.
 
-FR-PH05-TASK-008 a 012 y FR-PH06-TASK-001 a 010 quedaron `COMPLETED`. Fases 5 y 6 quedaron
-cerradas en PASS; el siguiente paso es descomponer la Fase 7.
+FR-PH04-TASK-009, FR-PH04-TASK-010 and Phase 4 moved to `COMPLETED`. The next step is to prepare Phase 5 breakdown.
 
 ---
 
-## Continuación 2026-07-26 - Motor de lectura y primer cuento
+## Continuation 2026-07-25 - Visual start of Phase 5
 
-- Se implementó `@followread/reader-engine` sin React ni DOM, con línea de tiempo validada,
-  búsqueda binaria, reproducción, pausa, seek, repetición, velocidad, capítulos y progreso.
-- La API expone un paquete de lectura publicado con traducciones, párrafos, ilustración, audio y
-  Speech Marks vinculados.
-- Se creó **El zorro y la luna**, cuento original bilingüe con dos capítulos e ilustración propia.
-- `pnpm demo:seed` crea y publica el cuento idempotentemente en SQLite sin API keys ni servicios.
-- Reader adelantó un corte visual de Fase 8 con biblioteca, resaltado, mano, auto-scroll, controles,
-  cambio de idioma y recuperación local.
-- El audio del MVP simula duración y marcas; la narración audible queda trazada para Fase 8.
-- `pnpm check` pasó en el proyecto final con 95 pruebas API, 24 pruebas de aplicaciones y paquetes,
-  coberturas redondeadas de 99% y todos los builds.
+- Broke Phase 5 into 12 verifiable tasks and activated the access flow.
+- Replaced the provisional card with a responsive admin shell.
+- Dashboard and Contents show an identified preview with sample editorial data.
+- Login consumes `/auth/login` and presents states for submitting, invalid credential, rate limit and unavailability.
+- Integrated documentation adapted to the new visual system without losing pnpm installation.
+- Admin passed seven tests, coverage configured to 100%, typecheck and production build.
 
-FR-PH07-TASK-001 a 010 quedaron `COMPLETED`. La Fase 7 quedó cerrada en PASS; el siguiente paso es
-descomponer la Fase 8.
+FR-PH05-TASK-001 and 002 became `COMPLETED`; FR-PH05-TASK-003 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-26 - Reader Web y PWA
+## Continuation 2026-07-25 - Full Admin session
 
-- Se completaron inicio, biblioteca filtrable, categorías, búsqueda y detalle publicado.
-- Favoritos, progreso, historial, preferencias y vocabulario se guardan localmente sin PII.
-- Infantil, adulto y aprendizaje comparten componentes con defaults y controles adecuados.
-- Web Speech aporta narración audible local; sin voz disponible continúa el seguimiento visual.
-- El modo aprendizaje alinea palabras editoriales entre español e inglés y permite repetir/guardar.
-- Manifest, icono y service worker hacen instalable el shell sin adelantar las descargas de Fase 9.
-- Navegación amplia/compacta, safe areas, 320 px, foco y reduced motion quedaron implementados.
-- Se añadieron 22 pruebas Reader y un recorrido Chrome headless contra API/Reader reales.
+- Admin restores the session from `/auth/session` and keeps identity and permissions only in memory.
+- Logout sends the CSRF token from the cookie and returns to protected access.
+- Navigation hides areas without permission, while the API maintains definitive authorization.
+- A valid session shows the real identity; development keeps the preview when no account exists.
+- Eight web tests cover routes, login, restoration, partial permission and logout with 100% coverage.
 
-FR-PH08-TASK-001 a 012 quedaron `COMPLETED`. La Fase 8 quedó cerrada en PASS; el siguiente paso es
-descomponer la Fase 9.
+FR-PH05-TASK-003 became `COMPLETED`; FR-PH05-TASK-004 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-26 - Descargas, offline y sincronización
+## Continuation 2026-07-25 - Connected editorial dashboard
 
-- La API entrega JSON canónico y persiste su SHA-256 exacto al publicar o sembrar.
-- Reader combina catálogo remoto e IndexedDB con estados de descarga y actualización.
-- **El zorro y la luna** forma parte del build como paquete offline inicial verificable.
-- Descarga y actualización validan compatibilidad, integridad, 100 MB, 250 MB y cuota.
-- La pantalla Descargas permite leer, actualizar y eliminar sin borrar progreso.
-- Biblioteca, detalle, lector, voz local y marcas operan cuando la API no está disponible.
-- El progreso se agrupa por contenido y `POST /reader/sync` confirma operaciones idempotentes.
-- Chrome verificó contenido incluido, red bloqueada, cola local y sincronización al reconectar.
-- La puerta final pasó con 98 pruebas API y 31 pruebas Reader.
+- Added an admin summary protected by `admin.access`.
+- The API computes metrics, priorities, recent content and activity from SQLite.
+- The authenticated Dashboard consumes real data and shows loading, empty and error states.
+- The development preview remains identified and separate from real information.
+- Navigation permissions were aligned with the API's effective permissions.
+- The integral gate passed with 81 Python tests, eight web tests and coverage set to 100%.
 
-FR-PH09-TASK-001 a 011 quedaron `COMPLETED`. La Fase 9 quedó cerrada en PASS; el siguiente paso es
-descomponer la Fase 10.
+FR-PH05-TASK-004 became `COMPLETED`; FR-PH05-TASK-005 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-26 - Capacitor, Android e iOS
+## Continuation 2026-07-25 - Connected editorial catalog
 
-- Se fijó Capacitor 8.4.2 y `com.followread.reader` con `apps/reader/dist` como única fuente.
-- Android API 24/36 e iOS 15/SPM quedaron generados, sincronizados y versionados bajo Reader.
-- Iconos adaptativos y splash claro/oscuro se generaron desde fuentes 1024/2732 verificadas.
-- Network y App integran conexión, reconexión, pausa en segundo plano y restauración de layout.
-- IndexedDB y `localStorage` conservan offline/progreso sin permisos de archivos ni PII.
-- Android sólo usa Internet/estado de red; iOS no pide permisos sensibles.
-- No se activó audio en segundo plano porque Web Speech no garantiza reproducción continua.
-- Safe areas y orientación pasaron en Chrome 390×844 y 844×390 conservando progreso.
-- El APK debug compiló, se instaló y abrió en un emulador Android API 35; la actividad sobrevivió
-  rotación.
-- El proyecto iOS pasó sync/auditoría; build y dispositivo quedan como gate de macOS/Xcode antes de
-  TestFlight.
-- Se añadieron doctor, validador, E2E, guías de build/publicación y troubleshooting Android/iOS.
-- La puerta final pasó con 98 pruebas API y 33 pruebas Reader.
+- Added an admin list protected with search, state, type, sort and pagination.
+- Each result uses the most recent editorial version and shows title, audience and languages.
+- The API computes visible actions for editing, processing, review and publishing by permission.
+- The screen keeps interactive demo data when no local session exists.
+- Loading, error and empty catalog states were incorporated into desktop and compact compositions.
+- The gate passed with 83 Python tests, nine web tests, 100% coverage and all builds.
 
-FR-PH10-TASK-001 a 012 quedaron `COMPLETED`. La Fase 10 quedó cerrada en PASS; el siguiente paso es
-descomponer la Fase 11.
+FR-PH05-TASK-005 became `COMPLETED`; FR-PH05-TASK-006 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-26 - Modo aprender inglés
+## Continuation 2026-07-25 - Visual draft creation
 
-- Se revisó textual y visualmente la página 24 del prompt maestro.
-- `learningDomain.ts` construye significado y ejemplos desde el paquete bilingüe editorial.
-- El lector muestra una toolbar educativa y traducción por párrafo visible u oculta.
-- El panel contextual permite repetir palabra/oración, guardar, marcar favorita y cambiar estado.
-- Vocabulario conserva contexto, favorito, nueva/aprendiendo/dominada, repasos e historial.
-- Mi vocabulario se rediseñó con meta, métricas, búsqueda, filtros, tarjetas y actividad reciente.
-- No se incorporó IA, diccionario externo, PII ni dependencia de red para funciones esenciales.
-- Se añadieron pruebas de dominio/storage/React y `reader:learning-e2e` con capturas desktop/móvil.
-- El recorrido Chrome confirmó persistencia, filtro Favoritas y ausencia de overflow a 390 × 844.
-- La puerta final pasó con la cobertura y builds completos del monorepo.
+- Added a responsive create screen with title, automatic slug, type and audience.
+- The form includes reader level, one or two languages and editorial categories.
+- `POST /admin/content` requires `content.create`, allowed origin, session cookie and CSRF token.
+- SQLite creates or reuses levels and categories, records version 1 as draft and leaves an audit.
+- The preview simulates the result for demos without an account; a real session persists data.
+- The gate passed with 85 Python tests, ten web tests, 100% coverage and all builds.
 
-FR-PH11-TASK-001 a 012 quedaron `COMPLETED`. La Fase 11 quedó cerrada en PASS; el siguiente paso es
-descomponer la Fase 12.
+FR-PH05-TASK-006 became `COMPLETED`; FR-PH05-TASK-007 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-26 - Calidad, seguridad y rendimiento
+## Continuation 2026-07-25 - Structural editor and recovery
 
-- API añadió GZip, ETag/revalidación, políticas de caché y cabeceras defensivas.
-- Request IDs, logs JSON y errores seguros ahora alimentan métricas Prometheus agregadas.
-- Admin y Reader contienen errores React/globales sin registrar mensajes privados.
-- AdminExperience y StoryReaderPage se cargan de forma diferida con presupuestos gzip.
-- El service worker separa navegación, assets y contenido mediante tres estrategias de caché.
-- La auditoría móvil comprobó ocho rutas críticas a 390 × 844.
-- La carga SQLite pasó 120 solicitudes, concurrencia 12 y p95 final 107.9 ms sin fallos.
-- La auditoría corrigió avisos transitivos de Capacitor y actualizó el `pip` vulnerable.
-- JavaScript quedó con cero vulnerabilidades conocidas moderadas o superiores; Python con cero.
-- La regresión quedó automatizada con calidad, seguridad, cuatro E2E y la puerta completa.
+- Added protected reading and saving of editorial documents by content.
+- The visual editor organizes languages, chapters and paragraphs and allows reordering with accessible controls.
+- Changes are autosaved, show state and are kept locally until persistence is confirmed.
+- An expected date detects concurrent edits and presents a recoverable conflict.
+- Saving requires `content.edit`, allowed origin and CSRF, and generates an audit.
+- The gate passed with 86 Python tests, eleven web tests and 100% coverage.
 
-FR-PH12-TASK-001 a 010 quedaron `COMPLETED`. La Fase 12 quedó cerrada en PASS; el siguiente paso es
-descomponer la Fase 13.
+FR-PH05-TASK-007 became `COMPLETED`; FR-PH05-TASK-008 became `IN_PROGRESS`.
 
 ---
 
-## Continuación 2026-07-26 - Automatización y continuidad de Fase 13
+## Continuation 2026-07-25 - Visual closure of Admin and Phase 6
 
-- Se verificó visualmente la página 25 del prompt maestro.
-- API, Admin y Reader obtuvieron imágenes separadas con versiones base explícitas.
-- Compose coordina Alembic, salud, volumen SQLite, filesystem read-only y capacidades mínimas.
-- CI añade auditoría, artefactos web y builds de las tres imágenes.
-- Tags SemVer preparan GHCR, paquetes web, release notes y GitHub Release.
-- GitHub Environments protegen el smoke test de development/staging/production.
-- Backup/restore SQLite valida integridad y checksum; rollback conserva datos y no hace downgrade.
-- Se documentaron entornos, secretos, releases, migraciones, backup y rollback.
-- `AGENTS.md` y `CURRENT_STATUS.md` quedaron como entrada obligatoria para futuras sesiones.
-- Docker no está instalado, Git no tiene remote y no existe proveedor; la validación externa queda
-  explícita y no se simula.
+- The editor completed translations, compatible voice selection and validated illustration upload.
+- The Processing screen shows cost, progress, language, voice, diagnostic, cancellation and retry.
+- The API splits text, calculates cost, generates local audio and links Speech Marks to each paragraph.
+- The Amazon Polly limit was decoupled, configurable and tested with a simulated offline client.
+- Review and publishing incorporated checklist, approval, rejection, publish, unpublish, archive and audited history.
+- Responsive compositions cover 320 px, labels, alerts, ARIA progress and reduced motion.
+- The quick gate passed with 91 Python tests, 13 Admin tests and 100% backend coverage.
 
-La puerta local pasó con `pnpm check` y `pnpm quality:regression`: 103 pruebas API, pruebas web,
-builds, auditorías de seguridad, accesibilidad, recorridos offline/móvil/aprendizaje, presupuestos y
-carga quedaron en verde. El smoke local confirmó API, Admin y Reader. Las pruebas de backup/restore
-también verificaron integridad y corrigieron la liberación explícita de conexiones SQLite en
-Windows.
-
-FR-PH13-TASK-001 a 011 quedaron `COMPLETED`; TASK-012 permanece `BLOCKED` hasta disponer de Docker,
-remote GitHub y staging autorizado.
+FR-PH05-TASK-008 to 012 and FR-PH06-TASK-001 to 010 became `COMPLETED`. Phases 5 and 6 closed in PASS; the next step is to break down Phase 7.
 
 ---
 
-## Continuación 2026-07-28 - Estructura documental y gate predespliegue
+## Continuation 2026-07-26 - Reading engine and first story
 
-- Se añadieron entradas canónicas para arquitectura, API, desarrollo, pruebas, despliegue,
-  operaciones, seguridad y troubleshooting sin mover las fuentes detalladas.
-- Se añadieron ADR para SQLite y contenedores opcionales, changelog, contribución, aviso
-  `UNLICENSED`, estado de licencias de terceros y plantillas GitHub.
-- `test/` quedó como inventario transversal; las pruebas unitarias permanecen junto al código.
-- Se definieron trece categorías obligatorias antes de desplegar y un acta de evidencia.
-- La matriz conserva honestamente como parciales/no implementadas las propiedades, mutación,
-  fuzzing, contratos, resiliencia y compatibilidad externa.
-- `pnpm docs:validate` comprueba estructura, enlaces y presencia de las trece categorías.
-- La primera puerta detectó una carrera intermitente: el lector podía mostrar Reproducir antes de
-  cargar su timeline. Se bloqueó la interfaz hasta que el timeline corresponda al cuento, versión e
-  idioma activos.
-- `pnpm check` y `pnpm quality:regression` pasaron completos después de levantar los tres servicios;
-  la regresión cubrió E2E, offline, móvil, aprendizaje, accesibilidad, seguridad, presupuestos y
-  carga.
+- Implemented `@followread/reader-engine` without React or DOM, with validated timeline, binary search, play, pause, seek, repeat, speed, chapters and progress.
+- The API exposes a published reading package with translations, paragraphs, illustration, audio and linked Speech Marks.
+- Created El zorro y la luna, an original bilingual story with two chapters and original illustration.
+- `pnpm demo:seed` creates and publishes the story idempotently in SQLite without API keys or external services.
+- Reader advanced a visual cut of Phase 8 with library, highlighting, hand pointer, auto-scroll, controls, language switching and local recovery.
+- MVP audio simulates duration and marks; audible narration is traced for Phase 8.
+- `pnpm check` passed in the final project with 95 API tests, 24 application and package tests, rounded coverages of 99% and all builds.
 
-TASK-012 continúa `BLOCKED`; la estructura documental no sustituye las pruebas ni los gates
-externos pendientes.
+FR-PH07-TASK-001 to 010 became `COMPLETED`. Phase 7 closed in PASS; the next step is to break down Phase 8.
 
 ---
 
-## Continuación 2026-07-29 - Voz OpenAI y seguimiento visual
+## Continuation 2026-07-26 - Reader Web and PWA
 
-- Se añadió un adaptador TTS OpenAI en la API con voces `marin`, `coral`, `cedar` y `verse`.
-- La clave se lee únicamente desde `OPENAI_API_KEY` en `apps/api/.env`; nunca llega al navegador.
-- El MP3 se alinea por palabra con `whisper-1`, se publica en `/audio` y puede regenerarse sin
-  duplicar assets ni Speech Marks en SQLite.
-- Reader reproduce audio editorial real cuando está publicado y conserva Web Speech como fallback.
-- Los eventos tardíos o desordenados ya no pueden hacer retroceder el resaltado.
-- La flecha se reemplazó por una mano `☝️` situada debajo de la palabra activa.
-- Admin, Reader y la documentación canónica explican cómo activar OpenAI y recomiendan
-  `marin`/`cedar`.
-- `pnpm check` pasó completo: 106 pruebas API, 40 pruebas Reader, 14 pruebas Admin, lint, tipos,
-  documentación, seguridad estática y builds en verde.
+- Completed start, filterable library, categories, search and published detail.
+- Favorites, progress, history, preferences and vocabulary are saved locally without PII.
+- Child, adult and learning share components with defaults and appropriate controls.
+- Web Speech provides local audible narration; when no voice is available visual tracking continues.
+- Learning mode aligns editorial words between Spanish and English and allows repeat/save.
+- Manifest, icon and service worker make the shell installable without prefetching Phase 9 downloads.
+- Wide/compact navigation, safe areas, 320 px, focus and reduced motion implemented.
+- Added 22 Reader tests and a Chrome headless run against a real API/Reader.
 
-Queda pendiente la prueba auditiva real porque el repositorio no contiene una clave. El siguiente
-paso es crear `apps/api/.env`, generar ambos idiomas desde Admin y validar voz/sincronización.
+FR-PH08-TASK-001 to 012 became `COMPLETED`. Phase 8 closed in PASS; the next step is to break down Phase 9.
 
 ---
 
-## Continuación 2026-07-29 - Caché persistente para audio de pago
+## Continuation 2026-07-26 - Downloads, offline and sync
 
-- La API guarda `source_checksum`, una huella SHA-256 del texto, idioma, voz, proveedor y modelos.
-- Una nueva solicitud con la misma huella reutiliza el MP3 y sus Speech Marks, termina como
-  `cached` y registra costo cero sin llamar al proveedor.
-- La caché se invalida cuando cambia el contenido o configuración, o cuando falta el archivo.
-- Admin crea una clave de solicitud por acción y muestra
-  `Audio reutilizado · sin costo API` cuando corresponde.
-- La migración SQLite `20260729_0003` quedó aplicada a la base local.
-- La suite administrativa quedó aislada explícitamente con `FakePollyAdapter`, por lo que un
-  `.env` real nunca puede convertir una prueba automatizada en una llamada de pago.
-- El archivo local y la configuración OpenAI se verificaron sin exponer el secreto.
-- `pnpm check` pasó completo con 107 pruebas API, 40 Reader y 14 Admin, además de lint, tipos,
-  documentación y builds.
+- The API delivers canonical JSON and persists its exact SHA-256 when publishing or seeding.
+- Reader combines remote catalog and IndexedDB with download and update states.
+- El zorro y la luna is included in the build as the initial verifiable offline package.
+- Download and update validate compatibility, integrity, 100 MB, 250 MB and quota.
+- The Downloads screen allows reading, updating and deleting without erasing progress.
+- Library, detail, reader, local voice and marks operate when the API is unavailable.
+- Progress is grouped by content and `POST /reader/sync` confirms idempotent operations.
+- Chrome verified included content, network blocked, local queue and sync on reconnect.
+- The final gate passed with 98 API tests and 31 Reader tests.
 
-Falta generar el cuento real desde Admin, escucharlo y repetir la acción para validar visualmente el
-estado de caché con el servicio activo.
+FR-PH09-TASK-001 to 011 became `COMPLETED`. Phase 9 closed in PASS; the next step is to break down Phase 10.
 
 ---
 
-## Continuación 2026-07-29 - Reparación del audio publicado
+## Continuation 2026-07-26 - Capacitor, Android and iOS
 
-- Se diagnosticó que el Reader prefería un bootstrap offline antiguo que contenía rutas locales del
-  adaptador simulado y las marcaba incorrectamente como audio publicado.
-- Se generaron los MP3 reales del cuento con OpenAI: español con `marin` e inglés con `cedar`.
-- La API sirve ambos archivos como `audio/mpeg`; el paquete contiene 73 marcas en español y 74 en
-  inglés.
-- Una segunda solicitud por idioma terminó como `cached`, con costo estimado cero y sin otra
-  generación de pago.
-- El servicio de procesamiento actualiza ahora el checksum de cualquier publicación activa después
-  de guardar audio y Speech Marks.
-- Reader reemplaza un bootstrap incluido si su checksum cambió, pero conserva cualquier descarga
-  explícita del usuario.
-- El service worker usa versiones nuevas de caché y obtiene el manifiesto offline con prioridad de
-  red.
-- `pnpm check` pasó completo con 108 pruebas API, 41 Reader y 14 Admin, además de lint, tipos,
-  documentación, seguridad estática y builds.
+- Locked Capacitor to 8.4.2 and `com.followread.reader` with `apps/reader/dist` as the single source.
+- Android API 24/36 and iOS 15/SPM were generated, synchronized and versioned under Reader.
+- Adaptive icons and light/dark splash were generated from verified 1024/2732 sources.
+- Network and App integrate connection, reconnection, background pause and layout restoration.
+- IndexedDB and `localStorage` preserve offline/progress without file permissions or PII.
+- Android only uses Internet/network state; iOS requests no sensitive permissions.
+- Background audio was not enabled because Web Speech does not guarantee continuous playback.
+- Safe areas and orientation passed in Chrome 390×844 and 844×390 preserving progress.
+- Debug APK compiled, installed and opened in an Android emulator API 35; activity survived rotation.
+- iOS project passed sync/audit; build and device remain as macOS/Xcode gate before TestFlight.
+- Added doctor, validator, E2E, build/publish guides and Android/iOS troubleshooting.
+- Final gate passed with 98 API tests and 33 Reader tests.
 
-Sólo queda la confirmación auditiva del usuario después de una recarga completa del Reader. Los
-gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
+FR-PH10-TASK-001 to 012 became `COMPLETED`. Phase 10 closed in PASS; the next step is to break down Phase 11.
 
 ---
 
-## Continuación 2026-07-29 - Cambio ES/EN con timestamps OpenAI
+## Continuation 2026-07-26 - Learn English mode
 
-- Se reprodujo que el botón EN recibía el clic pero no cambiaba la interfaz.
-- La marca inglesa `trees.` comenzaba 220 ms antes de terminar la anterior; Reader rechazaba toda
-  la línea de tiempo y el manejador terminaba antes de actualizar el idioma.
-- Reader normaliza defensivamente las marcas de cualquier paquete antes de cargarlas en el motor.
-- OpenAI TTS normaliza también los timestamps externos antes de persistirlos.
-- La reutilización de caché repara marcas antiguas y actualiza el checksum publicado sin llamar al
-  proveedor.
-- La única superposición existente se corrigió en SQLite y se exportó nuevamente al bootstrap
-  offline; el proceso registró cero llamadas al proveedor.
-- La regresión del Reader incluye ahora una línea de tiempo inglesa superpuesta y comprueba que EN
-  muestra `A Light in the Forest`.
+- Textually and visually reviewed page 24 of the master prompt.
+- `learningDomain.ts` builds meanings and examples from the bilingual editorial package.
+- The reader shows an educational toolbar and per-paragraph translation visible or hidden.
+- The contextual panel allows repeating a word/sentence, saving, marking favorite and changing state.
+- Vocabulary retains context, favorite, new/learning/mastered, reviews and history.
+- My Vocabulary was redesigned with goals, metrics, search, filters, cards and recent activity.
+- No AI, external dictionary, PII or network dependency was incorporated for essential functions.
+- Added domain/storage/React tests and `reader:learning-e2e` with desktop/mobile screenshots.
+- Chrome run confirmed persistence, Favorites filter and no overflow at 390 × 844.
+- The final gate passed with full monorepo coverage and builds.
 
-La API publicada quedó con 74 marcas inglesas y 73 españolas, ambas con cero secuencias inválidas.
-
----
-
-## Continuación 2026-07-29 - Ilustraciones por capítulo
-
-- El contrato público de Reader añadió `image_uri` e `image_alt_text` opcionales por capítulo.
-- La imagen principal sigue siendo el fallback: un cuento con una sola ilustración la repite en
-  todos los capítulos sin configuración adicional.
-- Las ilustraciones editoriales usan posición 0 para portada y posiciones 1..N para capítulos.
-- Reader cambia la imagen junto con el capítulo y conserva texto alternativo accesible.
-- Las descargas offline guardan la portada y todas las imágenes específicas disponibles.
-- Se generó una ilustración original para **The Shining Path / El sendero brillante**, manteniendo
-  los personajes, paleta y estilo de la portada.
-- La siembra idempotente añade o actualiza el recurso del capítulo 2 sin tocar el audio OpenAI.
-- El paquete real y el bootstrap exponen la imagen del capítulo 2 en español e inglés; el capítulo
-  1 conserva `null` y demuestra el fallback.
-- `pnpm check` pasó con 110 pruebas API, 42 Reader y 14 Admin.
-- `pnpm reader:e2e` avanzó al capítulo 2 en Chrome y confirmó la URI de la imagen visible.
+FR-PH11-TASK-001 to 012 became `COMPLETED`. Phase 11 closed in PASS; the next step is to break down Phase 12.
 
 ---
 
-## Continuación 2026-07-29 - Resaltado sin saltos visuales
+## Continuation 2026-07-26 - Quality, security and performance
 
-- Se reprodujo conceptualmente el cansancio visual causado por recomponer el renglón al activar
-  cada palabra.
-- La palabra activa conserva ahora el mismo comportamiento `inline` que las demás; el color, fondo,
-  sombra y la mano no ocupan espacio adicional en el flujo del párrafo.
-- El Reader comprueba la posición de la palabra antes de desplazar la página y sólo la centra si
-  quedó fuera de la ventana visible.
-- La regresión automatizada confirma que una palabra visible no invoca desplazamiento.
-- `pnpm check` pasó con 110 pruebas API, 42 Reader y 14 Admin, además de lint, tipos,
-  documentación y builds.
+- API added GZip, ETag/revalidation, cache policies and defensive headers.
+- Request IDs, JSON logs and safe errors now feed aggregated Prometheus metrics.
+- Admin and Reader contain React/global errors without logging private messages.
+- AdminExperience and StoryReaderPage load lazily with gzip budgets.
+- Service worker separates navigation, assets and content with three cache strategies.
+- Mobile audit checked eight critical routes at 390 × 844.
+- SQLite load passed 120 requests, concurrency 12 and final p95 107.9 ms with no failures.
+- Audit fixed transitive Capacitor warnings and updated the vulnerable `pip`.
+- JavaScript has zero known vulnerabilities of moderate or higher; Python has zero.
+- Regression was automated with quality, security, four E2E and the full gate.
 
-Queda pendiente únicamente la confirmación visual del usuario durante una reproducción real. Los
-gates externos de Fase 13 (Docker, GitHub y staging) continúan pendientes.
-
----
-
-## Continuación 2026-07-29 - Mano de lectura más clara
-
-- El usuario confirmó que el resaltado estable eliminó el cansancio visual.
-- El gesto `☝️`, que podía parecer una mano levantada, se reemplazó por `👆`.
-- Tanto la lectura como la preferencia visual muestran ahora el mismo dedo señalando hacia la
-  palabra desde abajo.
-- La prueba del Reader verifica el nuevo indicador; formato, lint, tipos y las suites completas
-  pasaron con 110 pruebas API, 42 Reader y 14 Admin.
+FR-PH12-TASK-001 to 010 became `COMPLETED`. Phase 12 closed in PASS; the next step is to break down Phase 13.
 
 ---
 
-## Continuación 2026-07-29 - Catálogo demo completo
+## Continuation 2026-07-26 - Automation and continuity for Phase 13
 
-- Se convirtieron las tres composiciones restantes de Admin en contenidos reales, bilingües y
-  publicados: **The River Between Us** (lección), **El jardín secreto** (artículo) y
-  **La casa de los sonidos** (cuento).
-- Cada lectura contiene dos capítulos y seis párrafos por idioma; **El zorro y la luna** permanece
-  como el cuarto contenido publicado.
-- Se crearon tres portadas originales y se incorporaron al Reader y al catálogo offline.
-- `pnpm demo:seed` ahora prepara el catálogo completo de forma idempotente y reanuda contenido
-  parcialmente creado sin duplicarlo.
-- Con OpenAI configurado, la siembra genera audio real con `marin` en español y `cedar` en inglés;
-  la caché persistente evita repetir llamadas de pago. Una segunda ejecución creó cero contenidos y
-  no regeneró audio.
-- Admin muestra las cuatro lecturas como publicadas y sus accesos abren Reader directamente.
-- La portada de inicio de Reader prioriza un cuento cuando existen otros tipos de contenido.
-- El bootstrap offline fue regenerado con los cuatro paquetes.
-- `pnpm reader:e2e` abrió los cuatro contenidos en español e inglés y verificó todas las rutas.
-- `pnpm check` pasó con 111 pruebas API, 42 Reader y 14 Admin, además de documentación, formato,
-  lint, tipos y builds.
+- Visually verified page 25 of the master prompt.
+- API, Admin and Reader obtained separate images with explicit base versions.
+- Compose coordinates Alembic, health, SQLite volume, filesystem read-only and minimal capabilities.
+- CI adds audit, web artifacts and builds for the three images.
+- SemVer tags prepare GHCR, web packages, release notes and GitHub Release.
+- GitHub Environments protect smoke tests for development/staging/production.
+- SQLite backup/restore validates integrity and checksum; rollback preserves data and does not downgrade.
+- Environments, secrets, releases, migrations, backup and rollback were documented.
+- `AGENTS.md` and `CURRENT_STATUS.md` were recorded as required input for future sessions.
+- Docker is not installed, Git has no remote and there is no provider; external validation is explicit and not simulated.
 
-Los cuatro contenidos quedan listos para demostración local. Continúan pendientes únicamente los
-gates externos de Fase 13: Docker, GitHub, staging, iOS físico y la matriz predespliegue avanzada.
+The local gate passed with `pnpm check` and `pnpm quality:regression`: 103 API tests, web tests, builds, security/accessibility audits, offline/mobile/learning journeys, budgets and load were green. Local smoke confirmed API, Admin and Reader. Backup/restore tests also verified integrity and fixed explicit release of SQLite connections on Windows.
+
+FR-PH13-TASK-001 to 011 became `COMPLETED`; TASK-012 remains `BLOCKED` until Docker, remote GitHub and authorized staging are available.
 
 ---
 
-## Continuación 2026-07-30 - Publicación inicial en GitHub y licencia MIT
+## Continuation 2026-07-28 - Documentation structure and pre-deploy gate
 
-- El propietario creó y autorizó la publicación pública en `dafermen/FollowRead`.
-- Se eligió MIT para el código y los recursos originales, con copyright de `dafermen`.
-- `LICENSE`, `package.json`, README, decisiones y estado del proyecto quedaron alineados.
-- Las dependencias de terceros conservan sus propias licencias; la distribución de binarios exige
-  un inventario específico del artefacto.
-- La revisión previa al push confirmó que `.env`, SQLite, logs, caches y builds están ignorados.
-- No se detectaron claves potenciales ni archivos versionados superiores a 50 MB.
-- El repositorio remoto estaba vacío, por lo que la publicación inicial se realiza directamente
-  sobre `main`; no existe una rama base para abrir un pull request.
-- La validación local completa más reciente continúa en verde con 111 pruebas API, 42 Reader y
-  14 Admin.
+- Added canonical entries for architecture, API, development, tests, deployment, operations, security and troubleshooting without moving detailed sources.
+- Added ADRs for SQLite and optional containers, changelog, contribution, notice `UNLICENSED`, third-party license status and GitHub templates.
+- `test/` became a cross-cutting inventory; unit tests remain next to code.
+- Defined thirteen mandatory categories before deployment and an evidence record.
+- The matrix honestly marks properties, mutation, fuzzing, contracts, resilience and external compatibility as partial/not implemented.
+- `pnpm docs:validate` checks structure, links and presence of the thirteen categories.
+- The first gate detected an intermittent race: the reader could show Play before its timeline loaded. The UI was blocked until the timeline corresponds to the active story, version and language.
+- `pnpm check` and `pnpm quality:regression` passed fully after bringing up the three services; the regression covered E2E, offline, mobile, learning, accessibility, security, budgets and load.
 
-Después de la publicación se debe confirmar el primer workflow `ci.yml` en GitHub. Docker, staging,
-iOS físico y las brechas avanzadas de la matriz predespliegue continúan pendientes.
+TASK-012 continues `BLOCKED`; the documentation structure does not replace the tests or pending external gates.
+
+---
+
+## Continuation 2026-07-29 - OpenAI voice and visual tracking
+
+- Added an OpenAI TTS adapter in the API with voices `marin`, `coral`, `cedar` and `verse`.
+- The key is read only from `OPENAI_API_KEY` in `apps/api/.env`; it never reaches the browser.
+- MP3 aligns by word with `whisper-1`, is published in `/audio` and can be regenerated without duplicating assets or Speech Marks in SQLite.
+- Reader plays real editorial audio when published and keeps Web Speech as fallback.
+- Late or out-of-order events can no longer roll back highlighting.
+- The arrow was replaced by a hand `☝️` positioned below the active word.
+- Admin, Reader and canonical documentation explain how to enable OpenAI and recommend `marin`/`cedar`.
+- `pnpm check` passed fully: 106 API tests, 40 Reader tests, 14 Admin tests, lint, types, documentation, static security and builds green.
+
+An actual audio test remains pending because the repository does not contain a key. The next step is to create `apps/api/.env`, generate both languages from Admin and validate voice/synchronization.
+
+---
+
+## Continuation 2026-07-29 - Persistent cache for paid audio
+
+- The API stores `source_checksum`, a SHA-256 fingerprint of text, language, voice, provider and models.
+- A new request with the same fingerprint reuses the MP3 and its Speech Marks, finishes as `cached` and records zero cost without calling the provider.
+- The cache invalidates when content or configuration changes, or when the file is missing.
+- Admin creates a request key per action and shows `Audio reutilizado · sin costo API` when appropriate.
+- SQLite migration `20260729_0003` was applied to the local database.
+- The admin suite was explicitly isolated with `FakePollyAdapter`, so a real `.env` cannot turn an automated test into a paid call.
+- The local file and OpenAI configuration were verified without exposing the secret.
+- `pnpm check` passed fully with 107 API tests, 40 Reader and 14 Admin, plus lint, types, documentation and builds.
+
+Generating the real story from Admin, listening and repeating the action to visually validate cache state with the service active remains pending.
+
+---
+
+## Continuation 2026-07-29 - Fixing published audio
+
+- Diagnosed that Reader preferred an old offline bootstrap that contained local adapter paths and marked them incorrectly as published audio.
+- Generated the real MP3s of the story with OpenAI: Spanish with `marin` and English with `cedar`.
+- The API serves both files as `audio/mpeg`; the package contains 73 marks in Spanish and 74 in English.
+- A second request per language finished as `cached`, with estimated zero cost and no further paid generation.
+- The processing service now updates the checksum of any active publication after saving audio and Speech Marks.
+- Reader replaces an included bootstrap if its checksum changed, but preserves any explicit user download.
+- The service worker uses new cache versions and fetches the offline manifest with network priority.
+- `pnpm check` passed fully with 108 API tests, 41 Reader and 14 Admin, plus lint, types, documentation, static security and builds.
+
+Only the user auditory confirmation after a full Reader reload remains. External gates of Phase 13 (Docker, GitHub and staging) remain pending.
+
+---
+
+## Continuation 2026-07-29 - ES/EN switch with OpenAI timestamps
+
+- Reproduced that the EN button received the click but did not change the interface.
+- The English mark `trees.` started 220 ms before the previous one ended; Reader rejected the entire timeline and the handler terminated before updating the language.
+- Reader defensively normalizes marks from any package before loading them into the engine.
+- OpenAI TTS also normalizes external timestamps before persisting them.
+- Cache reuse repairs old marks and updates the published checksum without calling the provider.
+- The only existing overlap was fixed in SQLite and exported again to the offline bootstrap; the process recorded zero provider calls.
+- The Reader regression now includes an overlaid English timeline and verifies that EN shows `A Light in the Forest`.
+
+The published API now has 74 English marks and 73 Spanish marks, both with zero invalid sequences.
+
+---
+
+## Continuation 2026-07-29 - Illustrations per chapter
+
+- The public Reader contract added optional `image_uri` and `image_alt_text` per chapter.
+- The main image remains the fallback: a story with a single illustration repeats it across chapters without extra configuration.
+- Editorial illustrations use position 0 for cover and positions 1..N for chapters.
+- Reader switches the image along with the chapter and preserves accessible alt text.
+- Offline downloads store the cover and all specific available images.
+- An original illustration was generated for The Shining Path / El sendero brillante, maintaining characters, palette and cover style.
+- Idempotent seeding adds or updates the chapter 2 resource without touching OpenAI audio.
+- The real package and bootstrap expose the chapter 2 image in Spanish and English; chapter 1 retains `null` and demonstrates the fallback.
+- `pnpm check` passed with 110 API tests, 42 Reader and 14 Admin.
+- `pnpm reader:e2e` advanced to chapter 2 in Chrome and confirmed the visible image URI.
+
+---
+
+## Continuation 2026-07-29 - Highlighting without visual jumps
+
+- Conceptually reproduced the visual fatigue caused by reflowing the line when activating each word.
+- The active word now preserves the same `inline` behavior as the others; color, background, shadow and the hand do not take extra space in the paragraph flow.
+- Reader checks the word position before scrolling the page and only centers it if it is outside the visible window.
+- The automated regression confirms that a visible word does not invoke scrolling.
+- `pnpm check` passed with 110 API tests, 42 Reader and 14 Admin, plus lint, types, documentation and builds.
+
+Only the user's visual confirmation during a real playback remains pending. External gates of Phase 13 (Docker, GitHub and staging) remain pending.
+
+---
+
+## Continuation 2026-07-29 - Clearer reading hand
+
+- The user confirmed that stable highlighting removed visual fatigue.
+- The gesture `☝️`, which could look like a raised hand, was replaced by `👆`.
+- Both reading and visual preference now show the same finger pointing at the word from below.
+- The Reader test verifies the new indicator; format, lint, types and the complete suites passed with 110 API tests, 42 Reader and 14 Admin.
+
+---
+
+## Continuation 2026-07-29 - Complete demo catalog
+
+- Converted the remaining three Admin compositions into real, bilingual and published content: The River Between Us (lesson), El jardín secreto (article) and La casa de los sonidos (story).
+- Each reading contains two chapters and six paragraphs per language; El zorro y la luna remains the fourth published content.
+- Three original covers were created and incorporated into Reader and the offline catalog.
+- `pnpm demo:seed` now prepares the full catalog idempotently and resumes partially created content without duplicating it.
+- With OpenAI configured, seeding generates real audio with `marin` in Spanish and `cedar` in English; the persistent cache prevents repeating paid calls. A second run created zero content and did not regenerate audio.
+- Admin shows the four readings as published and their accesses open Reader directly.
+- The Reader home cover prioritizes a story when other content types exist.
+- The offline bootstrap was regenerated with the four packages.
+- `pnpm reader:e2e` opened the four contents in Spanish and English and verified all routes.
+- `pnpm check` passed with 111 API tests, 42 Reader and 14 Admin, plus documentation, format, lint, types and builds.
+
+The four contents are ready for local demonstration. Only external gates of Phase 13 remain pending: Docker, GitHub, staging, physical iOS and the advanced pre-deploy matrix.
+
+---
+
+## Continuation 2026-07-30 - Initial publication on GitHub and MIT license
+
+- The owner created and authorized the public publication on `dafermen/FollowRead`.
+- MIT was chosen for code and original assets, with copyright of `dafermen`.
+- `LICENSE`, `package.json`, README, decisions and project status were aligned.
+- Third-party dependencies keep their own licenses; distributing binaries requires a specific artifact inventory.
+- Pre-push review confirmed that `.env`, SQLite, logs, caches and builds are ignored.
+- No potential keys or versioned files larger than 50 MB were detected.
+- The remote repository was empty, so the initial publication is performed directly on `main`; there is no base branch to open a pull request.
+- The most recent full local validation remains green with 111 API tests, 42 Reader and 14 Admin.
+
+After publication, the first workflow `ci.yml` must be confirmed on GitHub. Docker, staging, physical iOS and the advanced gaps of the pre-deploy matrix remain pending.
+
+---
+
+## Continuation 2026-07-30 - English portfolio documentation
+
+- Reworked the root README in American English with architecture, setup, URLs, OpenAI narration,
+  quality gates, documentation links and license information.
+- Captured and visually verified four 1440x900 screenshots covering the Reader library,
+  synchronized reading, Admin dashboard and editorial catalog.
+- Added `pnpm screenshots:readme` so the portfolio gallery can be regenerated from running services.
+- Translated 126 Markdown/YAML documentation files while preserving code blocks, inline code, URLs,
+  identifiers and literal bilingual interface labels.
+- Recreated the original master project prompt as a polished English PDF and visually inspected the
+  cover, body, repository tree and final page after rendering all 39 pages.
+- Used `gpt-5-mini` for the authorized bulk translation. Measured successful calls cost about
+  USD 0.39; recoverable retries kept the total safely below the owner's USD 1.00 limit.
+- Recorded the first real GitHub Actions result: all preceding work reached the dependency audit,
+  which failed because the workflow-created Python environment retained vulnerable `pip 25.0.1`.
+  The narrowly scoped CI correction remains pending explicit owner approval.
+- `pnpm check` passed after integration with 111 API tests, 42 Reader tests, 14 Admin tests,
+  shared-package tests, documentation/workflow/deployment/mobile validation and production builds.
+
+The next external action is to approve and apply the CI packaging-tool upgrade, confirm a green
+GitHub rerun, and continue the Docker/staging gates for Phase 13.
