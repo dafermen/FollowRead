@@ -41,6 +41,16 @@ for (const dockerfile of [
   }
 }
 
+const readerDockerfile = requiredContent("infrastructure/docker/reader.Dockerfile");
+for (const command of [
+  "pnpm --filter @followread/reader-engine build",
+  "pnpm --filter @followread/reader build",
+]) {
+  if (!readerDockerfile.includes(command)) {
+    throw new Error(`reader.Dockerfile is missing required build command: ${command}`);
+  }
+}
+
 const compose = requiredContent("infrastructure/docker/compose.yaml");
 for (const fragment of [
   "condition: service_completed_successfully",
