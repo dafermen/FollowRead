@@ -14,7 +14,7 @@ and health, CI builds the artifacts, and a SemVer tag can publish to GHCR and a 
 | Activity | Evidence | Status |
 |---|---|---|
 | GitHub Actions | CI, release and smoke per environment | IMPLEMENTED |
-| lint, type-check, tests, build | `pnpm ci` and base workflow | PASS_LOCAL |
+| lint, type-check, tests, build | `pnpm run ci` and base workflow | PASS_LOCAL |
 | Docker | three Dockerfiles and secure Compose | STATIC_PASS |
 | web/API deployment | OCI images, Nginx, Compose and health checks | IMPLEMENTED |
 | migrations | Alembic service prior to API | IMPLEMENTED |

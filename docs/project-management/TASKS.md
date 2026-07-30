@@ -961,7 +961,7 @@ This file contains the detailed tasks for the activated phases. Later phases wil
 **Required tests:** Syntactic validation and equivalence with local gate.  
 **Required documentation:** Workflow description and failure resolution.  
 **Problems found:** There is no local executor for GitHub Actions; a static validator was added that checks versions, permissions and command equivalence without exposing secrets.  
-**Decisions made:** CI uses Node 24, pnpm 10.32.1 and Python 3.12, read-only content permissions and the same gate `pnpm ci` as the local environment.  
+**Decisions made:** CI uses Node 24, pnpm 10.32.1 and Python 3.12, read-only content permissions and the same explicit gate `pnpm run ci` as the local environment.
 **Start date:** 2026-07-24  
 **End date:** 2026-07-24  
 **Next action:** Run FR-PH02-TASK-011.

@@ -48,7 +48,7 @@ runs = {
 for command in (
     "pnpm install --frozen-lockfile",
     "pnpm setup:python",
-    "pnpm ci",
+    "pnpm run ci",
 ):
     if command not in runs:
         raise ValueError(f"CI is missing required command: {command}")

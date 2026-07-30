@@ -53,7 +53,7 @@ jobs:
 
       - name: Validate release
         run: |
-          pnpm ci
+          pnpm run ci
           pnpm security:audit
           pnpm deploy:validate
 
