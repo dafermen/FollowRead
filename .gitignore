@@ -37,6 +37,7 @@ Thumbs.db
 *.log
 *.tmp
 .cache/
+**/.vitepress/cache/
 tmp/
 
 # Local databases and containers

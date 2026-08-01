@@ -2616,6 +2616,7 @@ The ten tasks started and finished on 2026-07-26. Their verifiable criteria, com
 | FR-PH13-TASK-010 | Update documentation and continuity | COMPLETED | Critical |
 | FR-PH13-TASK-011 | Validate statically and run local gate | COMPLETED | Critical |
 | FR-PH13-TASK-012 | Validate Docker, GitHub and real staging | BLOCKED | Critical |
+| FR-PH13-TASK-013 | Publish navigable documentation portal | COMPLETED | High |
 
 **Block on TASK-012:** Docker is not installed, CI on GitHub must be confirmed and no provider has been chosen. No credentials are required for normal local development.
 

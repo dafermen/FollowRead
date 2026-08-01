@@ -49,6 +49,12 @@ const services = [
     shell: false,
   },
   {
+    name: "Documentation",
+    command: pnpmCommand,
+    args: ["docs:dev"],
+    shell: process.platform === "win32",
+  },
+  {
     name: "Admin",
     command: pnpmCommand,
     args: ["--filter", "@followread/admin-web", "dev", "--", "--port", "5173"],
@@ -65,6 +71,7 @@ const services = [
 console.log("Starting FollowRead:");
 console.log("  Reader  http://localhost:5174");
 console.log("  Admin   http://localhost:5173");
+console.log("  Docs    http://localhost:5173/docs/");
 console.log("  API     http://localhost:8000/docs");
 console.log("Press Ctrl+C to stop all services.");
 

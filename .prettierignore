@@ -3,6 +3,8 @@
 **/node_modules
 **/.venv
 pnpm-lock.yaml
-docs
+docs/**
+!docs/.vitepress/
+!docs/.vitepress/**
 apps/reader/android
 apps/reader/ios

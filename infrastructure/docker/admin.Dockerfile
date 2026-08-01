@@ -16,6 +16,7 @@ COPY packages/validation/package.json packages/validation/package.json
 RUN pnpm install --frozen-lockfile
 
 COPY apps/admin-web apps/admin-web
+COPY docs docs
 COPY packages packages
 ARG VITE_APP_ENV=production
 ARG VITE_API_BASE_URL=http://localhost:8000
@@ -29,4 +30,3 @@ COPY --from=builder /workspace/apps/admin-web/dist /usr/share/nginx/html
 EXPOSE 8080
 HEALTHCHECK --interval=20s --timeout=5s --start-period=5s --retries=3 \
   CMD ["wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8080/healthz"]
-

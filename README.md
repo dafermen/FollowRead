@@ -124,7 +124,7 @@ If PowerShell blocks `pnpm.ps1`, use `pnpm.cmd` instead.
 
 ## Run the complete platform
 
-One command starts all three applications:
+One command starts the complete platform and its documentation:
 
 ```powershell
 pnpm dev
@@ -134,9 +134,11 @@ pnpm dev
 | ----------------- | ---------------------------- |
 | Reader            | <http://localhost:5174>      |
 | Admin             | <http://localhost:5173>      |
+| Documentation     | <http://localhost:5173/docs/> |
 | API documentation | <http://localhost:8000/docs> |
 
-Press `Ctrl+C` to stop them together.
+Press `Ctrl+C` to stop them together. The first start after a documentation change rebuilds the
+static documentation before serving it.
 
 ## Optional OpenAI narration
 
@@ -188,7 +190,12 @@ pnpm screenshots:readme
 
 ## Documentation
 
-Start with:
+Browse the responsive documentation portal at <http://localhost:5173/docs/> while `pnpm dev` is
+running. It includes local search, light/dark themes, Mermaid diagrams, page outlines, and
+previous/next navigation. Useful focused commands are `pnpm docs:build`, `pnpm docs:validate`, and
+`pnpm docs:e2e`.
+
+Canonical sources:
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [API](docs/API.md)

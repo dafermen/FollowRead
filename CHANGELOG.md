@@ -7,6 +7,9 @@ The project does not yet have a stable public release.
 
 ### Added
 
+- a responsive VitePress documentation portal under `/docs/` with local search, light/dark themes,
+  Mermaid diagrams, page outlines, previous/next navigation, and a same-tab return to Admin;
+- static documentation build verification and real Chrome desktop/mobile E2E validation;
 - an English portfolio README with a visual product tour and four verified Reader/Admin screenshots;
 - a reproducible `pnpm screenshots:readme` command for refreshing the README gallery;
 - an English, visually verified edition of the original FollowRead master project prompt;
@@ -29,6 +32,8 @@ The project does not yet have a stable public release.
 
 ### Changed
 
+- `pnpm dev` now starts the documentation service alongside API, Admin, and Reader, while Admin
+  proxies `/docs/` and production builds package the generated site;
 - all repository documentation, contribution templates and continuity files now use American
   English while preserving literal bilingual product labels and story titles;
 - repository prepared for its initial public release on GitHub;
@@ -46,6 +51,8 @@ The project does not yet have a stable public release.
 
 ### Fixed
 
+- VitePress now resolves its compatible internal Vite to patched 6.4.3, removing inherited Vite 5
+  and esbuild advisories without changing the applications' Vite 8 toolchain;
 - GitHub CI now uses the canonical Python setup, upgrading `pip` before dependency auditing;
 - CI and Release use `pnpm run ci`, ensuring the project script runs instead of pnpm's install alias;
 - the Reader container builds `@followread/reader-engine` before packaging the Reader application;

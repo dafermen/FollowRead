@@ -25,6 +25,11 @@ const requiredFiles = [
   "docs/TROUBLESHOOTING.md",
   "docs/adr/README.md",
   "docs/testing/PRE_DEPLOYMENT_TESTS.md",
+  "docs/.vitepress/config.ts",
+  "docs/.vitepress/navigation.ts",
+  "docs/.vitepress/theme/index.ts",
+  "docs/.vitepress/theme/custom.css",
+  "docs/public/followread.svg",
   "test/README.md",
   "test/fixtures/README.md",
 ];

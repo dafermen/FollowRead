@@ -62,8 +62,12 @@ file is missing.
 
 ## Detailed sources
 
+The complete local documentation portal is available at `http://localhost:5173/docs/` while
+`pnpm dev` is running. Use `pnpm docs:dev` to run only the documentation service, or
+`pnpm docs:preview` after a production build.
+
 - [Workspace conventions](development/WORKSPACE_CONVENTIONS.md)
 - [Quality commands](development/QUALITY_COMMANDS.md)
 - [Environment variables](development/ENVIRONMENT_VARIABLES.md)
-- [Contribution guide](../CONTRIBUTING.md)
+- [Contribution guide](https://github.com/dafermen/FollowRead/blob/main/CONTRIBUTING.md)
 - [Troubleshooting](TROUBLESHOOTING.md)

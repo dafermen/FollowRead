@@ -165,6 +165,21 @@ This file records accepted decisions and questions that still need resolution.
 - **Rationale:** The owner wants to showcase the project in their portfolio and allow others to study, reuse, and modify the code with attribution and without warranty.
 - **Consequences:** `LICENSE` and `package.json` declare MIT. Dependencies retain their own licenses and any binary distribution requires an inventory of notices for the specific artifact.
 
+### FR-DEC-021 - VitePress portal with static Windows serving
+
+- **Date:** 2026-08-01
+- **Status:** ACCEPTED
+- **Decision:** The Markdown files in `docs/` remain the canonical documentation and VitePress
+  presents them under `/docs/`. Admin proxies the local documentation service and packages the
+  static output in production. Local Windows serving uses the built assets instead of VitePress
+  development modules.
+- **Rationale:** This adds professional navigation and search without migrating or duplicating the
+  source documents. Real Chrome testing showed that VitePress development mode emits invalid local
+  `C:\\...` module paths on this Windows setup, while the static build is portable and stable.
+- **Consequences:** `pnpm dev` rebuilds the portal when its source is newer than the generated
+  output. Documentation changes must pass `pnpm docs:validate`; interaction changes must also pass
+  `pnpm docs:e2e` with Chrome or Edge available.
+
 ## Open decisions
 
 There are no open decisions recorded.

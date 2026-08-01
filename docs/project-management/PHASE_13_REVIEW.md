@@ -21,7 +21,7 @@ and health, CI builds the artifacts, and a SemVer tag can publish to GHCR and a 
 | versioning/release notes | SemVer tags and reproducible generator | IMPLEMENTED |
 | rollback | tag change without automatic data downgrade | IMPLEMENTED |
 | secrets/environments | examples without secrets and GitHub Environments | IMPLEMENTED |
-| documentation | four guides, README, AGENTS and current status | IMPLEMENTED |
+| documentation | canonical guides, continuity files, and responsive `/docs/` portal | PASS_LOCAL |
 
 ## Closed local evidence
 
@@ -32,6 +32,11 @@ and health, CI builds the artifacts, and a SemVer tag can publish to GHCR and a 
 - `pnpm deploy:smoke`: local API, Admin and Reader responded correctly.
 - SQLite backup and restore passed two dedicated tests, including integrity and explicit
   release of connections on Windows.
+- The responsive VitePress portal packages every Markdown source under `/docs/`, renders Mermaid,
+  supports local search and theme selection, and returns to Admin without router interception.
+- `pnpm docs:e2e` passed in real Chrome at 1440x900 and 390x844, including the internal-page
+  sidebar and outline, dark mode, mobile navigation, touch target, horizontal fit, and same-tab
+  application return.
 
 FR-PH13-TASK-011 remains `COMPLETED`. This evidence does not replace running Compose or validating
 an authorized staging environment.

@@ -811,3 +811,30 @@ GitHub rerun, and continue the Docker/staging gates for Phase 13.
 
 The remaining Phase 13 gates are a running Compose deployment, staging migration/smoke/backup/
 rollback, physical iOS validation and the advanced pre-deployment test categories.
+
+---
+
+## Continuation 2026-08-01 - Navigable documentation portal
+
+- Added a branded VitePress portal at `/docs/` without moving or duplicating the canonical Markdown
+  sources.
+- Organized existing documents into product, experience, architecture, quality, delivery, and
+  project-management navigation; added local search, light/dark themes, outlines, previous/next
+  links, Mermaid rendering, accessible focus, reduced motion, and mobile touch targets.
+- Reused the FollowRead logo and Reader palette, while preserving the application at `/` and adding
+  a native same-tab return link in desktop and mobile navigation.
+- Added the documentation service to `pnpm dev`, the Admin development proxy, Admin production
+  artifacts, Nginx clean routes, Docker packaging, and visible Admin links.
+- Replaced VitePress development serving on Windows with a freshness-aware static server after real
+  Chrome exposed invalid `C:\\...` module URLs. The documented source remains VitePress and rebuilds
+  automatically when stale.
+- Added static artifact checks and `pnpm docs:e2e`; real Chrome passed desktop 1440x900, mobile
+  390x844, dark mode, internal navigation, horizontal fit, and same-tab application return.
+- Pinned VitePress's compatible internal Vite to patched 6.4.3 after the dependency audit exposed
+  advisories in its default Vite 5 line. The final audit reports no known vulnerabilities and the
+  peer-dependency check reports no conflicts; Admin and Reader continue using Vite 8.1.5.
+- `pnpm check` passed with documentation/workflow/deployment/mobile validation, formatting, lint,
+  types, 111 API tests, 42 Reader tests, 14 Admin tests, shared packages, and production builds.
+
+Phase 13 remains open only for the previously recorded Docker, staging, advanced testing, and
+physical iOS external gates.

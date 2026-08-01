@@ -49,6 +49,11 @@ describe("FollowRead Admin", () => {
       "href",
       "/content",
     );
+    for (const documentationLink of screen.getAllByRole("link", {
+      name: /Ayuda y documentación/,
+    })) {
+      expect(documentationLink).toHaveAttribute("href", "/docs/");
+    }
   });
 
   it("shows the responsive content catalog", async () => {

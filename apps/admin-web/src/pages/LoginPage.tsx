@@ -158,7 +158,7 @@ export const LoginPage = ({ onAuthenticated }: LoginPageProps) => {
             <a href="/">Abrir vista previa</a>
           </div>
         </div>
-        <a className="login-help" href="/documentation">
+        <a className="login-help" href="/docs/">
           Ayuda y documentación
         </a>
       </section>

@@ -90,7 +90,7 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
         </nav>
 
         <div className="sidebar__footer">
-          <a className="nav-item" href="/documentation">
+          <a className="nav-item" href="/docs/">
             <span className="nav-icon" aria-hidden="true">
               ?
             </span>
@@ -142,7 +142,7 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
                   {item.label}
                 </a>
               ))}
-              <a href="/documentation">Ayuda y documentación</a>
+              <a href="/docs/">Ayuda y documentación</a>
               {onLogout === undefined ? (
                 <a href="/login">Salir de la vista previa</a>
               ) : (
