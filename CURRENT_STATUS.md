@@ -16,7 +16,7 @@
 **Complete demo catalog:** `5fdd785`
 **Natural audio for complete catalog:** `d838334`
 **Green GitHub CI and containers:** `faf194d`
-**Navigable documentation portal:** pending current commit
+**Navigable documentation portal:** `81ad232`
 
 ## What is finished
 
