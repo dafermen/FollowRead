@@ -115,6 +115,32 @@ try {
       if (route.path === "/read/el-zorro-y-la-luna") {
         await client.send("Runtime.evaluate", {
           expression: `
+            document.querySelector('button[aria-label="Reproducir"]')?.click()
+          `,
+          userGesture: true,
+        });
+        await waitFor(async () => {
+          const result = await client.send("Runtime.evaluate", {
+            expression: `
+              document.querySelector('button[aria-label="Pausar"]') !== null &&
+                performance.getEntriesByType("resource")
+                  .some((entry) => entry.name.endsWith(".mp3")) &&
+                !document.body.innerText.includes("El audio publicado se interrumpió")
+            `,
+            returnByValue: true,
+          });
+          return result.result.value === true;
+        }, "published MP3 playback");
+        await client.send("Runtime.evaluate", {
+          expression: `
+            document.querySelector('button[aria-label="Pausar"]')?.click()
+          `,
+          userGesture: true,
+        });
+        console.log("PASS published MP3 playback");
+
+        await client.send("Runtime.evaluate", {
+          expression: `
             document.querySelector('button[aria-label="Capítulo siguiente"]')?.click()
           `,
         });

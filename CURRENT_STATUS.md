@@ -1,6 +1,6 @@
 # Current status of FollowRead
 
-**Updated:** 2026-08-01
+**Updated:** 2026-08-03
 **Phase:** 13 - CI/CD and deployment  
 **Status:** IN_PROGRESS - implementation finished, external validations pending  
 **Previous base:** `9ce61e5` - close of Phase 12
@@ -82,9 +82,19 @@
   real narration in Spanish (`marin`) and English (`cedar`) and reuses already generated MP3s.
 - Admin shows the four readings as published and allows opening each one directly in
   Reader.
+- Published MP3 playback now clears its resumable state after an error or completion, so the next
+  play action performs a clean retry instead of leaving the Reader stuck behind an interruption
+  warning.
 
 ## Last local validation
 
+- `pnpm check:fast`: PASS on 2026-08-03 with formatting, lint, JavaScript/Python types,
+  44 Reader tests, 14 Admin tests, shared-package tests, and 111 API tests.
+- `pnpm --filter @followread/reader test -- publishedAudioNarrator.test.ts`: PASS on 2026-08-03
+  with four focused tests, including failed-playback retry and completed-playback handling.
+- `pnpm reader:e2e`: PASS on 2026-08-03; real Chrome fetched and played the published OpenAI MP3
+  without showing the interruption warning, then validated chapter illustrations and all four
+  bilingual readings.
 - `pnpm check`: PASS on 2026-08-01 after the documentation portal integration, including link and
   static-site validation, formatting, lint, types, 111 API tests, 42 Reader tests, 14 Admin tests,
   shared-package tests, and all production builds.
@@ -119,8 +129,8 @@
 5. Validate physical iOS with macOS/Xcode before TestFlight.
 6. Complete properties/invariants, mutation testing, fuzzing, formal contracts and resilience tests;
    record acceptance of the candidate artifact.
-7. Confirm audibly in the browser the quality and synchronization of the real MP3 already generated.
-   HTTP technical validation, timestamps and reuse with zero cost are completed.
+7. Obtain final user acceptance of the audible quality and word synchronization of the real MP3.
+   Real-browser playback, HTTP delivery, timestamps and reuse with zero cost are validated.
 
 ## Exact next action
 

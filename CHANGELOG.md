@@ -51,6 +51,8 @@ The project does not yet have a stable public release.
 
 ### Fixed
 
+- published MP3 failures no longer leave narration in a stale resumable state; the next play action
+  performs a clean retry, and the real-browser regression suite now verifies playback itself;
 - VitePress now resolves its compatible internal Vite to patched 6.4.3, removing inherited Vite 5
   and esbuild advisories without changing the applications' Vite 8 toolchain;
 - GitHub CI now uses the canonical Python setup, upgrading `pip` before dependency auditing;

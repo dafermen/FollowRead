@@ -838,3 +838,32 @@ rollback, physical iOS validation and the advanced pre-deployment test categorie
 
 Phase 13 remains open only for the previously recorded Docker, staging, advanced testing, and
 physical iOS external gates.
+## Session 2026-08-03 - Published audio interruption recovery
+
+### Objective
+
+Diagnose the Reader warning that reported an interrupted published audio track and make playback
+recoverable.
+
+### Work performed
+
+- Identified that port 8000 was serving SpeakFlowAI instead of FollowRead and stopped only the two
+  validated SpeakFlowAI Uvicorn processes.
+- Started the FollowRead API on its canonical port and verified the health endpoint, Reader package,
+  Spanish and English MP3 assets, CORS headers, content type, and byte-range support.
+- Updated the published-audio narrator so an error or completed track cannot retain a stale resumable
+  state and a subsequent play action can retry cleanly.
+- Expanded unit coverage and the real-Chrome Reader E2E flow to require an actual published MP3
+  request, active playback state, and absence of the interruption warning.
+
+### Tests executed
+
+- `pnpm --filter @followread/reader test -- publishedAudioNarrator.test.ts`: PASS, 4 tests.
+- `pnpm reader:e2e`: PASS, including published MP3 playback and all bilingual Reader routes.
+
+### Exact continuation point
+
+The user can refresh the Reader and press Play. Final audible acceptance of voice quality and word
+synchronization remains pending; deployment validations remain unchanged.
+
+---
