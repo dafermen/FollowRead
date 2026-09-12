@@ -1,6 +1,6 @@
 # Current status of FollowRead
 
-**Updated:** 2026-08-03
+**Updated:** 2026-09-12
 **Phase:** 13 - CI/CD and deployment  
 **Status:** IN_PROGRESS - implementation finished, external validations pending  
 **Previous base:** `9ce61e5` - close of Phase 12
@@ -18,7 +18,43 @@
 **Green GitHub CI and containers:** `faf194d`
 **Navigable documentation portal:** `81ad232`
 
-## What is finished
+## VPS candidate reviewed on 2026-09-12
+
+**Phase 13 remains IN_PROGRESS. Local web candidate validated; owner acceptance and external rollout are pending.**
+The owner selected `followread.innovalogic.tech` and supplied an existing SSH configuration.
+Server inspection was read-only. No GitHub push, tag, release, certificate issuance or VPS change
+was performed. The earlier statement that Docker is unavailable is superseded: Linux images and
+Compose were exercised locally through WSL Ubuntu.
+
+Delivered: same-origin Reader/Admin/API routing, hardened Docker/Nginx configuration, persistent
+single-worker audio queue with concurrent idempotency and interruption recovery, safer PWA cache,
+dependency updates, image vulnerability scans, pinned GitHub Actions, protected release publication,
+digest-based update helper and verified SQLite/media snapshots. The owner's documentation moves
+are preserved, with a root AGENTS pointer and corrected links.
+
+Validation: full `pnpm check`; 126 API tests (96% line coverage), 44 Reader tests, 15 Admin tests,
+9 shared-package tests and two service-worker security tests. Reader, offline, mobile, learning,
+accessibility and documentation browser checks passed. Load: 120 requests at concurrency 12,
+p95 192.2 ms in the local measurement. JavaScript/Python audits reported no known vulnerabilities;
+the three runtime images reported zero high/critical vulnerabilities and no matching secrets.
+Selected mutation checks detected both weakened controls. Generated cases cover 500 Unicode
+chunk invariants and 1,500 unsafe catalog inputs. These are bounded tests, not exhaustive fuzzing
+or a whole-project mutation score.
+
+The production containers passed HTTPS, authorization, cookies, CSRF, private-route blocking,
+login throttling, queue processing, snapshot restoration and restart. Real Chrome loaded Reader,
+bilingual content, Admin login/catalog and VitePress under production paths and CSP.
+
+Next: owner reviews the local candidate commit and approves GitHub publication. Then configure
+repository/environment protection, validate the first updated workflow run, agree initial data and
+off-server backup storage, and obtain explicit approval for the VPS rollout. Record external
+certificate/renewal, smoke and rollback evidence afterward. Physical iOS is outside this web release
+and remains a separate gate before TestFlight. Do not mark Phase 13 completed prematurely.
+
+Base commit: `6632238`. The exact new local commit is in the delivered review report; it has not
+been pushed. See [VPS runbook](deployment/VPS_DEPLOYMENT.md) and [candidate test record](testing/VPS_CANDIDATE.md).
+
+## Historical implementation record
 
 - Phases 0 to 12 closed and documented.
 - Complete editorial admin: access, dashboard, catalog, editor, assets, processing, review and
@@ -119,26 +155,12 @@
   budgets and load: PASS.
 - Admin 5173, Reader 5174 and API 8000 remained active after validation.
 
-## Pending validations
+## Current pending actions
 
-1. Run `pnpm deploy:local` and `pnpm deploy:smoke` on a machine with Docker. Docker is not installed
-   on this machine; the three image builds already pass on GitHub.
-2. Validate `release.yml` when the first authorized SemVer tag is created.
-3. Choose provider, domains and backup storage before development/staging/production.
-4. Run smoke, migration and rollback in staging.
-5. Validate physical iOS with macOS/Xcode before TestFlight.
-6. Complete properties/invariants, mutation testing, fuzzing, formal contracts and resilience tests;
-   record acceptance of the candidate artifact.
-7. Obtain final user acceptance of the audible quality and word synchronization of the real MP3.
-   Real-browser playback, HTTP delivery, timestamps and reuse with zero cost are validated.
-
-## Exact next action
-
-Obtain a Docker-capable development or staging environment, run Compose, migration, smoke, backup
-and rollback, then record the evidence. Continue closing the advanced gaps in
-`docs/testing/PRE_DEPLOYMENT_TESTS.md`.
-Do not start Phase 14 or mark Phase 13 `COMPLETED` before closing the entire matrix or approving
-explicit exceptions.
+The September VPS candidate record above supersedes the earlier Docker/domain blockers.
+Owner acceptance, GitHub publication/workflow validation, the off-server backup decision and
+authorized public rollout remain pending. The real existing catalog and narration must be
+preserved if selected as the initial dataset. Do not import development credentials or sessions.
 
 ## Useful commands
 

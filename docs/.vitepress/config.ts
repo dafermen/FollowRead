@@ -9,15 +9,22 @@ export default withMermaid(
     title: "FollowRead Documentation",
     description:
       "Product, architecture, development, quality, and delivery documentation for FollowRead.",
-    base: "/docs/",
+    base: process.env["FOLLOWREAD_DOCS_BASE"] ?? "/docs/",
     cleanUrls: true,
-    lastUpdated: true,
+    lastUpdated: process.env["FOLLOWREAD_DOCS_NO_GIT"] !== "1",
     outDir: "../apps/admin-web/dist/docs",
     rewrites: {
       "README.md": "index.md",
     },
     head: [
-      ["link", { rel: "icon", type: "image/svg+xml", href: "/docs/followread.svg" }],
+      [
+        "link",
+        {
+          rel: "icon",
+          type: "image/svg+xml",
+          href: `${process.env["FOLLOWREAD_DOCS_BASE"] ?? "/docs/"}followread.svg`,
+        },
+      ],
       ["meta", { name: "theme-color", content: "#174d3b" }],
     ],
     markdown: {

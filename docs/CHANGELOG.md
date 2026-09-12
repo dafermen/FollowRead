@@ -5,6 +5,15 @@ The project does not yet have a stable public release.
 
 ## Unreleased
 
+### Prepared for VPS review (2026-09-12)
+
+- Production same-origin paths, existing Nginx integration, isolated containers and TLS runbook.
+- Persistent audio queue, one-worker volume lock, concurrent idempotency and explicit retry after interruption.
+- Restricted PWA caching, sanitized processing errors, bounded metric routes and production API hardening.
+- Audited runtime dependencies, hashed Linux Python lock, pinned Actions and image/credential scans.
+- Protected release validation/publication, immutable image manifest and approval-gated VPS update helper.
+- SQLite/media snapshot integrity, restore and restart tests; generated inputs and selected security mutations.
+
 ### Added
 
 - a responsive VitePress documentation portal under `/docs/` with local search, light/dark themes,

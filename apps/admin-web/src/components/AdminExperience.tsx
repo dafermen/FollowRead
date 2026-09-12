@@ -42,7 +42,7 @@ export const AdminExperience = ({ pathname, onAuthenticationRequired }: AdminExp
           return;
         }
 
-        if (import.meta.env.DEV) {
+        if (import.meta.env.DEV && error instanceof AuthenticationError && error.status === 401) {
           setExperience({ status: "preview" });
           return;
         }

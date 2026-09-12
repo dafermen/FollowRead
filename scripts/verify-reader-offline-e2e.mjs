@@ -73,6 +73,9 @@ try {
       });
     }
     await waitForServiceWorker(client);
+    // Reload under the installed worker before disconnecting a fresh browser profile.
+    await client.send("Page.navigate", { url: `${readerBase}/downloads` });
+    await waitForText(client, ["Descargas", "El zorro y la luna", "Incluido con la app"]);
     await saveScreenshot(client, join(evidenceDirectory, "phase9-downloads.png"));
     console.log("PASS paquete inicial y pantalla de descargas");
 

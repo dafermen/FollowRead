@@ -1,3 +1,5 @@
+import { adminHref } from "../navigation.js";
+
 import { useEffect, useState } from "react";
 
 import type { AuthenticatedUser } from "../auth/authClient.js";
@@ -129,7 +131,7 @@ export const DashboardPage = ({ user, onLogout }: DashboardPageProps) => {
               Continúa donde lo dejaste y revisa lo que necesita atención.
             </p>
           </div>
-          <a className="button button--primary" href="/content">
+          <a className="button button--primary" href={adminHref("/content")}>
             <span aria-hidden="true">＋</span>
             Crear contenido
           </a>
@@ -167,12 +169,12 @@ export const DashboardPage = ({ user, onLogout }: DashboardPageProps) => {
               <h2 id="attention-title">Hay trabajo listo para continuar</h2>
             </div>
             <div className="attention-items">
-              <a href="/#reviews">
+              <a href={adminHref("/#reviews")}>
                 <strong>{reviews}</strong>
                 <span>contenidos esperan revisión</span>
                 <span aria-hidden="true">→</span>
               </a>
-              <a href="/#processing">
+              <a href={adminHref("/#processing")}>
                 <strong>{failedJobs}</strong>
                 <span>audios necesitan reintento</span>
                 <span aria-hidden="true">→</span>
@@ -188,7 +190,7 @@ export const DashboardPage = ({ user, onLogout }: DashboardPageProps) => {
                 <p className="section-kicker">Tu espacio de trabajo</p>
                 <h2 id="recent-title">Contenido reciente</h2>
               </div>
-              <a className="standalone-link" href="/content">
+              <a className="standalone-link" href={adminHref("/content")}>
                 Ver todos <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -197,11 +199,11 @@ export const DashboardPage = ({ user, onLogout }: DashboardPageProps) => {
                 <div className="empty-state">
                   <strong>El catálogo todavía está vacío</strong>
                   <p>Crea el primer borrador para comenzar el flujo editorial.</p>
-                  <a href="/content">Crear contenido</a>
+                  <a href={adminHref("/content")}>Crear contenido</a>
                 </div>
               ) : (
                 recentContent.map((item) => (
-                  <a className="content-row" href="/content" key={item.title}>
+                  <a className="content-row" href={adminHref("/content")} key={item.title}>
                     <span className={`mini-cover ${item.coverClass}`} aria-hidden="true">
                       {item.initials}
                     </span>

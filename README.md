@@ -206,12 +206,12 @@ Canonical sources:
 - [Security](docs/SECURITY.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Original master project prompt — English PDF](docs/FollowRead%20Project%20Prompt.pdf)
-- [Current project status](CURRENT_STATUS.md)
+- [Current project status](docs/CURRENT_STATUS.md)
 
 Future Codex sessions must read [`AGENTS.md`](AGENTS.md) and
-[`CURRENT_STATUS.md`](CURRENT_STATUS.md) before changing the project.
+[`CURRENT_STATUS.md`](docs/CURRENT_STATUS.md) before changing the project.
 
 ## License
 
 FollowRead's original code and assets are available under the [MIT License](LICENSE). Third-party
-components remain subject to their own licenses; see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+components remain subject to their own licenses; see [THIRD_PARTY_LICENSES.md](docs/THIRD_PARTY_LICENSES.md).

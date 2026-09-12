@@ -1,3 +1,5 @@
+import { adminHref } from "../navigation.js";
+
 import type { ReactNode } from "react";
 
 import type { AuthenticatedUser } from "../auth/authClient.js";
@@ -61,7 +63,11 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
   return (
     <div className="admin-layout">
       <aside className="sidebar">
-        <a className="brand brand--sidebar" href="/" aria-label="FollowRead Admin, ir al resumen">
+        <a
+          className="brand brand--sidebar"
+          href={adminHref("/")}
+          aria-label="FollowRead Admin, ir al resumen"
+        >
           <span className="brand__mark" aria-hidden="true">
             F
           </span>
@@ -76,7 +82,7 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
           {availableNavigation.map((item) => (
             <a
               className={`nav-item ${activeItem === item.id ? "nav-item--active" : ""}`}
-              href={item.href}
+              href={adminHref(item.href)}
               aria-current={activeItem === item.id ? "page" : undefined}
               key={item.id}
             >
@@ -90,7 +96,7 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
         </nav>
 
         <div className="sidebar__footer">
-          <a className="nav-item" href="/docs/">
+          <a className="nav-item" href={adminHref("/docs/")}>
             <span className="nav-icon" aria-hidden="true">
               ?
             </span>
@@ -105,7 +111,11 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
               <small>{role}</small>
             </span>
             {onLogout === undefined ? (
-              <a className="icon-link" href="/login" aria-label="Salir de la vista previa">
+              <a
+                className="icon-link"
+                href={adminHref("/login")}
+                aria-label="Salir de la vista previa"
+              >
                 ↗
               </a>
             ) : (
@@ -126,7 +136,7 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
 
       <div className="admin-workspace">
         <header className="mobile-header">
-          <a className="brand" href="/" aria-label="FollowRead Admin, ir al resumen">
+          <a className="brand" href={adminHref("/")} aria-label="FollowRead Admin, ir al resumen">
             <span className="brand__mark" aria-hidden="true">
               F
             </span>
@@ -138,13 +148,13 @@ export const AdminShell = ({ activeItem, children, user, onLogout }: AdminShellP
             </summary>
             <nav aria-label="Navegación móvil">
               {availableNavigation.map((item) => (
-                <a href={item.href} key={item.id}>
+                <a href={adminHref(item.href)} key={item.id}>
                   {item.label}
                 </a>
               ))}
-              <a href="/docs/">Ayuda y documentación</a>
+              <a href={adminHref("/docs/")}>Ayuda y documentación</a>
               {onLogout === undefined ? (
-                <a href="/login">Salir de la vista previa</a>
+                <a href={adminHref("/login")}>Salir de la vista previa</a>
               ) : (
                 <button
                   type="button"

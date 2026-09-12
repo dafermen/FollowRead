@@ -19,19 +19,21 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: "24"
           cache: pnpm
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
           cache: pip
@@ -49,11 +51,14 @@ jobs:
       - name: Audit dependencies
         run: pnpm security:audit
 
+      - name: Check selected security mutations
+        run: pnpm security:mutations
+
       - name: Validate deployment definitions
         run: pnpm deploy:validate
 
       - name: Upload web builds
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: followread-web-${{ github.sha }}
           path: |
@@ -65,25 +70,21 @@ jobs:
   containers:
     needs: quality
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: api
-            dockerfile: infrastructure/docker/api.Dockerfile
-          - name: admin
-            dockerfile: infrastructure/docker/admin.Dockerfile
-          - name: reader
-            dockerfile: infrastructure/docker/reader.Dockerfile
-
+    timeout-minutes: 30
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
-
-      - name: Build ${{ matrix.name }} container
-        run: >-
-          docker build
-          --file ${{ matrix.dockerfile }}
-          --tag followread-${{ matrix.name }}:${{ github.sha }}
-          .
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Build production containers
+        run: |
+          docker build --file infrastructure/docker/api.Dockerfile --tag followread-vps-candidate/api:review .
+          docker build --file infrastructure/docker/admin.Dockerfile --build-arg VITE_API_BASE_URL=/api --build-arg VITE_BASE_PATH=/admin/ --build-arg FOLLOWREAD_DOCS_BASE=/admin/docs/ --build-arg VITE_READER_BASE_URL=/ --tag followread-vps-candidate/admin:review .
+          docker build --file infrastructure/docker/reader.Dockerfile --build-arg VITE_API_BASE_URL=/api --tag followread-vps-candidate/reader:review .
+      - name: Validate TLS, sessions, worker, backup and restart
+        run: python3 scripts/verify_vps.py
+      - name: Scan runtime images
+        run: |
+          for APP in api admin reader; do
+            bash scripts/scan-image.sh "followread-vps-candidate/$APP:review" "$APP"
+          done

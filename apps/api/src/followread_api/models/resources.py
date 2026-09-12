@@ -161,6 +161,7 @@ class ProcessingJob(UuidPrimaryKeyMixin, TimestampMixin, Base):
         index=True,
     )
     language: Mapped[Language | None] = mapped_column(LANGUAGE_ENUM)
+    voice_id: Mapped[str | None] = mapped_column(String(120))
     job_type: Mapped[str] = mapped_column(String(80), nullable=False)
     idempotency_key: Mapped[str] = mapped_column(String(160), nullable=False)
     status: Mapped[JobStatus] = mapped_column(

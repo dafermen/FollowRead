@@ -1,3 +1,5 @@
+import { adminHref } from "../navigation.js";
+
 import { type SyntheticEvent, useState } from "react";
 
 import type { AuthenticatedUser } from "../auth/authClient.js";
@@ -75,7 +77,7 @@ export const CreateContentPage = ({ user, onLogout }: CreateContentPageProps) =>
       <main className="dashboard content-create-page">
         <div className="page-heading">
           <div>
-            <a className="back-link" href="/content">
+            <a className="back-link" href={adminHref("/content")}>
               ← Volver a Contenidos
             </a>
             <p className="eyebrow">Nuevo borrador</p>
@@ -98,7 +100,7 @@ export const CreateContentPage = ({ user, onLogout }: CreateContentPageProps) =>
             <h2>{createdTitle}</h2>
             <p>Los metadatos quedaron guardados. Ya puedes volver al catálogo.</p>
             <div>
-              <a className="button button--primary" href="/content">
+              <a className="button button--primary" href={adminHref("/content")}>
                 Ver catálogo
               </a>
               <button
@@ -290,7 +292,7 @@ export const CreateContentPage = ({ user, onLogout }: CreateContentPageProps) =>
               >
                 {state === "saving" ? "Guardando…" : "Crear borrador"}
               </button>
-              <a className="button button--quiet creation-cancel" href="/content">
+              <a className="button button--quiet creation-cancel" href={adminHref("/content")}>
                 Cancelar
               </a>
             </aside>

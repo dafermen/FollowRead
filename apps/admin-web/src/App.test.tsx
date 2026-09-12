@@ -27,12 +27,21 @@ describe("FollowRead Admin", () => {
     window.history.pushState({}, "", "/");
     scrollToMock = vi.fn();
     vi.stubGlobal("scrollTo", scrollToMock);
-    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("API unavailable in preview")));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false, status: 401 }));
   });
 
   afterEach(() => {
     cleanup();
     vi.unstubAllGlobals();
+  });
+
+  it("shows a service error instead of sample data when the API is unreachable", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
+    render(<App />);
+    expect(
+      await screen.findByRole("heading", { name: "No pudimos abrir el panel" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Vista previa visual")).not.toBeInTheDocument();
   });
 
   it("shows the visual dashboard preview", async () => {

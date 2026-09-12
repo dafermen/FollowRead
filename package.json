@@ -33,7 +33,7 @@
     "check:fast": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
     "ci": "pnpm check",
     "build": "pnpm --recursive --if-present run build",
-    "test": "pnpm test:js && pnpm test:python",
+    "test": "pnpm test:js && pnpm test:python && pnpm test:security",
     "test:js": "pnpm --recursive --if-present run test:coverage",
     "test:python": "node scripts/run-python.mjs -m pytest apps/api --basetemp=.pytest-temp --cov=followread_api --cov-report=term-missing -W error",
     "typecheck": "pnpm typecheck:js && pnpm typecheck:python",
@@ -61,7 +61,7 @@
     "quality:budget": "node scripts/verify-quality-budget.mjs",
     "quality:load": "node scripts/load-test.mjs",
     "quality:regression": "node scripts/run-regression.mjs",
-    "security:audit": "pnpm security:audit:js && pnpm security:audit:python",
+    "security:audit": "pnpm security:secrets && pnpm security:audit:js && pnpm security:audit:python",
     "security:audit:js": "pnpm audit --audit-level moderate",
     "security:audit:python": "node scripts/run-python.mjs -m pip_audit",
     "docs:dev": "node scripts/serve-documentation.mjs --port 5175",
@@ -69,7 +69,7 @@
     "docs:e2e": "node scripts/verify-documentation-e2e.mjs",
     "docs:preview": "node scripts/serve-documentation.mjs --port 4175",
     "docs:validate": "node scripts/validate-documentation.mjs && pnpm docs:build && node scripts/verify-documentation-site.mjs",
-    "deploy:validate": "node scripts/validate-deployment.mjs",
+    "deploy:validate": "node scripts/validate-deployment.mjs && node scripts/run-python.mjs scripts/validate_vps.py",
     "deploy:local": "node scripts/deploy-compose.mjs --environment local --env-file infrastructure/deployment/local.example.env",
     "deploy:smoke": "node scripts/deployment-smoke-test.mjs",
     "deploy:backup": "node scripts/run-python.mjs -m followread_api.cli.database_backup backup",
@@ -87,6 +87,9 @@
     "mobile:build:ios": "pnpm --filter @followread/reader mobile:build:ios",
     "mobile:run:android": "pnpm --filter @followread/reader mobile:run:android",
     "mobile:run:ios": "pnpm --filter @followread/reader mobile:run:ios",
-    "validate:ci": "node scripts/run-python.mjs scripts/validate_workflow.py"
+    "validate:ci": "node scripts/run-python.mjs scripts/validate_workflow.py",
+    "test:security": "node --test scripts/test-service-worker.mjs",
+    "security:secrets": "node scripts/scan-secrets.mjs",
+    "security:mutations": "node scripts/run-python.mjs scripts/security_mutations.py"
   }
 }

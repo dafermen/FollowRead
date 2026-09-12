@@ -21,6 +21,12 @@ This is the canonical entry for packaging, validating, and deploying FollowRead.
 7. Run readiness and smoke tests.
 8. Record result and retain tested rollback.
 
+## Reviewed VPS candidate
+
+The web deployment for `followread.innovalogic.tech` is prepared locally and awaits owner
+approval. See the [specific VPS runbook](deployment/VPS_DEPLOYMENT.md) for the existing Nginx
+integration, immutable image updates, secrets, backup and recovery.
+
 ## Detailed sources
 
 - [Deployment strategy](deployment/DEPLOYMENT_STRATEGY.md)

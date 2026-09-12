@@ -1,3 +1,5 @@
+import { adminHref } from "../navigation.js";
+
 import { useEffect, useMemo, useState } from "react";
 
 import type { AuthenticatedUser } from "../auth/authClient.js";
@@ -173,7 +175,7 @@ export const EditorPage = ({ contentId, user, onLogout }: EditorPageProps) => {
             {state === "error" ? "!" : "F"}
           </span>
           <h1>{state === "error" ? "No pudimos recuperar el borrador" : "Abriendo el editor…"}</h1>
-          {state === "error" ? <a href="/content">Volver al catálogo</a> : null}
+          {state === "error" ? <a href={adminHref("/content")}>Volver al catálogo</a> : null}
         </main>
       </AdminShell>
     );
@@ -194,7 +196,7 @@ export const EditorPage = ({ contentId, user, onLogout }: EditorPageProps) => {
       <main className="editor-page">
         <header className="editor-toolbar">
           <div>
-            <a href="/content">← Contenidos</a>
+            <a href={adminHref("/content")}>← Contenidos</a>
             <span className="editor-toolbar__divider" aria-hidden="true" />
             <div>
               <strong>{translation.title}</strong>
@@ -207,7 +209,7 @@ export const EditorPage = ({ contentId, user, onLogout }: EditorPageProps) => {
             </span>
             <a
               className="button button--secondary"
-              href={`/processing?version=${document.content_version_id}`}
+              href={adminHref(`/processing?version=${document.content_version_id}`)}
             >
               Generar audio
             </a>

@@ -69,5 +69,19 @@ The complete local documentation portal is available at `http://localhost:5173/d
 - [Workspace conventions](development/WORKSPACE_CONVENTIONS.md)
 - [Quality commands](development/QUALITY_COMMANDS.md)
 - [Environment variables](development/ENVIRONMENT_VARIABLES.md)
-- [Contribution guide](https://github.com/dafermen/FollowRead/blob/main/CONTRIBUTING.md)
+- [Contribution guide](https://github.com/dafermen/FollowRead/blob/main/docs/CONTRIBUTING.md)
 - [Troubleshooting](TROUBLESHOOTING.md)
+
+
+## Persistent audio processing and VPS paths
+
+`pnpm dev` now starts the audio worker with the other local services. After updating an
+existing installation, run `pnpm migrate` and restart `pnpm dev`. Admin remains on 5173,
+Reader on 5174 and the API on 8000. Audio requests return a queued job immediately;
+Admin polls its progress while the worker processes it. A restarted worker preserves queued
+jobs and marks interrupted running jobs as failed; review provider charges before retrying.
+
+The planned public Reader is at `/`, Admin at `/admin/` and the API at `/api/` on
+`followread.innovalogic.tech`. API interactive documentation is disabled in production;
+product documentation remains at `/admin/docs/`. The VPS runbook is available in the
+documentation portal under Delivery → FollowRead VPS. Publication requires owner approval.

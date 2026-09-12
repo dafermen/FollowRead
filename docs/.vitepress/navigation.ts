@@ -66,6 +66,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     collapsed: true,
     items: [
       { text: "Deployment", link: "/DEPLOYMENT" },
+      { text: "FollowRead VPS", link: "/deployment/VPS_DEPLOYMENT" },
       { text: "Container deployment", link: "/deployment/CONTAINER_DEPLOYMENT" },
       { text: "Release process", link: "/deployment/RELEASE_PROCESS" },
       { text: "Backup and rollback", link: "/deployment/BACKUP_AND_ROLLBACK" },

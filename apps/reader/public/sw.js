@@ -1,5 +1,5 @@
-const SHELL_CACHE = "followread-shell-v4";
-const CONTENT_CACHE = "followread-content-v3";
+const SHELL_CACHE = "followread-shell-v6";
+const CONTENT_CACHE = "followread-content-v4";
 const SHELL_ASSETS = [
   "/",
   "/offline/bootstrap.json",
@@ -19,7 +19,10 @@ self.addEventListener("activate", (event) => {
       .then((keys) =>
         Promise.all(
           keys
-            .filter((key) => key !== SHELL_CACHE && key !== CONTENT_CACHE)
+            .filter(
+              (key) =>
+                key.startsWith("followread-") && key !== SHELL_CACHE && key !== CONTENT_CACHE,
+            )
             .map((key) => caches.delete(key)),
         ),
       ),
@@ -33,6 +36,18 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   const url = new URL(request.url);
+  // Admin and API share the public origin. Never cache sessions or editorial responses.
+  if (/^\/(api|admin|auth|metrics)(\/|$)/u.test(url.pathname)) {
+    return;
+  }
+  // Vite modules are needed for local offline regression; never enable this on public hosts.
+  if (
+    ["localhost", "127.0.0.1"].includes(url.hostname) &&
+    /^\/(src|@vite|@react-refresh|@fs|node_modules)(\/|$)/u.test(url.pathname)
+  ) {
+    event.respondWith(networkFirstBootstrap(request));
+    return;
+  }
   if (url.pathname === "/offline/bootstrap.json") {
     event.respondWith(networkFirstBootstrap(request));
     return;
@@ -49,7 +64,9 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(cacheFirst(request));
     return;
   }
-  event.respondWith(staleWhileRevalidate(request, event));
+  if (url.pathname.startsWith("/stories/")) {
+    event.respondWith(staleWhileRevalidate(request, event));
+  }
 });
 
 async function networkFirstNavigation(request) {

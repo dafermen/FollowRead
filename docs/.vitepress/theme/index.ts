@@ -8,7 +8,7 @@ const applicationLink = (): VNode =>
     "a",
     {
       class: "followread-application-link",
-      href: "/",
+      href: import.meta.env.BASE_URL.replace(/docs\/$/u, ""),
       target: "_self",
       "aria-label": "Back to the FollowRead application",
     },

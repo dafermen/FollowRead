@@ -584,3 +584,117 @@ def _seed_version(session: Session, language: Language, text: str | None) -> UUI
     session.add(content)
     session.commit()
     return version.id
+
+
+def test_queue_survives_sessions_and_worker_preserves_selected_voice() -> None:
+    from followread_api.cli.processing_worker import process_next, recover_interrupted
+
+    engine = create_database_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    adapter = CountingAdapter()
+    storage = MemoryStorage()
+    with Session(engine) as session:
+        version_id = _seed_version(session, Language.SPANISH, "Una lectura en segundo plano.")
+        service = _service(session, adapter=adapter, storage=storage)
+        job = service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="marin",
+            idempotency_key="durable-queue",
+            defer=True,
+        )
+        job_id = job.id
+        assert job.status == JobStatus.QUEUED
+        assert adapter.calls == 0
+        repeated = service.process(
+            content_version_id=version_id,
+            language=Language.SPANISH,
+            voice_id="marin",
+            idempotency_key="durable-queue",
+            defer=True,
+        )
+        assert repeated.id == job_id
+        with pytest.raises(InvalidCatalogQueryError):
+            service.process(
+                content_version_id=version_id,
+                language=Language.SPANISH,
+                voice_id="Lucia",
+                idempotency_key="durable-queue",
+                defer=True,
+            )
+    with Session(engine) as session:
+        assert process_next(session, _service(session, adapter=adapter, storage=storage))
+        finished = session.get(ProcessingJob, job_id)
+        assert finished is not None and finished.status == JobStatus.SUCCEEDED
+        assert finished.voice_id == "marin"
+        assert adapter.calls == 1
+        assert not process_next(session, _service(session, adapter=adapter, storage=storage))
+        finished.status = JobStatus.RUNNING
+        session.commit()
+        recover_interrupted(session)
+        session.refresh(finished)
+        assert finished.status == JobStatus.FAILED
+        assert finished.error_code == "processing.interrupted"
+    engine.dispose()
+
+
+def test_cancelled_queue_does_not_call_the_audio_provider() -> None:
+    from followread_api.cli.processing_worker import process_next
+
+    engine = create_database_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        version_id = _seed_version(session, Language.ENGLISH, "An interrupted story.")
+        adapter = CountingAdapter()
+        service = _service(session, adapter=adapter)
+        job = service.process(
+            content_version_id=version_id,
+            language=Language.ENGLISH,
+            voice_id="cedar",
+            idempotency_key="cancel-queue",
+            defer=True,
+        )
+        service.cancel(job.id)
+        assert not process_next(session, service)
+        assert adapter.calls == 0
+    engine.dispose()
+
+
+def test_concurrent_queue_requests_create_one_job(tmp_path: Path) -> None:
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+
+    engine = create_database_engine(f"sqlite:///{(tmp_path / 'queue.db').as_posix()}")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        version_id = _seed_version(session, Language.ENGLISH, "Concurrent queue submission.")
+    barrier = Barrier(8)
+
+    def enqueue(_: int) -> UUID:
+        with Session(engine) as session:
+            barrier.wait(timeout=10)
+            job = _service(session).process(
+                content_version_id=version_id,
+                language=Language.ENGLISH,
+                voice_id="cedar",
+                idempotency_key="concurrent-key",
+                defer=True,
+            )
+            return job.id
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        identifiers = list(executor.map(enqueue, range(8)))
+    assert len(set(identifiers)) == 1
+    with Session(engine) as session:
+        assert len(list(session.scalars(select(ProcessingJob)))) == 1
+    engine.dispose()
+
+
+def test_only_one_audio_worker_can_hold_the_volume_lock(tmp_path: Path) -> None:
+    from followread_api.cli.worker_lock import worker_lock
+
+    path = tmp_path / "worker.lock"
+    with worker_lock(path), pytest.raises(OSError), worker_lock(path):
+        pytest.fail("A second worker must not enter recovery or process jobs")
+    with worker_lock(path):
+        assert path.exists()

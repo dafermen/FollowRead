@@ -119,15 +119,16 @@ async def request_observability(
     request.state.request_id = request_id
     started_at = perf_counter()
     status_code = 500
-    route = request.url.path
+    route = "unmatched"
     try:
         response = await call_next(request)
         status_code = response.status_code
         route = _route_template(request)
     except Exception:
+        route = _route_template(request)
         duration_ms = _duration_ms(started_at)
         request_metrics.record(route, status_code, duration_ms)
-        logger.exception(
+        logger.error(
             "request.failed",
             extra=_request_log_fields(
                 request,
@@ -176,7 +177,7 @@ async def response_security_policy(
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
     response.headers["Cross-Origin-Resource-Policy"] = "same-site"
 
-    path = request.url.path
+    path = request.url.path.removeprefix(request.scope.get("root_path", ""))
     if (
         request.method != "GET"
         or path.startswith(("/auth", "/admin", "/reader/sync"))
@@ -231,7 +232,7 @@ def _request_log_fields(
     return {
         "request_id": request_id,
         "method": request.method,
-        "path": request.url.path,
+        "path": route,
         "route": route,
         "status_code": status_code,
         "duration_ms": duration_ms,
@@ -245,4 +246,4 @@ def _duration_ms(started_at: float) -> float:
 def _route_template(request: Request) -> str:
     route = request.scope.get("route")
     route_path = getattr(route, "path", None)
-    return route_path if isinstance(route_path, str) else request.url.path
+    return route_path if isinstance(route_path, str) else "unmatched"

@@ -111,7 +111,8 @@ export const resolvePublishedAudioUrl = (uri: string): string => {
   if (/^https?:\/\//u.test(uri)) {
     return uri;
   }
-  return new URL(uri, `${API_BASE_URL}/`).toString();
+  const base = new URL(`${API_BASE_URL.replace(/\/$/u, "")}/`, window.location.origin);
+  return new URL(uri.replace(/^\//u, ""), base).toString();
 };
 
 export const createPublishedAudioNarrator = (): PublishedAudioNarrator => {

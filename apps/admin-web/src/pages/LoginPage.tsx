@@ -1,3 +1,5 @@
+import { adminHref } from "../navigation.js";
+
 import { useState, type SyntheticEvent } from "react";
 
 import { AuthenticationError, login } from "../auth/authClient.js";
@@ -47,7 +49,7 @@ export const LoginPage = ({ onAuthenticated }: LoginPageProps) => {
   return (
     <main className="login-page">
       <section className="login-story" aria-label="Presentación de FollowRead Admin">
-        <a className="brand brand--login" href="/" aria-label="FollowRead Admin">
+        <a className="brand brand--login" href={adminHref("/")} aria-label="FollowRead Admin">
           <span className="brand__mark" aria-hidden="true">
             F
           </span>
@@ -155,10 +157,10 @@ export const LoginPage = ({ onAuthenticated }: LoginPageProps) => {
               <strong>¿Quieres ver el avance visual?</strong>
               <p>La demostración usa información de ejemplo y no modifica el catálogo.</p>
             </div>
-            <a href="/">Abrir vista previa</a>
+            <a href={adminHref("/")}>Abrir vista previa</a>
           </div>
         </div>
-        <a className="login-help" href="/docs/">
+        <a className="login-help" href={adminHref("/docs/")}>
           Ayuda y documentación
         </a>
       </section>

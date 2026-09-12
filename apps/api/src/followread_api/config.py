@@ -1,5 +1,6 @@
 from decimal import Decimal
 from functools import lru_cache
+from pathlib import Path
 from typing import Annotated, Literal
 
 from pydantic import Field, SecretStr
@@ -31,6 +32,7 @@ class Settings(BaseSettings):
     illustration_output_dir: str = "./var/illustrations"
     maximum_processing_cost: Decimal = Field(default=Decimal("1.00"), ge=0)
     polly_chunk_characters: int = Field(default=1500, ge=100, le=3000)
+    openai_api_key_file: str | None = None
     openai_api_key: SecretStr | None = Field(default=None, validation_alias="OPENAI_API_KEY")
     openai_tts_model: str = Field(
         default="gpt-4o-mini-tts-2025-12-15",
@@ -41,4 +43,9 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    settings = Settings()
+    if settings.openai_api_key is None and settings.openai_api_key_file is not None:
+        value = Path(settings.openai_api_key_file).read_text(encoding="utf-8").strip()
+        if value:
+            settings.openai_api_key = SecretStr(value)
+    return settings

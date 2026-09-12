@@ -1,7 +1,13 @@
+import { adminHref } from "../navigation.js";
+
 export const DocumentationPage = () => (
   <main className="documentation-page">
     <aside className="docs-aside">
-      <a className="brand brand--sidebar" href="/" aria-label="Volver a FollowRead Admin">
+      <a
+        className="brand brand--sidebar"
+        href={adminHref("/")}
+        aria-label="Volver a FollowRead Admin"
+      >
         <span className="brand__mark" aria-hidden="true">
           F
         </span>
@@ -21,7 +27,7 @@ export const DocumentationPage = () => (
         <a href="#despliegue">Despliegue</a>
         <a href="http://localhost:8000/docs">API interactiva</a>
       </nav>
-      <a className="docs-back" href="/">
+      <a className="docs-back" href={adminHref("/")}>
         <span aria-hidden="true">←</span> Volver al panel
       </a>
     </aside>
@@ -171,7 +177,7 @@ export const DocumentationPage = () => (
         <a className="button button--primary" href="http://localhost:8000/docs">
           Abrir documentación de la API
         </a>
-        <a className="button button--secondary" href="/">
+        <a className="button button--secondary" href={adminHref("/")}>
           Volver al panel
         </a>
       </div>

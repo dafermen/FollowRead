@@ -1,3 +1,5 @@
+import { adminHref } from "../navigation.js";
+
 import { type SyntheticEvent, useEffect, useMemo, useState } from "react";
 
 import type { AuthenticatedUser } from "../auth/authClient.js";
@@ -211,7 +213,7 @@ export const ContentPage = ({ user, onLogout }: ContentPageProps) => {
             </p>
           </div>
           {canCreate ? (
-            <a className="button button--primary" href="/content/new">
+            <a className="button button--primary" href={adminHref("/content/new")}>
               <span aria-hidden="true">＋</span>
               Crear contenido
             </a>
@@ -317,10 +319,10 @@ export const ContentPage = ({ user, onLogout }: ContentPageProps) => {
                 className="catalog-row"
                 href={
                   isPreview
-                    ? `http://localhost:5174/read/${item.slug}`
+                    ? `${(import.meta.env["VITE_READER_BASE_URL"] ?? "http://localhost:5174").replace(/\/$/u, "")}/read/${item.slug}`
                     : item.actions.includes("edit")
-                      ? `/content/${item.id}/edit`
-                      : `/content?selected=${item.id}`
+                      ? adminHref(`/content/${item.id}/edit`)
+                      : adminHref(`/content?selected=${item.id}`)
                 }
                 role="row"
                 key={item.id}
