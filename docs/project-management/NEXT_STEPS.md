@@ -2,17 +2,18 @@
 
 ## Exact next action
 
-Complete the owner-authorized public test deployment to `followread.innovalogic.tech`.
+Receive the owner's explicit choice for transfer to the public test VPS: the prepared catalog
+with its OpenAI key, or the catalog only. Transfer has not been executed.
 
-1. Pass the updated PR quality/container/security checks and merge through protected main.
-2. Publish an approved SemVer release with immutable image digests.
-3. Preserve the real catalog and media, exclude development identities, and provision the owner.
-4. Install the release on the existing VPS; verify HTTPS, Admin, Reader, narration and recovery.
-5. Enable daily same-server snapshots retaining seven copies and verify an isolated restoration.
-6. Record released revision, public smoke results and operational evidence.
+1. Restore the approved four-reading catalog and media into a new volume; configure the selected provider.
+2. Migrate and start the already-loaded `v0.1.0` images with the approved deployment helper.
+3. Provision the selected owner account and deliver a private one-use password-setting link.
+4. Activate daily same-server snapshots with seven-copy retention and verify isolated restoration.
+5. Verify public Reader, bilingual narration, Admin, recovery, HTTPS and protected routes.
+6. Record the completed rollout. SMTP configuration remains deferred with a reminder scheduled.
 
-The owner approved publication, deployment and repository protections. The separate site and
-certificate are already installed. This is a public test server; the owner explicitly deferred
-off-server storage. SMTP is undecided: private operator-issued links cover initial access and
-assisted recovery, while automatic recovery email remains pending with a reminder scheduled.
-Physical iOS/TestFlight remains outside this web deployment.
+PR #1 is merged; release `v0.1.0` and its portable images are published and staged on the VPS.
+Final PR CI `34708875680` and release workflow `34725293956` passed. HTTPS and certificate
+renewal validation passed. No application container is active yet. No new GitHub publication
+or VPS-access approval is needed; those authorizations already exist. Physical iOS/TestFlight
+and final-production off-server backups are outside this public web test deployment.
