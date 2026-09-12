@@ -52,7 +52,9 @@ def restore(archive: Path, destination: Path) -> None:
         raise ValueError(
             "Restore requires an empty replacement volume; preserve the current volume"
         )
-    with TemporaryDirectory(prefix="followread-restore-", dir=destination.parent) as temporary:
+    destination.mkdir(parents=True, exist_ok=True)
+    # Stage inside the writable data mount: its parent may be a read-only container root.
+    with TemporaryDirectory(prefix="followread-restore-", dir=destination) as temporary:
         staging = Path(temporary)
         with tarfile.open(archive, "r:gz") as bundle:
             for member in bundle.getmembers():
