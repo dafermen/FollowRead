@@ -5,6 +5,14 @@ The project does not yet have a stable public release.
 
 ## Unreleased
 
+### Public test release preparation (2026-09-12)
+
+- One-use password recovery and initial access links; old sessions are revoked after reset.
+- Optional TLS SMTP configuration outside the repository; honest assisted-recovery fallback.
+- Owner-approved protected main/release workflow and a dedicated HTTPS site on the test VPS.
+- Same-server daily snapshot procedure with seven-copy retention, as selected by the owner.
+
+
 ### Prepared for VPS review (2026-09-12)
 
 - Production same-origin paths, existing Nginx integration, isolated containers and TLS runbook.

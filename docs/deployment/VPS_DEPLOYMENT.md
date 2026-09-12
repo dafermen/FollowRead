@@ -1,8 +1,8 @@
 # FollowRead VPS deployment
 
-Prepared on 2026-09-12 for `followread.innovalogic.tech`. This is a deployment candidate,
-not authorization to publish or change the server. The owner must approve the reviewed
-commit, GitHub publication and server rollout separately from this local preparation.
+Prepared on 2026-09-12 for `followread.innovalogic.tech`. The owner approved GitHub publication
+and deployment to this existing VPS as a public demonstration/test environment. Subsequent
+releases still require an approved version and passing checks. This is not the final server.
 
 ## Architecture and existing server
 
@@ -22,7 +22,8 @@ The read-only server inspection found Ubuntu 24.04, existing Nginx on 80/443, Do
 UFW and several other applications. DNS points to the inspected server. Use a new Nginx
 virtual host; retain every existing site, global setting and firewall rule. At inspection
 there was approximately 26 GB free disk and 6 GB available RAM. Recheck before rollout.
-The certificate for FollowRead has not been issued. Port 5173 remains local development.
+The FollowRead certificate was issued on 2026-09-12 with automatic renewal enabled.
+Port 5173 remains local development.
 
 The Compose subnet `172.30.84.0/24` was unused at inspection. API trusts forwarded headers
 only from its two web proxies (`172.30.84.11` and `.12`). Containers run without root,
@@ -67,10 +68,10 @@ time-specific, not a guarantee that software has no vulnerabilities.
 
 1. After approval, push the reviewed preparation branch and open a PR. Protect `main`
    with required CI checks, review, no force pushes and no direct unreviewed changes.
-2. Configure a GitHub environment named `release` with a required reviewer, prevention
-   of self-review where available, and only approved release tags. Verify these controls
-   are supported and enabled on this repository before creating a tag. A YAML environment
-   name alone does not enforce approval. Protect version tags with a repository ruleset.
+2. The `release` environment requires the owner as reviewer and accepts only `v*` tags.
+   The owner explicitly authorized self-approval for this one-maintainer project. Main requires
+   a PR and passing `quality`/`containers`, with force pushes and deletion blocked; a second
+   reviewer is not required. Verify the controls remain enabled before releasing.
 3. Merge the reviewed PR only after CI passes for its final commit. Create a reviewed
    SemVer tag on that commit. Manual workflow dispatch validates a candidate without publishing.
 4. The release validation job has read-only repository permissions. It runs quality and
@@ -86,8 +87,7 @@ time-specific, not a guarantee that software has no vulnerabilities.
    version. Production runs images by digest; updating the source checkout is not deployment.
 
 Repository security controls follow [GitHub's secure-use guidance](https://docs.github.com/en/actions/reference/security/secure-use).
-The first execution of these updated workflows on GitHub remains pending until publication
-is authorized. If GHCR packages are private, use a dedicated read-only package credential on
+The updated workflows must pass on the exact revision being released. If GHCR packages are private, use a dedicated read-only package credential on
 the VPS; never a repository write token. Prefer a dedicated operator account with SSH keys
 and narrowly scoped administrative access. Docker group membership is root-equivalent.
 
@@ -149,10 +149,12 @@ Take an additional verified backup before bulk catalog edits or audio regenerati
 
 Snapshots contain SQLite, audio and illustrations with a checksum manifest. The built-in
 `/data/backups` copy is useful for rollback but shares the server's failure domain. Before
-public launch, agree the off-server encrypted backup destination, credentials, retention and
-restore schedule with the owner. Proposed baseline: daily backup, seven daily and four weekly
-copies, monthly restore drill. Monitor available disk and keep at least 20% free; actual media
-volume determines feasible retention. No automatic deletion or external storage was configured.
+a final production launch, agree off-server encrypted storage with the owner. For this public
+test VPS, the owner explicitly chose same-server backups: daily at 03:15 server time, retaining
+the latest seven verified snapshots. `followread-backup.timer` runs `scripts/vps_backup.py`,
+which shares the deployment lock, stops writers, snapshots and restarts them even on failure.
+Pruning occurs only after a successful snapshot. Keep at least 20% disk free and periodically
+restore into an isolated replacement volume. The initial import is retained separately.
 
 For application-only rollback, review schema compatibility and preview the previous approved
 manifest with `--rollback --schema-compatible`. Execute it only after approval. This starts
@@ -183,3 +185,38 @@ server rollout and rollback rehearsal must still be recorded against the release
   provider latency before increasing traffic or moving to a shared database/queue.
 - Add off-server backups, monitoring/alerts and optional stronger administrator authentication
   as the next operational improvements. Their credentials and activation need owner decisions.
+
+
+## Owner access and password recovery
+
+The owner chooses a password through a private, one-use HTTPS link. The operator generates it
+inside the API container with `python -m followread_api.cli.password_reset --email OWNER_EMAIL
+--output /tmp/initial-access.txt --minutes 1440`. Copy the file through authenticated SSH to
+a private local location, then remove the temporary container file. Never publish the URL,
+put it in command arguments or send it through logs. It expires after 24 hours; normal
+recovery links expire after 15 minutes. Issuing another link invalidates the previous one.
+The token is stored hashed, and changing a password revokes existing sessions.
+
+Create `/etc/followread/smtp.json` with `{}` while email delivery is disabled. Like the OpenAI
+key file, it must be owned by UID 10001 with mode 0400. The container reads it as a mounted
+secret. When a provider is selected, replace its contents privately with the fields `host`,
+`port`, `username`, `password`, `sender`, and `tls` (`ssl` or `starttls`), then recreate the
+API/worker to refresh the mount. Test real delivery before declaring automatic recovery ready.
+No SMTP password belongs in GitHub or `images.env`.
+
+
+## Portable image installation without registry credentials
+
+The protected release also publishes `followread-images.tar.gz` and `images.local.env`.
+Download them with `SHA256SUMS` from the same approved GitHub release. Verify the downloaded
+checksums before running `docker load --input followread-images.tar.gz`. Use `images.local.env`
+as the server's release manifest and add only the allowed host configuration settings.
+It pins each image by its SHA-256 image ID, which covers configuration and layers. The helper
+checks each loaded image's exact identity, source revision and Linux/amd64 platform before
+stopping services. It skips the registry pull for this manifest. CI exercises these image IDs
+with the actual Compose/TLS stack. The images are the same ones validated and scanned before
+publication; there is no VPS rebuild and no GitHub credential on the server.
+
+For updates, keep each release archive, checksum and manifest separately, then repeat load,
+reviewed deployment, backup/migration and external smoke. The GHCR manifest remains available
+for installations with registry read access. Use one image-source mode consistently per release.

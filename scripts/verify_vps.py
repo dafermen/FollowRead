@@ -46,16 +46,29 @@ def main() -> None:
             stderr=subprocess.DEVNULL,
         )
         (directory / "empty-key").touch(mode=0o644)
+        (directory / "smtp.json").write_text("{}")
         environment = {
             **os.environ,
             "FOLLOWREAD_DATA_VOLUME": project + "-data",
             "FOLLOWREAD_OPENAI_KEY_FILE": str(directory / "empty-key"),
             "FOLLOWREAD_POLLY_PROVIDER": "fake",
+            "FOLLOWREAD_SMTP_CONFIG_FILE": str(directory / "smtp.json"),
         }
         for app in ("api", "admin", "reader"):
-            environment[f"FOLLOWREAD_{app.upper()}_IMAGE"] = (
-                f"{args.namespace}/{app}:{args.tag}"
+            result = subprocess.run(
+                [
+                    "docker",
+                    "image",
+                    "inspect",
+                    "--format",
+                    "{{.Id}}",
+                    f"{args.namespace}/{app}:{args.tag}",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
             )
+            environment[f"FOLLOWREAD_{app.upper()}_IMAGE"] = result.stdout.strip()
         production = (
             root / "infrastructure/deployment/followread.nginx.conf"
         ).read_text()
@@ -127,10 +140,22 @@ def main() -> None:
                 ],
                 env=environment,
             )
+            token_file = directory / "reset-token"
+            result = subprocess.run(
+                [*compose, "exec", "-T", "api", "cat", "/data/test-reset-token"],
+                env=environment,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            token_file.write_text(result.stdout.strip())
+            token_file.chmod(0o600)
             run(
                 [
                     sys.executable,
                     str(root / "scripts/vps_http_test.py"),
+                    "--reset-token-file",
+                    str(token_file),
                     "--ca",
                     str(certificate),
                 ]

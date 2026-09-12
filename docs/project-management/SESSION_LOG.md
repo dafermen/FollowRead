@@ -906,3 +906,30 @@ and remains a separate gate before TestFlight. Do not mark Phase 13 completed pr
 
 Base commit: `6632238`. The exact new local commit is in the delivered review report; it has not
 been pushed. See [VPS runbook](../deployment/VPS_DEPLOYMENT.md) and [candidate test record](../testing/VPS_CANDIDATE.md).
+
+
+## Authorized public test rollout — 2026-09-12
+
+The owner approved GitHub publication and deployment to `followread.innovalogic.tech`.
+This VPS is a public demonstration/test environment, not the final production server.
+The owner explicitly chose same-server backups for now; off-server storage is deferred.
+The owner also approved main requiring PRs and passing `quality`/`containers`, with force
+pushes and deletions blocked, and owner self-approval of the protected release environment.
+These repository and environment protections are now enabled. PR #1 is open.
+
+FollowRead's separate Nginx site and Let's Encrypt certificate are installed; renewal timer
+and a domain-specific reload hook are active. Other sites were preserved. Application
+deployment, released-image scans and external smoke/restore evidence remain pending.
+
+Password recovery now supports hashed, expiring, single-use tokens, session revocation,
+trusted-origin validation, throttling and a private operator CLI. The owner will receive a
+private initial password-setting link. SMTP is intentionally disabled until the owner chooses
+a provider; the UI says to contact the operator instead of claiming an email was sent.
+A reminder is scheduled. Development accounts and sessions must not be imported.
+
+Next: validate and merge the updated PR, publish the approved release, install its exact
+images, import only the catalog/media, provision the owner, and verify public functionality
+and same-server backup restoration. Base preparation commit: `240d688`.
+
+The following preparation record is historical; its pending authorization statements are
+superseded by this approved rollout record.

@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     illustration_output_dir: str = "./var/illustrations"
     maximum_processing_cost: Decimal = Field(default=Decimal("1.00"), ge=0)
     polly_chunk_characters: int = Field(default=1500, ge=100, le=3000)
+    smtp_config_file: str | None = None
     openai_api_key_file: str | None = None
     openai_api_key: SecretStr | None = Field(default=None, validation_alias="OPENAI_API_KEY")
     openai_tts_model: str = Field(

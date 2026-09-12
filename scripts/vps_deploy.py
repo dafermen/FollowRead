@@ -1,6 +1,7 @@
 """Reviewable VPS update plan. No remote connections or shell interpolation."""
 
 import argparse
+import json
 import os
 import re
 import shutil
@@ -14,6 +15,7 @@ OPTIONAL_KEYS = {
     "FOLLOWREAD_POLLY_PROVIDER",
     "FOLLOWREAD_OPENAI_KEY_FILE",
     "FOLLOWREAD_DATA_VOLUME",
+    "FOLLOWREAD_SMTP_CONFIG_FILE",
 }
 
 
@@ -29,8 +31,9 @@ def load_release(path: Path) -> dict[str, str]:
     for component in ("api", "admin", "reader"):
         value = values.get(f"FOLLOWREAD_{component.upper()}_IMAGE", "")
         match = IMAGE_PATTERN.fullmatch(value)
-        if match is None or match.group(1) != component:
-            raise ValueError(f"{component} must use an immutable approved GHCR digest")
+        local = re.fullmatch(r"sha256:[0-9a-f]{64}", value)
+        if local is None and (match is None or match.group(1) != component):
+            raise ValueError(f"{component} must use an immutable approved image digest")
     if not re.fullmatch(r"[0-9a-f]{40}", values.get("FOLLOWREAD_REVISION", "")):
         raise ValueError("Release must identify its exact Git commit")
     required = {f"FOLLOWREAD_{part}_IMAGE" for part in ("API", "ADMIN", "READER")}
@@ -38,11 +41,42 @@ def load_release(path: Path) -> dict[str, str]:
         raise ValueError(
             "Unexpected release settings; do not put credentials in images.env"
         )
+    kinds = {
+        value.startswith("sha256:")
+        for key, value in values.items()
+        if key.endswith("_IMAGE")
+    }
+    if len(kinds) != 1:
+        raise ValueError("Do not mix local image IDs and registry references")
     return values
 
 
+def verify_local_images(values: dict[str, str]) -> None:
+    for component in ("api", "admin", "reader"):
+        expected = values[f"FOLLOWREAD_{component.upper()}_IMAGE"]
+        result = subprocess.run(
+            ["docker", "image", "inspect", expected],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        inspected = json.loads(result.stdout)[0]
+        if (
+            inspected["Id"] != expected
+            or inspected.get("Config", {})
+            .get("Labels", {})
+            .get("org.opencontainers.image.revision")
+            != values["FOLLOWREAD_REVISION"]
+            or inspected.get("Os") != "linux"
+            or inspected.get("Architecture") != "amd64"
+        ):
+            raise ValueError(
+                "Local image does not match the approved revision/platform"
+            )
+
+
 def deployment_plan(
-    compose: list[str], *, initialize: bool, rollback: bool
+    compose: list[str], *, initialize: bool, rollback: bool, local_images: bool = False
 ) -> list[list[str]]:
     backup = [
         "python",
@@ -56,7 +90,7 @@ def deployment_plan(
         backup.append("--initialize")
     plan = [
         [*compose, "config", "--quiet"],
-        [*compose, "pull"],
+        *([] if local_images else [[*compose, "pull"]]),
         [*compose, "stop", "api", "worker"],
         [*compose, "run", "--rm", "--no-deps", "migrate", *backup],
     ]
@@ -107,8 +141,12 @@ def main() -> None:
         "--file",
         str(root / "infrastructure/deployment/vps.compose.yaml"),
     ]
+    local_images = values["FOLLOWREAD_API_IMAGE"].startswith("sha256:")
     commands = deployment_plan(
-        compose, initialize=args.initialize, rollback=args.rollback
+        compose,
+        initialize=args.initialize,
+        rollback=args.rollback,
+        local_images=local_images,
     )
     for command in commands:
         print(subprocess.list2cmdline(command))
@@ -128,6 +166,8 @@ def main() -> None:
         environment = {**os.environ, **values}
         # The compose file validates the secret mount. Never output its contents.
         try:
+            if local_images:
+                verify_local_images(values)
             for command in commands:
                 subprocess.run(command, env=environment, check=True)
             smoke = [

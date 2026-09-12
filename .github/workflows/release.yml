@@ -84,7 +84,7 @@ jobs:
           docker save -o images.tar "$NAMESPACE/api:$VERSION" "$NAMESPACE/admin:$VERSION" "$NAMESPACE/reader:$VERSION"
           tar -czf followread-admin.tar.gz -C .release/admin .
           tar -czf followread-reader.tar.gz -C .release/reader .
-          tar -czf followread-deployment.tar.gz infrastructure/deployment scripts/vps_deploy.py docs/deployment/VPS_DEPLOYMENT.md
+          tar -czf followread-deployment.tar.gz infrastructure/deployment scripts/vps_deploy.py scripts/vps_backup.py docs/deployment/VPS_DEPLOYMENT.md
           sha256sum images.tar followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz > candidate.sha256
       - name: Upload validated candidate
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -126,11 +126,15 @@ jobs:
           docker load -i images.tar
           echo "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
           printf 'FOLLOWREAD_REVISION=%s\n' "$GITHUB_SHA" > images.env
+          printf 'FOLLOWREAD_REVISION=%s\n' "$GITHUB_SHA" > images.local.env
           for APP in api admin reader; do
             docker push "$NAMESPACE/$APP:$VERSION"
             DIGEST="$(docker inspect --format '{{index .RepoDigests 0}}' "$NAMESPACE/$APP:$VERSION")"
             KEY="$(echo "$APP" | tr '[:lower:]' '[:upper:]')"
             printf 'FOLLOWREAD_%s_IMAGE=%s\n' "$KEY" "$DIGEST" >> images.env
+            IMAGE_ID="$(docker inspect --format '{{.Id}}' "$NAMESPACE/$APP:$VERSION")"
+            printf 'FOLLOWREAD_%s_IMAGE=%s\n' "$KEY" "$IMAGE_ID" >> images.local.env
           done
-          sha256sum followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz images.env > SHA256SUMS
-          gh release create "$VERSION" followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz images.env SHA256SUMS --repo "$GITHUB_REPOSITORY" --verify-tag --notes-file release-notes.md --title "FollowRead $VERSION"
+          gzip -1 < images.tar > followread-images.tar.gz
+          sha256sum followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz followread-images.tar.gz images.env images.local.env > SHA256SUMS
+          gh release create "$VERSION" followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz followread-images.tar.gz images.env images.local.env SHA256SUMS --repo "$GITHUB_REPOSITORY" --verify-tag --notes-file release-notes.md --title "FollowRead $VERSION"

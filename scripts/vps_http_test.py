@@ -7,9 +7,11 @@ import ssl
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--ca", required=True)
+parser.add_argument("--reset-token-file", type=Path, required=True)
 parser.add_argument("--base", default="https://localhost:5443")
 args = parser.parse_args()
 jar = http.cookiejar.CookieJar()
@@ -116,6 +118,37 @@ while time.monotonic() < deadline:
 else:
     raise AssertionError("Persistent worker did not complete the queued job")
 print("PASS secure cookies, authorization, CSRF and persistent audio worker")
+reset_token = args.reset_token_file.read_text().strip()
+new_password = "Changed synthetic password only 2026!"
+assert (
+    request("/api/auth/password-reset/request", {"email": "vps-test@example.invalid"})[
+        0
+    ]
+    == 503
+)
+assert (
+    request(
+        "/api/auth/password-reset/confirm",
+        {"token": reset_token, "password": new_password},
+    )[0]
+    == 200
+)
+assert request("/api/admin/access")[0] == 401
+assert (
+    request(
+        "/api/auth/password-reset/confirm",
+        {"token": reset_token, "password": new_password},
+    )[0]
+    == 400
+)
+assert (
+    request(
+        "/api/auth/login",
+        {"email": "vps-test@example.invalid", "password": new_password},
+    )[0]
+    == 200
+)
+print("PASS one-use password reset, session revocation and new login over HTTPS")
 statuses = [
     request(
         "/api/auth/login", {"email": "nobody@example.invalid", "password": "invalid"}

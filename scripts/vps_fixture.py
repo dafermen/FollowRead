@@ -24,4 +24,9 @@ with create_session_factory(get_database_engine())() as session:
         chapter_two_path=Path("/fixtures/el-zorro-y-la-luna-chapter-2.png"),
         audio_output_dir=Path("/data/audio"),
     )
+    from followread_api.services.password_reset import issue_reset
+
+    link = issue_reset(session, "vps-test@example.invalid", cooldown=False)
+    assert link is not None
+    Path("/data/test-reset-token").write_text(link.split("#token=")[1])
 print("Synthetic owner and published story prepared")

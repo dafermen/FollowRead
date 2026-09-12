@@ -33,6 +33,7 @@ from followread_api.models.identity import (
     role_permissions,
     user_roles,
 )
+from followread_api.models.password_reset import PasswordResetToken
 from followread_api.models.reading import DownloadRecord, Favorite, ReadingProgress, VocabularyWord
 from followread_api.models.resources import AudioAsset, Illustration, ProcessingJob, SpeechMark
 
@@ -55,6 +56,7 @@ __all__ = [
     "JobStatus",
     "Language",
     "Paragraph",
+    "PasswordResetToken",
     "Permission",
     "ProcessingJob",
     "Publication",

@@ -15,6 +15,7 @@ x-api-environment: &api-environment
   FOLLOWREAD_DATABASE_URL: sqlite:////data/followread.db
   FOLLOWREAD_ALLOWED_ORIGINS: '["https://followread.innovalogic.tech"]'
   FOLLOWREAD_POLLY_PROVIDER: ${FOLLOWREAD_POLLY_PROVIDER:-fake}
+  FOLLOWREAD_SMTP_CONFIG_FILE: /run/secrets/smtp_config
   FOLLOWREAD_OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
   FOLLOWREAD_AUDIO_OUTPUT_DIR: /data/audio
   FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR: /data/illustrations
@@ -26,7 +27,7 @@ services:
     environment: *api-environment
     command: [python, -m, alembic, -c, /app/alembic.ini, upgrade, head]
     volumes: [followread-data:/data]
-    secrets: [openai_api_key]
+    secrets: [openai_api_key, smtp_config]
     restart: "no"
     mem_limit: 512m
   api:
@@ -35,7 +36,7 @@ services:
     environment: *api-environment
     command: [uvicorn, 'followread_api.main:app', --host, '0.0.0.0', --port, '8000', --no-access-log, --no-server-header, --root-path, /api, --proxy-headers, --forwarded-allow-ips, '172.30.84.11,172.30.84.12']
     volumes: [followread-data:/data]
-    secrets: [openai_api_key]
+    secrets: [openai_api_key, smtp_config]
     restart: unless-stopped
     mem_limit: 768m
     cpus: 1.0
@@ -53,7 +54,7 @@ services:
       start_period: 20s
       retries: 3
     volumes: [followread-data:/data]
-    secrets: [openai_api_key]
+    secrets: [openai_api_key, smtp_config]
     restart: unless-stopped
     stop_grace_period: 180s
     mem_limit: 768m
@@ -87,6 +88,8 @@ volumes:
   followread-data:
     name: ${FOLLOWREAD_DATA_VOLUME:-followread-production-data}
 secrets:
+  smtp_config:
+    file: ${FOLLOWREAD_SMTP_CONFIG_FILE:-/etc/followread/smtp.json}
   openai_api_key:
     file: ${FOLLOWREAD_OPENAI_KEY_FILE:-/etc/followread/openai_api_key}
 

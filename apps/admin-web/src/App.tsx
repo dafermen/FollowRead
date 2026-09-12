@@ -3,6 +3,7 @@ import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { adminHref, adminPathname } from "./navigation.js";
 
 import { DocumentationPage } from "./pages/DocumentationPage.js";
+import { PasswordResetPage } from "./pages/PasswordResetPage.js";
 import { LoginPage } from "./pages/LoginPage.js";
 
 const AdminExperience = lazy(async () => ({
@@ -28,6 +29,8 @@ export const App = () => {
     setPathname(path);
     window.scrollTo({ top: 0 });
   }, []);
+
+  if (pathname === "/reset-password") return <PasswordResetPage />;
 
   if (pathname === "/login") {
     return (

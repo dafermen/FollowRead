@@ -139,7 +139,7 @@ export const LoginPage = ({ onAuthenticated }: LoginPageProps) => {
                 <input type="checkbox" name="remember" />
                 <span>Recordar mi correo</span>
               </label>
-              <span title="Disponible en una fase posterior">Recuperar acceso</span>
+              <a href={adminHref("/reset-password")}>Recuperar acceso</a>
             </div>
             <button
               className="button button--primary button--wide"

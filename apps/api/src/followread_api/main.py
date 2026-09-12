@@ -14,6 +14,7 @@ from followread_api.api.routes.authentication import (
 )
 from followread_api.api.routes.catalog import router as catalog_router
 from followread_api.api.routes.health import router as health_router
+from followread_api.api.routes.password_reset import router as password_reset_router
 from followread_api.api.routes.reader_sync import router as reader_sync_router
 from followread_api.config import get_settings
 from followread_api.observability import (
@@ -49,6 +50,7 @@ def create_app() -> FastAPI:
     application.add_exception_handler(DomainError, domain_error_handler)
     application.include_router(health_router, prefix=settings.api_prefix)
     application.include_router(authentication_router, prefix=settings.api_prefix)
+    application.include_router(password_reset_router, prefix=settings.api_prefix)
     application.include_router(administration_router, prefix=settings.api_prefix)
     application.include_router(catalog_router, prefix=settings.api_prefix)
     application.include_router(reader_sync_router, prefix=settings.api_prefix)
