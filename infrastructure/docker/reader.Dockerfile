@@ -24,7 +24,7 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 RUN pnpm --filter @followread/reader-engine build && \
     pnpm --filter @followread/reader build
 
-FROM nginx:1.30.4-alpine3.24 AS runtime
+FROM nginx:1.31.5-alpine3.24 AS runtime
 RUN apk add --no-cache 'libuuid>=2.42.3-r1'
 COPY infrastructure/docker/nginx.conf /etc/nginx/nginx.conf
 COPY infrastructure/docker/security-headers.conf /etc/nginx/security-headers.conf
