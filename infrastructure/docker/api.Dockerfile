@@ -1,4 +1,4 @@
-FROM python:3.12.14-alpine3.24 AS builder
+FROM python:3.14.7-alpine3.24 AS builder
 RUN apk add --no-cache 'libuuid>=2.42.3-r1'
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
@@ -12,7 +12,7 @@ COPY apps/api/requirements-linux.lock ./requirements-linux.lock
 RUN python -m pip install --require-hashes -r requirements-linux.lock
 COPY apps/api/src/followread_api /opt/followread/lib/python3.12/site-packages/followread_api
 
-FROM python:3.12.14-alpine3.24 AS runtime
+FROM python:3.14.7-alpine3.24 AS runtime
 RUN apk add --no-cache 'libuuid>=2.42.3-r1'
 
 ENV PATH="/opt/followread/bin:$PATH" \
