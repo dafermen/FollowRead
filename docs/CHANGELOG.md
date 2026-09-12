@@ -7,6 +7,8 @@ The project does not yet have a stable public release.
 
 ### Public test release preparation (2026-09-12)
 
+- Preserve downloaded illustrations across service-worker updates while discarding private legacy cache entries.
+
 - One-use password recovery and initial access links; old sessions are revoked after reset.
 - Optional TLS SMTP configuration outside the repository; honest assisted-recovery fallback.
 - Owner-approved protected main/release workflow and a dedicated HTTPS site on the test VPS.

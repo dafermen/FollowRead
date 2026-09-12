@@ -6,6 +6,27 @@ this record and its exact SHA is in the owner's review report. No changes have b
 Local staging used the actual Linux production images with synthetic data and a disposable
 localhost certificate. The VPS was inspected read-only. Physical iOS is a separate release.
 
+## Authorized test rollout update
+
+The owner accepted GitHub publication and the public web test deployment on 2026-09-12.
+Main and the release environment now enforce the approved policies. The public certificate
+was issued and its renewal dry run passed. Same-server daily backups with seven-copy retention
+were explicitly selected for this demonstration VPS; final-production off-server storage and
+SMTP delivery remain deferred. Initial access uses a private operator-issued recovery link.
+
+Local validation now covers 130 API, 17 Admin, 44 Reader, 9 shared-package and 3 service-worker
+tests. The API reports 94% line coverage including the new optional email paths. Dependencies
+report no known vulnerabilities. CI run `34708307219` passed quality, production containers,
+TLS recovery/session checks, queue processing, restoration/restart and runtime image scans.
+
+PR review then identified a downloaded-image cache migration defect. The correction preserves
+public `/stories/` downloads in a dedicated stable cache and removes private legacy entries.
+A regression simulates activation with old cached data, then serves the image without network.
+The final correction must pass the required CI checks before merging and releasing.
+
+The following original preparation record is historical and its pending-authorization statements
+are superseded by this approved test rollout. External deployment evidence will follow.
+
 ## Evidence and limits
 
 | # | Category | Candidate evidence | State |

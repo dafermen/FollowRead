@@ -39,7 +39,9 @@ A reminder is scheduled. Development accounts and sessions must not be imported.
 
 Next: validate and merge the updated PR, publish the approved release, install its exact
 images, import only the catalog/media, provision the owner, and verify public functionality
-and same-server backup restoration. Base preparation commit: `240d688`.
+and same-server backup restoration. Base preparation commit: `240d688`. Follow-up recovery/portable deployment: `5946189`;
+container mount restoration: `9689dbf`. CI `34708307219` passed. A PR review correction
+now preserves downloaded public illustrations across cache upgrades; its final CI is pending.
 
 The following preparation record is historical; its pending authorization statements are
 superseded by this approved rollout record.
