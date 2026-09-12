@@ -37,6 +37,7 @@ Thumbs.db
 *.log
 *.tmp
 .cache/
+**/.vitepress/cache/
 tmp/
 
 # Local databases and containers
@@ -53,3 +54,14 @@ postgres-data/
 # Local Codex files
 .codex/
 .agents/
+
+# Deployment keys and portable database files
+*.db
+*.db-*
+*.pem
+*.key
+*.p12
+*.pfx
+
+.pytest-temp*/
+.release/

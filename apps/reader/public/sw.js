@@ -1,5 +1,6 @@
-const SHELL_CACHE = "followread-shell-v4";
-const CONTENT_CACHE = "followread-content-v3";
+const SHELL_CACHE = "followread-shell-v6";
+const CONTENT_CACHE = "followread-content-v4";
+const DOWNLOAD_CACHE = "followread-downloads-v1";
 const SHELL_ASSETS = [
   "/",
   "/offline/bootstrap.json",
@@ -13,19 +14,36 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(
-          keys
-            .filter((key) => key !== SHELL_CACHE && key !== CONTENT_CACHE)
-            .map((key) => caches.delete(key)),
-        ),
-      ),
-  );
+  event.waitUntil(upgradeCaches());
   self.clients.claim();
 });
+
+async function upgradeCaches() {
+  const keys = await caches.keys();
+  // Older app versions stored downloaded illustrations here. Migrate only public assets.
+  if (keys.includes("followread-content-v1")) {
+    const legacy = await caches.open("followread-content-v1");
+    const downloads = await caches.open(DOWNLOAD_CACHE);
+    for (const request of await legacy.keys()) {
+      const url = new URL(request.url);
+      if (url.origin === self.location.origin && url.pathname.startsWith("/stories/")) {
+        const response = await legacy.match(request);
+        if (response !== undefined && (await downloads.match(request)) === undefined) {
+          await downloads.put(request, response);
+        }
+      }
+    }
+  }
+  await Promise.all(
+    keys
+      .filter(
+        (key) =>
+          key.startsWith("followread-") &&
+          ![SHELL_CACHE, CONTENT_CACHE, DOWNLOAD_CACHE].includes(key),
+      )
+      .map((key) => caches.delete(key)),
+  );
+}
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
@@ -33,6 +51,18 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   const url = new URL(request.url);
+  // Admin and API share the public origin. Never cache sessions or editorial responses.
+  if (/^\/(api|admin|auth|metrics)(\/|$)/u.test(url.pathname)) {
+    return;
+  }
+  // Vite modules are needed for local offline regression; never enable this on public hosts.
+  if (
+    ["localhost", "127.0.0.1"].includes(url.hostname) &&
+    /^\/(src|@vite|@react-refresh|@fs|node_modules)(\/|$)/u.test(url.pathname)
+  ) {
+    event.respondWith(networkFirstBootstrap(request));
+    return;
+  }
   if (url.pathname === "/offline/bootstrap.json") {
     event.respondWith(networkFirstBootstrap(request));
     return;
@@ -49,7 +79,9 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(cacheFirst(request));
     return;
   }
-  event.respondWith(staleWhileRevalidate(request, event));
+  if (url.pathname.startsWith("/stories/")) {
+    event.respondWith(staleWhileRevalidate(request, event));
+  }
 });
 
 async function networkFirstNavigation(request) {
@@ -93,7 +125,8 @@ async function networkFirstBootstrap(request) {
 
 async function staleWhileRevalidate(request, event) {
   const cache = await caches.open(CONTENT_CACHE);
-  const cached = await cache.match(request);
+  const downloads = await caches.open(DOWNLOAD_CACHE);
+  const cached = (await cache.match(request)) ?? (await downloads.match(request));
   const update = fetch(request).then(async (response) => {
     if (response.ok) {
       await cache.put(request, response.clone());

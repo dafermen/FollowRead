@@ -34,6 +34,12 @@ if (process.argv.includes("--check")) {
 
 const services = [
   {
+    name: "Audio worker",
+    command: pythonExecutable,
+    args: ["-m", "followread_api.cli.processing_worker"],
+    shell: false,
+  },
+  {
     name: "API",
     command: pythonExecutable,
     args: [
@@ -43,10 +49,18 @@ const services = [
       "--app-dir",
       "apps/api/src",
       "--reload",
+      "--reload-dir",
+      "apps/api/src",
       "--port",
       "8000",
     ],
     shell: false,
+  },
+  {
+    name: "Documentation",
+    command: pnpmCommand,
+    args: ["docs:dev"],
+    shell: process.platform === "win32",
   },
   {
     name: "Admin",
@@ -65,6 +79,7 @@ const services = [
 console.log("Starting FollowRead:");
 console.log("  Reader  http://localhost:5174");
 console.log("  Admin   http://localhost:5173");
+console.log("  Docs    http://localhost:5173/docs/");
 console.log("  API     http://localhost:8000/docs");
 console.log("Press Ctrl+C to stop all services.");
 

@@ -276,6 +276,7 @@ def start_processing(
             language=body.language,
             voice_id=body.voice_id,
             idempotency_key=body.idempotency_key,
+            defer=True,
         ),
     )
 
@@ -294,7 +295,7 @@ def retry_processing(
     _user: ContentProcessorUser,
 ) -> ProcessingJobResponse:
     _validate_mutation_request(request, authentication)
-    return processing_job_response(processing.retry(job_id))
+    return processing_job_response(processing.retry(job_id, defer=True))
 
 
 @router.post(

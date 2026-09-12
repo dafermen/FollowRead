@@ -1,0 +1,99 @@
+name: followread-production
+
+x-hardening: &hardening
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: ["/tmp:size=128m,mode=1777"]
+  pids_limit: 128
+  logging:
+    driver: json-file
+    options: {max-size: "10m", max-file: "3"}
+
+x-api-environment: &api-environment
+  FOLLOWREAD_ENVIRONMENT: production
+  FOLLOWREAD_DATABASE_URL: sqlite:////data/followread.db
+  FOLLOWREAD_ALLOWED_ORIGINS: '["https://followread.innovalogic.tech"]'
+  FOLLOWREAD_POLLY_PROVIDER: ${FOLLOWREAD_POLLY_PROVIDER:-fake}
+  FOLLOWREAD_SMTP_CONFIG_FILE: /run/secrets/smtp_config
+  FOLLOWREAD_OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
+  FOLLOWREAD_AUDIO_OUTPUT_DIR: /data/audio
+  FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR: /data/illustrations
+
+services:
+  migrate:
+    <<: *hardening
+    image: ${FOLLOWREAD_API_IMAGE:?Set an approved API image digest}
+    environment: *api-environment
+    command: [python, -m, alembic, -c, /app/alembic.ini, upgrade, head]
+    volumes: [followread-data:/data]
+    secrets: [openai_api_key, smtp_config]
+    restart: "no"
+    mem_limit: 512m
+  api:
+    <<: *hardening
+    image: ${FOLLOWREAD_API_IMAGE:?Set an approved API image digest}
+    environment: *api-environment
+    command: [uvicorn, 'followread_api.main:app', --host, '0.0.0.0', --port, '8000', --no-access-log, --no-server-header, --root-path, /api, --proxy-headers, --forwarded-allow-ips, '172.30.84.11,172.30.84.12']
+    volumes: [followread-data:/data]
+    secrets: [openai_api_key, smtp_config]
+    restart: unless-stopped
+    mem_limit: 768m
+    cpus: 1.0
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  worker:
+    <<: *hardening
+    image: ${FOLLOWREAD_API_IMAGE:?Set an approved API image digest}
+    environment: *api-environment
+    command: [python, -m, followread_api.cli.processing_worker]
+    healthcheck:
+      test: [CMD, python, -c, "from pathlib import Path; import time; p=Path('/tmp/followread-worker-heartbeat'); assert p.exists() and time.time()-p.stat().st_mtime < 240"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+    volumes: [followread-data:/data]
+    secrets: [openai_api_key, smtp_config]
+    restart: unless-stopped
+    stop_grace_period: 180s
+    mem_limit: 768m
+    cpus: 1.0
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  admin:
+    <<: *hardening
+    image: ${FOLLOWREAD_ADMIN_IMAGE:?Set an approved Admin image digest}
+    networks:
+      default: {ipv4_address: 172.30.84.11}
+    ports: ["127.0.0.1:5181:8080"]
+    restart: unless-stopped
+    mem_limit: 128m
+    cpus: 0.5
+    depends_on:
+      api: {condition: service_healthy}
+  reader:
+    <<: *hardening
+    image: ${FOLLOWREAD_READER_IMAGE:?Set an approved Reader image digest}
+    networks:
+      default: {ipv4_address: 172.30.84.12}
+    ports: ["127.0.0.1:5180:8080"]
+    restart: unless-stopped
+    mem_limit: 128m
+    cpus: 0.5
+    depends_on:
+      api: {condition: service_healthy}
+
+volumes:
+  followread-data:
+    name: ${FOLLOWREAD_DATA_VOLUME:-followread-production-data}
+secrets:
+  smtp_config:
+    file: ${FOLLOWREAD_SMTP_CONFIG_FILE:-/etc/followread/smtp.json}
+  openai_api_key:
+    file: ${FOLLOWREAD_OPENAI_KEY_FILE:-/etc/followread/openai_api_key}
+
+networks:
+  default:
+    ipam:
+      config: [{subnet: 172.30.84.0/24}]

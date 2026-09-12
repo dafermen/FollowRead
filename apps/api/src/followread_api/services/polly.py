@@ -10,6 +10,7 @@ from uuid import UUID
 
 import httpx
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from followread_api.models import (
@@ -421,6 +422,8 @@ class PollyProcessingService:
         language: Language,
         voice_id: str,
         idempotency_key: str,
+        defer: bool = False,
+        resume_job_id: UUID | None = None,
     ) -> ProcessingJob:
         if VOICE_LANGUAGES.get(voice_id) != language:
             raise InvalidCatalogQueryError(
@@ -455,7 +458,17 @@ class PollyProcessingService:
         existing = self._session.scalar(
             select(ProcessingJob).where(ProcessingJob.idempotency_key == idempotency_key),
         )
-        if existing is not None:
+        if existing is not None and (
+            existing.content_version_id != content_version_id
+            or existing.language != language
+            or (existing.voice_id is not None and existing.voice_id != voice_id)
+        ):
+            raise InvalidCatalogQueryError(
+                "idempotency_key", "This key belongs to another request."
+            )
+        if existing is not None and (
+            existing.id != resume_job_id or existing.status != JobStatus.RUNNING
+        ):
             return existing
         source_checksum = self._source_checksum(text, voice_id, language)
         asset = self._session.scalar(
@@ -472,7 +485,7 @@ class PollyProcessingService:
             self._repair_cached_mark_order(asset)
             self._session.flush()
             self._refresh_published_checksum(version)
-            job = ProcessingJob(
+            job = existing or ProcessingJob(
                 content_version_id=version.id,
                 language=language,
                 job_type="polly_audio",
@@ -482,16 +495,19 @@ class PollyProcessingService:
                 progress_percent=100,
                 estimated_cost=Decimal("0"),
             )
-            self._session.add(job)
-            self._session.commit()
-            return job
+            job.voice_id = voice_id
+            job.status = JobStatus.SUCCEEDED
+            job.stage = "cached"
+            job.progress_percent = 100
+            job.estimated_cost = Decimal("0")
+            return self._commit_job(job)
         estimated_cost = Decimal(len(text)) * COST_PER_CHARACTER
         if estimated_cost > self._maximum_cost:
             raise InvalidCatalogQueryError(
                 "cost", "The estimated processing cost exceeds the limit."
             )
 
-        job = ProcessingJob(
+        job = existing or ProcessingJob(
             content_version_id=version.id,
             language=language,
             job_type="polly_audio",
@@ -501,8 +517,13 @@ class PollyProcessingService:
             progress_percent=10,
             estimated_cost=estimated_cost,
         )
-        self._session.add(job)
-        self._session.flush()
+        job.voice_id = voice_id
+        job.status = JobStatus.QUEUED if defer else JobStatus.RUNNING
+        job.stage = "queued" if defer else "synthesizing"
+        job.progress_percent = 0 if defer else 10
+        committed = self._commit_job(job)
+        if committed is not job or defer:
+            return committed
         try:
             chunks = self._chunker.split(text)
             audio_parts: list[bytes] = []
@@ -510,7 +531,13 @@ class PollyProcessingService:
             character_offset = 0
             time_offset = 0
             for chunk in chunks:
+                self._session.refresh(job)
+                if job.status == JobStatus.CANCELLED:
+                    return job
                 generated = self._adapter.synthesize(chunk, voice_id, language)
+                self._session.refresh(job)
+                if job.status == JobStatus.CANCELLED:
+                    return job
                 audio_parts.append(generated.audio)
                 all_marks.extend(
                     GeneratedMark(
@@ -566,11 +593,13 @@ class PollyProcessingService:
             job.status = JobStatus.SUCCEEDED
             job.stage = "completed"
             job.progress_percent = 100
-        except Exception as error:
+        except Exception:
             job.status = JobStatus.FAILED
             job.stage = "failed"
             job.error_code = "polly.processing_failed"
-            job.error_detail = str(error)[:500]
+            job.error_detail = (
+                "Audio generation failed. Check the provider configuration and retry."
+            )
         self._session.commit()
         return job
 
@@ -623,7 +652,36 @@ class PollyProcessingService:
             ).all(),
         )
 
-    def retry(self, job_id: UUID) -> ProcessingJob:
+    def _commit_job(self, job: ProcessingJob) -> ProcessingJob:
+        # A concurrent request may have won the unique idempotency-key insert.
+        key, version_id, language, voice = (
+            job.idempotency_key,
+            job.content_version_id,
+            job.language,
+            job.voice_id,
+        )
+        self._session.add(job)
+        try:
+            self._session.commit()
+        except IntegrityError:
+            self._session.rollback()
+            winner = self._session.scalar(
+                select(ProcessingJob).where(ProcessingJob.idempotency_key == key)
+            )
+            if winner is None:
+                raise
+            if (winner.content_version_id, winner.language, winner.voice_id) != (
+                version_id,
+                language,
+                voice,
+            ):
+                raise InvalidCatalogQueryError(
+                    "idempotency_key", "This key belongs to another request."
+                ) from None
+            return winner
+        return job
+
+    def retry(self, job_id: UUID, *, defer: bool = False) -> ProcessingJob:
         job = self._session.get(ProcessingJob, job_id)
         if job is None:
             raise ContentNotFoundError(str(job_id))
@@ -632,7 +690,8 @@ class PollyProcessingService:
         return self.process(
             content_version_id=job.content_version_id,
             language=job.language,
-            voice_id=self._voice_from_failed_job(job),
+            voice_id=job.voice_id or self._voice_from_failed_job(job),
+            defer=defer,
             idempotency_key=f"{job.idempotency_key}:retry",
         )
 

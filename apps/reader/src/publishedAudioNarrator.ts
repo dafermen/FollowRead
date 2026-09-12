@@ -29,6 +29,7 @@ const API_BASE_URL =
  */
 export class PublishedAudioNarrator {
   private loadedUri: string | null = null;
+  private playbackFailure: (() => void) | null = null;
   private resumeReady = false;
 
   constructor(private readonly audio: AudioPort | null) {}
@@ -57,10 +58,24 @@ export class PublishedAudioNarrator {
     }
     this.audio.currentTime = Math.max(0, startTimeMs) / 1000;
     this.audio.playbackRate = rate;
-    this.audio.onended = callbacks.onEnd;
-    this.audio.onerror = callbacks.onError;
+    const handleFailure = (): void => {
+      if (!this.resumeReady) {
+        return;
+      }
+      this.resumeReady = false;
+      callbacks.onError();
+    };
+    this.playbackFailure = handleFailure;
+    this.audio.onended = () => {
+      if (!this.resumeReady) {
+        return;
+      }
+      this.resumeReady = false;
+      callbacks.onEnd();
+    };
+    this.audio.onerror = handleFailure;
     this.resumeReady = true;
-    void this.audio.play().catch(callbacks.onError);
+    void this.audio.play().catch(handleFailure);
     return true;
   }
 
@@ -74,7 +89,8 @@ export class PublishedAudioNarrator {
     if (this.audio === null || this.loadedUri === null || !this.resumeReady || !this.audio.paused) {
       return false;
     }
-    void this.audio.play();
+    const playbackFailure = this.playbackFailure;
+    void this.audio.play().catch(() => playbackFailure?.());
     return true;
   }
 
@@ -83,6 +99,11 @@ export class PublishedAudioNarrator {
       this.audio?.pause();
     }
     this.resumeReady = false;
+    this.playbackFailure = null;
+    if (this.audio !== null) {
+      this.audio.onended = null;
+      this.audio.onerror = null;
+    }
   }
 }
 
@@ -90,7 +111,8 @@ export const resolvePublishedAudioUrl = (uri: string): string => {
   if (/^https?:\/\//u.test(uri)) {
     return uri;
   }
-  return new URL(uri, `${API_BASE_URL}/`).toString();
+  const base = new URL(`${API_BASE_URL.replace(/\/$/u, "")}/`, window.location.origin);
+  return new URL(uri.replace(/^\//u, ""), base).toString();
 };
 
 export const createPublishedAudioNarrator = (): PublishedAudioNarrator => {

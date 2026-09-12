@@ -10,7 +10,16 @@ Before deploying, each row must have evidence associated with the same commit an
 An exception `WAIVED` requires recorded risk, scope, owner, explicit approval, and an expiration date.  
 `PARTIAL`, `NOT_IMPLEMENTED`, `BLOCKED`, `FAIL` or absence of evidence block the deployment.
 
-## Current matrix
+## Current VPS candidate
+
+The local web candidate dated 2026-09-12 now has recorded evidence for all technical
+categories in [VPS candidate validation](VPS_CANDIDATE.md). Owner acceptance, repository
+protection/workflow execution and public rollout remain pending. No exception is granted.
+`PASS_LOCAL` records a measured local result and must be associated with the approved
+release commit; it is not authorization to publish. The bounded scope of generated inputs,
+selected mutations, contracts and traffic measurements is explicitly recorded there.
+
+## Historical matrix before the VPS preparation
 
 | # | Category | Current evidence or command | Current status | Gap to deploy |
 |---:|---|---|---|---|
@@ -28,7 +37,8 @@ An exception `WAIVED` requires recorded risk, scope, owner, explicit approval, a
 | 12 | Performance and resources | `quality:budget` and `quality:load` | PASS_LOCAL | measure candidate artifact with recorded budgets |
 | 13 | Compatibility and deployment | GitHub CI plus API/Admin/Reader image builds | BLOCKED | Compose, staging, rollback and physical iOS |
 
-The overall status remains `BLOCKED` because not all categories are in `PASS` or `WAIVED`.  
+The external gate remains `BLOCKED` pending candidate acceptance and operational readiness.
+The historical gaps below are superseded only by the explicit candidate evidence above.
 This conclusion must not be changed to accelerate a delivery.
 
 ## Execution order

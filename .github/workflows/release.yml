@@ -2,62 +2,55 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
   workflow_dispatch:
     inputs:
       version:
-        description: SemVer tag to validate without publishing
+        description: SemVer candidate to validate without publishing
         required: true
         default: v0.1.0
 
 permissions:
-  contents: write
-  packages: write
+  contents: read
 
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  release:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    environment: release
-
+    timeout-minutes: 45
+    outputs:
+      version: ${{ steps.version.outputs.value }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v6
+      - name: Check out reviewed source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
-
+          persist-credentials: false
       - name: Install pnpm
-        uses: pnpm/action-setup@v6
-
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: "24"
           cache: pnpm
-
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
-
       - name: Install dependencies
         run: |
           pnpm install --frozen-lockfile
-          python -m venv apps/api/.venv
           pnpm setup:python
-
-      - name: Validate release
+      - name: Validate source and dependencies
         run: |
           pnpm run ci
           pnpm security:audit
+          pnpm security:mutations
           pnpm deploy:validate
-
-      - name: Resolve release version
+      - name: Resolve version
         id: version
         env:
           INPUT_VERSION: ${{ inputs.version }}
@@ -69,67 +62,79 @@ jobs:
           fi
           node scripts/release-notes.mjs --version "$VERSION" --output release-notes.md
           echo "value=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Require production API URL for tagged releases
-        if: github.ref_type == 'tag'
+      - name: Build production images and export the exact web artifacts
         env:
-          API_BASE_URL: ${{ vars.FOLLOWREAD_API_BASE_URL }}
-        run: |
-          if [[ -z "$API_BASE_URL" || "$API_BASE_URL" != https://* ]]; then
-            echo "Repository variable FOLLOWREAD_API_BASE_URL must be an HTTPS URL."
-            exit 1
-          fi
-
-      - name: Build release containers
-        env:
-          API_BASE_URL: ${{ vars.FOLLOWREAD_API_BASE_URL }}
-          VERSION: ${{ steps.version.outputs.value }}
-        run: |
-          API_BASE_URL="${API_BASE_URL:-https://api.example.invalid}"
-          OWNER="$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')"
-          NAMESPACE="ghcr.io/$OWNER/followread"
-          docker build --file infrastructure/docker/api.Dockerfile --tag "$NAMESPACE/api:$VERSION" .
-          docker build --file infrastructure/docker/admin.Dockerfile --build-arg VITE_API_BASE_URL="$API_BASE_URL" --tag "$NAMESPACE/admin:$VERSION" .
-          docker build --file infrastructure/docker/reader.Dockerfile --build-arg VITE_API_BASE_URL="$API_BASE_URL" --tag "$NAMESPACE/reader:$VERSION" .
-
-      - name: Publish release containers
-        if: github.ref_type == 'tag'
-        env:
-          GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.value }}
         run: |
           OWNER="$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')"
           NAMESPACE="ghcr.io/$OWNER/followread"
-          echo "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
-          docker push "$NAMESPACE/api:$VERSION"
-          docker push "$NAMESPACE/admin:$VERSION"
-          docker push "$NAMESPACE/reader:$VERSION"
-
-      - name: Package web builds
-        run: |
-          tar -czf followread-admin.tar.gz -C apps/admin-web/dist .
-          tar -czf followread-reader.tar.gz -C apps/reader/dist .
-
-      - name: Upload release candidate
-        uses: actions/upload-artifact@v7
+          docker build --file infrastructure/docker/api.Dockerfile --label "org.opencontainers.image.revision=$GITHUB_SHA" --tag "$NAMESPACE/api:$VERSION" .
+          docker build --file infrastructure/docker/admin.Dockerfile --build-arg VITE_API_BASE_URL=/api --build-arg VITE_BASE_PATH=/admin/ --build-arg FOLLOWREAD_DOCS_BASE=/admin/docs/ --build-arg VITE_READER_BASE_URL=/ --label "org.opencontainers.image.revision=$GITHUB_SHA" --tag "$NAMESPACE/admin:$VERSION" .
+          docker build --file infrastructure/docker/reader.Dockerfile --build-arg VITE_API_BASE_URL=/api --label "org.opencontainers.image.revision=$GITHUB_SHA" --tag "$NAMESPACE/reader:$VERSION" .
+          python scripts/verify_vps.py --namespace "$NAMESPACE" --tag "$VERSION"
+          mkdir -p .release/admin .release/reader
+          for APP in api admin reader; do
+            bash scripts/scan-image.sh "$NAMESPACE/$APP:$VERSION" "$APP"
+          done
+          for APP in admin reader; do
+            CONTAINER="$(docker create "$NAMESPACE/$APP:$VERSION")"
+            docker cp "$CONTAINER:/usr/share/nginx/html/." ".release/$APP/"
+            docker rm "$CONTAINER"
+          done
+          docker save -o images.tar "$NAMESPACE/api:$VERSION" "$NAMESPACE/admin:$VERSION" "$NAMESPACE/reader:$VERSION"
+          tar -czf followread-admin.tar.gz -C .release/admin .
+          tar -czf followread-reader.tar.gz -C .release/reader .
+          tar -czf followread-deployment.tar.gz infrastructure/deployment scripts/vps_deploy.py scripts/vps_backup.py docs/deployment/VPS_DEPLOYMENT.md
+          sha256sum images.tar followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz > candidate.sha256
+      - name: Upload validated candidate
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: followread-${{ steps.version.outputs.value }}
+          name: candidate-${{ github.sha }}
           path: |
-            followread-admin.tar.gz
-            followread-reader.tar.gz
+            images.tar
+            followread-*.tar.gz
             release-notes.md
+            candidate.sha256
+            .release/scans/*.json
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 14
+          include-hidden-files: true
 
-      - name: Create GitHub release
-        if: github.ref_type == 'tag'
+  publish:
+    if: github.ref_type == 'tag'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: release
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Download this run's validated candidate
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: candidate-${{ github.sha }}
+      - name: Verify candidate integrity
+        run: sha256sum --check candidate.sha256
+      - name: Publish approved images and immutable manifest
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.version.outputs.value }}
-        run: >-
-          gh release create "$VERSION"
-          followread-admin.tar.gz
-          followread-reader.tar.gz
-          --verify-tag
-          --notes-file release-notes.md
-          --title "FollowRead $VERSION"
+          VERSION: ${{ needs.validate.outputs.version }}
+        run: |
+          OWNER="$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')"
+          NAMESPACE="ghcr.io/$OWNER/followread"
+          docker load -i images.tar
+          echo "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          printf 'FOLLOWREAD_REVISION=%s\n' "$GITHUB_SHA" > images.env
+          printf 'FOLLOWREAD_REVISION=%s\n' "$GITHUB_SHA" > images.local.env
+          for APP in api admin reader; do
+            docker push "$NAMESPACE/$APP:$VERSION"
+            DIGEST="$(docker inspect --format '{{index .RepoDigests 0}}' "$NAMESPACE/$APP:$VERSION")"
+            KEY="$(echo "$APP" | tr '[:lower:]' '[:upper:]')"
+            printf 'FOLLOWREAD_%s_IMAGE=%s\n' "$KEY" "$DIGEST" >> images.env
+            IMAGE_ID="$(docker inspect --format '{{.Id}}' "$NAMESPACE/$APP:$VERSION")"
+            printf 'FOLLOWREAD_%s_IMAGE=%s\n' "$KEY" "$IMAGE_ID" >> images.local.env
+          done
+          gzip -1 < images.tar > followread-images.tar.gz
+          sha256sum followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz followread-images.tar.gz images.env images.local.env > SHA256SUMS
+          gh release create "$VERSION" followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz followread-images.tar.gz images.env images.local.env SHA256SUMS --repo "$GITHUB_REPOSITORY" --verify-tag --notes-file release-notes.md --title "FollowRead $VERSION"

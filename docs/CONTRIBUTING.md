@@ -26,7 +26,7 @@ pnpm check
 ```
 
 Critical changes must also pass `pnpm quality:regression`. Before any external deployment, the matrix in
-[`docs/testing/PRE_DEPLOYMENT_TESTS.md`](docs/testing/PRE_DEPLOYMENT_TESTS.md) applies, with no silent omissions.
+[`docs/testing/PRE_DEPLOYMENT_TESTS.md`](testing/PRE_DEPLOYMENT_TESTS.md) applies, with no silent omissions.
 
 ## Pull requests
 

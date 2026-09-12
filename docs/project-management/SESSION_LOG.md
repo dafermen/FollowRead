@@ -811,3 +811,125 @@ GitHub rerun, and continue the Docker/staging gates for Phase 13.
 
 The remaining Phase 13 gates are a running Compose deployment, staging migration/smoke/backup/
 rollback, physical iOS validation and the advanced pre-deployment test categories.
+
+---
+
+## Continuation 2026-08-01 - Navigable documentation portal
+
+- Added a branded VitePress portal at `/docs/` without moving or duplicating the canonical Markdown
+  sources.
+- Organized existing documents into product, experience, architecture, quality, delivery, and
+  project-management navigation; added local search, light/dark themes, outlines, previous/next
+  links, Mermaid rendering, accessible focus, reduced motion, and mobile touch targets.
+- Reused the FollowRead logo and Reader palette, while preserving the application at `/` and adding
+  a native same-tab return link in desktop and mobile navigation.
+- Added the documentation service to `pnpm dev`, the Admin development proxy, Admin production
+  artifacts, Nginx clean routes, Docker packaging, and visible Admin links.
+- Replaced VitePress development serving on Windows with a freshness-aware static server after real
+  Chrome exposed invalid `C:\\...` module URLs. The documented source remains VitePress and rebuilds
+  automatically when stale.
+- Added static artifact checks and `pnpm docs:e2e`; real Chrome passed desktop 1440x900, mobile
+  390x844, dark mode, internal navigation, horizontal fit, and same-tab application return.
+- Pinned VitePress's compatible internal Vite to patched 6.4.3 after the dependency audit exposed
+  advisories in its default Vite 5 line. The final audit reports no known vulnerabilities and the
+  peer-dependency check reports no conflicts; Admin and Reader continue using Vite 8.1.5.
+- `pnpm check` passed with documentation/workflow/deployment/mobile validation, formatting, lint,
+  types, 111 API tests, 42 Reader tests, 14 Admin tests, shared packages, and production builds.
+
+Phase 13 remains open only for the previously recorded Docker, staging, advanced testing, and
+physical iOS external gates.
+## Session 2026-08-03 - Published audio interruption recovery
+
+### Objective
+
+Diagnose the Reader warning that reported an interrupted published audio track and make playback
+recoverable.
+
+### Work performed
+
+- Identified that port 8000 was serving SpeakFlowAI instead of FollowRead and stopped only the two
+  validated SpeakFlowAI Uvicorn processes.
+- Started the FollowRead API on its canonical port and verified the health endpoint, Reader package,
+  Spanish and English MP3 assets, CORS headers, content type, and byte-range support.
+- Updated the published-audio narrator so an error or completed track cannot retain a stale resumable
+  state and a subsequent play action can retry cleanly.
+- Expanded unit coverage and the real-Chrome Reader E2E flow to require an actual published MP3
+  request, active playback state, and absence of the interruption warning.
+
+### Tests executed
+
+- `pnpm --filter @followread/reader test -- publishedAudioNarrator.test.ts`: PASS, 4 tests.
+- `pnpm reader:e2e`: PASS, including published MP3 playback and all bilingual Reader routes.
+
+### Exact continuation point
+
+The user can refresh the Reader and press Play. Final audible acceptance of voice quality and word
+synchronization remains pending; deployment validations remain unchanged.
+
+---
+
+
+## Session 2026-09-12 - Secure VPS candidate
+
+## VPS candidate reviewed on 2026-09-12
+
+**Phase 13 remains IN_PROGRESS. Local web candidate validated; owner acceptance and external rollout are pending.**
+The owner selected `followread.innovalogic.tech` and supplied an existing SSH configuration.
+Server inspection was read-only. No GitHub push, tag, release, certificate issuance or VPS change
+was performed. The earlier statement that Docker is unavailable is superseded: Linux images and
+Compose were exercised locally through WSL Ubuntu.
+
+Delivered: same-origin Reader/Admin/API routing, hardened Docker/Nginx configuration, persistent
+single-worker audio queue with concurrent idempotency and interruption recovery, safer PWA cache,
+dependency updates, image vulnerability scans, pinned GitHub Actions, protected release publication,
+digest-based update helper and verified SQLite/media snapshots. The owner's documentation moves
+are preserved, with a root AGENTS pointer and corrected links.
+
+Validation: full `pnpm check`; 126 API tests (96% line coverage), 44 Reader tests, 15 Admin tests,
+9 shared-package tests and two service-worker security tests. Reader, offline, mobile, learning,
+accessibility and documentation browser checks passed. Load: 120 requests at concurrency 12,
+p95 192.2 ms in the local measurement. JavaScript/Python audits reported no known vulnerabilities;
+the three runtime images reported zero high/critical vulnerabilities and no matching secrets.
+Selected mutation checks detected both weakened controls. Generated cases cover 500 Unicode
+chunk invariants and 1,500 unsafe catalog inputs. These are bounded tests, not exhaustive fuzzing
+or a whole-project mutation score.
+
+The production containers passed HTTPS, authorization, cookies, CSRF, private-route blocking,
+login throttling, queue processing, snapshot restoration and restart. Real Chrome loaded Reader,
+bilingual content, Admin login/catalog and VitePress under production paths and CSP.
+
+Next: owner reviews the local candidate commit and approves GitHub publication. Then configure
+repository/environment protection, validate the first updated workflow run, agree initial data and
+off-server backup storage, and obtain explicit approval for the VPS rollout. Record external
+certificate/renewal, smoke and rollback evidence afterward. Physical iOS is outside this web release
+and remains a separate gate before TestFlight. Do not mark Phase 13 completed prematurely.
+
+Base commit: `6632238`. The exact new local commit is in the delivered review report; it has not
+been pushed. See [VPS runbook](../deployment/VPS_DEPLOYMENT.md) and [candidate test record](../testing/VPS_CANDIDATE.md).
+
+
+## Authorized public test rollout — 2026-09-12
+
+The owner approved GitHub publication and deployment to `followread.innovalogic.tech`.
+This VPS is a public demonstration/test environment, not the final production server.
+The owner explicitly chose same-server backups for now; off-server storage is deferred.
+The owner also approved main requiring PRs and passing `quality`/`containers`, with force
+pushes and deletions blocked, and owner self-approval of the protected release environment.
+These repository and environment protections are now enabled. PR #1 is open.
+
+FollowRead's separate Nginx site and Let's Encrypt certificate are installed; renewal timer
+and a domain-specific reload hook are active. Other sites were preserved. Application
+deployment, released-image scans and external smoke/restore evidence remain pending.
+
+Password recovery now supports hashed, expiring, single-use tokens, session revocation,
+trusted-origin validation, throttling and a private operator CLI. The owner will receive a
+private initial password-setting link. SMTP is intentionally disabled until the owner chooses
+a provider; the UI says to contact the operator instead of claiming an email was sent.
+A reminder is scheduled. Development accounts and sessions must not be imported.
+
+Next: validate and merge the updated PR, publish the approved release, install its exact
+images, import only the catalog/media, provision the owner, and verify public functionality
+and same-server backup restoration. Base preparation commit: `240d688`.
+
+The following preparation record is historical; its pending authorization statements are
+superseded by this approved rollout record.

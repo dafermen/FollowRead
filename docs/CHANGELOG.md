@@ -5,8 +5,30 @@ The project does not yet have a stable public release.
 
 ## Unreleased
 
+### Public test release preparation (2026-09-12)
+
+- Preserve downloaded illustrations across service-worker updates while discarding private legacy cache entries.
+
+- One-use password recovery and initial access links; old sessions are revoked after reset.
+- Optional TLS SMTP configuration outside the repository; honest assisted-recovery fallback.
+- Owner-approved protected main/release workflow and a dedicated HTTPS site on the test VPS.
+- Same-server daily snapshot procedure with seven-copy retention, as selected by the owner.
+
+
+### Prepared for VPS review (2026-09-12)
+
+- Production same-origin paths, existing Nginx integration, isolated containers and TLS runbook.
+- Persistent audio queue, one-worker volume lock, concurrent idempotency and explicit retry after interruption.
+- Restricted PWA caching, sanitized processing errors, bounded metric routes and production API hardening.
+- Audited runtime dependencies, hashed Linux Python lock, pinned Actions and image/credential scans.
+- Protected release validation/publication, immutable image manifest and approval-gated VPS update helper.
+- SQLite/media snapshot integrity, restore and restart tests; generated inputs and selected security mutations.
+
 ### Added
 
+- a responsive VitePress documentation portal under `/docs/` with local search, light/dark themes,
+  Mermaid diagrams, page outlines, previous/next navigation, and a same-tab return to Admin;
+- static documentation build verification and real Chrome desktop/mobile E2E validation;
 - an English portfolio README with a visual product tour and four verified Reader/Admin screenshots;
 - a reproducible `pnpm screenshots:readme` command for refreshing the README gallery;
 - an English, visually verified edition of the original FollowRead master project prompt;
@@ -29,6 +51,8 @@ The project does not yet have a stable public release.
 
 ### Changed
 
+- `pnpm dev` now starts the documentation service alongside API, Admin, and Reader, while Admin
+  proxies `/docs/` and production builds package the generated site;
 - all repository documentation, contribution templates and continuity files now use American
   English while preserving literal bilingual product labels and story titles;
 - repository prepared for its initial public release on GitHub;
@@ -46,6 +70,10 @@ The project does not yet have a stable public release.
 
 ### Fixed
 
+- published MP3 failures no longer leave narration in a stale resumable state; the next play action
+  performs a clean retry, and the real-browser regression suite now verifies playback itself;
+- VitePress now resolves its compatible internal Vite to patched 6.4.3, removing inherited Vite 5
+  and esbuild advisories without changing the applications' Vite 8 toolchain;
 - GitHub CI now uses the canonical Python setup, upgrading `pip` before dependency auditing;
 - CI and Release use `pnpm run ci`, ensuring the project script runs instead of pnpm's install alias;
 - the Reader container builds `@followread/reader-engine` before packaging the Reader application;

@@ -11,6 +11,7 @@ from sqlalchemy import Engine, select
 from sqlalchemy.orm import Session
 
 from followread_api.api.dependencies import get_processing_service
+from followread_api.cli.processing_worker import process_next
 from followread_api.database import (
     create_database_engine,
     create_session_factory,
@@ -415,7 +416,16 @@ def test_admin_can_create_audited_drafts_with_csrf_and_reject_duplicates() -> No
                     headers={"Origin": TRUSTED_ORIGIN, "X-CSRF-Token": csrf_token},
                 )
                 assert processing.status_code == 202
-                assert processing.json()["status"] == "succeeded"
+                assert processing.json()["status"] == "queued"
+                with create_session_factory(engine)() as worker_session:
+                    worker_service = PollyProcessingService(
+                        worker_session,
+                        adapter=FakePollyAdapter(),
+                        storage=TestAudioStorage(),
+                        chunk_characters=1500,
+                        maximum_cost=Decimal("1"),
+                    )
+                    assert process_next(worker_session, worker_service)
                 repeated_processing = await client.post(
                     "/admin/processing",
                     json={

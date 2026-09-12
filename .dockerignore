@@ -13,7 +13,6 @@
 apps/reader/android
 apps/reader/ios
 apps/reader/assets
-docs
 tmp
 var
 *.db
@@ -23,3 +22,13 @@ var
 .env
 .env.*
 
+
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.db
+**/*.db-*
+infrastructure/deployment/*.env

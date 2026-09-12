@@ -49,15 +49,58 @@ describe("published audio narration", () => {
     expect(audio.playbackRate).toBe(1.25);
     expect(narrator.currentTimeMs).toBe(550);
     expect(audio.play).toHaveBeenCalledTimes(1);
-    audio.onended?.();
-    audio.onerror?.();
-    expect(callbacks.onEnd).toHaveBeenCalled();
-    expect(callbacks.onError).toHaveBeenCalled();
-
     expect(narrator.resume()).toBe(true);
     narrator.pause();
     narrator.stop();
     expect(audio.pause).toHaveBeenCalledTimes(2);
+    expect(narrator.resume()).toBe(false);
+  });
+
+  it("invalidates a failed playback so the reader can retry it", () => {
+    const audio = {
+      currentTime: 0,
+      playbackRate: 1,
+      paused: true,
+      src: "",
+      onended: null as (() => void) | null,
+      onerror: null as (() => void) | null,
+      play: vi.fn(() => Promise.resolve()),
+      pause: vi.fn(),
+    };
+    const callbacks = { onEnd: vi.fn(), onError: vi.fn() };
+    const narrator = new PublishedAudioNarrator(audio);
+
+    expect(narrator.start(translation(false), 0, 1, callbacks)).toBe(true);
+    const failedPlayback = audio.onerror;
+    failedPlayback?.();
+    failedPlayback?.();
+
+    expect(callbacks.onError).toHaveBeenCalledTimes(1);
+    expect(narrator.resume()).toBe(false);
+    expect(narrator.start(translation(false), 0, 1, callbacks)).toBe(true);
+    expect(audio.play).toHaveBeenCalledTimes(2);
+  });
+
+  it("invalidates completed playback and reports its end once", () => {
+    const audio = {
+      currentTime: 0,
+      playbackRate: 1,
+      paused: true,
+      src: "",
+      onended: null as (() => void) | null,
+      onerror: null as (() => void) | null,
+      play: vi.fn(() => Promise.resolve()),
+      pause: vi.fn(),
+    };
+    const callbacks = { onEnd: vi.fn(), onError: vi.fn() };
+    const narrator = new PublishedAudioNarrator(audio);
+
+    expect(narrator.start(translation(false), 0, 1, callbacks)).toBe(true);
+    const completedPlayback = audio.onended;
+    completedPlayback?.();
+    completedPlayback?.();
+
+    expect(callbacks.onEnd).toHaveBeenCalledTimes(1);
     expect(narrator.resume()).toBe(false);
   });
 });

@@ -32,10 +32,10 @@ uses = {
     if mapping(step, "step").get("uses") is not None
 }
 required_actions = {
-    "actions/checkout@v6",
-    "actions/setup-node@v5",
-    "actions/setup-python@v6",
-    "pnpm/action-setup@v6",
+    "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+    "actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+    "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+    "pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86",
 }
 if not required_actions.issubset(uses):
     raise ValueError("CI action versions do not match the reviewed toolchain")
@@ -78,19 +78,22 @@ release = mapping(
     "release workflow",
 )
 release_permissions = mapping(release.get("permissions"), "release permissions")
-if (
-    release_permissions.get("contents") != "write"
-    or release_permissions.get("packages") != "write"
-):
-    raise ValueError(
-        "Release workflow requires only contents/packages write permissions"
-    )
+assert release_permissions.get("contents") == "read"
+publish = mapping(
+    mapping(release.get("jobs"), "release jobs").get("publish"), "publish job"
+)
+assert publish["needs"] == "validate"
+assert publish["environment"] == "release"
+assert mapping(publish["permissions"], "publish permissions") == {
+    "contents": "write",
+    "packages": "write",
+}
 release_text = release_path.read_text(encoding="utf-8")
 for requirement in (
     "pnpm security:audit",
     "docker push",
     "gh release create",
-    "FOLLOWREAD_API_BASE_URL",
+    "VITE_API_BASE_URL=/api",
 ):
     if requirement not in release_text:
         raise ValueError(f"Release workflow is missing: {requirement}")

@@ -47,5 +47,5 @@ staging while those rows remain incomplete.
 - [Test strategy](testing/TEST_STRATEGY.md)
 - [Gates by phase](testing/QUALITY_GATES.md)
 - [Mandatory tests before deployment](testing/PRE_DEPLOYMENT_TESTS.md)
-- [Test inventory](../test/README.md)
+- [Test inventory](https://github.com/dafermen/FollowRead/blob/main/test/README.md)
 - [Acceptance criteria](requirements/ACCEPTANCE_CRITERIA.md)

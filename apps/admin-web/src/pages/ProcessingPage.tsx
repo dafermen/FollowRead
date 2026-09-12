@@ -101,6 +101,26 @@ export const ProcessingPage = ({ user, onLogout }: ProcessingPageProps) => {
   }, [isPreview]);
 
   const selectedVoices = voices.filter((item) => item.language === language);
+  useEffect(() => {
+    if (isPreview || !jobs.some((job) => job.status === "queued" || job.status === "running")) {
+      return;
+    }
+    let active = true;
+    const timer = window.setInterval(() => {
+      void getProcessingJobs()
+        .then((updated) => {
+          if (active) setJobs(updated);
+        })
+        .catch(() => {
+          if (active) setState("error");
+        });
+    }, 2000);
+    return () => {
+      active = false;
+      window.clearInterval(timer);
+    };
+  }, [isPreview, jobs]);
+
   const runAction = (action: () => Promise<ProcessingJob>) => {
     setState("loading");
     void action()

@@ -1,4 +1,5 @@
-FROM python:3.12.13-slim-bookworm AS builder
+FROM python:3.12.14-alpine3.24 AS builder
+RUN apk add --no-cache 'libuuid>=2.42.3-r1'
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -7,12 +8,12 @@ RUN python -m venv "$VIRTUAL_ENV"
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 WORKDIR /build
-COPY apps/api/pyproject.toml ./pyproject.toml
-COPY apps/api/src ./src
-RUN python -m pip install --upgrade "pip>=26.1.2,<27" \
-    && python -m pip install .
+COPY apps/api/requirements-linux.lock ./requirements-linux.lock
+RUN python -m pip install --require-hashes -r requirements-linux.lock
+COPY apps/api/src/followread_api /opt/followread/lib/python3.12/site-packages/followread_api
 
-FROM python:3.12.13-slim-bookworm AS runtime
+FROM python:3.12.14-alpine3.24 AS runtime
+RUN apk add --no-cache 'libuuid>=2.42.3-r1'
 
 ENV PATH="/opt/followread/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -22,8 +23,8 @@ ENV PATH="/opt/followread/bin:$PATH" \
     FOLLOWREAD_AUDIO_OUTPUT_DIR=/data/audio \
     FOLLOWREAD_ILLUSTRATION_OUTPUT_DIR=/data/illustrations
 
-RUN groupadd --gid 10001 followread \
-    && useradd --uid 10001 --gid followread --no-create-home --shell /usr/sbin/nologin followread \
+RUN addgroup -g 10001 -S followread \
+    && adduser -u 10001 -S -D -H -s /sbin/nologin -G followread followread \
     && mkdir -p /app /data/audio /data/illustrations /data/backups \
     && chown -R followread:followread /app /data
 

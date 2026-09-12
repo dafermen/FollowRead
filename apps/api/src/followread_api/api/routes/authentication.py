@@ -36,7 +36,7 @@ async def authentication_cache_control(
 ) -> Response:
     response = await call_next(request)
     auth_prefix = f"{get_settings().api_prefix}/auth"
-    if request.url.path.startswith(auth_prefix):
+    if request.url.path.removeprefix(request.scope.get("root_path", "")).startswith(auth_prefix):
         response.headers["Cache-Control"] = "no-store"
         response.headers["Pragma"] = "no-cache"
     return response

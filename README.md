@@ -124,7 +124,7 @@ If PowerShell blocks `pnpm.ps1`, use `pnpm.cmd` instead.
 
 ## Run the complete platform
 
-One command starts all three applications:
+One command starts the complete platform and its documentation:
 
 ```powershell
 pnpm dev
@@ -134,9 +134,11 @@ pnpm dev
 | ----------------- | ---------------------------- |
 | Reader            | <http://localhost:5174>      |
 | Admin             | <http://localhost:5173>      |
+| Documentation     | <http://localhost:5173/docs/> |
 | API documentation | <http://localhost:8000/docs> |
 
-Press `Ctrl+C` to stop them together.
+Press `Ctrl+C` to stop them together. The first start after a documentation change rebuilds the
+static documentation before serving it.
 
 ## Optional OpenAI narration
 
@@ -188,7 +190,12 @@ pnpm screenshots:readme
 
 ## Documentation
 
-Start with:
+Browse the responsive documentation portal at <http://localhost:5173/docs/> while `pnpm dev` is
+running. It includes local search, light/dark themes, Mermaid diagrams, page outlines, and
+previous/next navigation. Useful focused commands are `pnpm docs:build`, `pnpm docs:validate`, and
+`pnpm docs:e2e`.
+
+Canonical sources:
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [API](docs/API.md)
@@ -199,12 +206,12 @@ Start with:
 - [Security](docs/SECURITY.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Original master project prompt — English PDF](docs/FollowRead%20Project%20Prompt.pdf)
-- [Current project status](CURRENT_STATUS.md)
+- [Current project status](docs/CURRENT_STATUS.md)
 
 Future Codex sessions must read [`AGENTS.md`](AGENTS.md) and
-[`CURRENT_STATUS.md`](CURRENT_STATUS.md) before changing the project.
+[`CURRENT_STATUS.md`](docs/CURRENT_STATUS.md) before changing the project.
 
 ## License
 
 FollowRead's original code and assets are available under the [MIT License](LICENSE). Third-party
-components remain subject to their own licenses; see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+components remain subject to their own licenses; see [THIRD_PARTY_LICENSES.md](docs/THIRD_PARTY_LICENSES.md).

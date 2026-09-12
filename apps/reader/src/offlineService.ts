@@ -322,10 +322,15 @@ const cachePackageResources = async (readerPackage: ReaderPackage): Promise<void
       ...readerPackage.translations.flatMap((translation) =>
         translation.chapters.map((chapter) => chapter.image_uri),
       ),
-    ].filter((uri): uri is string => typeof uri === "string" && uri !== ""),
+    ]
+      .filter((uri): uri is string => typeof uri === "string" && uri !== "")
+      .filter((uri) => {
+        const url = new URL(uri, window.location.origin);
+        return url.origin === window.location.origin && url.pathname.startsWith("/stories/");
+      }),
   );
   try {
-    const cache = await caches.open("followread-content-v1");
+    const cache = await caches.open("followread-downloads-v1");
     await Promise.all([...resourceUris].map((uri) => cache.add(uri)));
   } catch {
     // The package is still complete for text, marks and device narration.
