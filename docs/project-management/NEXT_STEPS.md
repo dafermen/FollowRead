@@ -2,17 +2,21 @@
 
 ## Exact next action
 
-Complete the owner-authorized public test deployment to `followread.innovalogic.tech`.
+The authorized public web test deployment is complete and verified. The owner can choose
+their administrator password through the private local access file; the link expires in 24 hours.
 
-1. Pass the updated PR quality/container/security checks and merge through protected main.
-2. Publish an approved SemVer release with immutable image digests.
-3. Preserve the real catalog and media, exclude development identities, and provision the owner.
-4. Install the release on the existing VPS; verify HTTPS, Admin, Reader, narration and recovery.
-5. Enable daily same-server snapshots retaining seven copies and verify an isolated restoration.
-6. Record released revision, public smoke results and operational evidence.
+1. Select an SMTP provider and test real recovery delivery; a reminder is already scheduled.
+2. Review public-test feedback and address issues through passing PRs.
+3. Before the final production server, agree off-server backups and operational alerts.
+4. Before a later upgrade, approve its version, validate CI and protected release, verify the
+   archive and resolve immutable image IDs, snapshot/migrate, update the current-release link,
+   then verify public functionality. Rehearse previous-version rollback when a second compatible
+   release exists; the first release has a verified data-restore baseline.
+5. Physical iOS/TestFlight remains a separate gate requiring macOS/Xcode and a real device.
 
-The owner approved publication, deployment and repository protections. The separate site and
-certificate are already installed. This is a public test server; the owner explicitly deferred
-off-server storage. SMTP is undecided: private operator-issued links cover initial access and
-assisted recovery, while automatic recovery email remains pending with a reminder scheduled.
-Physical iOS/TestFlight remains outside this web deployment.
+Current release: `v0.1.0`, commit `9112651c1bd8d699c7418e5e6526e6046272b8cb`.
+PR #1 and the protected release passed. PR #15 records the completed rollout and portable-image
+identity correction. The source tree may be ahead of the deployed version with operator-only
+and documentation changes; deployment always follows the explicitly approved release.
+
+See [rollout evidence](../testing/VPS_ROLLOUT.md) and [runbook](../deployment/VPS_DEPLOYMENT.md).

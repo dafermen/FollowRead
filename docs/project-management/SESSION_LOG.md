@@ -933,3 +933,55 @@ and same-server backup restoration. Base preparation commit: `240d688`.
 
 The following preparation record is historical; its pending authorization statements are
 superseded by this approved rollout record.
+
+## Published release and staged VPS — 2026-09-12
+
+PR #1 is merged. Public test release `v0.1.0` identifies commit
+`9112651c1bd8d699c7418e5e6526e6046272b8cb`. The final PR CI run `34708875680`
+and release run `34725293956` passed. Publication includes GHCR references and a portable
+Docker archive with SHA-256 image IDs and checksums. The three exact release images are
+loaded on the VPS under `/opt/followread/releases/v0.1.0`; archive verification passed.
+No GitHub credential was installed on the server.
+
+HTTPS is installed for `followread.innovalogic.tech`; certificate renewal dry run passed.
+The application containers are NOT started yet. The catalog and OpenAI key transfer still
+await the owner's explicit decision. The private local catalog copy excludes development
+accounts, sessions, progress and processing history while preserving four readings and media.
+No owner account or initial access link has been provisioned on the server yet.
+
+Next: receive the catalog/provider transfer decision, restore the approved catalog into a new
+data volume, migrate/start the released images, provision the owner through a private one-use
+password-setting link, activate daily same-server backups and verify external HTTPS, narration,
+Admin access and an isolated snapshot restoration. Backup service/timer files are staged but
+not enabled. The owner selected same-server backups for this public test environment.
+SMTP remains intentionally deferred; the reminder to select a provider is scheduled.
+
+This record supersedes the earlier statements that PR #1, release publication or certificate
+issuance are pending. Phase 13 remains IN_PROGRESS until the application rollout is verified.
+
+
+## Public test VPS deployed — 2026-09-13 UTC (September 12 in New York)
+
+Release `v0.1.0`, commit `9112651c1bd8d699c7418e5e6526e6046272b8cb`, is live at
+https://followread.innovalogic.tech with Admin at `/admin/`. The owner explicitly approved
+the deployment and the separate transfer of four readings, media and the private OpenAI key.
+No development accounts, sessions or progress were imported. SMTP remains unconfigured.
+
+All four Docker services are healthy. Public HTTPS, protected routes, four bilingual readings,
+eight real narrations, browser navigation, Admin login, password reset and documentation passed.
+The owner received a private one-use password-setting file, valid for 24 hours. No credential
+or reset URL is stored in this repository. No paid generation was performed during smoke tests.
+
+Daily same-server backups are enabled at 03:15 UTC with up to five minutes of jitter and
+seven-snapshot retention. The first scheduled-service execution succeeded; its snapshot was
+restored into an isolated volume and verified through a running API, SQLite integrity and media.
+Certificate renewal dry run passed. No unrelated server application was changed.
+
+The VPS image store exposes OCI manifest IDs whereas the published local manifest contains
+configuration IDs. A verified resolver maps between them using the original archive hashes,
+revision, platform and layer identities. Both store formats and rejection of altered metadata
+are tested. The published application images were not rebuilt or changed.
+
+See [public rollout evidence](../testing/VPS_ROLLOUT.md). Phase 13 remains open for the broader
+external gates; the authorized public web deployment itself is complete. SMTP, off-server
+backups for the final server, monitoring and physical iOS remain separate follow-up work.

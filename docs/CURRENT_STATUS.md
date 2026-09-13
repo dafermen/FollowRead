@@ -1,8 +1,8 @@
 # Current status of FollowRead
 
-**Updated:** 2026-09-12
+**Updated:** 2026-09-13 UTC
 **Phase:** 13 - CI/CD and deployment  
-**Status:** IN_PROGRESS - implementation finished, external validations pending  
+**Status:** IN_PROGRESS - public web test deployment verified; broader external gates remain
 **Previous base:** `9ce61e5` - close of Phase 12
 **Phase 13 implementation:** `f18762b`
 **Documentation structure and pre-deploy gate:** `6346673`
@@ -17,6 +17,34 @@
 **Natural audio for complete catalog:** `d838334`
 **Green GitHub CI and containers:** `faf194d`
 **Navigable documentation portal:** `81ad232`
+
+## Public test VPS deployed — 2026-09-13 UTC (September 12 in New York)
+
+Release `v0.1.0`, commit `9112651c1bd8d699c7418e5e6526e6046272b8cb`, is live at
+https://followread.innovalogic.tech with Admin at `/admin/`. The owner explicitly approved
+the deployment and the separate transfer of four readings, media and the private OpenAI key.
+No development accounts, sessions or progress were imported. SMTP remains unconfigured.
+
+All four Docker services are healthy. Public HTTPS, protected routes, four bilingual readings,
+eight real narrations, browser navigation, Admin login, password reset and documentation passed.
+The owner received a private one-use password-setting file, valid for 24 hours. No credential
+or reset URL is stored in this repository. No paid generation was performed during smoke tests.
+
+Daily same-server backups are enabled at 03:15 UTC with up to five minutes of jitter and
+seven-snapshot retention. The first scheduled-service execution succeeded; its snapshot was
+restored into an isolated volume and verified through a running API, SQLite integrity and media.
+Certificate renewal dry run passed. No unrelated server application was changed.
+
+The VPS image store exposes OCI manifest IDs whereas the published local manifest contains
+configuration IDs. A verified resolver maps between them using the original archive hashes,
+revision, platform and layer identities. Both store formats and rejection of altered metadata
+are tested. The published application images were not rebuilt or changed.
+
+See [public rollout evidence](testing/VPS_ROLLOUT.md). Phase 13 remains open for the broader
+external gates; the authorized public web deployment itself is complete. SMTP, off-server
+backups for the final server, monitoring and physical iOS remain separate follow-up work.
+
+The earlier rollout and preparation sections below are historical.
 
 ## Authorized public test rollout — 2026-09-12
 
@@ -185,10 +213,11 @@ been pushed. See [VPS runbook](deployment/VPS_DEPLOYMENT.md) and [candidate test
 
 ## Current pending actions
 
-The September VPS candidate record above supersedes the earlier Docker/domain blockers.
-Owner acceptance, GitHub publication/workflow validation, the off-server backup decision and
-authorized public rollout remain pending. The real existing catalog and narration must be
-preserved if selected as the initial dataset. Do not import development credentials or sessions.
+The public web deployment is complete. The owner should set their password using the private
+file. Select and test an SMTP provider when ready; a reminder is scheduled. Before the final
+production server, agree off-server backups and monitoring. Physical iOS/TestFlight remains
+outside this deployment. The next web release follows PR checks, protected publication,
+checksum verification, immutable image resolution, backup/migration and public smoke.
 
 ## Useful commands
 
