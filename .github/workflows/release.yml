@@ -84,7 +84,7 @@ jobs:
           docker save -o images.tar "$NAMESPACE/api:$VERSION" "$NAMESPACE/admin:$VERSION" "$NAMESPACE/reader:$VERSION"
           tar -czf followread-admin.tar.gz -C .release/admin .
           tar -czf followread-reader.tar.gz -C .release/reader .
-          tar -czf followread-deployment.tar.gz infrastructure/deployment scripts/vps_deploy.py scripts/vps_backup.py docs/deployment/VPS_DEPLOYMENT.md
+          tar -czf followread-deployment.tar.gz infrastructure/deployment scripts/vps_deploy.py scripts/vps_backup.py scripts/resolve_portable_images.py docs/deployment/VPS_DEPLOYMENT.md
           sha256sum images.tar followread-admin.tar.gz followread-reader.tar.gz followread-deployment.tar.gz > candidate.sha256
       - name: Upload validated candidate
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7

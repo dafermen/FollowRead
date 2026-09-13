@@ -958,3 +958,30 @@ SMTP remains intentionally deferred; the reminder to select a provider is schedu
 
 This record supersedes the earlier statements that PR #1, release publication or certificate
 issuance are pending. Phase 13 remains IN_PROGRESS until the application rollout is verified.
+
+
+## Public test VPS deployed — 2026-09-13 UTC (September 12 in New York)
+
+Release `v0.1.0`, commit `9112651c1bd8d699c7418e5e6526e6046272b8cb`, is live at
+https://followread.innovalogic.tech with Admin at `/admin/`. The owner explicitly approved
+the deployment and the separate transfer of four readings, media and the private OpenAI key.
+No development accounts, sessions or progress were imported. SMTP remains unconfigured.
+
+All four Docker services are healthy. Public HTTPS, protected routes, four bilingual readings,
+eight real narrations, browser navigation, Admin login, password reset and documentation passed.
+The owner received a private one-use password-setting file, valid for 24 hours. No credential
+or reset URL is stored in this repository. No paid generation was performed during smoke tests.
+
+Daily same-server backups are enabled at 03:15 UTC with up to five minutes of jitter and
+seven-snapshot retention. The first scheduled-service execution succeeded; its snapshot was
+restored into an isolated volume and verified through a running API, SQLite integrity and media.
+Certificate renewal dry run passed. No unrelated server application was changed.
+
+The VPS image store exposes OCI manifest IDs whereas the published local manifest contains
+configuration IDs. A verified resolver maps between them using the original archive hashes,
+revision, platform and layer identities. Both store formats and rejection of altered metadata
+are tested. The published application images were not rebuilt or changed.
+
+See [public rollout evidence](../testing/VPS_ROLLOUT.md). Phase 13 remains open for the broader
+external gates; the authorized public web deployment itself is complete. SMTP, off-server
+backups for the final server, monitoring and physical iOS remain separate follow-up work.

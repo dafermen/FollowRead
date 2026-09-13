@@ -1,5 +1,8 @@
 # VPS candidate validation - 2026-09-12
 
+The public web test release is now deployed and verified; see [rollout evidence](VPS_ROLLOUT.md).
+The preparation-time pending statements below are historical.
+
 Scope: single-server web Reader, Admin, API and audio worker for
 `followread.innovalogic.tech`. Base source commit: `6632238`; the new local commit contains
 this record and its exact SHA is in the owner's review report. No changes have been pushed.

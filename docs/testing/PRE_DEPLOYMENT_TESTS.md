@@ -1,6 +1,6 @@
 # Mandatory Pre-deployment Tests
 
-**Gate status:** BLOCKED for external deployment  
+**Gate status:** Public web test release deployed; see the scoped evidence below
 **Applies to:** shared development, staging, and production  
 **Does not apply to:** `pnpm dev` on a local workstation
 
@@ -12,12 +12,12 @@ An exception `WAIVED` requires recorded risk, scope, owner, explicit approval, a
 
 ## Current VPS candidate
 
-The local web candidate dated 2026-09-12 now has recorded evidence for all technical
-categories in [VPS candidate validation](VPS_CANDIDATE.md). Owner acceptance, repository
-protection/workflow execution and public rollout remain pending. No exception is granted.
-`PASS_LOCAL` records a measured local result and must be associated with the approved
-release commit; it is not authorization to publish. The bounded scope of generated inputs,
-selected mutations, contracts and traffic measurements is explicitly recorded there.
+The owner approved the public web test release after candidate review. The technical matrix
+and its bounded scope are in [candidate validation](VPS_CANDIDATE.md); released CI, actual
+HTTPS, application, password recovery and isolated restoration results are in
+[public rollout evidence](VPS_ROLLOUT.md). Historical preparation gaps below do not represent
+the deployed release's current status. Physical iOS is not part of this web deployment.
+New releases require their own validation and owner approval; this is not blanket approval.
 
 ## Historical matrix before the VPS preparation
 

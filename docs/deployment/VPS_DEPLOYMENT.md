@@ -169,8 +169,11 @@ unsafe archive members and failed SQLite integrity. Point a reviewed manifest at
 volume, start the schema-compatible version, then validate readiness, catalog and media.
 Restoring an older snapshot loses changes after its timestamp; obtain explicit acceptance.
 
-The local candidate tests cover snapshot restoration and persistent restart. The first real
-server rollout and rollback rehearsal must still be recorded against the released digests.
+The first public rollout and isolated restoration are recorded in [rollout evidence](../testing/VPS_ROLLOUT.md).
+There is no earlier production version on the initial installation; rehearse compatible
+previous-version rollback before a subsequent update. After a successful deployment, point
+`/opt/followread/current` at that version's extracted release directory, using an atomic symlink
+replacement. The backup service uses that path; never leave it pointing at an older release.
 
 ## Security boundaries and remaining improvements
 
@@ -207,16 +210,28 @@ No SMTP password belongs in GitHub or `images.env`.
 
 ## Portable image installation without registry credentials
 
-The protected release also publishes `followread-images.tar.gz` and `images.local.env`.
-Download them with `SHA256SUMS` from the same approved GitHub release. Verify the downloaded
-checksums before running `docker load --input followread-images.tar.gz`. Use `images.local.env`
-as the server's release manifest and add only the allowed host configuration settings.
-It pins each image by its SHA-256 image ID, which covers configuration and layers. The helper
-checks each loaded image's exact identity, source revision and Linux/amd64 platform before
-stopping services. It skips the registry pull for this manifest. CI exercises these image IDs
-with the actual Compose/TLS stack. The images are the same ones validated and scanned before
-publication; there is no VPS rebuild and no GitHub credential on the server.
+The protected release publishes `followread-images.tar.gz` and `images.local.env`.
+Download both with `SHA256SUMS` from the same approved release, verify checksums, then load
+the archive. Docker stores can expose either configuration IDs or OCI manifest IDs for the
+same image. Resolve the approved IDs against the archive before installing the host manifest:
 
-For updates, keep each release archive, checksum and manifest separately, then repeat load,
-reviewed deployment, backup/migration and external smoke. The GHCR manifest remains available
-for installations with registry read access. Use one image-source mode consistently per release.
+```bash
+sha256sum --check --ignore-missing SHA256SUMS
+docker load --input followread-images.tar.gz
+python3 scripts/resolve_portable_images.py --archive followread-images.tar.gz --release-env images.local.env --output images.host.env
+install -m 600 images.host.env /etc/followread/images.env
+```
+
+The output must not already exist. Keep original release assets unchanged. Add only approved
+host configuration (for example the selected provider) to the installed manifest. Verify the
+archive checksum before using the resolver; it checks metadata hashes, exact source revision,
+Linux/amd64 and rootfs layer identities against loaded images. It never executes a mutable tag.
+Both store types and rejection of altered metadata are covered by automated tests.
+
+The v0.1.0 bundle predates this resolver; the corrective operator tool is tracked in PR #15.
+Later bundles include it. Do not alter v0.1.0 release assets or rebuild its application images.
+The deploy helper validates the resolved immutable image identities again before downtime,
+skips registry pulls, and follows snapshot/migration/startup. No GitHub credential is needed
+on the VPS. Keep each version's archive, checksums and manifests separately; after successful
+external smoke update the current-release symlink used by backups. The GHCR manifest remains
+available for installations with registry read access. Do not mix source modes in one manifest.

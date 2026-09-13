@@ -2,18 +2,21 @@
 
 ## Exact next action
 
-Receive the owner's explicit choice for transfer to the public test VPS: the prepared catalog
-with its OpenAI key, or the catalog only. Transfer has not been executed.
+The authorized public web test deployment is complete and verified. The owner can choose
+their administrator password through the private local access file; the link expires in 24 hours.
 
-1. Restore the approved four-reading catalog and media into a new volume; configure the selected provider.
-2. Migrate and start the already-loaded `v0.1.0` images with the approved deployment helper.
-3. Provision the selected owner account and deliver a private one-use password-setting link.
-4. Activate daily same-server snapshots with seven-copy retention and verify isolated restoration.
-5. Verify public Reader, bilingual narration, Admin, recovery, HTTPS and protected routes.
-6. Record the completed rollout. SMTP configuration remains deferred with a reminder scheduled.
+1. Select an SMTP provider and test real recovery delivery; a reminder is already scheduled.
+2. Review public-test feedback and address issues through passing PRs.
+3. Before the final production server, agree off-server backups and operational alerts.
+4. Before a later upgrade, approve its version, validate CI and protected release, verify the
+   archive and resolve immutable image IDs, snapshot/migrate, update the current-release link,
+   then verify public functionality. Rehearse previous-version rollback when a second compatible
+   release exists; the first release has a verified data-restore baseline.
+5. Physical iOS/TestFlight remains a separate gate requiring macOS/Xcode and a real device.
 
-PR #1 is merged; release `v0.1.0` and its portable images are published and staged on the VPS.
-Final PR CI `34708875680` and release workflow `34725293956` passed. HTTPS and certificate
-renewal validation passed. No application container is active yet. No new GitHub publication
-or VPS-access approval is needed; those authorizations already exist. Physical iOS/TestFlight
-and final-production off-server backups are outside this public web test deployment.
+Current release: `v0.1.0`, commit `9112651c1bd8d699c7418e5e6526e6046272b8cb`.
+PR #1 and the protected release passed. PR #15 records the completed rollout and portable-image
+identity correction. The source tree may be ahead of the deployed version with operator-only
+and documentation changes; deployment always follows the explicitly approved release.
+
+See [rollout evidence](../testing/VPS_ROLLOUT.md) and [runbook](../deployment/VPS_DEPLOYMENT.md).
