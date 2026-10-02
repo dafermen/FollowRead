@@ -215,3 +215,7 @@ Future Codex sessions must read [`AGENTS.md`](AGENTS.md) and
 
 FollowRead's original code and assets are available under the [MIT License](LICENSE). Third-party
 components remain subject to their own licenses; see [THIRD_PARTY_LICENSES.md](docs/THIRD_PARTY_LICENSES.md).
+
+## DOC-STD-20261002 — Documentation navigation
+
+Use the [documentation map](docs/README.md) for authoritative sources, reading paths and project-specific maintenance rules.

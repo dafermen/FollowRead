@@ -234,3 +234,7 @@ pnpm deploy:smoke
 
 The detailed source is in `docs/project-management/PROJECT_STATUS.md`,
 `docs/project-management/NEXT_STEPS.md` and `docs/deployment/`.
+
+## DOC-STD-20261002 — Documentation organization
+
+The [documentation map](README.md) now identifies canonical sources and maintenance rules. Existing implementation milestones and pending acceptance are unchanged. Validation and publication are tracked separately for this documentation-only change.
