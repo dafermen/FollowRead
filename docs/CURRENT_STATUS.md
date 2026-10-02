@@ -244,3 +244,7 @@ The [documentation map](README.md) now identifies canonical sources and maintena
 The documentation PR exposed SQLAlchemy 2.1 type-check failures during a fresh CI installation. The API dependency now remains on `>=2.0,<2.1`, matching the existing Linux lock (2.0.52), until a separate 2.1 migration is validated. No query or schema behavior was changed.
 
 `pnpm check` passed locally with SQLAlchemy 2.0.52: documentation build/site validation, configuration checks, formatting, lint, type checks, JavaScript suites, 130 API tests, security tests and application builds. Remote quality/container checks remain required for merging.
+
+## Documentation dependency audit — 2026-10-02
+
+The subsequent CI audit identified outdated pins in three JavaScript dependencies. Updated brace-expansion to 5.0.12, undici to 7.29.1 and DOMPurify to 3.4.16; the lockfile changed only those packages. `pnpm check` passed again. `pnpm security:audit` passed with no known JavaScript or third-party Python findings after refreshing the local audit tool dependency urllib3 to 2.8.0; the first-party followread-api package is not listed on PyPI and is skipped by that registry audit. Remote checks remain the merge gate.
