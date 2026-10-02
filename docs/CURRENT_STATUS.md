@@ -238,3 +238,9 @@ The detailed source is in `docs/project-management/PROJECT_STATUS.md`,
 ## DOC-STD-20261002 — Documentation organization
 
 The [documentation map](README.md) now identifies canonical sources and maintenance rules. Existing implementation milestones and pending acceptance are unchanged. Validation and publication are tracked separately for this documentation-only change.
+
+## Documentation CI compatibility — 2026-10-02
+
+The documentation PR exposed SQLAlchemy 2.1 type-check failures during a fresh CI installation. The API dependency now remains on `>=2.0,<2.1`, matching the existing Linux lock (2.0.52), until a separate 2.1 migration is validated. No query or schema behavior was changed.
+
+`pnpm check` passed locally with SQLAlchemy 2.0.52: documentation build/site validation, configuration checks, formatting, lint, type checks, JavaScript suites, 130 API tests, security tests and application builds. Remote quality/container checks remain required for merging.
