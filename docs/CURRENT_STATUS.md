@@ -248,3 +248,7 @@ The documentation PR exposed SQLAlchemy 2.1 type-check failures during a fresh C
 ## Documentation dependency audit — 2026-10-02
 
 The subsequent CI audit identified outdated pins in three JavaScript dependencies. Updated brace-expansion to 5.0.12, undici to 7.29.1 and DOMPurify to 3.4.16; the lockfile changed only those packages. `pnpm check` passed again. `pnpm security:audit` passed with no known JavaScript or third-party Python findings after refreshing the local audit tool dependency urllib3 to 2.8.0; the first-party followread-api package is not listed on PyPI and is skipped by that registry audit. Remote checks remain the merge gate.
+
+## Container scan diagnostics — 2026-10-02
+
+Remote quality checks now pass. Container build and smoke validation passed, but the image scan returned failure without reporting its findings in the job log. The scanner now emits only allowlisted vulnerability metadata and a count of secret findings, while preserving its original exit code. Matched secret values, source lines and image archives are never printed or uploaded. A synthetic canary test confirmed redaction; Python lint/format and shell syntax passed. Container security acceptance remains blocked until the actual findings are reviewed and resolved.
