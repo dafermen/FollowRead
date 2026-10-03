@@ -252,3 +252,7 @@ The subsequent CI audit identified outdated pins in three JavaScript dependencie
 ## Container scan diagnostics — 2026-10-02
 
 Remote quality checks now pass. Container build and smoke validation passed, but the image scan returned failure without reporting its findings in the job log. The scanner now emits only allowlisted vulnerability metadata and a count of secret findings, while preserving its original exit code. Matched secret values, source lines and image archives are never printed or uploaded. A synthetic canary test confirmed redaction; Python lint/format and shell syntax passed. Container security acceptance remains blocked until the actual findings are reviewed and resolved.
+
+## Web image security patches — 2026-10-03
+
+The safe CI summary identified libexpat 2.8.4-r0 and pcre2 10.48-r0 in the Admin web runtime. Admin and Reader now require the patched Alpine packages libexpat >=2.8.5-r0 and pcre2 >=10.49-r0 during image construction. No findings are suppressed; the same high/critical and secret scans remain required. The API image and candidate integration passed in the prior run. These image changes are a release candidate and have not been applied to the public server.

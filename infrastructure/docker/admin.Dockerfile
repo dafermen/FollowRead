@@ -32,7 +32,8 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 RUN pnpm --filter @followread/admin-web build
 
 FROM nginx:1.30.4-alpine3.24 AS runtime
-RUN apk add --no-cache 'libuuid>=2.42.3-r1'
+# Patched runtime libraries required by the image security scan.
+RUN apk add --no-cache 'libuuid>=2.42.3-r1' 'libexpat>=2.8.5-r0' 'pcre2>=10.49-r0'
 COPY infrastructure/docker/nginx.conf /etc/nginx/nginx.conf
 COPY infrastructure/docker/security-headers.conf /etc/nginx/security-headers.conf
 COPY --from=builder /workspace/apps/admin-web/dist /usr/share/nginx/html
