@@ -114,6 +114,8 @@ try {
       label: "dark theme",
     });
 
+    await verifyImageZoom(client);
+
     await setViewport(client, 390, 844, true);
     await navigate(client, documentationUrl, [
       "Product and engineering documentation",
@@ -143,6 +145,8 @@ try {
       `,
       label: "mobile menu, 44px application link, and horizontal fit",
     });
+
+    await verifyImageZoom(client);
 
     await setViewport(client, 1440, 900, false);
     await navigate(client, documentationUrl, ["Back to the application"]);
@@ -183,6 +187,60 @@ try {
 console.log(
   "Documentation browser E2E PASS (desktop, mobile, dark theme, Mermaid, and application return)",
 );
+
+async function verifyImageZoom(client) {
+  await navigate(client, `${documentationUrl}user-guides/README`, ["User"]);
+  await expectBrowserState(client, {
+    expression: `document.querySelector('.vp-doc img[data-docs-zoom]')?.complete === true && document.querySelector('.vp-doc img[data-docs-zoom]').naturalWidth > 0`,
+    label: "loaded documentation image on direct route",
+  });
+  const image = "document.querySelector('.vp-doc img[data-docs-zoom]')";
+  for (const key of [null, "Enter", " "]) {
+    const result = await client.send("Runtime.evaluate", {
+      expression: `(() => { const image = ${image}; image.scrollIntoView({block:'center'}); image.focus(); const box = image.getBoundingClientRect(); return {x: box.x + box.width / 2, y: box.y + box.height / 2}; })()`,
+      returnByValue: true,
+    });
+    if (key === null) {
+      for (const type of ["mousePressed", "mouseReleased"]) {
+        await client.send("Input.dispatchMouseEvent", {
+          type,
+          ...result.result.value,
+          button: "left",
+          clickCount: 1,
+        });
+      }
+    } else {
+      await pressKey(client, key);
+    }
+    await expectBrowserState(client, {
+      expression: `(() => { const preview = document.querySelector('dialog.docs-image-dialog[open] img'); const source = ${image}; return preview?.complete === true && preview.naturalWidth > 0 && preview.src === source.currentSrc && preview.alt === source.alt; })()`,
+      label: `image zoom opens with ${key ?? "mouse"} and retains source/description`,
+    });
+    await pressKey(client, "Escape");
+    await expectBrowserState(client, {
+      expression: `!document.querySelector('dialog.docs-image-dialog[open]') && document.activeElement === ${image}`,
+      label: "Escape closes image and restores keyboard focus",
+    });
+  }
+  await navigate(client, `${documentationUrl}ARCHITECTURE`, ["Architecture"]);
+  await expectBrowserState(client, {
+    expression: "!document.querySelector('dialog.docs-image-dialog[open]')",
+    label: "subsequent documentation route remains usable",
+  });
+}
+
+async function pressKey(client, key) {
+  const code = key === " " ? "Space" : key;
+  const virtualKey = key === "Escape" ? 27 : key === "Enter" ? 13 : 32;
+  for (const type of ["keyDown", "keyUp"]) {
+    await client.send("Input.dispatchKeyEvent", {
+      type,
+      key,
+      code,
+      windowsVirtualKeyCode: virtualKey,
+    });
+  }
+}
 
 async function setViewport(client, width, height, mobile) {
   await client.send("Emulation.setDeviceMetricsOverride", {

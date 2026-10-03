@@ -48,6 +48,9 @@ jobs:
       - name: Run the project quality gate
         run: pnpm run ci
 
+      - name: Verify built documentation in Chrome
+        run: node scripts/verify-built-documentation.mjs
+
       - name: Audit dependencies
         run: pnpm security:audit
 
