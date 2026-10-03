@@ -1,6 +1,6 @@
 # Current status of FollowRead
 
-**Updated:** 2026-09-13 UTC
+**Updated:** 2026-10-03 (America/New_York)
 **Phase:** 13 - CI/CD and deployment  
 **Status:** IN_PROGRESS - public web test deployment verified; broader external gates remain
 **Previous base:** `9ce61e5` - close of Phase 12
@@ -17,6 +17,16 @@
 **Natural audio for complete catalog:** `d838334`
 **Green GitHub CI and containers:** `faf194d`
 **Navigable documentation portal:** `81ad232`
+
+## Current documentation checkpoint — 2026-10-03
+
+- Canonical navigation and maintenance rules are implemented in PR #19. The home action, global Status link and sidebar now target this document; project-management/PROJECT_STATUS retains milestone history.
+- `pnpm docs:validate` and `pnpm check`: PASS locally, including generated documentation, formatting, lint, type checks, JavaScript tests, 130 API tests and web builds. `pnpm security:audit`: PASS with the documented dependency patches.
+- Remote CI for `dcd0da734a2efd9d11703b052a134f5040f9e8c4`: quality and containers PASS, including image scans and the synthetic VPS integration/restore test ([run 37101985352](https://github.com/dafermen/FollowRead/actions/runs/37101985352)).
+- GitHub publication: PR #19 is not merged at this checkpoint; this final navigation adjustment must pass its own checks. The current server still uses the previously approved v0.1.0 release. No database migration, provider call or server rollout was performed for this documentation work.
+- Next: validate this navigation revision, resolve the two documentation review findings, then merge only after the required checks pass. A server release remains a separate recorded delivery with its own gates.
+
+The following dated sections retain the implementation and validation history.
 
 ## Public test VPS deployed — 2026-09-13 UTC (September 12 in New York)
 

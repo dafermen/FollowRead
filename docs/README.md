@@ -16,7 +16,7 @@ hero:
       link: /requirements/PRODUCT_VISION
     - theme: alt
       text: View current status
-      link: /project-management/PROJECT_STATUS
+      link: /CURRENT_STATUS
 
 features:
   - title: Product
