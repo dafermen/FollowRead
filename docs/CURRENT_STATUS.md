@@ -1,6 +1,6 @@
 # Current status of FollowRead
 
-**Updated:** 2026-09-13 UTC
+**Updated:** 2026-10-03 (America/New_York)
 **Phase:** 13 - CI/CD and deployment  
 **Status:** IN_PROGRESS - public web test deployment verified; broader external gates remain
 **Previous base:** `9ce61e5` - close of Phase 12
@@ -17,6 +17,16 @@
 **Natural audio for complete catalog:** `d838334`
 **Green GitHub CI and containers:** `faf194d`
 **Navigable documentation portal:** `81ad232`
+
+## Current documentation checkpoint — 2026-10-03
+
+- Canonical navigation and maintenance rules are implemented in PR #19. The home action, global Status link and sidebar now target this document; project-management/PROJECT_STATUS retains milestone history.
+- `pnpm docs:validate` and `pnpm check`: PASS locally, including generated documentation, formatting, lint, type checks, JavaScript tests, 130 API tests and web builds. `pnpm security:audit`: PASS with the documented dependency patches.
+- Remote CI for `dcd0da734a2efd9d11703b052a134f5040f9e8c4`: quality and containers PASS, including image scans and the synthetic VPS integration/restore test ([run 37101985352](https://github.com/dafermen/FollowRead/actions/runs/37101985352)).
+- GitHub publication: PR #19 is not merged at this checkpoint; this final navigation adjustment must pass its own checks. The current server still uses the previously approved v0.1.0 release. No database migration, provider call or server rollout was performed for this documentation work.
+- Next: validate this navigation revision, resolve the two documentation review findings, then merge only after the required checks pass. A server release remains a separate recorded delivery with its own gates.
+
+The following dated sections retain the implementation and validation history.
 
 ## Public test VPS deployed — 2026-09-13 UTC (September 12 in New York)
 
@@ -234,3 +244,25 @@ pnpm deploy:smoke
 
 The detailed source is in `docs/project-management/PROJECT_STATUS.md`,
 `docs/project-management/NEXT_STEPS.md` and `docs/deployment/`.
+
+## DOC-STD-20261002 — Documentation organization
+
+The [documentation map](README.md) now identifies canonical sources and maintenance rules. Existing implementation milestones and pending acceptance are unchanged. Validation and publication are tracked separately for this documentation-only change.
+
+## Documentation CI compatibility — 2026-10-02
+
+The documentation PR exposed SQLAlchemy 2.1 type-check failures during a fresh CI installation. The API dependency now remains on `>=2.0,<2.1`, matching the existing Linux lock (2.0.52), until a separate 2.1 migration is validated. No query or schema behavior was changed.
+
+`pnpm check` passed locally with SQLAlchemy 2.0.52: documentation build/site validation, configuration checks, formatting, lint, type checks, JavaScript suites, 130 API tests, security tests and application builds. Remote quality/container checks remain required for merging.
+
+## Documentation dependency audit — 2026-10-02
+
+The subsequent CI audit identified outdated pins in three JavaScript dependencies. Updated brace-expansion to 5.0.12, undici to 7.29.1 and DOMPurify to 3.4.16; the lockfile changed only those packages. `pnpm check` passed again. `pnpm security:audit` passed with no known JavaScript or third-party Python findings after refreshing the local audit tool dependency urllib3 to 2.8.0; the first-party followread-api package is not listed on PyPI and is skipped by that registry audit. Remote checks remain the merge gate.
+
+## Container scan diagnostics — 2026-10-02
+
+Remote quality checks now pass. Container build and smoke validation passed, but the image scan returned failure without reporting its findings in the job log. The scanner now emits only allowlisted vulnerability metadata and a count of secret findings, while preserving its original exit code. Matched secret values, source lines and image archives are never printed or uploaded. A synthetic canary test confirmed redaction; Python lint/format and shell syntax passed. Container security acceptance remains blocked until the actual findings are reviewed and resolved.
+
+## Web image security patches — 2026-10-03
+
+The safe CI summary identified libexpat 2.8.4-r0 and pcre2 10.48-r0 in the Admin web runtime. Admin and Reader now require the patched Alpine packages libexpat >=2.8.5-r0 and pcre2 >=10.49-r0 during image construction. No findings are suppressed; the same high/critical and secret scans remain required. The API image and candidate integration passed in the prior run. These image changes are a release candidate and have not been applied to the public server.

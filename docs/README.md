@@ -16,7 +16,7 @@ hero:
       link: /requirements/PRODUCT_VISION
     - theme: alt
       text: View current status
-      link: /project-management/PROJECT_STATUS
+      link: /CURRENT_STATUS
 
 features:
   - title: Product
@@ -81,3 +81,35 @@ Read, in this order:
 7. `project-management/DECISIONS.md`
 
 Then identify the first executable task and do not advance phases.
+
+## DOC-STD-20261002 — Canonical sources
+
+Documentation standard v1.0 · reviewed 2026-10-02. Primary language: English.
+
+Local-first reading application with Admin, Reader and API.
+
+SQLite is the MVP database. The fake speech adapter must work without provider keys; AWS/Polly is optional. Local ports are Admin 5173, Reader 5174 and API 8000. Physical iOS/TestFlight validation remains a separate external gate.
+
+| Need | Authoritative source |
+| --- | --- |
+| Presentation | [README.md](https://github.com/dafermen/FollowRead/blob/main/README.md) |
+| Current state | [docs/CURRENT_STATUS.md](CURRENT_STATUS.md) |
+| Development | [docs/DEVELOPMENT.md](DEVELOPMENT.md) |
+| Architecture | [docs/ARCHITECTURE.md](ARCHITECTURE.md) |
+| API / contracts | [docs/API.md](API.md) |
+| Testing | [docs/TESTING.md](TESTING.md) |
+| Security | [docs/SECURITY.md](SECURITY.md) |
+| Deployment | [docs/DEPLOYMENT.md](DEPLOYMENT.md) |
+| Operations | [docs/OPERATIONS.md](OPERATIONS.md) |
+| Troubleshooting | [docs/TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
+| API | [docs/API.md](API.md) |
+| History | [docs/CHANGELOG.md](CHANGELOG.md) |
+| Decisions | [docs/adr/README.md](adr/README.md) |
+
+Start with the presentation and current state, then read the user guide to try the product, development/architecture to contribute, or deployment/operations to maintain it. The existing detailed index remains valid.
+
+### Evidence and updates
+
+Keep current state, change history and decisions separate. Existing dated test results remain historical evidence. Adding this map does not rerun every documented command or complete pending product acceptance. Record actual checks, their environment and unresolved limits before publication.
+
+Update the source guide whenever commands, configuration, behavior, permissions or deployment change. Keep existing links and portal routes stable. Use real screenshots with synthetic data; never publish env values, access keys, user data or operational logs. A local commit, a remote commit and a deployed artifact are separate states.

@@ -5,7 +5,7 @@ export const navigation: DefaultTheme.NavItem[] = [
   { text: "Product", link: "/requirements/PRODUCT_VISION" },
   { text: "Architecture", link: "/ARCHITECTURE" },
   { text: "Quality", link: "/TESTING" },
-  { text: "Status", link: "/project-management/PROJECT_STATUS" },
+  { text: "Status", link: "/CURRENT_STATUS" },
 ];
 
 export const sidebar: DefaultTheme.SidebarItem[] = [
@@ -79,7 +79,8 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     text: "Project management",
     collapsed: true,
     items: [
-      { text: "Current status", link: "/project-management/PROJECT_STATUS" },
+      { text: "Current status", link: "/CURRENT_STATUS" },
+      { text: "Project milestones", link: "/project-management/PROJECT_STATUS" },
       { text: "Next steps", link: "/project-management/NEXT_STEPS" },
       { text: "Tasks", link: "/project-management/TASKS" },
       { text: "Decisions", link: "/project-management/DECISIONS" },
