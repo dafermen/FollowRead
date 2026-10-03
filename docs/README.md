@@ -19,15 +19,15 @@ hero:
       link: /CURRENT_STATUS
 
 features:
-  - title: Product
-    details: Vision, MVP scope, user journeys, requirements, and accessible experience design.
+  - title: Discover the product
+    details: Understand the purpose, user journeys and accessible reading experience.
     link: /requirements/PRODUCT_VISION
-  - title: Architecture
-    details: API, data, synchronized narration, offline reading, mobile, and security decisions.
-    link: /ARCHITECTURE
-  - title: Quality and delivery
-    details: Test strategy, evidence, deployment, operations, releases, backup, and rollback.
-    link: /TESTING
+  - title: Learn to use it
+    details: Follow the reader and administrator guides at your own pace.
+    link: /user-guides/README
+  - title: Explore development
+    details: Prepare the environment, understand the architecture and run quality checks.
+    link: /DEVELOPMENT
 ---
 
 ## Documentation map

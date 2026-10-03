@@ -18,7 +18,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       { text: "MVP scope", link: "/requirements/PROJECT_SCOPE" },
       { text: "User journeys", link: "/ux-ui/USER_JOURNEYS" },
       { text: "Information architecture", link: "/ux-ui/INFORMATION_ARCHITECTURE" },
-      { text: "User guides", link: "/user-guides/" },
+      { text: "User guides", link: "/user-guides/README" },
       { text: "Troubleshooting", link: "/TROUBLESHOOTING" },
     ],
   },

@@ -1,5 +1,13 @@
 # Current status of FollowRead
 
+## Documentation web navigation v1 — local candidate, 2026-10-03
+
+InnovaLogic documentation theme, reading paths and reading controls are implemented. pnpm docs:validate; browser at 1440 and 390 px. Image enlargement, Escape and focus restoration pass on desktop and mobile. See [navigation maintenance and evidence](WEB_NAVIGATION.md). GitHub and server delivery of this revision are pending; earlier deployment status below remains historical evidence.
+
+## Documentation navigation v1 — 2026-10-03
+
+Completed locally: InnovaLogic theme tokens, three reading paths and keyboard-accessible image enlargement. Existing VitePress search, sidebar, table of contents, page navigation and public routes are preserved. Local browser validation passes at 1440 and 390 px; no server release is claimed.
+
 **Updated:** 2026-10-03 (America/New_York)
 **Phase:** 13 - CI/CD and deployment  
 **Status:** IN_PROGRESS - public web test deployment verified; broader external gates remain

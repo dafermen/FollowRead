@@ -1,7 +1,21 @@
 # User Guides
 
-This folder will contain vetted guides for Reader and Admin. They will be written alongside each flow to
-avoid documenting interfaces that do not yet exist.
+## Reader: choose a reading and follow the narration
+
+Open the Reader, choose an available reading from the library and use its playback controls to follow the highlighted text. The reading view offers language and display preferences; availability of audio depends on the published catalog.
+
+![Reader library with sample readings](../assets/screenshots/reader-library.png)
+
+![Reader synchronized text and playback controls](../assets/screenshots/reader-synchronized-reading.png)
+
+## Administrator: manage the catalog
+
+Open `/admin/` and sign in with your authorized account. Use the dashboard and editorial catalog to review readings and their processing state. Access credentials are private and are not included in this guide.
+
+![Administrator editorial catalog with sample data](../assets/screenshots/admin-catalog.png)
+
+For environment preparation and technical commands, continue with [Development](../DEVELOPMENT.md). For an unavailable reading or failed process, consult [Troubleshooting](../TROUBLESHOOTING.md).
+
 
 
 ## Persistent audio processing and VPS paths
