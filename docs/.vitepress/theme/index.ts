@@ -2,6 +2,8 @@ import DefaultTheme from "vitepress/theme";
 import { h, type VNode } from "vue";
 
 import "./custom.css";
+import "./innovalogic.css";
+import { useDocumentationImages } from "./image-zoom";
 
 const applicationLink = (): VNode =>
   h(
@@ -17,6 +19,9 @@ const applicationLink = (): VNode =>
 
 export default {
   extends: DefaultTheme,
+  setup() {
+    useDocumentationImages("en");
+  },
   Layout: () =>
     h(DefaultTheme.Layout, null, {
       "nav-bar-content-after": applicationLink,
